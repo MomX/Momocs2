@@ -10,8 +10,8 @@
 
 The goal of Momocs2 is to rewrite Momocs around tibbles, and more generally to make it tidyverse ready. Compared to Momocs, it is really focused on doing morphometrics (manipulating shapes, turning them into coefficients). Others functions that were included in Momocs (eg importing, doing stats, etc.) will move into other MomX packages.
 
-Along the course of years, its development has known several phases so is my ability to do basic and fancy stuff in R. Now it's time for a big cleanup of this tentacular package that becaming really painful to maintain.
+Along the course of years, its development has known several phases so did my ability to do basic and fancy stuff in R. Now it's time for a big cleanup of this tentacular package that became really painful to maintain.
 
-I plan a release to CRAN in late spring 2020. So far, I would prefer to release it as Momocs 2.0 than as Momocs2.
+I plan a release to CRAN in June 2020 or before. So far, I would prefer to release it as Momocs 2.0 than as Momocs2.
 
 All suggestions, help, etc. are welcome.
