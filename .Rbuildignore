@@ -1,0 +1,12 @@
+^Momocs2\.Rproj$
+^\.Rproj\.user$
+^LICENSE\.md$
+^CODE_OF_CONDUCT\.md$
+^vignettes/intro-to\.Rmd$
+^cran-comments\.md$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+__.*
+
+
