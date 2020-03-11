@@ -11,3 +11,4 @@ __.*
 
 
 ^\.travis\.yml$
+^codecov\.yml$
