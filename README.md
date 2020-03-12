@@ -17,7 +17,7 @@ All suggestions, help, etc. are welcome, ring my bell: `bonhomme.vincent@gmail.c
 
 ## Big changes going on
 
-* Momocs is now restricted to manipulating shapes and describing them into coefficients. Import function will be entirely rewritten and part of `Momit`. Statistical tools will be part of `Momstats`. This will allow a much easier maintenance. Also development on top of Momocs will be a piece of cake. Many packages are on their way and I'll verse them progressively into MomX.
+* Momocs is now restricted to manipulating shapes and describing them into coefficients. Import function will be entirely rewritten and part of `Momit`. Statistical tools will be part of `Momstats`. This will allow a much easier maintenance. Also development on top of Momocs will be a piece of cake. More packages are on their way and I'll verse them progressively into MomX.
 * All objects are now [tibbles](https://tibble.tidyverse.org/), and Momocs is thus tidyverse ready. `dplyr`, `purrr` and `ggplot2` and other tidyverse packages are your new friends. You're worth it and you will rock it.
 * Former S3 classes `Coo` and `Coe` spirit is still around but they are turned into columns, as lists of shapes and lists of coordinates. Overall Momocs is more open-minded about what is a shape.
 * All graphs have been rewritten, a curated list of interesting datasets.
