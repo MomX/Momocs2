@@ -9,7 +9,7 @@ coo_scale(x, scale)
 \arguments{
 \item{x}{\link{coo_single}, \link{coo_tbl} or a list of shapes}
 
-\item{scale}{\code{numeric} scaling factor (\link{coo_centsize} by default).}
+\item{scale}{\code{numeric} scaling factor (\link{get_centsize} by default).}
 }
 \value{
 \link{coo_single} or \link{coo_tbl} or a list of shapes

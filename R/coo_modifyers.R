@@ -84,7 +84,7 @@ coo_trans.coo_tbl <- function(x, x_trans=0, y_trans=0) {
 #' Returns a scaled shape.
 #'
 #' @inheritParams coo_center
-#' @param scale `numeric` scaling factor ([coo_centsize] by default).
+#' @param scale `numeric` scaling factor ([get_centsize] by default).
 #' @return [coo_single] or [coo_tbl] or a list of shapes
 #' @family coo_modifyers
 #' @examples
@@ -101,9 +101,9 @@ coo_scale <- function(x, scale) {
 coo_scale.default <- function(x, scale) {
   # use centroid size by default
   if (missing(scale))
-    scale <- coo_centsize(x)
+    scale <- get_centsize(x)
   # record centroid position to reposition after scaling
-  cent <- coo_centpos(x)
+  cent <- get_centpos(x)
   x %>%
     # center and scale
     coo_center() %>% `/`(scale) %>%
@@ -115,7 +115,7 @@ coo_scale.default <- function(x, scale) {
 coo_scale.list <- function(x, scale){
   x <- purrr::map(x, coo_single)
   if (missing(scale))
-    scale <- purrr::map_dbl(x, coo_centsize)
+    scale <- purrr::map_dbl(x, get_centsize)
   purrr::map2(x, scale, coo_scale)
 }
 

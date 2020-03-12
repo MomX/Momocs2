@@ -11,7 +11,7 @@ This repository is for developping Momocs 2.0
 
 Along the course of years, its development has known several phases so did my ability to do basic and cool stuff in R. Now it's time for a big cleanup of this tentacular package that became really painful to maintain.
 
-I plan a release to CRAN in June 2020 or before.
+I plan a release to CRAN in June 2020 or before. If you don't like it, I'll keep the last version (1.3.0) available but it will not be maintained in any way.
 
 All suggestions, help, etc. are welcome, ring my bell: `bonhomme.vincent@gmail.com`.
 
@@ -25,6 +25,14 @@ All suggestions, help, etc. are welcome, ring my bell: `bonhomme.vincent@gmail.c
 * Vignettes and companion websites.
 * Test coverage is now decent.
 * Overall, the code is more concise, consistent, commented. And yet this is the most dramatic change, it is mostly internal. For instance, this still works like a charm: `bot %T>% panel %>% efourier %T>% boxplot %>% PCA %>% plot`.
+
+## Smaller changes
+
+* `coo_` ended up doing very different things: modifying shapes (eg `coo_center`), describing shapes (eg `coo_centpos`), testing shapes (eg `coo_likely_clockwise`) and even plotting (eg `coo_ruban`). This was very confusing. 
+  * `coo_` is now reserved for shape modifyers (eg `coo_center`)
+  * `get_` is now for shape descriptors (eg `get_area`)
+  * other functions have more sensible names (eg `plot_ruban`)
+  
 
 
 
