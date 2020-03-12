@@ -1,10 +1,3 @@
----
-output: 
-  html_document: 
-    highlight: kate
-    theme: simplex
----
-
 # Momocs 2.0 <a href='http://momx.github.io/Momocs'><img src='man/figures/logo.png' align="right" height="140" /></a>
 
 <!-- badges: start -->
