@@ -124,3 +124,34 @@ coo_scale.coo_tbl <- function(x, scale) {
   x %>% dplyr::mutate(coo=purrr::map(x$coo, coo_scale))
 }
 
+# coo_align ----------
+#' Align shapes
+#'
+#' Align shape along their longer axis using var-cov matrix and eigen values.
+#'
+#' @inheritParams coo_center
+#' @return [coo_single] or [coo_tbl] or a list of shapes
+#' @family coo_modifyers
+#' @examples
+#' bot2$coo[[5]] %>% coo_align
+#' @export
+coo_align <- function(x) {
+  UseMethod("coo_align")
+}
+
+#' @export
+coo_align.default <- function(x){
+  (as.matrix(x) %*% (svd(stats::var(as.matrix(x)))$u)) %>% coo_single()
+}
+
+#' @export
+coo_align.list <- function(x){
+  x %>% purrr::map(coo_align)
+}
+
+#' @export
+coo_align.coo_tbl <- function(x){
+  x %>% dplyr::mutate(coo=purrr::map(x$coo, coo_align))
+}
+
+

@@ -5,3 +5,4 @@ __.*
 inst/doc
 __sticker.R
 __sticker.R
+tests/.DS_Store
