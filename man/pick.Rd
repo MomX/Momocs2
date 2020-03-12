@@ -18,6 +18,6 @@ a coo_df
 Pick a single coo_df
 }
 \examples{
-bot2 \%>\% pick(1) \%>\% g()
+bot2 \%>\% pick(1) \%>\% gg()
 bot2$coo \%>\% pick(2)
 }

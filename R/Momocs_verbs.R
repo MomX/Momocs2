@@ -5,7 +5,7 @@
 #' @param i `int` which to extract. If not provided, pick one randomly.
 #' @return a coo_df
 #' @examples
-#' bot2 %>% pick(1) %>% g()
+#' bot2 %>% pick(1) %>% gg()
 #' bot2$coo %>% pick(2)
 #' @export
 pick <- function(x, i){
