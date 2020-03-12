@@ -59,11 +59,15 @@ shp <- structure(c(600, 590, 580, 570, 560, 550, 540, 530, 520, 510,
 
 dove_this <- function(){
   plot(NA, xlim=range(shp[, 1]), ylim=range(shp[, 2]), ann=F, axes=F, asp=1)
-polygon(shp[, 1], shp[, 2])
+  polygon(shp[, 1], shp[, 2], lwd=1, col="#C1D9EA55", border=blue_Momocs)
 }
 
+blue_Momocs <- "#0B426A"
 sticker(~dove_this(),
-        package="Momocs", p_size=10, s_x=.8, s_y=.6, s_width=1.4, s_height=1.2,
-        filename="inst/figures/baseplot.png")
+        package="Momocs",
+        p_color=blue_Momocs, p_size=10, s_x=1, s_y=1, s_width=1, s_height=1,
+        p_family="sans",
+        h_fill="#FFFFFFFF", h_color=blue_Momocs,
+        filename="inst/figures/baseplot.png") + theme_classic()
 
 
