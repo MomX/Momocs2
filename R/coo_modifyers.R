@@ -171,31 +171,31 @@ coo_template.coo_tbl <- function(x, size=1, ...) {
 
 # coo_template_relatively ----------------------------------------------
 
-#' #' @rdname coo_template
-#' #' @export
-#' coo_template_relatively <- function(x) {
-#'   UseMethod("coo_template_relatively")
-#' }
-#' #'
-#' #' #' @export
-#' #' coo_template_relatively.default <- function(x) {
-#' #'   .msg_info("no coo_template_relatively method for this class")
-#' #' }
-#' #'
-#' #' #' @export
-#' #' coo_template_relatively.list <- function(x){
-#' #'   x %>% map(coo_template_relatively)
-#' #' }
-#' #'
-#' #' #' @export
-#' #' coo_template_relatively.coo_single <- function(x) {
-#' #'   x %>% mutate(coo=map(coo, coo_template_relatively))
-#' #' }
-#'
-#' #' @export
-#' coo_template_relatively.coo_tbl <- function(x) {
-#'   x %>% mutate(coo=map(coo, coo_template_relatively))
-#' }
+# #' @rdname coo_template
+# #' @export
+# coo_template_relatively <- function(x) {
+#   UseMethod("coo_template_relatively")
+# }
+# #'
+# #' #' @export
+# #' coo_template_relatively.default <- function(x) {
+# #'   .msg_info("no coo_template_relatively method for this class")
+# #' }
+# #'
+# #' #' @export
+# #' coo_template_relatively.list <- function(x){
+# #'   x %>% map(coo_template_relatively)
+# #' }
+# #'
+# #' #' @export
+# #' coo_template_relatively.coo_single <- function(x) {
+# #'   x %>% mutate(coo=map(coo, coo_template_relatively))
+# #' }
+#
+# #' @export
+# coo_template_relatively.coo_tbl <- function(x) {
+#   x %>% mutate(coo=map(coo, coo_template_relatively))
+# }
 
 
 # coo_align ----------

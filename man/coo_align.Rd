@@ -2,26 +2,7 @@
 % Please edit documentation in R/coo_modifyers.R
 \name{coo_align}
 \alias{coo_align}
-\title{#' @rdname coo_template
-#' @export
-coo_template_relatively <- function(x) {
-UseMethod("coo_template_relatively")
-}
-#'
-#' #' @export
-#' coo_template_relatively.default <- function(x) {
-#'   .msg_info("no coo_template_relatively method for this class")
-#' }
-#'
-#' #' @export
-#' coo_template_relatively.list <- function(x){
-#'   x \%>\% map(coo_template_relatively)
-#' }
-#'
-#' #' @export
-#' coo_template_relatively.coo_single <- function(x) {
-#'   x \%>\% mutate(coo=map(coo, coo_template_relatively))
-#' }}
+\title{Align shapes}
 \usage{
 coo_align(x)
 }
@@ -32,13 +13,6 @@ coo_align(x)
 \link{coo_single} or \link{coo_tbl} or a list of shapes
 }
 \description{
-#' @export
-coo_template_relatively.coo_tbl <- function(x) {
-x \%>\% mutate(coo=map(coo, coo_template_relatively))
-}
-Align shapes
-}
-\details{
 Align shape along their longer axis using var-cov matrix and eigen values.
 }
 \examples{
