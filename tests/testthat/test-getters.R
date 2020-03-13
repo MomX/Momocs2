@@ -10,3 +10,4 @@ test_that("getters works", {
   # tests equality and column presence
   expect_true(all(x$centsize==y))
 })
+

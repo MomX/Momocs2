@@ -114,7 +114,8 @@ coo_scale.default <- function(x, scale) {
     # center and scale
     coo_center() %>% `/`(scale) %>%
     # move back to original centroid
-    coo_trans(x_trans=cent$x, y_trans=cent$y)
+    coo_trans(x_trans=cent$x, y_trans=cent$y) %>%
+    coo_single()
 }
 
 #' @export
