@@ -1,3 +1,4 @@
+# TRANSLATION AND CO --------------------------------------
 # coo_center ----------------------------------------------
 
 #' Center shapes
@@ -197,7 +198,7 @@ coo_template.coo_tbl <- function(x, size=1, ...) {
 #   x %>% mutate(coo=map(coo, coo_template_relatively))
 # }
 
-
+# ROTATION AND CO -----------------------------------------
 # coo_align ----------
 #' Align shapes
 #'
@@ -226,6 +227,92 @@ coo_align.list <- function(x){
 #' @export
 coo_align.coo_tbl <- function(x){
   x %>% dplyr::mutate(coo=purrr::map(x$coo, coo_align))
+}
+
+
+# coo_rotate ----------------------------------------------
+# helping functions
+#' @rdname coo_rotate
+#' @export
+degrees_to_radians <- function(x){
+  x*pi/180
+}
+
+#' @rdname coo_rotate
+#' @export
+radians_to_degrees <- function(x){
+  x*180/pi
+}
+
+# coo_rotate ----------------------------------------------
+#' Rotate shapes
+#'
+#' Rotates the coordinates by a `theta` angle (in radians) in
+#' the trigonometric direction (anti-clockwise).
+#' `coo_rotate` uses the origin, but `coo_rotatecenter` allows to specify another center.
+#' `degrees_to_radians` and `radians_to_degrees` helps convert between systems.
+#'
+#' @inheritParams coo_center
+#' @param theta `numeric` angle to rotate (in radians) and in the trigonometric direction (anti-clockwise)
+#' @param center `numeric` of length 2, sepcifying the `(x; y)` coordinates of the rotation center
+#' @return a [coo_single], [coo_list] or [coo_tbl]
+#' @examples
+#' x <- bot2 %>% pick(1)
+#' gg(x)
+#'
+#' x %>% coo_rotate(pi/2) %>% draw(col="red")
+#' x %>% coo_rotate(degrees_to_radians(-45)) %>% draw(col="blue")
+#'
+#' bot2 %>% coo_rotate(pi) %>% pile()
+#'
+#' @rdname coo_rotate
+#' @export
+coo_rotate <- function(x, theta = 0) {
+  UseMethod("coo_rotate")
+}
+
+#' @export
+coo_rotate.default <- function(x, theta = 0) {
+  mat <- matrix(c(cos(-theta), sin(-theta), -sin(-theta), cos(-theta)), nrow = 2)
+  x %>% as.matrix() %*% mat %>% coo_single()
+}
+
+#' @export
+coo_rotate.coo_list<- function(x, theta = 0) {
+  mat <- matrix(c(cos(-theta), sin(-theta), -sin(-theta), cos(-theta)), nrow = 2)
+  x %>% purrr::map(~.x %>% as.matrix() %*% mat %>% coo_single())
+}
+
+#' @export
+coo_rotate.coo_tbl<- function(x, theta = 0) {
+  x %>% dplyr::mutate(coo=coo_rotate(coo, theta=theta))
+}
+
+# coo_rotatecenter ----------------------------------------
+#' @rdname coo_rotate
+#' @export
+coo_rotatecenter <- function(x, theta, center = c(0, 0)) {
+  UseMethod("coo_rotatecenter")
+}
+
+#' @export
+coo_rotatecenter.default <- function(x, theta, center = c(0, 0)){
+  center <- unlist(center) # if passed as data.frame like
+  x %>%
+    # probably a more direct option
+    coo_trans(x_trans = -center[1], y_trans = -center[2]) %>%
+    coo_rotate(theta) %>%
+    coo_trans(x_trans = center[1], y_trans = center[2])
+}
+
+#' @export
+coo_rotatecenter.coo_list <- function(x, theta, center = c(0, 0)) {
+  x %>% purrr::map(coo_rotatecenter, center=center)
+}
+
+#' @export
+coo_rotatecenter.coo_tbl <- function(x, theta, center = c(0, 0)) {
+  x %>% dplyr::mutate(coo=coo_rotatecenter(coo, center=center))
 }
 
 

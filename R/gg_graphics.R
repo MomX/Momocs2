@@ -1,65 +1,35 @@
-#' ggplot2 default plotter
+# gg ------------------------------------------------------
+#' Default ggplot2 graphics
 #'
-#' Default ((gplot2) visualisations for Momocs objects.
+#' Default (ggplot2) visualisations for Momocs objects.
 #'
 #' @param x a Momocs object
 #' @param first `logical` whether to draw first point
 #' @param centroid `logical` whether to draw centroid
 #' @param axes `logical` whether to draw axes, text and grid
+#' @param gg `ggplot` object, default to [ggplot2::last_plot]
 #' @param ... additional parameters to feed geoms
 #'
-#' @details `gg0` prepare the canvas but let you pick your `ggplot2::geoms`.
+#' @details `gg` is the base plotter.
+#' `gg0` prepare the canvas but let you pick your `ggplot2::geoms`.
+#' `draw` add shapes on top of last plot
 #'
 #' @return a `ggplot` object
-#' @rdname gg
-#' @export
 #' @examples
 #' bot2 %>% pick(1) %>% gg()
 #' bot2 %>% pick(1) %>% gg0() + ggplot2::geom_point(shape="circle plus")
-#'
-
-
-# gg0 -----------------------------------------------------
-# empty gg plots
-# simply returns a gg from shape, but nothing drawn yet
-#' @export
-gg0 <- function(x, ...){
-  UseMethod("gg0")
-}
-
-#' @export
-gg0.default <- function(x, ...){
-  .msg_info("no gg0 method for this class")
-}
-
-#' @export
-gg0.coo_single <- function(x, ...){
-  x %>%
-    ggplot2::ggplot() +
-    ggplot2::aes(x=.data$x, y=.data$y) +
-    ggplot2::coord_equal() +
-    ggplot2::theme_void()
-}
-
-
-#' @export
-gg0.tbl <- gg0.coo_single
-
-# gg ------------
-# basic plot for gg
 #' @rdname gg
+#'
 #' @export
-gg <- function(x, ...) {
+gg <- function(x, first=TRUE, centroid=TRUE, axes=TRUE, ...) {
   UseMethod("gg")
 }
 
-#' @rdname gg
 #' @export
-gg.default <- function(x, ...){
+gg.default <- function(x, first=TRUE, centroid=TRUE, axes=TRUE, ...){
   .msg_info("no gg method for this class")
 }
 
-#' @rdname gg
 #' @export
 gg.coo_single <- function(x, first=TRUE, centroid=TRUE, axes=TRUE, ...){
   # prepare the canvas
@@ -83,6 +53,74 @@ gg.coo_single <- function(x, first=TRUE, centroid=TRUE, axes=TRUE, ...){
     gg <- gg + ggplot2::geom_path(...)
   # return this beauty
   gg
+}
+
+
+
+# gg0 -----------------------------------------------------
+# empty gg plots
+# simply returns a gg from shape, but nothing drawn yet
+#' @rdname gg
+#' @export
+gg0 <- function(x, ...){
+  UseMethod("gg0")
+}
+
+#' @export
+gg0.default <- function(x, ...){
+  .msg_info("no gg0 method for this class")
+}
+
+#' @export
+gg0.coo_single <- function(x, ...){
+  x %>%
+    ggplot2::ggplot() +
+    ggplot2::aes(x=.data$x, y=.data$y) +
+    ggplot2::coord_equal() +
+    ggplot2::theme_void()
+}
+
+# so that foreign tbl can be plotted too
+# as long as they have 'x' and 'y' columns
+#' @export
+gg0.tbl <- gg0.coo_single
+
+# draw ----------------------------------------------------
+#' Add shapes on top of another plot
+#'
+#'
+#' @param x a Momocs object
+#' @param gg `ggplot` object, default to [ggplot2::last_plot]
+#' @param ... additional parameters to feed geoms
+#'
+#' @return a `ggplot` object
+#' @export
+#' @examples
+#' bot2 %>% pick(1) %>% gg()
+#' bot2 %>% pick(2) %>% draw()
+#'
+#' bot2 %>% pile(alpha=0.2)
+#' bot2 %>% coo_rotate(pi/2) %>% draw(col="slateblue")
+#' @export
+draw <- function(x, gg, ...){
+  UseMethod("draw")
+}
+
+#' @export
+draw.coo_single <- function(x, gg=ggplot2::last_plot(), ...){
+  gg + geom_path(data = x, ...)
+}
+
+#' @export
+draw.coo_list <- function(x, gg=ggplot2::last_plot(), ...){
+  x <- unpack(x)
+  gg + geom_path(data = x, mapping(group=shp), ...)
+}
+
+#' @export
+draw.coo_tbl <- function(x, gg=ggplot2::last_plot(), ...){
+  x <- unpack(x)
+  gg + geom_path(data = x, mapping=ggplot2::aes(group=shp), ...)
 }
 
 # inspect -------------------------------------------------
@@ -148,6 +186,7 @@ pile.default <- function(x, f, ...){
 }
 
 #todo: decent_alpha
+# add first, centroid, etc. ala gg
 # manage pile.coo_out
 #' @export
 pile.coo_tbl <- function(x, f, ...){
