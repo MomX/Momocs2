@@ -1,0 +1,10 @@
+pandoc: '2.5'
+pkgdown: 1.4.1
+pkgdown_sha: ~
+articles:
+  intro-to: intro-to.html
+  intro: intro.html
+urls:
+  reference: http://momx.github.io/Momocs2//reference
+  article: http://momx.github.io/Momocs2//articles
+
