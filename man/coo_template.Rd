@@ -4,14 +4,14 @@
 \alias{coo_template}
 \title{XXX shapes}
 \usage{
-coo_template(x, ...)
+coo_template(x, size, ...)
 }
 \arguments{
 \item{x}{\link{coo_single}, \link{coo_list} or \link{coo_tbl}}
 
-\item{...}{additional parameters}
-
 \item{size}{\code{numeric} the side of the square inscribing the shape}
+
+\item{...}{additional parameters}
 }
 \value{
 templated \link{coo_list} or \link{coo_tbl}

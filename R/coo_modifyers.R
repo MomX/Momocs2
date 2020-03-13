@@ -145,7 +145,7 @@ coo_scale.coo_tbl <- function(x, scale) {
 #' bot2 %>% pick(1) %>% coo_template() %>% gg()
 #' bot2 %>% coo_template %>% pile()
 #' @export
-coo_template <- function(x, ...) {
+coo_template <- function(x, size, ...) {
   UseMethod("coo_template")
 }
 

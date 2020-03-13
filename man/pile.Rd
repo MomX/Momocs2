@@ -4,22 +4,20 @@
 \alias{pile}
 \title{Plot all shapes on the same graph}
 \usage{
-pile(x, ...)
+pile(x, f, ...)
 }
 \arguments{
 \item{x}{a coo_tbl object}
+
+\item{f}{a column (\code{factor} or \code{numeric}) for colouring shapes}
 
 \item{...}{additional parameters to feed ggplot2::geoms}
 }
 \description{
 Plot all shapes on the same graph
 }
-\details{
-\code{pile_column} is an helper function that takes a \code{coo_list} and
-returns a single \code{tbl} with an additional name/index column.
-}
 \note{
-former stack in old Momocs
+formerly named \code{stack}
 }
 \examples{
 bot2 \%>\% pile()

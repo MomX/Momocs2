@@ -122,10 +122,9 @@ inspect.coo_tbl <- function(x, ...){
 #' Plot all shapes on the same graph
 #'
 #' @param x a coo_tbl object
+#' @param f a column (`factor` or `numeric`) for colouring shapes
 #' @param ... additional parameters to feed ggplot2::geoms
-#' @note former stack in old Momocs
-#' @details `pile_column` is an helper function that takes a `coo_list` and
-#' returns a single `tbl` with an additional name/index column.
+#' @note formerly named `stack`
 #' @family family_picture
 #' @examples
 #' bot2 %>% pile()
@@ -139,12 +138,12 @@ inspect.coo_tbl <- function(x, ...){
 #'    ggplot2::facet_grid(~type) +
 #'    ggplot2::scale_colour_manual(values=c("forestgreen", "orange"))
 #' @export
-pile <- function(x, ...) {
+pile <- function(x, f, ...) {
   UseMethod("pile")
 }
 
 #' @export
-pile.default <- function(x, ...){
+pile.default <- function(x, f, ...){
   .msg_info("no pile method for this class")
 }
 
@@ -171,20 +170,21 @@ pile.coo_tbl <- function(x, f, ...){
 #' @param x a Momocs object
 #' @param f a factor column to skip lines after the end of each level
 #' @param ... additional parameters to feed `geom(...)`.
-#' @param geom which `ggplot2::geom` to use ([ggplot2::geom_polygon] by default)
 #' @param ncol `integer` that specifies the number of columns. Otherwise, a roughly squared mosaic is produced.
+#' @param geom which `ggplot2::geom` to use ([ggplot2::geom_polygon] by default)
 #' @return a `ggplot` object
 #' @family family_picture
 #' @examples
 #' bot2 %>% mosaic()
 #' bot2 %>% mosaic(type, ncol=6)
-#' mosaic(bot2, type, ncol=6, aes(col=type))
+#' mosaic(bot2, type, ncol=6, ggplot2::aes(col=type))
 #'
 #' @export
-mosaic <- function(x, ...) {
+mosaic <- function(x, f, ..., ncol, geom) {
   UseMethod("mosaic")
 }
 
+# todo: go for mosaic0 and customs geoms / out, ldk, etc. ?
 #' @export
 mosaic.default <- function(x, ...) {
   .msg_info("no mosaic method for this class")

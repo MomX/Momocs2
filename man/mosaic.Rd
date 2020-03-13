@@ -4,18 +4,18 @@
 \alias{mosaic}
 \title{Plot all shapes as a mosaic}
 \usage{
-mosaic(x, ...)
+mosaic(x, f, ..., ncol, geom)
 }
 \arguments{
 \item{x}{a Momocs object}
 
-\item{...}{additional parameters to feed \code{geom(...)}.}
-
 \item{f}{a factor column to skip lines after the end of each level}
 
-\item{geom}{which \code{ggplot2::geom} to use (\link[ggplot2:geom_polygon]{ggplot2::geom_polygon} by default)}
+\item{...}{additional parameters to feed \code{geom(...)}.}
 
 \item{ncol}{\code{integer} that specifies the number of columns. Otherwise, a roughly squared mosaic is produced.}
+
+\item{geom}{which \code{ggplot2::geom} to use (\link[ggplot2:geom_polygon]{ggplot2::geom_polygon} by default)}
 }
 \value{
 a \code{ggplot} object
@@ -26,7 +26,7 @@ Plot all shapes as a mosaic
 \examples{
 bot2 \%>\% mosaic()
 bot2 \%>\% mosaic(type, ncol=6)
-mosaic(bot2, type, ncol=6, aes(col=type))
+mosaic(bot2, type, ncol=6, ggplot2::aes(col=type))
 
 }
 \seealso{
