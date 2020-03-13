@@ -7,5 +7,5 @@ NULL
 #' @import ggplot2
 NULL
 
-utils::globalVariables(c(".", "coo", "ldk"))
+utils::globalVariables(c(".", "coo", "ldk", "ni", "ci", "shp"))
 

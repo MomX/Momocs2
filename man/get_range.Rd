@@ -2,24 +2,40 @@
 % Please edit documentation in R/coo_getters.R
 \name{get_range}
 \alias{get_range}
+\alias{get_diffrange}
 \title{Get shape range}
 \usage{
 get_range(x)
+
+get_range(x)
+
+get_diffrange(x)
 }
 \arguments{
 \item{x}{\link{coo_single}, \link{coo_tbl} or a list of shapes}
 }
 \value{
 \code{numeric} or additional column
+
+\code{numeric} or additional columns
 }
 \description{
 Just a wrapper around \link{range}
+
+Just a wrapper around \link{range}. \code{get_diffrange} adds \link{diff} to \code{get_range}.
 }
 \examples{
 bot2$coo[[5]] \%>\% get_range
 
+bot2 \%>\% pick(1) \%>\% get_range
+bot2 \%>\% get_diffrange()
+
 }
 \seealso{
+Other coo_descriptors: 
+\code{\link{get_centpos}()},
+\code{\link{get_centsize}()}
+
 Other coo_descriptors: 
 \code{\link{get_centpos}()},
 \code{\link{get_centsize}()}

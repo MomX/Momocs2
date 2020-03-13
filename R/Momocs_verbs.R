@@ -54,3 +54,50 @@ plint.coo_single <- function(x, ...){
   x %>% print()
   x
 }
+
+
+# unpack --------------------------------------------------
+#' Unpack list columns
+#'
+#' Unpack list columns, repeat lines if required. Differs from unnest,
+#' in that it adds a "shp" column.
+#'
+#' @param x a Momocs object
+#' @param ... useless
+#' @examples
+#'
+#' bot2$coo %>% unpack
+#'
+#' bot2 %>% unpack
+#' @export
+unpack <- function(x, ...) {
+  UseMethod("unpack")
+}
+
+#' @export
+unpack.default <- function(x, ...){
+  .msg_info("no unpack method for this class")
+}
+
+#' @export
+unpack.list <- function(x, ...){
+  x %>%
+    purrr::imap(~.x %>% dplyr::mutate(shp=.y)) %>%
+    # make it a single tbl
+    dplyr::bind_rows() %>%
+    # remove the class
+    dplyr::as_tibble()
+}
+
+#' @export
+unpack.coo_tbl <- function(x, ...){
+  # how many times do we have to repeat each line
+  # ie number of rows for each coo_tbl
+  reps <- rep(1:nrow(x), times=purrr::map_dbl(x$coo, nrow))
+  # unpack coo, bind cols with others
+  dplyr::bind_cols(
+    x$coo %>% unpack(),
+    x %>% dplyr::select(-coo) %>% dplyr::slice(reps)
+  )
+}
+

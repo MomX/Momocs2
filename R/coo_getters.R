@@ -72,7 +72,7 @@ get_centsize.coo_tbl <- function(x){
 }
 
 # LW ------------------------------------------------------
-# get_range
+# get_range -----------------------------------------------
 
 #' Get shape range
 #'
@@ -108,6 +108,70 @@ get_range.list <- function(x){
 #' @export
 get_range.coo_tbl <- function(x){
   dplyr::bind_cols(x, purrr::map_df(x$coo, get_range))
+}
+
+# get_diffrange -----------------------------------------------
+
+#' Get shape range
+#'
+#' Just a wrapper around [range]. `get_diffrange` adds [diff] to `get_range`.
+#'
+#' @inheritParams coo_center
+#'
+#' @return `numeric` or additional columns
+#' @examples
+#' bot2 %>% pick(1) %>% get_range
+#' bot2 %>% get_diffrange()
+#'
+#' @family coo_descriptors
+#' @export
+get_range <- function(x){
+  UseMethod("get_range")
+}
+
+#' @export
+get_range.default <- function(x){
+  x %>%
+    coo_single() %>%
+    dplyr::summarise(x_min=min(.data$x, na.rm=TRUE),
+                     x_max=max(.data$x, na.rm=TRUE),
+                     y_min=min(.data$y, na.rm=TRUE),
+                     y_max=max(.data$y, na.rm=TRUE))
+}
+
+#' @export
+get_range.list <- function(x){
+  purrr::map_df(x, get_range)
+}
+
+#' @export
+get_range.coo_tbl <- function(x){
+  dplyr::bind_cols(x, purrr::map_df(x$coo, get_range))
+}
+
+# get_diffrange -------------------------------------------
+#' @rdname get_range
+#' @export
+get_diffrange <- function(x){
+  UseMethod("get_diffrange")
+}
+
+#' @export
+get_diffrange.default <- function(x){
+  x %>%
+    coo_single() %>%
+    dplyr::summarise(x_range=max(.data$x, na.rm=TRUE) - min(.data$x, na.rm=TRUE),
+                     y_range=max(.data$y, na.rm=TRUE) - min(.data$y, na.rm=TRUE))
+}
+
+#' @export
+get_diffrange.list <- function(x){
+  purrr::map_df(x, get_diffrange)
+}
+
+#' @export
+get_diffrange.coo_tbl <- function(x){
+  dplyr::bind_cols(x, purrr::map_df(x$coo, get_diffrange))
 }
 
 
@@ -148,6 +212,7 @@ get_lw.coo_tbl <- function(x){
   dplyr::bind_cols(x, get_lw(x$coo))
 }
 
+# length --------------------------------------------------
 #' @rdname get_lw
 #' @export
 get_length <- function(x){
@@ -169,7 +234,7 @@ get_length.coo_tbl <- function(x){
   x %>% dplyr::mutate(length=purrr::map_dbl(coo, get_length))
 }
 
-
+# get_width -----------------------------------------------
 #' @rdname get_lw
 #' @export
 get_width <- function(x){

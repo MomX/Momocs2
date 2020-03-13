@@ -20,13 +20,15 @@ Returns a shape centered on the origin.
 }
 \examples{
 
-bot2$coo[[1]] \%>\% coo_center
+bot2 \%>\% pick(1) \%>\% coo_center \%>\% gg()
+bot2 \%>\% coo_center \%>\% pile()
 
 }
 \seealso{
 Other coo_modifyers: 
 \code{\link{coo_align}()},
 \code{\link{coo_scale}()},
+\code{\link{coo_template}()},
 \code{\link{coo_trans}()}
 }
 \concept{coo_modifyers}

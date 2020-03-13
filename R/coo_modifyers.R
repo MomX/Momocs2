@@ -13,7 +13,8 @@
 #' @aliases coo_centre
 #'
 #' @examples
-#' bot2$coo[[1]] %>% coo_center
+#' bot2 %>% pick(1) %>% coo_center %>% gg()
+#' bot2 %>% coo_center %>% pile()
 #'
 #' @export
 coo_center <- function(x) {
@@ -22,12 +23,17 @@ coo_center <- function(x) {
 
 #' @export
 coo_center.default <- function(x) {
-  x %>% scale(scale=FALSE)
+  x %>% scale(scale=FALSE) %>% coo_single()
 }
 
 #' @export
 coo_center.list <- function(x){
   x %>% purrr::map(coo_center)
+}
+
+#' @export
+coo_center.coo_single <- function(x) {
+  x %>% scale(scale=FALSE) %>% coo_single()
 }
 
 #' @export
@@ -123,6 +129,73 @@ coo_scale.list <- function(x, scale){
 coo_scale.coo_tbl <- function(x, scale) {
   x %>% dplyr::mutate(coo=purrr::map(x$coo, coo_scale))
 }
+
+# coo_template ----------------------------------------------
+
+#' XXX shapes
+#'
+#' Centers shape and scale them so that they are inscribed in a `size`-side square.
+#'
+#' @param x [coo_single], [coo_list] or [coo_tbl]
+#' @param size `numeric` the side of the square inscribing the shape
+#' @param ... additional parameters
+#' @return templated [coo_list] or [coo_tbl]
+#' @family coo_modifyers
+#' @examples
+#' bot2 %>% pick(1) %>% coo_template() %>% gg()
+#' bot2 %>% coo_template %>% pile()
+#' @export
+coo_template <- function(x, ...) {
+  UseMethod("coo_template")
+}
+
+#' @export
+coo_template.default <- function(x, size=1, ...) {
+  # get the rescaling ratio
+  k <- min(size/get_diffrange(x))
+  # center and apply it
+  x %>% coo_center %>% dplyr::mutate(x=.data$x*k, y=.data$y*k)
+}
+
+#' @export
+coo_template.list <- function(x, size=1, ...){
+  x %>% purrr::map(coo_template, size=size)
+}
+
+#' @export
+coo_template.coo_tbl <- function(x, size=1, ...) {
+  x %>% dplyr::mutate(coo=purrr::map(coo, coo_template, size=size))
+}
+
+
+# coo_template_relatively ----------------------------------------------
+
+#' #' @rdname coo_template
+#' #' @export
+#' coo_template_relatively <- function(x) {
+#'   UseMethod("coo_template_relatively")
+#' }
+#' #'
+#' #' #' @export
+#' #' coo_template_relatively.default <- function(x) {
+#' #'   .msg_info("no coo_template_relatively method for this class")
+#' #' }
+#' #'
+#' #' #' @export
+#' #' coo_template_relatively.list <- function(x){
+#' #'   x %>% map(coo_template_relatively)
+#' #' }
+#' #'
+#' #' #' @export
+#' #' coo_template_relatively.coo_single <- function(x) {
+#' #'   x %>% mutate(coo=map(coo, coo_template_relatively))
+#' #' }
+#'
+#' #' @export
+#' coo_template_relatively.coo_tbl <- function(x) {
+#'   x %>% mutate(coo=map(coo, coo_template_relatively))
+#' }
+
 
 # coo_align ----------
 #' Align shapes

@@ -26,6 +26,7 @@ bot2$coo[[1]] \%>\% coo_scale
 Other coo_modifyers: 
 \code{\link{coo_align}()},
 \code{\link{coo_center}()},
+\code{\link{coo_template}()},
 \code{\link{coo_trans}()}
 }
 \concept{coo_modifyers}
