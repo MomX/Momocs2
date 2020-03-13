@@ -21,7 +21,6 @@
 # gg0 -----------------------------------------------------
 # empty gg plots
 # simply returns a gg from shape, but nothing drawn yet
-#' @rdname gg
 #' @export
 gg0 <- function(x, ...){
   UseMethod("gg0")
@@ -40,6 +39,10 @@ gg0.coo_single <- function(x, ...){
     ggplot2::coord_equal() +
     ggplot2::theme_void()
 }
+
+
+#' @export
+gg0.tbl <- gg0.coo_single
 
 # gg ------------
 # basic plot for gg
@@ -89,6 +92,7 @@ gg.coo_single <- function(x, first=TRUE, centroid=TRUE, axes=TRUE, ...){
 #'
 #' @param x a Momocs object
 #' @param ... additional parameters forwarded to [gg]
+#' @family family_picture
 #' @examples
 #' \dontrun{
 #' bot2 %>% inspect
@@ -113,4 +117,47 @@ inspect.coo_tbl <- function(x, ...){
 }
 
 # pile ----------------------------------------------------
+
+#' Plots all shapes on the shape graph
+#'
+#' @param x a coo_tbl object
+#' @param ... additional parameters to feed ggplot2::geoms
+#' @note former stack in old Momocs
+#' @details `pile_column` is an helper function that takes a `coo_list` and
+#' returns a single `tbl` with an additional name/index column.
+#' @family family_picture
+#' @examples
+#'
+#' bot2$coo %>% pile_column()
+#' bot2 %>% pile()
+#' @export
+pile <- function(x, ...) {
+  UseMethod("pile")
+}
+
+#' @export
+pile.default <- function(x, ...){
+  .msg_info("no pile method for this class")
+}
+
+#todo: decent_alpha
+# manage pile.coo_out
+#' @export
+pile.coo_tbl <- function(x, ...){
+  x$coo %>% pile_column() %>%
+    gg0() + ggplot2::aes(group=.data$shp) + ggplot2::geom_path()
+}
+
+#' @rdname pile
+#' @export
+pile_column <- function(x){
+  x %>%
+    purrr::imap(~.x %>% dplyr::mutate(shp=.y)) %>%
+    # make it a single tbl
+    dplyr::bind_rows() %>%
+    # remove the class
+    dplyr::as_tibble()
+}
+
+
 

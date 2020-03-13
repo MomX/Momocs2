@@ -20,3 +20,8 @@ bot2 \%>\% inspect
 }
 
 }
+\seealso{
+Other family_picture: 
+\code{\link{pile}()}
+}
+\concept{family_picture}

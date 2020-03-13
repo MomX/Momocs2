@@ -89,7 +89,7 @@ validate_coo_single <- function(x){
 
 #' @export
 plot.coo_single <- function(x, ...){
-  gg(x)
+  gg(x, ...)
 }
 
 # print ---
