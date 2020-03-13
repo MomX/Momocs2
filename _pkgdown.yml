@@ -1,1 +1,10 @@
 destination: docs
+
+url: http://momx.github.io/Momocs2/
+
+template:
+  params:
+    bootswatch: flatly
+
+home:
+  strip_header: false
