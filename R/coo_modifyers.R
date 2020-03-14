@@ -1,3 +1,5 @@
+#todo: all .list methods should return 'coo_list"
+
 # TRANSLATION AND CO --------------------------------------
 # coo_center ----------------------------------------------
 
@@ -29,7 +31,7 @@ coo_center.default <- function(x) {
 
 #' @export
 coo_center.list <- function(x){
-  x %>% purrr::map(coo_center)
+  x %>% purrr::map(coo_center) %>% coo_list()
 }
 
 #' @export
@@ -76,7 +78,7 @@ coo_trans.default <- function(x, x_trans=0, y_trans=0) {
 
 #' @export
 coo_trans.list <- function(x, x_trans=0, y_trans=0){
-  x %>% purrr::map(coo_trans, x_trans=x_trans, y_trans=y_trans)
+  x %>% purrr::map(coo_trans, x_trans=x_trans, y_trans=y_trans) %>% coo_list()
 }
 
 #' @export
@@ -124,7 +126,7 @@ coo_scale.list <- function(x, scale){
   x <- purrr::map(x, coo_single)
   if (missing(scale))
     scale <- purrr::map_dbl(x, get_centsize)
-  purrr::map2(x, scale, coo_scale)
+  purrr::map2(x, scale, coo_scale) %>% coo_list()
 }
 
 #' @export
@@ -161,7 +163,7 @@ coo_template.default <- function(x, size=1, ...) {
 
 #' @export
 coo_template.list <- function(x, size=1, ...){
-  x %>% purrr::map(coo_template, size=size)
+  x %>% purrr::map(coo_template, size=size) %>% coo_list()
 }
 
 #' @export
@@ -278,10 +280,13 @@ coo_rotate.default <- function(x, theta = 0) {
 }
 
 #' @export
-coo_rotate.coo_list<- function(x, theta = 0) {
+coo_rotate.coo_list <- function(x, theta = 0) {
   mat <- matrix(c(cos(-theta), sin(-theta), -sin(-theta), cos(-theta)), nrow = 2)
-  x %>% purrr::map(~.x %>% as.matrix() %*% mat %>% coo_single())
+  x %>% purrr::map(~.x %>% as.matrix() %*% mat %>% coo_single()) %>% coo_list()
 }
+
+#' @export
+coo_rotate.list <- coo_rotate.coo_list
 
 #' @export
 coo_rotate.coo_tbl<- function(x, theta = 0) {
@@ -307,8 +312,11 @@ coo_rotatecenter.default <- function(x, theta, center = c(0, 0)){
 
 #' @export
 coo_rotatecenter.coo_list <- function(x, theta, center = c(0, 0)) {
-  x %>% purrr::map(coo_rotatecenter, center=center)
+  x %>% purrr::map(coo_rotatecenter, center=center) %>% coo_list()
 }
+
+#' @export
+coo_rotatecenter.list <- coo_rotatecenter.coo_list
 
 #' @export
 coo_rotatecenter.coo_tbl <- function(x, theta, center = c(0, 0)) {

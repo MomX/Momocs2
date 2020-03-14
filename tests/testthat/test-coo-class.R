@@ -50,6 +50,12 @@ test_that("coo_single validator works",{
   expect_error(x_with_NA  %>% validate_coo_single())
 })
 
+# pillar
+
+test_that("pillar works", {
+  expect_is(pillar::pillar_shaft(bot2 %>% pick(5) %>% list()), "pillar_shaft_simple")
+})
+
 
 # coo_list -------
 test_that("coo_list works", {
