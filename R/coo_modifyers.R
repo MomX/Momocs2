@@ -255,8 +255,8 @@ radians_to_degrees <- function(x){
 #' `degrees_to_radians` and `radians_to_degrees` helps convert between systems.
 #'
 #' @inheritParams coo_center
-#' @param theta `numeric` angle to rotate (in radians) and in the trigonometric direction (anti-clockwise)
-#' @param center `numeric` of length 2, sepcifying the `(x; y)` coordinates of the rotation center
+#' @param theta `numeric` angle to rotate (in radians) and in the trigonometric direction (anti-clockwise). Default to `0`.
+#' @param center `numeric` of length 2, sepcifying the `(x; y)` coordinates of the rotation center. Default to `c(0, 0)`
 #' @return a [coo_single], [coo_list] or [coo_tbl]
 #' @examples
 #' x <- bot2 %>% pick(1)
@@ -296,12 +296,12 @@ coo_rotate.coo_tbl<- function(x, theta = 0) {
 # coo_rotatecenter ----------------------------------------
 #' @rdname coo_rotate
 #' @export
-coo_rotatecenter <- function(x, theta, center = c(0, 0)) {
+coo_rotatecenter <- function(x, theta=0, center = c(0, 0)) {
   UseMethod("coo_rotatecenter")
 }
 
 #' @export
-coo_rotatecenter.default <- function(x, theta, center = c(0, 0)){
+coo_rotatecenter.default <- function(x, theta=0, center = c(0, 0)){
   center <- unlist(center) # if passed as data.frame like
   x %>%
     # probably a more direct option
@@ -311,7 +311,7 @@ coo_rotatecenter.default <- function(x, theta, center = c(0, 0)){
 }
 
 #' @export
-coo_rotatecenter.coo_list <- function(x, theta, center = c(0, 0)) {
+coo_rotatecenter.coo_list <- function(x, theta=0, center = c(0, 0)) {
   x %>% purrr::map(coo_rotatecenter, center=center) %>% coo_list()
 }
 
@@ -319,7 +319,7 @@ coo_rotatecenter.coo_list <- function(x, theta, center = c(0, 0)) {
 coo_rotatecenter.list <- coo_rotatecenter.coo_list
 
 #' @export
-coo_rotatecenter.coo_tbl <- function(x, theta, center = c(0, 0)) {
+coo_rotatecenter.coo_tbl <- function(x, theta=0, center = c(0, 0)) {
   x %>% dplyr::mutate(coo=coo_rotatecenter(coo, center=center))
 }
 
