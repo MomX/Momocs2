@@ -156,6 +156,11 @@ coo_list.default <- function(x){
 }
 
 #' @export
+coo_list.coo_single <- function(x){
+  x %>% list() %>% .append_class("coo_list")
+}
+
+#' @export
 coo_list.list <- function(x){
   x %>%
     purrr::modify_if(purrr::negate(is_coo_single), coo_single) %>%
@@ -186,6 +191,11 @@ coo_tbl <- function(x){
 #' @export
 coo_tbl.default <- function(x){
   .msg_warning("do not know how to turn into a coo_tbl")
+}
+
+#' @export
+coo_tbl.coo_single <- function(x){
+  x %>% list() %>% coo_tbl()
 }
 
 #' @export
