@@ -114,7 +114,7 @@ draw.coo_single <- function(x, gg=ggplot2::last_plot(), ...){
 #' @export
 draw.coo_list <- function(x, gg=ggplot2::last_plot(), ...){
   x <- unpack(x)
-  gg + geom_path(data = x, mapping(group=shp), ...)
+  gg + geom_path(data = x, mapping=ggplot2::aes(group=shp), ...)
 }
 
 #' @export

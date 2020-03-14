@@ -9,6 +9,25 @@ test_that("gg works", {
   # otherwise tested in examples
 })
 
+test_that("draw works", {
+  bot2 %>% pick(1) %>% gg()
+
+  # single shape
+  x <- bot2 %>% pick(2) %>% draw()
+  expect_is(x, "ggplot")
+
+  # list
+  bot2 %>% pick(1) %>% gg()
+  x <- bot2$coo[1:10] %>% coo_list() %>% draw()
+  expect_is(x, "ggplot")
+
+  # list
+  bot2 %>% pick(1) %>% gg()
+  x <- bot2 %>% coo_center() %>% draw()
+  expect_is(x, "ggplot")
+
+})
+
 test_that("mosaic works", {
   expect_is(bot2 %>% mosaic, "ggplot")
   expect_is(bot2 %>% mosaic(type), "ggplot")
