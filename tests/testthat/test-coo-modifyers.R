@@ -49,7 +49,7 @@ test_that("coo_template works", {
   y <- bot2 %>% coo_template() %>% get_diffrange()
   expect_equivalent(apply(dplyr::select(y, x_range, y_range), 1, max),
                           expected=rep(1, nrow(bot2)), tol=1e-10)
-  expect_is(x, "coo_tbl")
+  expect_is(y, "coo_tbl")
 })
 
 test_that("coo_rotate works", {
