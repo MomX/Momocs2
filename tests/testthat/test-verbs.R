@@ -5,6 +5,9 @@ test_that("pick works", {
 
   expect_identical(p1, p1_bis)
   expect_identical(p1, p1_ter)
+
+  expect_message(pick("a"))
+  expect_is(bot2$coo %>% pick(1), "coo_single")
 })
 
 test_that("plint works", {
@@ -18,6 +21,8 @@ test_that("plint works", {
 })
 
 test_that("unpack works", {
+  expect_message(unpack("a"))
+
   x <- bot2$coo %>% unpack()
   expect_false(is(x, "coo_tbl"))
   expect_false(is(x, "coo_list"))
