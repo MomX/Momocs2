@@ -253,5 +253,5 @@ get_width.list <- function(x){
 
 #' @export
 get_width.coo_tbl <- function(x){
-  x %>% dplyr::mutate(length=purrr::map_dbl(coo, get_width))
+  x %>% dplyr::mutate(width=purrr::map_dbl(coo, get_width))
 }
