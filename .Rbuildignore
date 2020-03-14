@@ -12,3 +12,4 @@ __.*
 
 ^\.travis\.yml$
 ^codecov\.yml$
+sandbox.*

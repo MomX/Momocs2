@@ -7,6 +7,9 @@ test_that("gg works", {
   expect_message(gg("a"))
   expect_is(bot2 %>% pick %>% gg(), "ggplot")
   # otherwise tested in examples
+  # plot as gg # is that a good idea anyway?
+  expect_is(bot2 %>% pick %>% plot(), "ggplot")
+  expect_is(bot2 %>% pick %>% plot(col="red"), "ggplot")
 })
 
 test_that("draw works", {

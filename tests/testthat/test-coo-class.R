@@ -74,6 +74,9 @@ test_that("coo_list works", {
 
 # coo_tbl --------
 test_that("coo_tbl works", {
+  # who are you
+  expect_message(coo_tbl("a"))
+
   # print method
   expect_output(print(bot2))
 

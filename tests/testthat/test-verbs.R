@@ -7,7 +7,9 @@ test_that("pick works", {
   expect_identical(p1, p1_ter)
 
   expect_message(pick("a"))
+  # id specified or not
   expect_is(bot2$coo %>% pick(1), "coo_single")
+  expect_is(bot2$coo %>% pick(), "coo_single")
 })
 
 test_that("plint works", {

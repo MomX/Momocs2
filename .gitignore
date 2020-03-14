@@ -8,3 +8,4 @@ __sticker.R
 tests/.DS_Store
 docs/
 tests/testthat/Rplots.pdf
+sandbox/

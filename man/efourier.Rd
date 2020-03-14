@@ -8,7 +8,7 @@
 \alias{efourier_i}
 \title{EFT}
 \usage{
-efourier(x, ...)
+efourier(x, nb_h, keep_coo, ...)
 
 \method{efourier}{default}(x, nb_h, ...)
 
@@ -16,16 +16,16 @@ efourier(x, ...)
 
 \method{efourier}{coo_tbl}(x, nb_h, keep_coo = FALSE, ...)
 
-efourier_i(x, nb_pts = 120)
+efourier_i(x, nb_h, nb_pts = 120)
 }
 \arguments{
 \item{x}{plo}
 
-\item{...}{for generics. Useless here.}
-
-\item{nb_h}{\code{int} nb of harmonics}
+\item{nb_h}{\code{int} nb of harmonics. Default to \code{6} for \code{efourier}, to all of them for \code{efourier_i}}
 
 \item{keep_coo}{\code{logical} whether to retain coo column}
+
+\item{...}{for generics. Useless here.}
 
 \item{nb_pts}{\code{int} nb of points for the reconstruction}
 }
