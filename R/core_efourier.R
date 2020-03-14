@@ -1,13 +1,13 @@
 #' EFT
 #'
 #' @param x plo
-#' @param nb_h `int` nb of harmonics
+#' @param nb_h `int` nb of harmonics. Default to `6` for `efourier`, to all of them for `efourier_i`
 #' @param nb_pts `int` nb of points for the reconstruction
 #' @param keep_coo `logical` whether to retain coo column
 #' @param ... for generics. Useless here.
 #'
 #' @export
-efourier <- function(x, ...) {
+efourier <- function(x, nb_h, keep_coo, ...) {
   UseMethod("efourier")
 }
 
@@ -100,9 +100,25 @@ efourier.coo_tbl <- function(x, nb_h, keep_coo=FALSE, ...){
   res
 }
 
+# help split coeff lists
+.coeff_split <- function (x, cph = 4){
+  # deduce the number of harmonics
+  nb.h <- length(x)/cph
+  # ensure individual names
+  names(x) <- paste0(rep(letters[1:cph], each=nb.h), rep(1:nb.h, times=cph))
+  # split the vector into a list
+  split(x, rep(paste0(letters[1:cph], "n"), each=nb.h))
+}
+
 #' @export
 #' @rdname efourier
-efourier_i <- function (x, nb_pts = 120) {
+efourier_i <- function(x, nb_h, nb_pts = 120){
+  UseMethod("efourier_i")
+}
+
+
+#' @export
+efourier_i.default <- function (x, nb_h, nb_pts = 120) { # efourier_i.efourier_single ?
   # so that list of vectors can be passed
   if (is.vector(x))
     x <- .coeff_split(x)
@@ -113,13 +129,16 @@ efourier_i <- function (x, nb_pts = 120) {
 
   # regular theta seq
   theta <- seq(0, 2 * pi, length.out = nb_pts+1)[-(nb_pts+1)]
-  nb.h <- length(x$an)
+
+  # by default use them all
+  if (missing(nb_h))
+    nb_h <- length(x$an)
 
   # prototypic matrices to host results
-  hy <- hx <- matrix(NA_real_, nb.h, nb_pts)
+  hy <- hx <- matrix(NA_real_, nb_h, nb_pts)
 
   # what's wrong with loops?
-  for (i in 1:nb.h) {
+  for (i in 1:nb_h) {
     hx[i, ] <- x$an[i] * cos(i * theta) + x$bn[i] * sin(i * theta)
     hy[i, ] <- x$cn[i] * cos(i * theta) + x$dn[i] * sin(i * theta)
   }
@@ -127,19 +146,8 @@ efourier_i <- function (x, nb_pts = 120) {
   # add positionnal params and summed harmonic contributions
   # and return a tibble
   tibble::tibble(x=(ao/2) + apply(hx, 2, sum),
-                 y=(co/2) + apply(hy, 2, sum)) # as_shp
-}
-
-
-# x <- replicate(50, matrix(runif(24), ncol=2) %>% coo, simplify = FALSE) %>% Coo()
-
-.coeff_split <- function (x, cph = 4){
-  # deduce the number of harmonics
-  nb.h <- length(x)/cph
-  # ensure individual names
-  names(x) <- paste0(rep(letters[1:cph], each=nb.h), rep(1:nb.h, times=cph))
-  # split the vector into a list
-  split(x, rep(paste0(letters[1:cph], "n"), each=nb.h))
+                 y=(co/2) + apply(hy, 2, sum)) %>%
+    coo_single()
 }
 
 # could have been in efourier_default

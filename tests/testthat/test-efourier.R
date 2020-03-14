@@ -30,6 +30,24 @@ test_that("efourier works", {
   expect_identical(kept[1:2], c("coe_tbl", "coo_tbl"))
   expect_true(dropped[1]==c("coe_tbl"))
   expect_false(dropped[2]==c("coo_tbl"))
+
+  # picking nb_h message
+  expect_message(x <- bot2 %>% efourier())
+  expect_is(x, "coe_tbl")
+
+  # too ambitious nb_h
+  expect_message(x <- bot2 %>% efourier(nb_h=1e5))
+  expect_is(x, "coe_tbl")
+})
+
+test_that("efourier_i works", {
+  x <- bot2 %>% pick(1) %>% efourier %>% efourier_i(nb_pts = 1e4)
+  expect_is(x, "coo_single")
+  expect_true(nrow(x)==1e4)
+
+  # no nb_pts, no nb_h
+  x <- bot2 %>% pick(1) %>% efourier %>% efourier_i()
+  expect_is(x, "coo_single")
 })
 
 
