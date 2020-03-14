@@ -51,7 +51,6 @@ test_that("coo_single validator works",{
 })
 
 # pillar
-
 test_that("pillar works", {
   expect_is(pillar::pillar_shaft(bot2 %>% pick(5) %>% list()), "pillar_shaft_simple")
 })
