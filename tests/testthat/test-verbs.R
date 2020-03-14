@@ -15,9 +15,6 @@ test_that("plint works", {
   # with no rhs
   expect_output(plint(x))
   expect_s3_class(plint(x), "coo_single")
-  # within a pipe now
-  expect_output(x %>% plint() %>% coo_scale -> y)
-  expect_s3_class(x %>% plint() %>% coo_scale -> y, "coo_single")
 })
 
 test_that("unpack works", {

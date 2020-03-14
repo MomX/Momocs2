@@ -38,6 +38,7 @@ test_that("coo_scale works", {
 
 test_that("coo_trans works", {
   expect_is(bot2$coo %>% coo_trans(), "coo_list")
+  expect_is(bot2 %>% coo_trans(), "coo_tbl")
 
 })
 
@@ -59,4 +60,16 @@ test_that("coo_rotate works", {
   expect_equal(x %>% degrees_to_radians() %>% radians_to_degrees(), x)
   y <- -pi/56
   expect_equal(y %>% radians_to_degrees() %>% degrees_to_radians(), y)
+
+  expect_is(bot2 %>% pick(1) %>% coo_align, "coo_single")
+  expect_is(bot2$coo %>% coo_align, "coo_list")
+  expect_is(bot2 %>% coo_align, "coo_tbl")
+
+  expect_is(bot2 %>% pick(1) %>% coo_rotate, "coo_single")
+  expect_is(bot2$coo %>% coo_rotate, "coo_list")
+  expect_is(bot2 %>% coo_rotate, "coo_tbl")
+
+  expect_is(bot2 %>% pick(1) %>% coo_rotatecenter, "coo_single")
+  expect_is(bot2$coo %>% coo_rotatecenter, "coo_list")
+  expect_is(bot2 %>% coo_rotatecenter, "coo_tbl")
 })

@@ -223,7 +223,7 @@ coo_align.default <- function(x){
 
 #' @export
 coo_align.list <- function(x){
-  x %>% purrr::map(coo_align)
+  x %>% purrr::map(coo_align) %>% coo_list()
 }
 
 #' @export
