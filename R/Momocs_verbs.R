@@ -17,6 +17,13 @@ pick.default <- function(x, i){
   .msg_warning("do not know how to pick on this class")
 }
 
+# #' @export
+# pick.list <- function(x, i){
+#   if (missing(i))
+#     i <- sample(length(x), 1)
+#   x[[i]]
+# }
+
 #' @export
 pick.coo_tbl <- function(x, i){
   if (missing(i))

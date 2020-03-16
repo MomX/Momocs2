@@ -2,9 +2,15 @@
 % Please edit documentation in R/classes.R
 \name{coo_tbl}
 \alias{coo_tbl}
+\alias{is_coo_tbl}
+\alias{is_coo_tbl1}
 \title{coo_tbl class}
 \usage{
 coo_tbl(x)
+
+is_coo_tbl(x)
+
+is_coo_tbl1(x)
 }
 \arguments{
 \item{x}{anything sensible}
@@ -12,3 +18,10 @@ coo_tbl(x)
 \description{
 coo_tbl class
 }
+\section{Functions}{
+\itemize{
+\item \code{is_coo_tbl}: Class tester
+
+\item \code{is_coo_tbl1}: Class tester
+}}
+

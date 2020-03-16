@@ -4,31 +4,36 @@
 \alias{efourier}
 \alias{efourier.default}
 \alias{efourier.coo_single}
+\alias{efourier.coo_list}
 \alias{efourier.coo_tbl}
 \alias{efourier_i}
-\title{EFT}
+\title{elliptical Fourier transforms}
 \usage{
-efourier(x, nb_h, keep_coo, ...)
+efourier(x, ...)
 
-\method{efourier}{default}(x, nb_h, ...)
+\method{efourier}{default}(x, nb_h = NA, raw = FALSE, ...)
 
-\method{efourier}{coo_single}(x, nb_h, ...)
+\method{efourier}{coo_single}(x, nb_h = NA, raw = FALSE, ...)
 
-\method{efourier}{coo_tbl}(x, nb_h, keep_coo = FALSE, ...)
+\method{efourier}{coo_list}(x, nb_h = NA, ...)
+
+\method{efourier}{coo_tbl}(x, nb_h = NA, keep_coo = FALSE, ...)
 
 efourier_i(x, nb_h, nb_pts = 120)
 }
 \arguments{
-\item{x}{plo}
+\item{x}{\link{coo_single}, \link{coo_list} or \link{coo_tbl}}
+
+\item{...}{for generics. Useless here.}
 
 \item{nb_h}{\code{int} nb of harmonics. Default to \code{6} for \code{efourier}, to all of them for \code{efourier_i}}
 
-\item{keep_coo}{\code{logical} whether to retain coo column}
+\item{raw}{\code{logical} whether to return raw results}
 
-\item{...}{for generics. Useless here.}
+\item{keep_coo}{\code{logical} whether to retain coo column}
 
 \item{nb_pts}{\code{int} nb of points for the reconstruction}
 }
 \description{
-EFT
+elliptical Fourier transforms
 }

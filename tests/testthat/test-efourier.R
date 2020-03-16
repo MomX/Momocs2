@@ -5,6 +5,25 @@ test_that("coeff_split works", {
   expect_identical(names(xs), c("an", "bn", "cn", "dn"))
 })
 
+test_that(" .check_efourier_nb_h works", {
+
+  # 6 is supposed to pass; Inf is not
+  # coo_single
+  expect_equal(bot2 %>% pick() %>% .check_efourier_nb_h(6), 6)
+  expect_message(x <- bot2 %>% pick() %>% .check_efourier_nb_h(Inf))
+  expect_is(x, "numeric")
+
+  # coo_list
+  expect_equal(bot2$coo %>% pick() %>% .check_efourier_nb_h(6), 6)
+  expect_message(x <- bot2$coo %>% pick() %>% .check_efourier_nb_h(Inf))
+  expect_is(x, "numeric")
+
+  # coo_tbl
+  expect_equal(bot2 %>% pick() %>% .check_efourier_nb_h(6), 6)
+  expect_message(x <- bot2 %>% pick() %>% .check_efourier_nb_h(Inf))
+  expect_is(x, "numeric")
+})
+
 test_that("efourier works", {
   # if not a coo or Coo
   expect_message(efourier("a"))
@@ -15,8 +34,12 @@ test_that("efourier works", {
   expect_true(efourier(x) %>% is.list())
   # same length
   expect_equal(efourier(x)[1:4] %>% purrr::map_dbl(length) %>% unique() %>% length(), 1)
-  # right components, correctly named
-  expect_true(efourier(x) %>% names() %in% c("a", "b", "c", "d", "a0", "c0") %>% all)
+  # when raw right components, correctly named
+  expect_true(efourier(x, raw = TRUE) %>% names() %in% c("a", "b", "c", "d", "a0", "c0") %>% all)
+
+  # when raw right components, correctly named
+  expect_true(efourier(x, raw = FALSE) %>% is_coe_single())
+  expect_equal(efourier(x, raw = FALSE) %>% class() %>% `[`(1), "efourier_single")
 
   expect_s3_class(efourier(x) %>% as_tibble, "tbl_df")
 

@@ -3,17 +3,33 @@
 \name{coo_single}
 \alias{coo_single}
 \alias{is_coo_single}
+\alias{is_coo_single1}
 \alias{validate_coo_single}
+\alias{is_coe_single}
+\alias{is_coe_single1}
+\alias{validate_coe_single}
 \title{coo_single constructor for single shapes}
 \usage{
 coo_single(x)
 
 is_coo_single(x)
 
+is_coo_single1(x)
+
 validate_coo_single(x)
+
+is_coo_single(x)
+
+is_coo_single1(x)
+
+is_coe_single(x)
+
+is_coe_single1(x)
+
+validate_coe_single(x)
 }
 \arguments{
-\item{x}{anything that can be turned into a coo_single, typically something that lloks like a
+\item{x}{anything that can be turned into a coo_single, typically something that looks like a
 two columns
 @details For \code{tibble} and \code{data.frame}, the first two columns are selected.}
 }
@@ -27,7 +43,19 @@ a \code{coo_single} object
 \itemize{
 \item \code{is_coo_single}: Class tester
 
+\item \code{is_coo_single1}: Class tester
+
 \item \code{validate_coo_single}: Class validator
+
+\item \code{is_coo_single}: Class tester
+
+\item \code{is_coo_single1}: Class tester
+
+\item \code{is_coe_single}: Class tester
+
+\item \code{is_coe_single1}: Class tester
+
+\item \code{validate_coe_single}: Class validator
 }}
 
 \examples{

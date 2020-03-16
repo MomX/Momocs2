@@ -1,33 +1,28 @@
-#' EFT
-#'
-#' @param x plo
-#' @param nb_h `int` nb of harmonics. Default to `6` for `efourier`, to all of them for `efourier_i`
-#' @param nb_pts `int` nb of points for the reconstruction
-#' @param keep_coo `logical` whether to retain coo column
-#' @param ... for generics. Useless here.
-#'
-#' @export
-efourier <- function(x, nb_h, keep_coo, ...) {
-  UseMethod("efourier")
+# utils ---------------------------------------------------
+# help split coeff lists
+.coeff_split <- function (x, cph = 4){
+  # deduce the number of harmonics
+  nb.h <- length(x)/cph
+  # ensure individual names
+  names(x) <- paste0(rep(letters[1:cph], each=nb.h), rep(1:nb.h, times=cph))
+  # split the vector into a list
+  split(x, rep(paste0(letters[1:cph], "n"), each=nb.h))
 }
 
-#' @export
-#' @rdname efourier
-efourier.default <- function(x, nb_h, ...){
-  .msg_warning("only defined on <coo_single> and <coo_tbl>")
-}
+.check_efourier_nb_h <- function(x, nb_h=NA){
+  # is single, list it
+  if (is_coo_single(x))
+    x <- list(x)
 
-#' @export
-#' @rdname efourier
-efourier.coo_single <- function (x, nb_h, ...) {
-  x <- validate_coo_single(x)
-  # if (coo_is_closed(coo))
-  #   coo <- coo_unclose(coo)
-  n <- nrow(x)
+  # if tbl extract coo column
+  if (is_coo_tbl(x))
+    x <- x$coo
+
+  n <- min(purrr::map_dbl(x, nrow))
   nb_h_max <- floor(n/2)
 
   # handles missing or too ambitious nb_h
-  if (missing(nb_h)){
+  if (missing(nb_h) | is.na(nb_h)){
     nb_h <- ifelse(nb_h_max < 6, nb_h_max, 6)
     .msg_info("nb_h was missing and set to {nb_h}")
   } else {
@@ -35,10 +30,45 @@ efourier.coo_single <- function (x, nb_h, ...) {
       nb_h <- nb_h_max
       .msg_info("nb_h was too ambitious and set to {nb_h}")
     }
+
   }
+  nb_h
+}
+
+
+# efourier ------------------------------------------------
+#' elliptical Fourier transforms
+#'
+#' @param x [coo_single], [coo_list] or [coo_tbl]
+#' @param nb_h `int` nb of harmonics. Default to `6` for `efourier`, to all of them for `efourier_i`
+#' @param nb_pts `int` nb of points for the reconstruction
+#' @param keep_coo `logical` whether to retain coo column
+#' @param raw `logical` whether to return raw results
+#' @param ... for generics. Useless here.
+#'
+#' @rdname efourier
+#' @export
+efourier <- function(x,  ...) {
+  UseMethod("efourier")
+}
+
+#' @export
+#' @rdname efourier
+efourier.default <- function(x, nb_h=NA, raw=FALSE, ...){
+  .msg_warning("only defined on <coo_single> and <coo_tbl>")
+}
+
+#' @export
+#' @rdname efourier
+efourier.coo_single <- function (x, nb_h=NA, raw=FALSE, ...) {
+  x <- validate_coo_single(x)
+  # if (coo_is_closed(coo))
+  #   coo <- coo_unclose(coo)
+  n <- nrow(x)
+  nb_h <- .check_efourier_nb_h(x, nb_h=nb_h)
 
   # directly borrowed from Julien Claude
-  # and brushed up but fundamentally untouched since Momocs v0
+  # slightly brushed up but fundamentally untouched since Momocs v0
   Dx <- x$x - x$x[c(n, (1:(n - 1)))]
   Dy <- x$y - x$y[c(n, (1:(n - 1)))]
   Dt <- sqrt(Dx^2 + Dy^2)
@@ -67,28 +97,39 @@ efourier.coo_single <- function (x, nb_h, ...) {
   # return this beauty as an efourier_single list
   res <- list(a = a, b = b, c = c, d = d,
               a0 = a0, c0 = c0)
-  res %>% .append_class("efourier_single")
+  if (raw){
+    res
+  } else {
+    res[c("a", "b", "c", "d")] %>%
+      purrr::flatten() %>%
+      dplyr::bind_cols() %>%
+      coe_single() %>%
+      .append_class("efourier_single")
+  }
 }
 
 #' @export
 #' @rdname efourier
-efourier.coo_tbl <- function(x, nb_h, keep_coo=FALSE, ...){
-  if (missing(nb_h)){
-    nb_h <- 6
-    .msg_info("nb_h was missing and set to {nb_h}")
-  } else {
-    min_nb_pts <- min(purrr::map_dbl(x$coo, nrow))
-    nb_h_max <- floor(min_nb_pts/2)
-    if (nb_h > nb_h_max){
-      nb_h <- nb_h_max
-      .msg_info("nb_h was too ambitious and set to {nb_h}")
-    }
-  }
+efourier.coo_list <- function (x, nb_h=NA, ...) {
+  nb_h <- .check_efourier_nb_h(x, nb_h=nb_h)
+
+  x %>%
+    purrr::map(efourier, nb_h=nb_h, raw=FALSE)%>%
+    .append_class("efourier_list") %>%
+    .append_class("coe_list")
+}
+
+
+#' @export
+#' @rdname efourier
+efourier.coo_tbl <- function(x, nb_h=NA, keep_coo=FALSE, ...){
+  nb_h <- .check_efourier_nb_h(x, nb_h=nb_h)
 
   # map efourier
   res <- x %>% dplyr::mutate(coe=.data$coo %>%
-                               purrr::map(efourier, nb_h) %>%
-                               purrr::map(as_tibble))
+                               purrr::map(efourier, nb_h, raw=FALSE) %>%
+                               coe_list() %>%
+                               .append_class("efourier"))
 
   # drop or dont drop coo and add class labels
   if (keep_coo){
@@ -100,16 +141,7 @@ efourier.coo_tbl <- function(x, nb_h, keep_coo=FALSE, ...){
   res
 }
 
-# help split coeff lists
-.coeff_split <- function (x, cph = 4){
-  # deduce the number of harmonics
-  nb.h <- length(x)/cph
-  # ensure individual names
-  names(x) <- paste0(rep(letters[1:cph], each=nb.h), rep(1:nb.h, times=cph))
-  # split the vector into a list
-  split(x, rep(paste0(letters[1:cph], "n"), each=nb.h))
-}
-
+# efourier_i ----------------------------------------------
 #' @export
 #' @rdname efourier
 efourier_i <- function(x, nb_h, nb_pts = 120){
@@ -121,6 +153,10 @@ efourier_i.default <- function (x, nb_h, nb_pts = 120) { # efourier_i.efourier_s
   # so that list of vectors can be passed
   if (is.vector(x))
     x <- .coeff_split(x)
+
+  if (is.data.frame(x))
+    x <- x %>% unlist %>% .coeff_split()
+
   if (is.null(x$ao))
     ao <- 0
   if (is.null(x$co))
@@ -147,14 +183,5 @@ efourier_i.default <- function (x, nb_h, nb_pts = 120) { # efourier_i.efourier_s
   tibble::tibble(x=(ao/2) + apply(hx, 2, sum),
                  y=(co/2) + apply(hy, 2, sum)) %>%
     coo_single()
-}
-
-# could have been in efourier_default
-# but save readability in the latter
-#' @export
-as_tibble.efourier_single <- function(x, ...){
-  x[c("a", "b", "c", "d")] %>%
-    purrr::flatten() %>%
-    dplyr::bind_cols()
 }
 

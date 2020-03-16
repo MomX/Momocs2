@@ -1,4 +1,5 @@
-# coo_single -----------------------------------------
+# COO -----------------------------------------------------
+# coo_single ----------------------------------------------
 
 # combined constructor, validator and coercers
 
@@ -6,7 +7,7 @@
 #'
 #' `coo` objects are [tibble][tibble::tibble-package] with _exactly_ two columns named `x` and `y`
 #' @rdname coo_single
-#' @param x anything that can be turned into a coo_single, typically something that lloks like a
+#' @param x anything that can be turned into a coo_single, typically something that looks like a
 #'  two columns
 #'  @details For `tibble` and `data.frame`, the first two columns are selected.
 #' @return a `coo_single` object
@@ -48,6 +49,12 @@ coo_single.coo_single <- function(x){
 #' @export
 #' @describeIn coo_single Class tester
 is_coo_single <- function(x){
+  x %>% .is_class("coo_single")
+}
+
+#' @export
+#' @describeIn coo_single Class tester
+is_coo_single1 <- function(x){
   x %>% .is_class1("coo_single")
 }
 
@@ -92,44 +99,6 @@ plot.coo_single <- function(x, ...){
   gg(x, ...)
 }
 
-# print ---
-#' @export
-print.coo_single <- function(x, ...){
-  x %>% tibble::as_tibble() %>% print(...)
-  glue::glue(cli::symbol$pointer, " a ",
-             crayon::bgBlue("coo_single"), " ",
-             "with {nrow(x)} points") %>%
-    cli::cat_line()
-  # just as print.default
-  invisible(x)
-}
-
-
-
-#' @importFrom pillar pillar_shaft
-#' @export
-pillar_shaft.coo_single <- function(x, ...) {
-  out <- format(x)
-  out[is.na(x)] <- NA
-  pillar::new_pillar_shaft_simple(out, align = "center")
-}
-
-#' @importFrom pillar type_sum
-#' @export
-type_sum.coo_single <- function(x) {
-  "coo_single"
-}
-
-# format.coo <- function(x, ...){
-#   x[1, ] %>% as.numeric() %>% paste(collapse="; ")
-# }
-
-
-# # #
-# replicate(10, matrix(stats::runif(100), ncol=2), simplify=FALSE) %>% Coo()
-# # x
-
-
 # coo_list ------------------------------------------------
 # combined constructor, validator and coercers
 
@@ -165,17 +134,6 @@ coo_list.list <- function(x){
   x %>%
     purrr::modify_if(purrr::negate(is_coo_single), coo_single) %>%
     .append_class("coo_list")
-}
-
-# print ---
-#' @export
-print.coo_list <- function(x, ...){
-  x %>% print.default()
-  glue::glue(cli::symbol$pointer, " a ",
-             crayon::bgBlue("coo_list"), " ",
-             "with {length(x)} ", crayon::bgBlue("coo_single")) %>%
-    cli::cat_line()
-  invisible(x)
 }
 
 # coo_tbl -------------------------------------------------
@@ -228,11 +186,64 @@ coo_tbl.Coo <- function(x){
   res
 }
 
+# coo_printers --------------------------------------------
+# pillar ---
+
+#' @importFrom pillar pillar_shaft
+#' @export
+pillar_shaft.coo_single <- function(x, ...) {
+  out <- format(x)
+  out[is.na(x)] <- NA
+  pillar::new_pillar_shaft_simple(out, align = "center")
+}
+
+#' @importFrom pillar type_sum
+#' @export
+type_sum.coo_single <- function(x) {
+  "coo_single"
+}
+
+#' @importFrom pillar is_vector_s3
+#' @export
+is_vector_s3.coo_list <- function(x) TRUE
+#
+# # #' @export
+#' @importFrom pillar type_sum
+type_sum.coo_list <- function(x) {
+  "coo_list"
+}
+
 
 # print ---
 #' @export
+print.coo_single <- function(x, ...){
+  x %>%
+    tibble::as_tibble() %>%
+    print(...) # to use base tbl print method
+  glue::glue(cli::symbol$pointer, " a ",
+             crayon::bgBlue("coo_single"), " ",
+             "with {nrow(x)} points") %>%
+    cli::cat_line()
+  # just as print.default
+  invisible(x)
+}
+
+#' @export
+print.coo_list <- function(x, ...){
+  # x[[sample(length(x), 1)]] %>% print()
+  # cli::cat_line("...")
+  glue::glue(cli::symbol$pointer, " a ",
+             crayon::bgBlue("coo_list"), " ",
+             "with {length(x)} ", crayon::bgBlue("coo_single")) %>%
+    cli::cat_line()
+  invisible(x)
+}
+
+#' @export
 print.coo_tbl<- function(x, ...){
-  x %>% tibble::as_tibble() %>% print(...)
+  x %>%
+    tibble::as_tibble() %>%
+    print(...)
   glue::glue(cli::symbol$pointer, " a ",
              crayon::bgBlue("coo_tbl"), " ",
              "with {nrow(x)} coo_single") %>%
@@ -241,6 +252,227 @@ print.coo_tbl<- function(x, ...){
   invisible(x)
 }
 
+# coo_testers -----------
+
+#' @export
+#' @describeIn coo_single Class tester
+is_coo_single <- function(x){
+  x %>% .is_class("coo_single")
+}
+
+#' @export
+#' @describeIn coo_single Class tester
+is_coo_single1 <- function(x){
+  x %>% .is_class1("coo_single")
+}
 
 
+#' @export
+#' @describeIn coo_list Class tester
+is_coo_list <- function(x){
+  x %>% .is_class("coo_single")
+}
+
+#' @export
+#' @describeIn coo_list Class tester
+is_coo_list1 <- function(x){
+  x %>% .is_class1("coo_single")
+}
+
+#' @export
+#' @describeIn coo_tbl Class tester
+is_coo_tbl <- function(x){
+  x %>% .is_class("coo_tbl")
+}
+
+#' @export
+#' @describeIn coo_tbl Class tester
+is_coo_tbl1 <- function(x){
+  x %>% .is_class1("coo_tbl")
+}
+
+# COE -----------------------------------------------------
+# coe_single ----------------------------------------------
+# combined constructor, validator and coercers
+
+#' coe_single constructor for single coefficients lists
+#'
+#' `coe` objects are [tibble][tibble::tibble-package] with as many rows as created by morphometric methods.
+#' It is not really intended to be used directly but is useful if you want to extend Momocs.
+#' @rdname coe_single
+#' @param x anything that can be turned into a coe_single, typically something that looks like a
+#'  two columns
+#' @return a `coe_single` object
+#' @export
+#' @examples
+#' tibble::tibble(a=1, b=2) %>% coe_single()
+coe_single <- function(x) {
+  UseMethod("coe_single")
+}
+
+#' @export
+coe_single.default <- function(x){
+  .msg_warning("do not know how to turn into a coe_single")
+}
+
+#' @export
+coe_single.matrix <- function(x){
+  x[, 1, drop=FALSE] %>%
+    tibble::as_tibble() %>%
+    .append_class("coe_single")
+}
+
+#' @export
+coe_single.array <- function(x){
+  stopifnot(length(dim(x))==3)
+  x[,,1, drop=FALSE] %>% coe_single()
+}
+
+#' @export
+coe_single.data.frame <- function(x){
+  x %>% tibble::as_tibble() %>% .append_class("coe_single")
+}
+
+#' @export
+coe_single.list <- function(x){
+  x %>% tibble::as_tibble() %>% .append_class("coe_single")
+}
+
+#' @export
+coe_single.coe_single <- function(x){
+  x
+}
+
+
+#' @export
+#' @describeIn coo_single Class tester
+is_coe_single <- function(x){
+  x %>% .is_class("coe_single")
+}
+
+#' @export
+#' @describeIn coo_single Class tester
+is_coe_single1 <- function(x){
+  x %>% .is_class1("coe_single")
+}
+
+
+#' @export
+#' @describeIn coo_single Class validator
+validate_coe_single <- function(x){
+  res <- list()
+  if (!is_coe_single(x))
+    res <- append(res, "must be a <coe_single>")
+
+  if (!tibble::is_tibble(x))
+    res <- append(res, "must be a <tbl>")
+
+  if (!is.data.frame(x))
+    res <- append(res, "must be a <data.frame>")
+
+  if (!ncol(x)>0)
+    res <- append(res, "must have at least one column")
+
+  if (is.null(colnames(x)))
+    res <- append(res, "columns must be named")
+
+  if (sum(is.na(x))>0)
+    res <- append(res, "must not have NAs")
+
+  if (nrow(x)>1)
+    res <- append(res, "must have a single row")
+
+  if (length(res)>0){
+    purrr::walk(res, cli::cli_alert_danger)
+    .check(FALSE, "use coe_single()")
+  }
+  return(x)
+}
+
+# coo0 <- function(nrow=10){
+#   matrix(stats::runif(nrow*2), ncol=2) %>% coo()
+# }
+
+#' @export
+# plot.coo_single <- function(x, ...){
+#   gg(x, ...)
+# }
+
+# print ---
+#' @export
+print.coe_single <- function(x, ...){
+  x %>% tibble::as_tibble() %>% print(...)  # to use base tbl print method
+  glue::glue(cli::symbol$pointer, " a ",
+             crayon::bgCyan("coe_single"), " ",
+             "with {ncol(x)} variables") %>%
+    cli::cat_line()
+  # just as print.default
+  invisible(x)
+}
+
+
+
+#' @importFrom pillar pillar_shaft
+#' @export
+pillar_shaft.coe_single <- function(x, ...) {
+  out <- format(x)
+  out[is.na(x)] <- NA
+  pillar::new_pillar_shaft_simple(out, align = "center")
+}
+
+#' @importFrom pillar type_sum
+#' @export
+type_sum.coe_single <- function(x) {
+  "coe_single"
+}
+
+# coe_list ------------------------------------------------
+# combined constructor, validator and coercers
+
+#' coe_list constructor for list of shapes
+#'
+#' `coe_list` objects are [list] of [coe_single].
+#' @rdname coe_list
+#' @param x anything that can be turned into a `coe_list`, typically a list of [coe_single]
+#' @details They behave like lists
+#' and thus as regular [tibble]/[data.frame] columns.
+#' The only difference is that and are understood by morphometric methods used in MomX.
+#' Front users are not likely to use them directly.
+#' @return a `coe_list` object
+#' @examples
+#' bot2$coe %>% efourier %>% class()
+#' @export
+coe_list <- function(x) {
+  UseMethod("coe_list")
+}
+
+#' @export
+coe_list.default <- function(x){
+  .msg_warning("do not know how to turn into a coe_list")
+}
+
+#' @export
+coe_list.coe_single <- function(x){
+  x %>% list() %>% .append_class("coe_list")
+}
+
+#' @export
+coe_list.list <- function(x){
+  x %>%
+    purrr::modify_if(purrr::negate(is_coe_single), coe_single) %>%
+    .append_class("coe_list")
+}
+
+# print ---
+#' @export
+print.coe_list <- function(x, ...){
+  x %>% print.default()
+  glue::glue(cli::symbol$pointer, " a ",
+             crayon::bgCyan("coo_list"), " ",
+             "with {length(x)} ", crayon::bgBlue("coe_single")) %>%
+    cli::cat_line()
+  invisible(x)
+}
+
+# coe_tbl -------------------------------------------------
 

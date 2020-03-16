@@ -36,6 +36,12 @@ You can pass single shapes or list of shapes to all `coo_*` methods. You're not 
 
 example here
 
+### Architecture: design and classes
+
+ * Momocs handles shapes that are (or can be turned into) [tibbles](https://tibble.tidyverse.org/). So basically anything with two columns is fine. They are called **coo_single**. They can be collated into **coo_list**, which in turn can be part of a tibble, as a list column. Such tibble have a dedicated class: **coo_tbl**
+ * All morphometric methods turn shapes into coefficients. `coo_single`, `coo_list` and `coo_table` are turned into `coe_single`, `coe_list` and `coe_tbl`. `coe_single` have a single row but can have many columns that are morphometrics variables.
+
+
 
 
 
