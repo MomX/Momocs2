@@ -389,8 +389,6 @@ print.coe_single <- function(x, ...){
   invisible(x)
 }
 
-
-
 #' @importFrom pillar pillar_shaft
 #' @export
 pillar_shaft.coe_single <- function(x, ...) {
