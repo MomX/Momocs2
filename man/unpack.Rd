@@ -12,7 +12,7 @@ unpack(x, ...)
 \item{...}{useless}
 }
 \description{
-Unpack list columns, repeat lines if required. Differs from unnest,
+Unpack list columns such as \link{coo_list} and \link{coe_list}, repeat lines if required. Differs from unnest,
 in that it adds a "shp" column.
 }
 \examples{

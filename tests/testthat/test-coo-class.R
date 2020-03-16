@@ -94,3 +94,8 @@ test_that("coo_tbl works", {
   expect_is(bot2 %>% pick(1) %>% coo_tbl(), "coo_tbl")
 })
 
+test_that("coe_tbl works", {
+  bot2 %>% efourier(2) -> x
+  expect_is(x, "coe_tbl")
+})
+

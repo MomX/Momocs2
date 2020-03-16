@@ -2,9 +2,15 @@
 % Please edit documentation in R/classes.R
 \name{coe_list}
 \alias{coe_list}
+\alias{is_coe_list}
+\alias{is_coe_list1}
 \title{coe_list constructor for list of shapes}
 \usage{
 coe_list(x)
+
+is_coe_list(x)
+
+is_coe_list1(x)
 }
 \arguments{
 \item{x}{anything that can be turned into a \code{coe_list}, typically a list of \link{coe_single}}
@@ -21,6 +27,13 @@ and thus as regular \link{tibble}/\link{data.frame} columns.
 The only difference is that and are understood by morphometric methods used in MomX.
 Front users are not likely to use them directly.
 }
+\section{Functions}{
+\itemize{
+\item \code{is_coe_list}: Class tester
+
+\item \code{is_coe_list1}: Class tester
+}}
+
 \examples{
 bot2$coe \%>\% efourier \%>\% class()
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/Momocs_verbs.R
 \name{pick}
 \alias{pick}
-\title{Pick a single coo_df}
+\title{Pick a single coo_df from a coo_tbl}
 \usage{
 pick(x, i)
 }
@@ -15,7 +15,7 @@ pick(x, i)
 a coo_df
 }
 \description{
-Pick a single coo_df
+Pick a single coo_df from a coo_tbl
 }
 \examples{
 bot2 \%>\% pick(1) \%>\% gg()

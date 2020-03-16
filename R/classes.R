@@ -45,19 +45,6 @@ coo_single.coo_single <- function(x){
   x %>% dplyr::select(.data$x, .data$y) %>% .append_class("coo_single")
 }
 
-
-#' @export
-#' @describeIn coo_single Class tester
-is_coo_single <- function(x){
-  x %>% .is_class("coo_single")
-}
-
-#' @export
-#' @describeIn coo_single Class tester
-is_coo_single1 <- function(x){
-  x %>% .is_class1("coo_single")
-}
-
 #' @export
 #' @describeIn coo_single Class validator
 validate_coo_single <- function(x){
@@ -270,13 +257,13 @@ is_coo_single1 <- function(x){
 #' @export
 #' @describeIn coo_list Class tester
 is_coo_list <- function(x){
-  x %>% .is_class("coo_single")
+  x %>% .is_class("coo_list")
 }
 
 #' @export
 #' @describeIn coo_list Class tester
 is_coo_list1 <- function(x){
-  x %>% .is_class1("coo_single")
+  x %>% .is_class1("coo_list")
 }
 
 #' @export
@@ -310,55 +297,47 @@ coe_single <- function(x) {
   UseMethod("coe_single")
 }
 
+#' @rdname coe_single
 #' @export
 coe_single.default <- function(x){
   .msg_warning("do not know how to turn into a coe_single")
 }
 
-#' @export
-coe_single.matrix <- function(x){
-  x[, 1, drop=FALSE] %>%
-    tibble::as_tibble() %>%
-    .append_class("coe_single")
-}
+# #' @export
+# coe_single.matrix <- function(x){
+#   x[, 1, drop=FALSE] %>%
+#     tibble::as_tibble() %>%
+#     .append_class("coe_single")
+# }
 
-#' @export
-coe_single.array <- function(x){
-  stopifnot(length(dim(x))==3)
-  x[,,1, drop=FALSE] %>% coe_single()
-}
+# #' @export
+# coe_single.array <- function(x){
+#   stopifnot(length(dim(x))==3)
+#   x[,,1, drop=FALSE] %>% coe_single()
+# }
 
+#' @rdname coe_single
 #' @export
 coe_single.data.frame <- function(x){
+  if (nrow(x)>1)
+    .msg_danger("coe_single: more than one row, only retain the first one")
   x %>% tibble::as_tibble() %>% .append_class("coe_single")
 }
 
+#' @rdname coe_single
 #' @export
 coe_single.list <- function(x){
   x %>% tibble::as_tibble() %>% .append_class("coe_single")
 }
 
+#' @rdname coe_single
 #' @export
 coe_single.coe_single <- function(x){
   x
 }
 
-
 #' @export
-#' @describeIn coo_single Class tester
-is_coe_single <- function(x){
-  x %>% .is_class("coe_single")
-}
-
-#' @export
-#' @describeIn coo_single Class tester
-is_coe_single1 <- function(x){
-  x %>% .is_class1("coe_single")
-}
-
-
-#' @export
-#' @describeIn coo_single Class validator
+#' @describeIn coe_single Class validator
 validate_coe_single <- function(x){
   res <- list()
   if (!is_coe_single(x))
@@ -474,5 +453,92 @@ print.coe_list <- function(x, ...){
   invisible(x)
 }
 
-# coe_tbl -------------------------------------------------
 
+# coe_testers ---------------------------------------------
+
+#' @export
+#' @describeIn coe_single Class tester
+is_coe_single <- function(x){
+  x %>% .is_class("coe_single")
+}
+
+#' @export
+#' @describeIn coe_single Class tester
+is_coe_single1 <- function(x){
+  x %>% .is_class1("coe_single")
+}
+
+#' @export
+#' @describeIn coe_list Class tester
+is_coe_list <- function(x){
+  x %>% .is_class("coe_list")
+}
+
+#' @export
+#' @describeIn coe_list Class tester
+is_coe_list1 <- function(x){
+  x %>% .is_class1("coe_list")
+}
+
+#' @export
+#' @describeIn coe_tbl Class tester
+is_coe_tbl <- function(x){
+  x %>% .is_class("coe_tbl")
+}
+
+#' @export
+#' @describeIn coe_tbl Class tester
+is_coe_tbl1 <- function(x){
+  x %>% .is_class1("coe_tbl")
+}
+
+# coe_tbl -------------------------------------------------
+#' coe_tbl class
+#'
+#' @rdname coe_tbl
+#' @param x anything sensible
+#' @export
+coe_tbl <- function(x){
+  UseMethod("coe_tbl")
+}
+
+#' @export
+coe_tbl.default <- function(x){
+  .msg_warning("do not know how to turn into a coo_tbl")
+}
+
+#' @export
+coe_tbl.coe_single <- function(x){
+  x %>% list() %>% coe_tbl()
+}
+
+#' @export
+coe_tbl.coe_list <- function(x){
+  tibble::tibble(coe=x) %>%
+    .append_class("coe_tbl")
+}
+
+#' @export
+coe_tbl.list <- function(x){
+  tibble::tibble(coe=coe_list(x)) %>%
+    .append_class("coe_tbl")
+}
+
+# Momocs retrocompatibility
+#' @export
+coe_tbl.Coe <- function(x){
+  res <- dplyr::bind_cols(
+    coe_tbl(x$coe),
+    tibble::as_tibble(x$fac)
+  ) %>% .append_class("coe_tbl")
+
+  #todo: handles cuts, methods, etc.
+  # # include $ldk if any
+  # if (!is.null(x[["ldk"]]) && length(x[["ldk"]])==length(x$coo))
+  #   res <- res %>%
+  #     dplyr::mutate(ldk=x[["ldk"]]) %>%
+  #     dplyr::select(coo, ldk, dplyr::everything())
+
+  # return this beauty
+  res
+}

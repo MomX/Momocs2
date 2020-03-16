@@ -19,7 +19,7 @@ efourier(x, ...)
 
 \method{efourier}{coo_tbl}(x, nb_h = NA, keep_coo = FALSE, ...)
 
-efourier_i(x, nb_h, nb_pts = 120)
+efourier_i(x, nb_h = NA, nb_pts = 120)
 }
 \arguments{
 \item{x}{\link{coo_single}, \link{coo_list} or \link{coo_tbl}}

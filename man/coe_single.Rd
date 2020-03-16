@@ -2,9 +2,30 @@
 % Please edit documentation in R/classes.R
 \name{coe_single}
 \alias{coe_single}
+\alias{coe_single.default}
+\alias{coe_single.data.frame}
+\alias{coe_single.list}
+\alias{coe_single.coe_single}
+\alias{validate_coe_single}
+\alias{is_coe_single}
+\alias{is_coe_single1}
 \title{coe_single constructor for single coefficients lists}
 \usage{
 coe_single(x)
+
+\method{coe_single}{default}(x)
+
+\method{coe_single}{data.frame}(x)
+
+\method{coe_single}{list}(x)
+
+\method{coe_single}{coe_single}(x)
+
+validate_coe_single(x)
+
+is_coe_single(x)
+
+is_coe_single1(x)
 }
 \arguments{
 \item{x}{anything that can be turned into a coe_single, typically something that looks like a
@@ -17,6 +38,15 @@ a \code{coe_single} object
 \code{coe} objects are \link[tibble:tibble-package]{tibble} with as many rows as created by morphometric methods.
 It is not really intended to be used directly but is useful if you want to extend Momocs.
 }
+\section{Functions}{
+\itemize{
+\item \code{validate_coe_single}: Class validator
+
+\item \code{is_coe_single}: Class tester
+
+\item \code{is_coe_single1}: Class tester
+}}
+
 \examples{
 tibble::tibble(a=1, b=2) \%>\% coe_single()
 }

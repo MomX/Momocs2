@@ -1,5 +1,5 @@
 # pick ----------------------------------------------------
-#' Pick a single coo_df
+#' Pick a single coo_df from a coo_tbl
 #'
 #' @param x a `coo_tbl` or a `coo_list`
 #' @param i `int` which to extract. If not provided, pick one randomly.
@@ -66,7 +66,7 @@ plint.coo_single <- function(x, ...){
 # unpack --------------------------------------------------
 #' Unpack list columns
 #'
-#' Unpack list columns, repeat lines if required. Differs from unnest,
+#' Unpack list columns such as [coo_list] and [coe_list], repeat lines if required. Differs from unnest,
 #' in that it adds a "shp" column.
 #'
 #' @param x a Momocs object

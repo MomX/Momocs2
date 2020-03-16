@@ -144,16 +144,12 @@ efourier.coo_tbl <- function(x, nb_h=NA, keep_coo=FALSE, ...){
 # efourier_i ----------------------------------------------
 #' @export
 #' @rdname efourier
-efourier_i <- function(x, nb_h, nb_pts = 120){
+efourier_i <- function(x, nb_h=NA, nb_pts = 120){
   UseMethod("efourier_i")
 }
 
 #' @export
-efourier_i.default <- function (x, nb_h, nb_pts = 120) { # efourier_i.efourier_single ?
-  # so that list of vectors can be passed
-  if (is.vector(x))
-    x <- .coeff_split(x)
-
+efourier_i.default <- function (x, nb_h=NA, nb_pts = 120) { # efourier_i.efourier_single ?
   if (is.data.frame(x))
     x <- x %>% unlist %>% .coeff_split()
 
@@ -166,7 +162,7 @@ efourier_i.default <- function (x, nb_h, nb_pts = 120) { # efourier_i.efourier_s
   theta <- seq(0, 2 * pi, length.out = nb_pts+1)[-(nb_pts+1)]
 
   # by default use them all
-  if (missing(nb_h))
+  if (missing(nb_h) | is.na(nb_h))
     nb_h <- length(x$an)
 
   # prototypic matrices to host results
@@ -184,4 +180,31 @@ efourier_i.default <- function (x, nb_h, nb_pts = 120) { # efourier_i.efourier_s
                  y=(co/2) + apply(hy, 2, sum)) %>%
     coo_single()
 }
+
+#' @export
+efourier_i.coe_list <- function(x, nb_h=NA, nb_pts=120){
+  x %>%
+    purrr::map(efourier_i, nb_h=nb_h, nb_pts=nb_pts) %>%
+    coo_list()
+}
+
+#todo handles columns and possibly use _at or _if
+
+#' @export
+efourier_i.coe_tbl <- function(x, nb_h=NA, nb_pts=120){
+  x$coe %>%
+    purrr::map(efourier_i, nb_h=nb_h, nb_pts=nb_pts) %>%
+    coo_list() -> res
+  dplyr::mutate(x, coe_i=res)
+}
+
+
+#
+# efourier_i.list <- function(nb_h, nb_pts = 120){
+#   # so that list of vectors can be passed
+#   purrr::map(x, ~.x %>% .coeff_split() %>% efourier_i(nb_h, nb_pts = 120)
+# }
+#
+# bot2 %>% pick %>% efourier() %>% efourier_i()
+# bot2$coo %>% efourier() %>%  efourier_i()
 
