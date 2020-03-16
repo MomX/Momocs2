@@ -82,7 +82,9 @@ unpack.default <- function(x, ...){
 #' @export
 unpack.list <- function(x, ...){
   x %>%
-    purrr::imap(~.x %>% dplyr::mutate(shp=.y)) %>%
+    purrr::imap(~.x %>%
+                  dplyr::mutate(shp=.y) %>%
+                  dplyr::select(shp, dplyr::everything())) %>%
     # make it a single tbl
     dplyr::bind_rows() %>%
     # remove the class

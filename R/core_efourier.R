@@ -116,7 +116,6 @@ efourier_i <- function(x, nb_h, nb_pts = 120){
   UseMethod("efourier_i")
 }
 
-
 #' @export
 efourier_i.default <- function (x, nb_h, nb_pts = 120) { # efourier_i.efourier_single ?
   # so that list of vectors can be passed

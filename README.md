@@ -35,8 +35,8 @@ All suggestions, help, etc. are welcome, ring my bell: `bonhomme.vincent@gmail.c
   * `get_` is now for shape descriptors (thos that return a scale, eg `get_perim`; or a longer description eg `get_perimpts`)
   
 ### graphics
-  * all graphics are `ggplot2`
-  * all objects have now a defaut method: `gg`
+  * all graphics are delegated to `ggplot2`.
+  * all objects have now two defaut methods: `gg` a default visualization with sensible choices, `gg0` is the empty canvas that just waits for `geoms`
   * other plotting functions have more sensible names (eg `plot_ruban`)
   * I still think `grindr` has merits but it's deprecated.
   

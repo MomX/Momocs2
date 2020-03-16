@@ -26,12 +26,24 @@ test_that("unpack works", {
   expect_false(is(x, "coo_tbl"))
   expect_false(is(x, "coo_list"))
   # also tests for 3 columns
-  expect_true(all(colnames(x) == c("x", "y", "shp")))
+  expect_true(all(colnames(x)[1:3] == c("shp", "x", "y")))
 
   x <- bot2 %>% unpack
   expect_false(is(x, "coo_tbl"))
   expect_false(is(x, "coo_list"))
   # also tests for 3 columns
-  expect_true(all(c("x", "y", "shp") %in% colnames(x)))
+  expect_true(all(colnames(x)[1:3] == c("shp", "x", "y")))
+  # tests for names propagation
+  expect_true(is.character(x$shp))
+
+  # and that with NULL names, unpack still works
+  y <- bot2
+  names(y$coo) <- NULL
+  x <- y %>% unpack
+  expect_false(is(x, "coo_tbl"))
+  expect_false(is(x, "coo_list"))
+  # also tests for 3 columns
+  expect_true(all(c("shp", "x", "y") %in% colnames(x)))
+  expect_true(is.numeric(x$shp))
 })
 
