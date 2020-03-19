@@ -97,6 +97,12 @@
 #'
 #' @family efourier
 #' @rdname efourier
+#'
+#' @examples
+#' bot2 %>% pick() %>% efourier(4) %>% print() %>% efourier_i()
+#' bot2$coo %>% efourier(4) %>% print() %>% efourier_i() %>% class()
+#' bot2 %>% efourier(4) %>% efourier_norm()
+#'
 #' @export
 efourier <- function(x,  ...) {
   UseMethod("efourier")
@@ -255,12 +261,13 @@ efourier_i.coe_tbl <- function(x, nb_h=NA, nb_pts=120){
 # efourier norm -------------------------------------------
 
 #' @export
-#' @describeIn  efourier efourier numerical normalization
+#' @describeIn efourier efourier numerical normalization
 efourier_norm <- function(x, ...){
   UseMethod("efourier_norm")
 }
 
 #' @export
+#' @rdname efourier
 efourier_norm.default <- function(x, first_point = FALSE, raw=FALSE, ...) {
   if (is.data.frame(x))
     x <- .coeff_split(x, cph=4)
@@ -324,6 +331,7 @@ efourier_norm.default <- function(x, first_point = FALSE, raw=FALSE, ...) {
 }
 
 #' @export
+#' @rdname efourier
 efourier_norm.coe_list <- function(x, first_point = FALSE, ...){
   purrr::map(x, efourier_norm, first_point=first_point) %>%
     coe_list() %>%
@@ -331,6 +339,7 @@ efourier_norm.coe_list <- function(x, first_point = FALSE, ...){
 }
 
 #' @export
+#' @rdname efourier
 efourier_norm.coe_tbl <- function(x, first_point = FALSE, ...){
   x$coe <- x$coe %>%
     purrr::map(efourier_norm, first_point=first_point) %>%

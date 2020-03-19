@@ -8,6 +8,9 @@
 \alias{efourier.coo_tbl}
 \alias{efourier_i}
 \alias{efourier_norm}
+\alias{efourier_norm.default}
+\alias{efourier_norm.coe_list}
+\alias{efourier_norm.coe_tbl}
 \title{elliptical Fourier transforms}
 \usage{
 efourier(x, ...)
@@ -23,6 +26,12 @@ efourier(x, ...)
 efourier_i(x, nb_h = NA, nb_pts = 120)
 
 efourier_norm(x, ...)
+
+\method{efourier_norm}{default}(x, first_point = FALSE, raw = FALSE, ...)
+
+\method{efourier_norm}{coe_list}(x, first_point = FALSE, ...)
+
+\method{efourier_norm}{coe_tbl}(x, first_point = FALSE, ...)
 }
 \arguments{
 \item{x}{\link{coo_single}, \link{coo_list} or \link{coo_tbl}}
@@ -83,6 +92,12 @@ I will dedicate (some day) a vignette or a paper to this problem.
 \item \code{efourier_norm}: efourier numerical normalization
 }}
 
+\examples{
+bot2 \%>\% pick() \%>\% efourier(4) \%>\% print() \%>\% efourier_i()
+bot2$coo \%>\% efourier(4) \%>\% print() \%>\% efourier_i() \%>\% class()
+bot2 \%>\% efourier(4) \%>\% efourier_norm()
+
+}
 \references{
 Claude, J. (2008) \strong{Morphometrics with R}, Use R! series,
 Springer 316 pp.
