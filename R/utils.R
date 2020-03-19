@@ -15,7 +15,7 @@
 # checking ------------------------------------------------
 .check <- function(cond_to_pass, mess_if_not=""){
   if (!cond_to_pass)
-      rlang::abort(mess_if_not)
+      .msg_danger(mess_if_not)
 }
 
 

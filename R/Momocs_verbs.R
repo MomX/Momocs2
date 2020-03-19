@@ -14,7 +14,7 @@ pick <- function(x, i){
 
 #' @export
 pick.default <- function(x, i){
-  .msg_warning("do not know how to pick on this class")
+  .msg_warning("pick: do not know how to pick on this class")
 }
 
 # #' @export
@@ -83,7 +83,7 @@ unpack <- function(x, ...) {
 
 #' @export
 unpack.default <- function(x, ...){
-  .msg_info("no unpack method for this class")
+  .msg_info("unpack: no unpack method for this class")
 }
 
 #' @export

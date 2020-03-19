@@ -20,12 +20,13 @@ coo_single <- function(x) {
 
 #' @export
 coo_single.default <- function(x){
-  .msg_warning("do not know how to turn into a coo_single")
+  .msg_warning("coo_single: do not know how to turn into a coo_single")
 }
 
 #' @export
 coo_single.matrix <- function(x){
-  x[, 1:2] %>% `colnames<-`(c("x", "y")) %>%
+  # drop=FALSE to prevent matrix dropping when single line
+  x[, 1:2, drop=FALSE] %>% `colnames<-`(c("x", "y")) %>%
     tibble::as_tibble() %>% .append_class("coo_single")
 }
 
@@ -37,18 +38,25 @@ coo_single.array <- function(x){
 
 #' @export
 coo_single.data.frame <- function(x){
-  x %>% dplyr::select(1:2) %>% .append_class("coo_single")
+  x %>%
+    dplyr::select(1:2) %>%
+    `colnames<-`(c("x", "y")) %>%
+    tibble::as_tibble() %>%
+    .append_class("coo_single")
 }
 
 #' @export
 coo_single.coo_single <- function(x){
-  x %>% dplyr::select(.data$x, .data$y) %>% .append_class("coo_single")
+  x %>%
+    dplyr::select(.data$x, .data$y) %>%
+    .append_class("coo_single")
 }
 
 #' @export
 #' @describeIn coo_single Class validator
 validate_coo_single <- function(x){
   res <- list()
+
   if (!is_coo_single(x))
     res <- append(res, "must be a <coo_single>")
 
@@ -58,11 +66,11 @@ validate_coo_single <- function(x){
   if (!is.data.frame(x))
     res <- append(res, "must be a <data.frame>")
 
-  if (!ncol(x)==2)
+  if (ncol(x)!=2)
     res <- append(res, "must be two columns")
 
-  if (!identical(colnames(x), c("x", "y")))
-    res <- append(res, "columns must be named 'x' and 'y'")
+  # if (!identical(colnames(x), c("x", "y")))
+  #   res <- append(res, "columns must be named 'x' and 'y'")
 
   if (sum(is.na(x))>0)
     res <- append(res, "must not have NAs")
@@ -72,9 +80,10 @@ validate_coo_single <- function(x){
 
   if (length(res)>0){
     purrr::walk(res, cli::cli_alert_danger)
-    .check(FALSE, "use coo_single()")
+    .msg_warning("use coo_single()")
+  } else {
+    x
   }
-  return(x)
 }
 
 # coo0 <- function(nrow=10){
@@ -108,7 +117,7 @@ coo_list <- function(x) {
 
 #' @export
 coo_list.default <- function(x){
-  .msg_warning("do not know how to turn into a coo_list")
+  .msg_warning("coo_list: do not know how to turn into a coo_list")
 }
 
 #' @export
@@ -135,7 +144,7 @@ coo_tbl <- function(x){
 
 #' @export
 coo_tbl.default <- function(x){
-  .msg_warning("do not know how to turn into a coo_tbl")
+  .msg_warning("coo_tbl: do not know how to turn into a coo_tbl")
 }
 
 #' @export
@@ -146,6 +155,12 @@ coo_tbl.coo_single <- function(x){
 #' @export
 coo_tbl.coo_list <- function(x){
   tibble::tibble(coo=x) %>%
+    .append_class("coo_tbl")
+}
+
+#' @export
+coo_tbl.data.frame <- function(x){
+  x %>%
     .append_class("coo_tbl")
 }
 
@@ -300,7 +315,7 @@ coe_single <- function(x) {
 #' @rdname coe_single
 #' @export
 coe_single.default <- function(x){
-  .msg_warning("do not know how to turn into a coe_single")
+  .msg_warning("coe_single: do not know how to turn into a coe_single")
 }
 
 # #' @export
@@ -315,6 +330,14 @@ coe_single.default <- function(x){
 #   stopifnot(length(dim(x))==3)
 #   x[,,1, drop=FALSE] %>% coe_single()
 # }
+
+#' @rdname coe_single
+#' @export
+coe_single.numeric <- function(x){
+  if (nrow(x)>1)
+    .msg_danger("coe_single: more than one row, only retain the first one")
+  x %>% tibble::as_tibble() %>% .append_class("coe_single")
+}
 
 #' @rdname coe_single
 #' @export
@@ -425,7 +448,7 @@ coe_list <- function(x) {
 
 #' @export
 coe_list.default <- function(x){
-  .msg_warning("do not know how to turn into a coe_list")
+  .msg_warning("coe_list: do not know how to turn into a coe_list")
 }
 
 #' @export
@@ -502,7 +525,7 @@ coe_tbl <- function(x){
 
 #' @export
 coe_tbl.default <- function(x){
-  .msg_warning("do not know how to turn into a coo_tbl")
+  .msg_warning("coe_tbl: do not know how to turn into a coo_tbl")
 }
 
 #' @export

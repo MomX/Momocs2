@@ -3,6 +3,7 @@
 \name{coe_single}
 \alias{coe_single}
 \alias{coe_single.default}
+\alias{coe_single.numeric}
 \alias{coe_single.data.frame}
 \alias{coe_single.list}
 \alias{coe_single.coe_single}
@@ -14,6 +15,8 @@
 coe_single(x)
 
 \method{coe_single}{default}(x)
+
+\method{coe_single}{numeric}(x)
 
 \method{coe_single}{data.frame}(x)
 

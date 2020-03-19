@@ -27,7 +27,7 @@ gg <- function(x, first=TRUE, centroid=TRUE, axes=TRUE, ...) {
 
 #' @export
 gg.default <- function(x, first=TRUE, centroid=TRUE, axes=TRUE, ...){
-  .msg_info("no gg method for this class")
+  .msg_info("gg: no gg method for this class")
 }
 
 #' @export
@@ -68,7 +68,7 @@ gg0 <- function(x, ...){
 
 #' @export
 gg0.default <- function(x, ...){
-  .msg_info("no gg0 method for this class")
+  .msg_info("gg0: no gg0 method for this class")
 }
 
 #' @export
@@ -144,7 +144,7 @@ inspect <- function(x, ...) {
 
 #' @export
 inspect.default <- function(x, ...){
-  .msg_info("no inspect method for this class")
+  .msg_info("inspect: no inspect method for this class")
 }
 
 #' @export
@@ -182,7 +182,7 @@ pile <- function(x, f, ...) {
 
 #' @export
 pile.default <- function(x, f, ...){
-  .msg_info("no pile method for this class")
+  .msg_info("pile: no pile method for this class")
 }
 
 #todo: decent_alpha
@@ -198,7 +198,7 @@ pile.coo_tbl <- function(x, f, ...){
     gg <- gg + aes(colour=!!f) + ggplot2::geom_path(...)
   }
   # return this beauty
-  gg
+  gg + theme_minimal()
 }
 
 # mosaic ----------------------------------------------
@@ -226,7 +226,7 @@ mosaic <- function(x, f, ..., ncol, geom) {
 # todo: go for mosaic0 and customs geoms / out, ldk, etc. ?
 #' @export
 mosaic.default <- function(x, ...) {
-  .msg_info("no mosaic method for this class")
+  .msg_info("mosaic: no mosaic method for this class")
 }
 
 #' @export
