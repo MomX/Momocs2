@@ -1,6 +1,16 @@
 # utils ---------------------------------------------------
 # help split coeff lists
 .coeff_split <- function (x, cph = 4){
+  # so that it can work with coe_single
+  if (is.data.frame(x))
+    x <- unlist(x)
+
+  # if missing cph, tries to deduce it
+  if (missing(cph)){
+    n <- x %>% names()
+    chp <- n %>% stringr::str_remove("[[:digit:]]") %>% table %>% length()
+  }
+
   # deduce the number of harmonics
   nb.h <- length(x)/cph
   # ensure individual names
@@ -24,17 +34,17 @@
   # handles missing or too ambitious nb_h
   if (missing(nb_h) | is.na(nb_h)){
     nb_h <- ifelse(nb_h_max < 6, nb_h_max, 6)
-    .msg_info("nb_h was missing and set to {nb_h}")
+    .msg_info("efourier: nb_h was missing and set to {nb_h}")
   } else {
     if (nb_h > nb_h_max){
       nb_h <- nb_h_max
-      .msg_info("nb_h was too ambitious and set to {nb_h}")
+      .msg_info("efourier: nb_h was too ambitious and set to {nb_h}")
     }
 
   }
+  # return safe nb_h
   nb_h
 }
-
 
 # efourier ------------------------------------------------
 #' elliptical Fourier transforms
@@ -43,9 +53,49 @@
 #' @param nb_h `int` nb of harmonics. Default to `6` for `efourier`, to all of them for `efourier_i`
 #' @param nb_pts `int` nb of points for the reconstruction
 #' @param keep_coo `logical` whether to retain coo column
-#' @param raw `logical` whether to return raw results
+#' @param raw `logical` whether to return raw and full results for [efourier] and [efourier_norm]
+#' @param first_point `logical` whether to normalize for the first point using [efourier_norm]
 #' @param ... for generics. Useless here.
 #'
+#' @details For the maths behind see the paper in JSS.
+#'
+#' Normalization of coefficients has long been a matter of trouble,
+#' and not only for newcomers. There are two ways of normalizing outlines: the first,
+#' and by far the most used, is to use a "numerical" alignment, directly on the
+#' matrix of coefficients. The coefficients of the first harmonic are consumed
+#' by this process but harmonics of higher rank are normalized in terms of size
+#' and rotation. This is sometimes referred as using the "first ellipse", as the
+#' harmonics define an ellipse in the plane, and the first one is the mother of all
+#' ellipses, on which all others "roll" along. This approach is really convenient
+#' as it is done easily by most software (if not the only option) and by Momocs too.
+#' It is the default option of [efourier].
+#'
+#' But here is the pitfall: if your shapes are prone to bad aligments among all
+#' the first ellipses, this will result in poorly (or even not at all) "homologous" coefficients.
+#' The shapes particularly prone to this are either (at least roughly) circular and/or with a strong
+#' bilateral symmetry. Also, and perhaps more explicitely, morphospace usually show a mirroring symmetry,
+#' typically visible when calculated in some couple of components (usually the first two).
+#'
+#' If you see these  upside-down (or 180 degrees rotated) shapes on the morphospace,
+#' you should seriously consider aligning your shapes __before__ the [efourier] step,
+#' and performing the latter with `norm = FALSE`.
+#'
+#' You have several options to align your shapes, using control points (or landmarks),
+#' by far the most time consuming (and less reproducible) but possibly the best one too
+#' when alignment is too tricky to automate.
+#' You can also try Procrustes alignment (see fgProcrustes) (<- todo link 4 here) through their calliper
+#' length (see coo_aligncalliper), etc. You should also make the first
+#' point homologous either with coo_slide or coo_slidedirection
+#' to minimize any subsequent problems.
+#'
+#' I will dedicate (some day) a vignette or a paper to this problem.
+
+#' @references Claude, J. (2008) __Morphometrics with R__, Use R! series,
+#' Springer 316 pp.
+#' Ferson S, Rohlf FJ, Koehn RK. 1985. Measuring shape variation of
+#' two-dimensional outlines. __Systematic Biology__ **34**: 59-68.
+#'
+#' @family efourier
 #' @rdname efourier
 #' @export
 efourier <- function(x,  ...) {
@@ -55,7 +105,7 @@ efourier <- function(x,  ...) {
 #' @export
 #' @rdname efourier
 efourier.default <- function(x, nb_h=NA, raw=FALSE, ...){
-  .msg_warning("only defined on <coo_single> and <coo_tbl>")
+  .msg_warning("efourier: only defined on <coo_single> and <coo_tbl>")
 }
 
 #' @export
@@ -114,9 +164,9 @@ efourier.coo_list <- function (x, nb_h=NA, ...) {
   nb_h <- .check_efourier_nb_h(x, nb_h=nb_h)
 
   x %>%
-    purrr::map(efourier, nb_h=nb_h, raw=FALSE)%>%
-    .append_class("efourier_list") %>%
-    .append_class("coe_list")
+    purrr::map(efourier, nb_h=nb_h, raw=FALSE) %>%
+    coe_list() %>%
+    .append_class("efourier_list")
 }
 
 
@@ -143,7 +193,7 @@ efourier.coo_tbl <- function(x, nb_h=NA, keep_coo=FALSE, ...){
 
 # efourier_i ----------------------------------------------
 #' @export
-#' @rdname efourier
+#' @describeIn  efourier inverse efourier function
 efourier_i <- function(x, nb_h=NA, nb_pts = 120){
   UseMethod("efourier_i")
 }
@@ -152,6 +202,9 @@ efourier_i <- function(x, nb_h=NA, nb_pts = 120){
 efourier_i.default <- function (x, nb_h=NA, nb_pts = 120) { # efourier_i.efourier_single ?
   if (is.data.frame(x))
     x <- x %>% unlist %>% .coeff_split()
+
+  if (is.numeric(x))
+    x <- x %>% .coeff_split()
 
   if (is.null(x$ao))
     ao <- 0
@@ -199,12 +252,89 @@ efourier_i.coe_tbl <- function(x, nb_h=NA, nb_pts=120){
 }
 
 
-#
-# efourier_i.list <- function(nb_h, nb_pts = 120){
-#   # so that list of vectors can be passed
-#   purrr::map(x, ~.x %>% .coeff_split() %>% efourier_i(nb_h, nb_pts = 120)
-# }
-#
-# bot2 %>% pick %>% efourier() %>% efourier_i()
-# bot2$coo %>% efourier() %>%  efourier_i()
+# efourier norm -------------------------------------------
 
+#' @export
+#' @describeIn  efourier efourier numerical normalization
+efourier_norm <- function(x, ...){
+  UseMethod("efourier_norm")
+}
+
+#' @export
+efourier_norm.default <- function(x, first_point = FALSE, raw=FALSE, ...) {
+  if (is.data.frame(x))
+    x <- .coeff_split(x, cph=4)
+
+  A1 <- x$an[1]
+  B1 <- x$bn[1]
+  C1 <- x$cn[1]
+  D1 <- x$dn[1]
+  nb.h <- length(x$an)
+  theta <- 0.5 * atan(2 * (A1 * B1 + C1 * D1)/(A1^2 + C1^2 -
+                                                 B1^2 - D1^2))%%pi
+  phaseshift <- matrix(c(cos(theta), sin(theta), -sin(theta),
+                         cos(theta)), 2, 2)
+  M2 <- matrix(c(A1, C1, B1, D1), 2, 2) %*% phaseshift
+  v <- apply(M2^2, 2, sum)
+  if (v[1] < v[2]) {
+    theta <- theta + pi/2
+  }
+  theta <- (theta + pi/2)%%pi - pi/2
+  Aa <- A1 * cos(theta) + B1 * sin(theta)
+  Cc <- C1 * cos(theta) + D1 * sin(theta)
+  scale <- sqrt(Aa^2 + Cc^2)
+  psi <- atan(Cc/Aa)%%pi
+  if (Aa < 0) {
+    psi <- psi + pi
+  }
+  size <- 1/scale
+  rotation <- matrix(c(cos(psi), -sin(psi), sin(psi), cos(psi)),
+                     2, 2)
+  A <- B <- C <- D <- numeric(nb.h)
+  if (first_point) {
+    theta <- 0
+  }
+  for (i in 1:nb.h) {
+    mat <- size * rotation %*%
+      matrix(c(x$an[i], x$cn[i],
+               x$bn[i], x$dn[i]), 2, 2) %*%
+      matrix(c(cos(i * theta), sin(i * theta),
+               -sin(i * theta), cos(i * theta)), 2, 2)
+    A[i] <- mat[1, 1]
+    B[i] <- mat[1, 2]
+    C[i] <- mat[2, 1]
+    D[i] <- mat[2, 2]
+    lnef <- c(A[i], B[i], C[i], D[i])
+  }
+
+  # either return full results (ala Claude)
+  if (raw) {
+    list(A = A, B = B, C = C, D = D, size = scale, theta = theta,
+         psi = psi, ao = x$ao, co = x$co, lnef = lnef,
+         first_point = first_point)
+  } else {
+    # or a coe single
+    list(a=A, b=B, c=C, d=D) %>%
+      .seq_naming_list() %>%
+      purrr::flatten() %>%
+      dplyr::bind_cols() %>%
+      coe_single() %>%
+      .append_class("efourier_single")
+  }
+}
+
+#' @export
+efourier_norm.coe_list <- function(x, first_point = FALSE, ...){
+  purrr::map(x, efourier_norm, first_point=first_point) %>%
+    coe_list() %>%
+    .append_class("efourier")
+}
+
+#' @export
+efourier_norm.coe_tbl <- function(x, first_point = FALSE, ...){
+  x$coe <- x$coe %>%
+    purrr::map(efourier_norm, first_point=first_point) %>%
+    coe_list() %>%
+    .append_class("efourier")
+  x
+}

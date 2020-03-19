@@ -7,6 +7,7 @@
 \alias{efourier.coo_list}
 \alias{efourier.coo_tbl}
 \alias{efourier_i}
+\alias{efourier_norm}
 \title{elliptical Fourier transforms}
 \usage{
 efourier(x, ...)
@@ -20,6 +21,8 @@ efourier(x, ...)
 \method{efourier}{coo_tbl}(x, nb_h = NA, keep_coo = FALSE, ...)
 
 efourier_i(x, nb_h = NA, nb_pts = 120)
+
+efourier_norm(x, ...)
 }
 \arguments{
 \item{x}{\link{coo_single}, \link{coo_list} or \link{coo_tbl}}
@@ -28,12 +31,62 @@ efourier_i(x, nb_h = NA, nb_pts = 120)
 
 \item{nb_h}{\code{int} nb of harmonics. Default to \code{6} for \code{efourier}, to all of them for \code{efourier_i}}
 
-\item{raw}{\code{logical} whether to return raw results}
+\item{raw}{\code{logical} whether to return raw and full results for \link{efourier} and \link{efourier_norm}}
 
 \item{keep_coo}{\code{logical} whether to retain coo column}
 
 \item{nb_pts}{\code{int} nb of points for the reconstruction}
+
+\item{first_point}{\code{logical} whether to normalize for the first point using \link{efourier_norm}}
 }
 \description{
 elliptical Fourier transforms
 }
+\details{
+For the maths behind see the paper in JSS.
+
+Normalization of coefficients has long been a matter of trouble,
+and not only for newcomers. There are two ways of normalizing outlines: the first,
+and by far the most used, is to use a "numerical" alignment, directly on the
+matrix of coefficients. The coefficients of the first harmonic are consumed
+by this process but harmonics of higher rank are normalized in terms of size
+and rotation. This is sometimes referred as using the "first ellipse", as the
+harmonics define an ellipse in the plane, and the first one is the mother of all
+ellipses, on which all others "roll" along. This approach is really convenient
+as it is done easily by most software (if not the only option) and by Momocs too.
+It is the default option of \link{efourier}.
+
+But here is the pitfall: if your shapes are prone to bad aligments among all
+the first ellipses, this will result in poorly (or even not at all) "homologous" coefficients.
+The shapes particularly prone to this are either (at least roughly) circular and/or with a strong
+bilateral symmetry. Also, and perhaps more explicitely, morphospace usually show a mirroring symmetry,
+typically visible when calculated in some couple of components (usually the first two).
+
+If you see these  upside-down (or 180 degrees rotated) shapes on the morphospace,
+you should seriously consider aligning your shapes \strong{before} the \link{efourier} step,
+and performing the latter with \code{norm = FALSE}.
+
+You have several options to align your shapes, using control points (or landmarks),
+by far the most time consuming (and less reproducible) but possibly the best one too
+when alignment is too tricky to automate.
+You can also try Procrustes alignment (see fgProcrustes) (<- todo link 4 here) through their calliper
+length (see coo_aligncalliper), etc. You should also make the first
+point homologous either with coo_slide or coo_slidedirection
+to minimize any subsequent problems.
+
+I will dedicate (some day) a vignette or a paper to this problem.
+}
+\section{Functions}{
+\itemize{
+\item \code{efourier_i}: inverse efourier function
+
+\item \code{efourier_norm}: efourier numerical normalization
+}}
+
+\references{
+Claude, J. (2008) \strong{Morphometrics with R}, Use R! series,
+Springer 316 pp.
+Ferson S, Rohlf FJ, Koehn RK. 1985. Measuring shape variation of
+two-dimensional outlines. \strong{Systematic Biology} \strong{34}: 59-68.
+}
+\concept{efourier}
