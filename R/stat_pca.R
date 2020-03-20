@@ -132,11 +132,12 @@ scree.pca <- function(x, n_axes){
   sdev <- attr(x, "sdev")
   eig <- (sdev^2)
   eig <- eig / sum(eig)
-  # if n_axes not provided, take all
-  if (missing(n_axes)){
-    axes_range <- 1:length(eig)
-  }
 
+  # if n_axes not provided, take all
+  if (missing(n_axes))
+    n_axes <- length(eig)
+
+  axes_range <- 1:n_axes
   axes_names <- attr(x, "rotation") %>% colnames()
 
   # return a data_frame
@@ -166,7 +167,7 @@ scree_min.pca <- function(x, prop){
   }
   x %>% scree() %>%
     dplyr::filter(.data$cumsum<=prop) %>%
-    dplyr::top_n(1, .data$axis) %>%
+    dplyr::top_n(1, .data$number) %>%
     dplyr::pull(.data$number)
 }
 
