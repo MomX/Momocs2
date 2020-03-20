@@ -1,3 +1,33 @@
+# utils ---------------------------------------------------
+
+# given a ggplot object, returns limits
+.gg_lims <- function(x) {
+  # build the plot and grab panel params
+  w <- ggplot_build(x)$layout$panel_params[[1]]
+  # nice formatting
+  list(
+    x_min = w$x.range[1],
+    x_max = w$x.range[2],
+    y_min = w$y.range[1],
+    y_max = w$y.range[2]
+  )
+}
+
+# given a ggplot object, returns range
+.gg_range <- function(x) {
+  # build the plot and grab panel params
+  w <- ggplot_build(x)$layout$panel_params[[1]]
+  # nice formatting
+  list(
+    x_range = w$x.range[2] - w$x.range[1],
+    y_range = w$y.range[2] - w$y.range[1]
+  )
+}
+
+# theme should come here ----------------------------------
+# todo
+
+
 # gg ------------------------------------------------------
 #' Default ggplot2 graphics
 #'
@@ -66,11 +96,13 @@ gg0 <- function(x, ...){
   UseMethod("gg0")
 }
 
+#' @rdname gg
 #' @export
 gg0.default <- function(x, ...){
   .msg_info("gg0: no gg0 method for this class")
 }
 
+#' @rdname gg
 #' @export
 gg0.coo_single <- function(x, ...){
   x %>%
@@ -82,8 +114,66 @@ gg0.coo_single <- function(x, ...){
 
 # so that foreign tbl can be plotted too
 # as long as they have 'x' and 'y' columns
+#' @rdname gg
 #' @export
 gg0.tbl <- gg0.coo_single
+
+
+# gg methods ---------
+# gg.pca <- function(x, f,
+#                    x_axis=PC1, y_axis=PC2, ...){
+#
+#   # non standard evaluation
+#   x_axis <- enquo(x_axis)
+#   y_axis <- enquo(y_axis)
+#
+#
+#   gg <- x %>% gg0(x_axis=!!x_axis, y_axis=!!y_axis, ...)
+#
+#   if (!missing(f)){
+#     f <- enquo(f)
+#     gg <- gg + ggplot2::aes(colour=!!f)
+#   }
+#
+#   gg + geom_point()
+#
+# }
+
+# gg0 method ----------
+# gg0.pca <- function(x, x_axis=PC1, y_axis=PC2,
+#                     morphospace_position=morphospace_grid_window,
+#                     morphospace_size=NULL,
+#                     morphospace_geom=ggplot2::geom_path, ...){
+#
+#   # non standard evaluation
+#   x_axis <- enquo(x_axis)
+#   y_axis <- enquo(y_axis)
+#
+#
+#   # range
+#   w <- x %>% dplyr::select(!!x_axis, !!y_axis) %>% abs %>% max()
+#   w <- w*1.1
+#
+#   gg <- x %>%
+#     ggplot2::ggplot() +
+#     ggplot2::aes(x=!!x_axis, y=!!y_axis) +
+#     ggplot2::coord_equal() +
+#     ggplot2::theme_minimal() +
+#     ggplot2::theme(panel.grid.minor = ggplot2::element_blank()) +
+#     ggplot2::xlim(-w, w) + ggplot2::ylim(-w, w)
+#   #
+#   # # handles morphospcae
+#   # if (!is.null(morphospace_position)){
+#   #   xy <- x %>% dplyr::select(!!x_axis, !!y_axis) %>% morphospace_position(...)
+#   #   morpho_tbl <- pca_to_coo(x, xy, k=morphospace_size) %>% unpack()
+#   #   gg <- gg + morphospace_geom(data=morpho_tbl,
+#   #                               mapping=ggplot2::aes(x=x, y=y, group=shp),
+#   #                               inherit.aes=FALSE)
+#   # }
+#   gg$pca <- x
+#   gg
+# }
+# Working place -----
 
 # draw ----------------------------------------------------
 #' Add shapes on top of another plot

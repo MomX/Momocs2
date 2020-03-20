@@ -110,3 +110,64 @@ unpack.coo_tbl <- function(x, ...){
   )
 }
 
+
+# prefix_within -------------------------------------------
+
+
+# Prefix col ----------------------------------------------
+# todo prefix within
+# Given coe_tbl with 1 or mroe coe_list columns
+# Prefix individual coe_tbl colnames composing them with coe_list column name
+# See examples
+prefix_col <- function(x){
+  a <- x %>% dplyr::select_if(is_coe_list)
+  b <- x %>% dplyr::select_if(is_coe_list %>% purrr::negate())
+  new_a <- purrr::imap(a,
+                       ~.x %>% dplyr::bind_rows() %>%
+                         `colnames<-`(paste0(.y, "_", colnames(.))) %>%
+                         split(., 1:nrow(.)) %>%
+                         `names<-`(names(.x))) %>%
+    tibble::as_tibble()
+  dplyr::bind_cols(new_a, b)
+}
+
+
+# choose_coe()
+# select_coe()
+# remove_coe()
+
+
+only_coe <- function(x){
+  dplyr::select_if(x, is_coe_list)
+}
+
+drop_coe <- function(x){
+  dplyr::select_if(x, purrr::negate(is_coe_list))
+}
+
+select_coe <- function(x, ...){
+  y <- x %>% drop_coe()
+
+  x %>% dplyr::select(!!!enquos(...)) %>%
+    dplyr::bind_cols(y)
+}
+#
+# x <- bot2 %>% efourier(4)
+# x$plop <- bot2$coo %>% efourier(6)
+# x$plip <- bot2$coo %>% efourier(12)
+# x %>% only_coe()
+# x %>% drop_coe()
+# x %>% select_coe(coe, plip)
+#
+# x %>% select_coe(starts_with("pl"))
+#
+#
+# bot2 %>% efourier %>% select_coe()
+
+ncoe <- function(x) x %>% purrr::map_lgl(is_coe_list) %>% sum()
+ncoo <- function(x) x %>% purrr::map_lgl(is_coo_list) %>% sum()
+# bot2 %>% ncoo
+# bot2 %>% efourier(4) %>% ncoe
+
+
+

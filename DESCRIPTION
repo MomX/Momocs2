@@ -34,5 +34,7 @@ Imports:
     pillar,
     stats,
     glue,
-    crayon
+    crayon,
+    tidyr,
+    methods
 VignetteBuilder: knitr

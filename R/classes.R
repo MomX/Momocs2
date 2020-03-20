@@ -400,18 +400,6 @@ validate_coe_single <- function(x){
 #   gg(x, ...)
 # }
 
-# print ---
-#' @export
-print.coe_single <- function(x, ...){
-  x %>% tibble::as_tibble() %>% print(...)  # to use base tbl print method
-  glue::glue(cli::symbol$pointer, " a ",
-             crayon::bgCyan("coe_single"), " ",
-             "with {ncol(x)} variables") %>%
-    cli::cat_line()
-  # just as print.default
-  invisible(x)
-}
-
 #' @importFrom pillar pillar_shaft
 #' @export
 pillar_shaft.coe_single <- function(x, ...) {
@@ -462,18 +450,6 @@ coe_list.list <- function(x){
     purrr::modify_if(purrr::negate(is_coe_single), coe_single) %>%
     .append_class("coe_list")
 }
-
-# print ---
-#' @export
-print.coe_list <- function(x, ...){
-  x %>% print.default()
-  glue::glue(cli::symbol$pointer, " a ",
-             crayon::bgCyan("coo_list"), " ",
-             "with {length(x)} ", crayon::bgBlue("coe_single")) %>%
-    cli::cat_line()
-  invisible(x)
-}
-
 
 # coe_testers ---------------------------------------------
 
@@ -562,4 +538,42 @@ coe_tbl.Coe <- function(x){
 
   # return this beauty
   res
+}
+
+# coe_printters -------------------------------------------
+
+# print ---
+#' @export
+print.coe_single <- function(x, ...){
+  x %>% tibble::as_tibble() %>% print(...)  # to use base tbl print method
+  glue::glue(cli::symbol$pointer, " a ",
+             crayon::bgMagenta("coe_single"), " ",
+             "with {ncol(x)} variables") %>%
+    cli::cat_line()
+  # just as print.default
+  invisible(x)
+}
+
+#' @export
+print.coe_list <- function(x, ...){
+  x %>% print.default()
+  glue::glue(cli::symbol$pointer, " a ",
+             crayon::bgMagenta("coo_list"), " ",
+             "with {length(x)} ", crayon::bgMagenta("coe_single")) %>%
+    cli::cat_line()
+  invisible(x)
+}
+
+
+#' @export
+print.coe_tbl<- function(x, ...){
+  x %>%
+    tibble::as_tibble() %>%
+    print(...)
+  glue::glue(cli::symbol$pointer, " a ",
+             crayon::bgMagenta("coe_tbl"), " ",
+             "with {nrow(x)} coe_single") %>%
+    cli::cat_line()
+  # just as print.default
+  invisible(x)
 }
