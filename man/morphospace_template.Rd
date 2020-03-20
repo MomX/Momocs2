@@ -22,9 +22,10 @@ multiviews adjustment (based on \code{x$name}).
 }
 \examples{
 p <- bot2 \%>\% efourier(6) \%>\% stat_pca()
-p \%>\% morphospace() \%>\% pile()
-p \%>\% morphospace() \%>\% morphospace_template() \%>\% pile()
+m <- p \%>\% morphospace()
+m \%>\% pile()
+m \%>\% morphospace_template() \%>\% pile()
 
-#gg <- p \%>\% gg0()
-#shps <- p \%>\% morphospace() \%>\% morphospace_template(gg)
+gg <- p \%>\% gg0()
+shps <- p \%>\% morphospace() \%>\% morphospace_template()
 }

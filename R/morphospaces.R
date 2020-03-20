@@ -214,11 +214,12 @@ morphospace.pca <- function(x, xy){
 #' @return [coo_tbl] ready for ggplot.
 #' @examples
 #' p <- bot2 %>% efourier(6) %>% stat_pca()
-#' p %>% morphospace() %>% pile()
-#' p %>% morphospace() %>% morphospace_template() %>% pile()
+#' m <- p %>% morphospace()
+#' m %>% pile()
+#' m %>% morphospace_template() %>% pile()
 #'
-#' #gg <- p %>% gg0()
-#' #shps <- p %>% morphospace() %>% morphospace_template(gg)
+#' gg <- p %>% gg0()
+#' shps <- p %>% morphospace() %>% morphospace_template()
 #' @export
 morphospace_template <- function(x, size=NULL){
 
@@ -233,8 +234,10 @@ morphospace_template <- function(x, size=NULL){
       purrr::map_dbl(~.x %>% unique %>% length) %>% max() %>% sqrt()
     size <- max_diff/max_number
   }
+
+  # gg provided
   if (methods::is(size, "gg")){
-    max_diff <- gg %>% .gg_range() %>% unlist() %>% max()
+    max_diff <- size %>% .gg_range() %>% unlist() %>% max()
     max_number <- xy %>%  purrr::map_dbl(~.x %>% unique %>% length) %>% max()
     size <- max_diff/max_number
   }
@@ -274,7 +277,6 @@ morphospace_template <- function(x, size=NULL){
   # return this beauty
   res_df
 }
-
 
 #' draw morphospace
 #'
