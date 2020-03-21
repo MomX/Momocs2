@@ -4,11 +4,17 @@
 \alias{babel}
 \alias{complex_2_cartesian}
 \alias{cartesian_2_complex}
+\alias{degrees_to_radians}
+\alias{radians_to_degrees}
 \title{Convert between numeric and classes systems}
 \usage{
 complex_2_cartesian(x)
 
 cartesian_2_complex(x)
+
+degrees_to_radians(x)
+
+radians_to_degrees(x)
 }
 \arguments{
 \item{x}{some object to convert}
@@ -24,6 +30,10 @@ Function names should be explicit
 \item \code{complex_2_cartesian}: complex numbers
 
 \item \code{cartesian_2_complex}: complex numbers
+
+\item \code{degrees_to_radians}: angle conversion
+
+\item \code{radians_to_degrees}: angle conversion
 }}
 
 \examples{

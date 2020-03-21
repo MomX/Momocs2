@@ -7,20 +7,17 @@
 coo_trans(x, x_trans = 0, y_trans = 0)
 }
 \arguments{
-\item{x}{\link{coo_single}, \link{coo_tbl} or a list of shapes}
+\item{x}{\link{coo_single}, \link{coo_list} or \link{coo_tbl}}
 
-\item{x_trans}{\code{numeric} how much translate on x-axis}
-
-\item{y_trans}{\code{numeric} how much translate on y-axis}
+\item{x_trans, y_trans}{\code{numeric} how much translate on each direction}
 }
 \value{
-\link{coo_single} or \link{coo_tbl} or a list of shapes
+a \link{coo_single}, \link{coo_list} or \link{coo_tbl}
 }
 \description{
 Returns a shape translate by \code{x} and \code{y}.
 }
 \examples{
-
 bot2$coo[[1]] \%>\% coo_trans
 
 }
@@ -28,7 +25,13 @@ bot2$coo[[1]] \%>\% coo_trans
 Other coo_modifyers: 
 \code{\link{coo_align}()},
 \code{\link{coo_center}()},
+\code{\link{coo_rotate}()},
+\code{\link{coo_sample}()},
 \code{\link{coo_scale}()},
 \code{\link{coo_template}()}
+
+Other translations: 
+\code{\link{coo_center}()}
 }
 \concept{coo_modifyers}
+\concept{translations}

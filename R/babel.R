@@ -26,3 +26,15 @@ cartesian_2_complex <- function(x){
   x <- coo_single(x)
   complex(real=x$x, imaginary = x$y)
 }
+
+#' @describeIn babel angle conversion
+#' @export
+degrees_to_radians <- function(x){
+  x*pi/180
+}
+
+#' @describeIn babel angle conversion
+#' @export
+radians_to_degrees <- function(x){
+  x*180/pi
+}

@@ -7,12 +7,12 @@
 coo_scale(x, scale)
 }
 \arguments{
-\item{x}{\link{coo_single}, \link{coo_tbl} or a list of shapes}
+\item{x}{\link{coo_single}, \link{coo_list} or \link{coo_tbl}}
 
 \item{scale}{\code{numeric} scaling factor (\link{get_centsize} by default).}
 }
 \value{
-\link{coo_single} or \link{coo_tbl} or a list of shapes
+a \link{coo_single}, \link{coo_list} or \link{coo_tbl}
 }
 \description{
 Returns a scaled shape.
@@ -26,7 +26,13 @@ bot2$coo[[1]] \%>\% coo_scale
 Other coo_modifyers: 
 \code{\link{coo_align}()},
 \code{\link{coo_center}()},
+\code{\link{coo_rotate}()},
+\code{\link{coo_sample}()},
 \code{\link{coo_template}()},
 \code{\link{coo_trans}()}
+
+Other scalings: 
+\code{\link{coo_template}()}
 }
 \concept{coo_modifyers}
+\concept{scalings}

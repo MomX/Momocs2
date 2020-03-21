@@ -10,10 +10,10 @@ coo_center(x)
 coo_centre(x)
 }
 \arguments{
-\item{x}{\link{coo_single}, \link{coo_tbl} or a list of shapes}
+\item{x}{\link{coo_single}, \link{coo_list} or \link{coo_tbl}}
 }
 \value{
-\link{coo_single} or \link{coo_tbl} or a list of shapes
+a \link{coo_single}, \link{coo_list} or \link{coo_tbl}
 }
 \description{
 Returns a shape centered on the origin.
@@ -27,8 +27,14 @@ bot2 \%>\% coo_center \%>\% pile()
 \seealso{
 Other coo_modifyers: 
 \code{\link{coo_align}()},
+\code{\link{coo_rotate}()},
+\code{\link{coo_sample}()},
 \code{\link{coo_scale}()},
 \code{\link{coo_template}()},
 \code{\link{coo_trans}()}
+
+Other translations: 
+\code{\link{coo_trans}()}
 }
 \concept{coo_modifyers}
+\concept{translations}

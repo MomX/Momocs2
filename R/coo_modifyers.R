@@ -7,9 +7,10 @@
 #'
 #' Returns a shape centered on the origin.
 #'
-#' @param x [coo_single], [coo_tbl] or a list of shapes
-#' @return [coo_single] or [coo_tbl] or a list of shapes
+#' @param x [coo_single], [coo_list] or [coo_tbl]
+#' @return a [coo_single], [coo_list] or [coo_tbl]
 #' @family coo_modifyers
+#' @family translations
 #' @examples
 #'
 #' @rdname coo_center
@@ -55,13 +56,10 @@ coo_centre <- coo_center
 #'
 #' Returns a shape translate by `x` and `y`.
 #'
-#' @param x [coo_single], [coo_tbl] or a list of shapes
-#' @param x_trans `numeric` how much translate on x-axis
-#' @param y_trans `numeric` how much translate on y-axis
-#' @return [coo_single] or [coo_tbl] or a list of shapes
+#' @inherit coo_center params return
+#' @param x_trans,y_trans `numeric` how much translate on each direction
 #' @family coo_modifyers
-#' @examples
-#'
+#' @family translations
 #' @examples
 #' bot2$coo[[1]] %>% coo_trans
 #'
@@ -86,16 +84,17 @@ coo_trans.coo_tbl <- function(x, x_trans=0, y_trans=0) {
   x %>% dplyr::mutate(coo=purrr::map(x$coo, coo_trans, x_trans=x_trans, y_trans=y_trans))
 }
 
+# SCALING AND CO ----------------
 # coo_scale ----------------------------------------------
 
 #' Scale shapes
 #'
 #' Returns a scaled shape.
 #'
-#' @inheritParams coo_center
+#' @inherit coo_center params return
 #' @param scale `numeric` scaling factor ([get_centsize] by default).
-#' @return [coo_single] or [coo_tbl] or a list of shapes
 #' @family coo_modifyers
+#' @family scalings
 #' @examples
 #'
 #' @examples
@@ -136,15 +135,15 @@ coo_scale.coo_tbl <- function(x, scale) {
 
 # coo_template ----------------------------------------------
 
-#' XXX shapes
+#' Templates shapes
 #'
 #' Centers shape and scale them so that they are inscribed in a `size`-side square.
 #'
-#' @param x [coo_single], [coo_list] or [coo_tbl]
+#' @inherit coo_center params return
 #' @param size `numeric` the side of the square inscribing the shape
 #' @param ... additional parameters
-#' @return templated [coo_list] or [coo_tbl]
 #' @family coo_modifyers
+#' @family scalings
 #' @examples
 #' bot2 %>% pick(1) %>% coo_template() %>% gg()
 #' bot2 %>% coo_template %>% pile()
@@ -206,9 +205,9 @@ coo_template.coo_tbl <- function(x, size=1, ...) {
 #'
 #' Align shape along their longer axis using var-cov matrix and eigen values.
 #'
-#' @inheritParams coo_center
-#' @return [coo_single] or [coo_tbl] or a list of shapes
+#' @inherit coo_center params return
 #' @family coo_modifyers
+#' @family rotations
 #' @examples
 #' bot2$coo[[5]] %>% coo_align
 #' @export
@@ -232,19 +231,6 @@ coo_align.coo_tbl <- function(x){
 }
 
 
-# coo_rotate ----------------------------------------------
-# helping functions
-#' @rdname coo_rotate
-#' @export
-degrees_to_radians <- function(x){
-  x*pi/180
-}
-
-#' @rdname coo_rotate
-#' @export
-radians_to_degrees <- function(x){
-  x*180/pi
-}
 
 # coo_rotate ----------------------------------------------
 #' Rotate shapes
@@ -252,12 +238,11 @@ radians_to_degrees <- function(x){
 #' Rotates the coordinates by a `theta` angle (in radians) in
 #' the trigonometric direction (anti-clockwise).
 #' `coo_rotate` uses the origin, but `coo_rotatecenter` allows to specify another center.
-#' `degrees_to_radians` and `radians_to_degrees` helps convert between systems.
-#'
-#' @inheritParams coo_center
+#' @inherit coo_center params return
 #' @param theta `numeric` angle to rotate (in radians) and in the trigonometric direction (anti-clockwise). Default to `0`.
 #' @param center `numeric` of length 2, sepcifying the `(x; y)` coordinates of the rotation center. Default to `c(0, 0)`
-#' @return a [coo_single], [coo_list] or [coo_tbl]
+#' @family coo_modifyers
+#' @family rotations
 #' @examples
 #' x <- bot2 %>% pick(1)
 #' gg(x)
@@ -323,4 +308,92 @@ coo_rotatecenter.coo_tbl <- function(x, theta=0, center = c(0, 0)) {
   x %>% dplyr::mutate(coo=coo_rotatecenter(coo, center=center))
 }
 
+# SAMPLING AND CO -----------------------------------------
+# coo_sample ----------
+#' Sample shapes
+#'
+#' Changes the number of shape coordinates.
+#'
+#' [coo_sample] will return coordinates regularly sampled along the curvilinear abscissa.
+#' The last point will be dropped so that the distance (new last - first) roughly equals
+#' all other distances between consecutive points. This is typically useful for outlines.
+#' coo_sample_curve (todo link) will preserve the first and last points.
+#' This is typically useful for curves, hence the name.
+#' [coo_interpolate] will upsample the number of points.
+#'
+#' @inherit coo_center params return
+#' @param n `integer` desired number of coordinates (required)
+#' @family coo_modifyers
+#' @family samplers
+#' @examples
+#' x <- bot2 %>% pick(1) %>% coo_sample(24)
+#' x %>% gg()
+#' x %>% coo_interpolate(120) %>% gg()
+#'
+#' bot2$coo %>% coo_sample(12) %>% purrr::map_dbl(nrow)
+#' bot2$coo %>% coo_sample(12) %>% coo_interpolate(24) %>% purrr::map_dbl(nrow)
+#'
+#' bot2 %>% dplyr::slice(1:5) %>% coo_sample(12) -> x
+#' pile(x)
+#' x %>% coo_interpolate(48) %>% pile()
+#'
+#' @export
+coo_sample <- function(x, n) {
+  UseMethod("coo_sample")
+}
+
+#' @export
+coo_sample.coo_single <- function(x, n) {
+
+  # check a bit and return
+  if (nrow(x) < n) {
+    .msg_warning("coo_sample: less coordinates than `n`, using coo_interpolate")
+    coo_interpolate(x, n)
+  }
+  x[round(seq(1, nrow(x), len = n + 1)[-(n + 1)]), ]
+}
+
+#' @export
+coo_sample.list <- function(x, n) {
+  x %>% purrr::map(coo_sample, n) %>% coo_list()
+}
+
+#' @export
+coo_sample.coo_tbl <- function(x, n) {
+  x %>% dplyr::mutate(coo=coo_sample(x$coo, n))
+}
+
+# coo_interpolate -----------------------------------------
+#' @describeIn coo_sample Interpolates shape coordinates
+#' @export
+coo_interpolate <- function(x, n) {
+  UseMethod("coo_interpolate")
+}
+
+#' @export
+coo_interpolate.coo_single <- function(x, n) {
+
+  old_pcs <- x %>% get_perim_cumsum() %>% unlist()
+  new_pcs <- seq(0, get_perim(x), length = n + 1)[-(n + 1)]
+  new_x <- dplyr::bind_rows(x[1, ],
+                            coo_single(matrix(NA_real_, nrow=n-1, ncol=2)))
+
+  for (i in 2:n) {
+    k <- max(which(old_pcs <= new_pcs[i]))
+    r <- (new_pcs[i] - old_pcs[k])/(old_pcs[k + 1] - old_pcs[k])
+    new_x[i, ] <- edi(x[k, ], x[k + 1, ], r)
+  }
+
+  new_x %>% coo_single()
+}
+
+#' @export
+coo_interpolate.list <- function(x, n){
+  x %>% purrr::map(coo_interpolate, n)
+}
+
+#' @export
+coo_interpolate.coo_tbl <- function(x, n){
+  x %>% dplyr::mutate(coo=purrr::map(x$coo, coo_interpolate, n))
+}
 

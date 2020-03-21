@@ -2,7 +2,7 @@
 % Please edit documentation in R/coo_modifyers.R
 \name{coo_template}
 \alias{coo_template}
-\title{XXX shapes}
+\title{Templates shapes}
 \usage{
 coo_template(x, size, ...)
 }
@@ -14,7 +14,7 @@ coo_template(x, size, ...)
 \item{...}{additional parameters}
 }
 \value{
-templated \link{coo_list} or \link{coo_tbl}
+a \link{coo_single}, \link{coo_list} or \link{coo_tbl}
 }
 \description{
 Centers shape and scale them so that they are inscribed in a \code{size}-side square.
@@ -27,7 +27,13 @@ bot2 \%>\% coo_template \%>\% pile()
 Other coo_modifyers: 
 \code{\link{coo_align}()},
 \code{\link{coo_center}()},
+\code{\link{coo_rotate}()},
+\code{\link{coo_sample}()},
 \code{\link{coo_scale}()},
 \code{\link{coo_trans}()}
+
+Other scalings: 
+\code{\link{coo_scale}()}
 }
 \concept{coo_modifyers}
+\concept{scalings}

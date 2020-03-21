@@ -7,10 +7,10 @@
 coo_align(x)
 }
 \arguments{
-\item{x}{\link{coo_single}, \link{coo_tbl} or a list of shapes}
+\item{x}{\link{coo_single}, \link{coo_list} or \link{coo_tbl}}
 }
 \value{
-\link{coo_single} or \link{coo_tbl} or a list of shapes
+a \link{coo_single}, \link{coo_list} or \link{coo_tbl}
 }
 \description{
 Align shape along their longer axis using var-cov matrix and eigen values.
@@ -21,8 +21,14 @@ bot2$coo[[5]] \%>\% coo_align
 \seealso{
 Other coo_modifyers: 
 \code{\link{coo_center}()},
+\code{\link{coo_rotate}()},
+\code{\link{coo_sample}()},
 \code{\link{coo_scale}()},
 \code{\link{coo_template}()},
 \code{\link{coo_trans}()}
+
+Other rotations: 
+\code{\link{coo_rotate}()}
 }
 \concept{coo_modifyers}
+\concept{rotations}

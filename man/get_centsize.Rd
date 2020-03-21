@@ -7,7 +7,7 @@
 get_centsize(x)
 }
 \arguments{
-\item{x}{\link{coo_single}, \link{coo_tbl} or a list of shapes}
+\item{x}{\link{coo_single}, \link{coo_list} or \link{coo_tbl}}
 }
 \value{
 \code{numeric} or additional column

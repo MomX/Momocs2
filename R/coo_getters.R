@@ -1,4 +1,4 @@
-# CENTROID ------------------------------------------------
+# CENTROID AND CO -----------------------------------------
 
 # get_centpos --------------
 #' Calculate centroid position
@@ -6,7 +6,7 @@
 #' Simply the average of `x` and `y`.
 #'
 #' @inheritParams coo_center
-#' @return `numeric` or additional columns
+#' @return `numeric`, list or additional columns
 #' @details This function can be used to integrate size - if meaningful -
 #' @examples
 #' bot2$coo[[5]] %>% get_centpos
@@ -71,7 +71,90 @@ get_centsize.coo_tbl <- function(x){
   x %>% dplyr::mutate(centsize=purrr::map_dbl(x$coo, get_centsize))
 }
 
-# LW ------------------------------------------------------
+# PERIM AND CO --------------------------------------------
+
+# get_perimpts --------------
+#' Calculates perimeter and variations
+#'
+#' @description
+#' * `get_perim_along` calculates the euclidean distance between every points of a shape
+#' * `get_perim` is simply `sum(coo_perim_along)`
+#' * `get_perim_cumsum` is simply `cumsum(coo_perim_along)`
+#'
+#' @inherit get_centsize params return
+#' @family getters
+#' @family perimeter getters
+#' @examples
+#' @export
+get_perim_along <- function(x) {
+  UseMethod("get_perim_along")
+}
+
+#' @export
+get_perim_along.coo_single <- function(x){
+  x %>%
+    # create two 1lagged columns
+    # default ensure that last distance is d(last-first)
+    dplyr::mutate(x2=dplyr::lag(.data$x, 1, default=.data$x[1]),
+                  y2=dplyr::lag(.data$y, 1, default=.data$y[1])) %>%
+    dplyr::transmute(d=sqrt((.data$x - .data$x2)^2 + (.data$y - .data$y2)^2)) %>%
+    tibble::as_tibble() # drops coo_tbl
+}
+
+#' @export
+get_perim_along.list <- function(x){
+  x %>% purrr::map(get_perim_along)
+}
+
+#' @export
+get_perim_along.coo_tbl <- function(x){
+  x %>%
+    dplyr::mutate(perim_along=purrr::map(x$coo, get_perim_along))
+}
+
+#' @describeIn get_perim_along Calculates total perimeter
+#' @export
+get_perim <- function(x){
+  UseMethod("get_perim")
+}
+
+#' @export
+get_perim.coo_single <- function(x){
+  x %>% get_perim_along() %>% sum()
+}
+
+#' @export
+get_perim.list <- function(x){
+  x %>% purrr::map_dbl(get_perim)
+}
+
+#' @export
+get_perim.coo_tbl <- function(x){
+  x %>% dplyr::mutate(perim=purrr::map_dbl(x$coo, get_perim))
+}
+
+#' @describeIn get_perim_along Calculates cumsum between successive points of a shape
+#' @export
+get_perim_cumsum <- function(x){
+  UseMethod("get_perim_cumsum")
+}
+
+#' @export
+get_perim_cumsum.coo_single <- function(x){
+  x %>% get_perim_along() %>% cumsum()
+}
+
+#' @export
+get_perim_cumsum.list <- function(x){
+  x %>% purrr::map(get_perim_cumsum)
+}
+
+#' @export
+get_perim_cumsum.coo_tbl <- function(x){
+  x %>% dplyr::mutate(perim=purrr::map(x$coo, get_perim_cumsum))
+}
+
+# LENGTH, WIDTH AND CO ------------------------------------
 # get_range -----------------------------------------------
 
 #' Get shape range
