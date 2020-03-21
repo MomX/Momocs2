@@ -4,12 +4,14 @@
 \name{bot2}
 \alias{bot2}
 \title{Some bottles}
-\format{A data frame with 53940 rows and 10 variables:
+\format{
+A data frame with 53940 rows and 10 variables:
 \describe{
 \item{coo}{some coords}
 \item{type}{of drink}
 \item{fake}{a fake vector}
-}}
+}
+}
 \source{
 \url{http://www.diamondse.info/}
 }
