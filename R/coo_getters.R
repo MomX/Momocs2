@@ -85,6 +85,7 @@ get_centsize.coo_tbl <- function(x){
 #' @family getters
 #' @family perimeter getters
 #' @examples
+#' bot2 %>% pick(1) %>% get_perim_along()
 #' @export
 get_perim_along <- function(x) {
   UseMethod("get_perim_along")
@@ -93,7 +94,7 @@ get_perim_along <- function(x) {
 #' @export
 get_perim_along.coo_single <- function(x){
   x %>%
-    # create two 1lagged columns
+    # create two 1lagged columns on which euclidean distance will be calculated
     # default ensure that last distance is d(last-first)
     dplyr::mutate(x2=dplyr::lag(.data$x, 1, default=.data$x[1]),
                   y2=dplyr::lag(.data$y, 1, default=.data$y[1])) %>%

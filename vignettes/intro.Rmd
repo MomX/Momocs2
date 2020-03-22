@@ -1,8 +1,8 @@
 ---
-title: "Momocs2_intro"
+title: "Momocs design"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Momocs2_intro}
+  %\VignetteIndexEntry{architecture}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -14,9 +14,34 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
-library(Momocs2)
-```
+### Morphometrics from the programmer point of view
+Morphometrics is the study of shape (co)variation. It essentially consists in mapping shapes into descriptors.
+
+Let's use the following naming conventions: 
+
+* **coo**rdinates serve most often as shapes, but wider matrices such as images are also used;
+* **coe**fficients are more suitable variables than allow exploring their inner variability and testing their relations to covariates.
+* **cov**ariates, when present, allow to test their relations with coefficients.
+
+Despite different morphometrics flavour, we have:
+
+<center>
+```coo + cov -M-> coe + cov```
+</center>
+
+In terms of dimensions, for a single shape we can have:  
+ * `coo` arbitrary dimensions
+ * `coe` can be of arbitrary dimensions
+ * `cov` can be absent, or a collection of qualitative and quantitative variables.
+
+### The list column nature of morphometrics implementation
+
+### Momocs architecture
+
+### A word on Momocs development history
+
+
+
 
 Momocs2 is a rewrite of Momocs. The main changes are:
 

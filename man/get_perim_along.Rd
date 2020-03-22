@@ -32,5 +32,8 @@ get_perim_cumsum(x)
 \item \code{get_perim_cumsum}: Calculates cumsum between successive points of a shape
 }}
 
+\examples{
+bot2 \%>\% pick(1) \%>\% get_perim_along()
+}
 \concept{getters}
 \concept{perimeter getters}
