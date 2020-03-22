@@ -59,6 +59,8 @@ test_that("coe verbs work",{
   expect_equal(x %>% only_coe() %>% colnames(), c("coe", "coe2"))
   expect_equal(x %>% drop_coe() %>% colnames(), bot2 %>% dplyr::select(-coo) %>% colnames())
 
+  expect_equal(x %>% ncoe, 2)
+  expect_equal(bot2 %>% ncoo, 1)
 })
 
 
