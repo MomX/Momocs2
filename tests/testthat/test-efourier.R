@@ -3,6 +3,8 @@ test_that("coeff_split works", {
   xs <- .coeff_split(x)
   expect_true(is.list(xs))
   expect_identical(names(xs), c("an", "bn", "cn", "dn"))
+
+  expect_is(bot2 %>% pick(1) %>% efourier() %>% .coeff_split(), "list")
 })
 
 test_that(" .check_efourier_nb_h works", {
@@ -64,13 +66,43 @@ test_that("efourier works", {
 })
 
 test_that("efourier_i works", {
-  x <- bot2 %>% pick(1) %>% efourier %>% efourier_i(nb_pts = 1e4)
-  expect_is(x, "coo_single")
-  expect_true(nrow(x)==1e4)
+  x <- bot2 %>% pick(1) %>% efourier
+  y <- x %>% efourier_i(nb_pts = 1e4)
+  expect_is(y, "coo_single")
+  expect_true(nrow(y)==1e4)
+
+  # when arrives as numeric
+  z <- y %>% unlist() %>% efourier_i(nb_pts = 12)
+  expect_is(z, "coo_single")
+  expect_true(nrow(z)==12)
 
   # no nb_pts, no nb_h
   x <- bot2 %>% pick(1) %>% efourier %>% efourier_i()
   expect_is(x, "coo_single")
+
+  # coe_list
+  x <- bot2 %>% efourier(4) %$% coe
+  y <- x %>% efourier_i()
+  expect_is(y, "coo_list")
+
+  expect_is(bot2 %>% efourier(4) %>% efourier_i() %$% coe_i, "coo_list")
+})
+
+test_that("efourier_norm works",{
+  x0 <- bot2 %>% pick(5) %>% efourier(4)
+  x1 <- x0 %>% efourier_norm(start=T)
+  expect_is(x1, "coe_single")
+  expect_equivalent(abs(x1$a1), 1) # why not1 though
+  expect_equivalent(abs(x1$b1), 0) # why not1 though
+  expect_equivalent(abs(x1$c1), 0) # why not1 though
+
+  x <- bot2$coo %>% efourier(4) %>% efourier_norm()
+  expect_is(x, "coe_list")
+  y <- x %>% dplyr::bind_rows()
+  expect_equivalent(abs(y$a1), rep(1, nrow(y)))
+  expect_equivalent(abs(y$b1), rep(0, nrow(y)))
+  expect_equivalent(abs(y$c1), rep(0, nrow(y)))
+
 })
 
 

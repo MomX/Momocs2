@@ -304,9 +304,9 @@ efourier_norm.default <- function(x, first_point = FALSE, raw=FALSE, ...) {
   for (i in 1:nb.h) {
     mat <- size * rotation %*%
       matrix(c(x$an[i], x$cn[i],
-               x$bn[i], x$dn[i]), 2, 2) %*%
+               x$bn[i], x$dn[i]), nrow=2, ncol=2) %*%
       matrix(c(cos(i * theta), sin(i * theta),
-               -sin(i * theta), cos(i * theta)), 2, 2)
+               -sin(i * theta), cos(i * theta)), nrow=2, ncol=2)
     A[i] <- mat[1, 1]
     B[i] <- mat[1, 2]
     C[i] <- mat[2, 1]
