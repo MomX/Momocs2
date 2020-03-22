@@ -67,3 +67,34 @@ test_that("get_length and get_width works", {
   expect_true(all(c("length", "width") %in% colnames(z)))
 })
 
+test_that("get_perim and friends work", {
+  x <- bot2 %>% pick(4)
+  y <- bot2$coo
+  z <- bot2
+
+  x_0 <- get_perim(x)
+  y_0 <- get_perim(y)
+  z_0 <- get_perim(z)
+
+  x_a <- get_perim_along(x)
+  y_a <- get_perim_along(y)
+  z_a <- get_perim_along(z)
+
+  x_s <- get_perim_cumsum(x)
+  y_s <- get_perim_cumsum(y)
+  z_s <- get_perim_cumsum(z)
+
+  expect_is(x_0, "numeric")
+  expect_is(y_0, "numeric")
+  expect_is(z_0, "coo_tbl")
+
+  expect_is(x_a, "tbl")
+  expect_is(y_a, "list")
+  expect_true(y_a %>% purrr::map_lgl(tibble::is_tibble) %>% all)
+  expect_is(z_a, "coo_tbl")
+  expect_equal(y_a, z_a$perim_along)
+
+  # sum along is last of cumsum and is also perim
+  expect_equivalent(sum(x_a), unlist(x_s[nrow(x_s), 1]))
+  expect_equivalent(sum(x_a), x_0)
+})
