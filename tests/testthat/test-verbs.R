@@ -47,3 +47,19 @@ test_that("unpack works", {
   expect_true(is.numeric(x$shp))
 })
 
+# coe verbs ---------
+test_that("coe verbs work",{
+
+  x <- bot2 %>% efourier(4)
+  x$coe2 <- bot2$coo %>% efourier(6)
+
+  expect_equal(x %>% select_coe(coe) %>% only_coe() %>% colnames(), "coe")
+  expect_equal(x %>% select_coe(-coe) %>% only_coe() %>% colnames(), "coe2")
+
+  expect_equal(x %>% only_coe() %>% colnames(), c("coe", "coe2"))
+  expect_equal(x %>% drop_coe() %>% colnames(), bot2 %>% dplyr::select(-coo) %>% colnames())
+
+})
+
+
+
