@@ -1,3 +1,4 @@
+# coo_center ---------
 test_that("coo_center, coo_trans works", {
   xy <- bot2$coo[[1]] %>% coo_center %>% get_centpos() %>% unlist
   expect_equivalent(xy[1], expected=0, tolerance=1e-10)
@@ -22,6 +23,7 @@ test_that("coo_center, coo_trans works", {
   expect_is(bot2$coo %>% coo_trans, "coo_list")
 })
 
+# coo_scale ---------
 test_that("coo_scale works", {
   expect_equivalent(tibble(x=c(0, sqrt(2)), y=c(0, -sqrt(2))) %>% get_centsize(),
                     expected = 1, tolerance=1e-10)
@@ -36,12 +38,14 @@ test_that("coo_scale works", {
 
 })
 
+# coo_trans ---------
 test_that("coo_trans works", {
   expect_is(bot2$coo %>% coo_trans(), "coo_list")
   expect_is(bot2 %>% coo_trans(), "coo_tbl")
 
 })
 
+# coo_template ---------
 test_that("coo_template works", {
   x <- bot2$coo %>% coo_template()
   expect_equivalent(apply(get_diffrange(x), 1, max), expected=rep(1, nrow(bot2)), tol=1e-10)
@@ -53,6 +57,7 @@ test_that("coo_template works", {
   expect_is(y, "coo_tbl")
 })
 
+# coo_rotate ---------
 test_that("coo_rotate works", {
   expect_equal(radians_to_degrees(pi/2), 90)
   expect_equal(radians_to_degrees(-pi/2), -90)
@@ -73,3 +78,35 @@ test_that("coo_rotate works", {
   expect_is(bot2$coo %>% coo_rotatecenter, "coo_list")
   expect_is(bot2 %>% coo_rotatecenter, "coo_tbl")
 })
+
+# coo_sample -----
+test_that("coo_sample works", {
+  x <- bot2 %>% pick(1) %>% coo_sample(12)
+  y <- bot2 %>% dplyr::slice(1:5) %$% coo %>% coo_sample(6)
+  z <- bot2 %>% dplyr::slice(1:5) %>% coo_sample(6) %$% coo
+
+  # classes
+  expect_is(x, "coo_single")
+  expect_is(y, "coo_list")
+  expect_is(z, "coo_list")
+
+  # nrow
+  expect_equal(nrow(x), 12)
+  expect_equivalent(purrr:::map_dbl(y, nrow), rep(6, 5))
+  expect_equivalent(purrr:::map_dbl(z, nrow), rep(6, 5))
+  expect_equivalent(y, z)
+
+  # interpolate dispatch
+  x2 <- expect_message(x %>% coo_sample(120))
+  expect_equal(nrow(x2), 120 )
+  expect_equal(x2 %>% dplyr::distinct() %>% nrow(), 120)
+})
+
+
+
+
+
+
+
+
+

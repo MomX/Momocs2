@@ -344,12 +344,17 @@ coo_sample <- function(x, n) {
 
 #' @export
 coo_sample.coo_single <- function(x, n) {
-
-  # check a bit and return
-  if (nrow(x) < n) {
-    .msg_warning("coo_sample: less coordinates than `n`, using coo_interpolate")
-    coo_interpolate(x, n)
+  # early return when unchanged must be returned
+  if (n==nrow(x)){
+    return(x)
   }
+  # case where n is too ambitious,
+  # so we message and shoft to coo_interpolate
+  if (n > nrow(x)) {
+    .msg_warning("coo_sample: less coordinates than `n`, using coo_interpolate")
+    return(coo_interpolate(x, n))
+  }
+  # otherwise sampling with seq is a piece of cake
   x[round(seq(1, nrow(x), len = n + 1)[-(n + 1)]), ]
 }
 
@@ -373,14 +378,19 @@ coo_interpolate <- function(x, n) {
 #' @export
 coo_interpolate.coo_single <- function(x, n) {
 
-  old_pcs <- x %>% get_perim_cumsum() %>% unlist()
-  new_pcs <- seq(0, get_perim(x), length = n + 1)[-(n + 1)]
+  old_along <- x %>% get_perim_cumsum() %>% unlist()
+  new_along <- seq(0, get_perim(x), length = n + 1)[-(n + 1)]
+
+  # we keep the first point and prototype new_x with NAs
   new_x <- dplyr::bind_rows(x[1, ],
                             coo_single(matrix(NA_real_, nrow=n-1, ncol=2)))
 
+  # a loop that will find the embrassing coordinates from original shape
   for (i in 2:n) {
-    k <- max(which(old_pcs <= new_pcs[i]))
-    r <- (new_pcs[i] - old_pcs[k])/(old_pcs[k + 1] - old_pcs[k])
+    # k is id before, k+1 will be id after
+    k <- max(which(old_along <= new_along[i]))
+    # r is where we fall between k and k+1
+    r <- (new_along[i] - old_along[k]) / (old_along[k + 1] - old_along[k])
     new_x[i, ] <- edi(x[k, ], x[k + 1, ], r)
   }
 
