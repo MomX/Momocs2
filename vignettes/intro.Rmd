@@ -14,6 +14,9 @@ knitr::opts_chunk$set(
 )
 ```
 
+** ONLY SERVES AS NOTEBOOK FOR NOW **
+
+
 ### Morphometrics from the programmer point of view
 Morphometrics is the study of shape (co)variation. It essentially consists in mapping shapes into descriptors.
 
@@ -65,6 +68,15 @@ example here
 
  * Momocs handles shapes that are (or can be turned into) [tibbles](https://tibble.tidyverse.org/). So basically anything with two columns is fine. They are called **coo_single**. They can be collated into **coo_list**, which in turn can be part of a tibble, as a list column. Such tibble have a dedicated class: **coo_tbl**
  * All morphometric methods turn shapes into coefficients. `coo_single`, `coo_list` and `coo_table` are turned into `coe_single`, `coe_list` and `coe_tbl`. `coe_single` have a single row but can have many columns that are morphometrics variables.
+ 
+Side effects of list columns
+
+The number of coo or coe is no longer limited
+The shape itself of coo or coe is no longer limited
+Adding new morphometric methods resumes to writing method.coo_single, method_i.coo_single
+Adding new shapes resumes to writing variations on coo_single
+
+Altogether this makes a huge difference for code readability, maintenance and for future development.
 
 
 
