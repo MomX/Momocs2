@@ -13,24 +13,28 @@ notifications:
     on_success: change
     on_failure: change
 
-matrix:
-  include:
-    - r: release
-      env: R_CODECOV=true
-      before_cache: Rscript -e 'remotes::install_github("r-lib/pkgdown@fix/examples-dontshow")'
-      deploy:
-        provider: script
-        script: Rscript -e 'pkgdown::deploy_site_github()'
-        skip_cleanup: true
-        on:
-          all_branches: true
-          condition: '"$TRAVIS_BRANCH" == "gh-pages" || -n "$TRAVIS_TAG"'
-    - r: devel
+after_success:
+  - Rscript -e 'pkgdown::build_site()'
 
-#before_cache: Rscript -e 'remotes::install_cran("pkgdown")'
-#deploy:
-#  provider: script
-#  script: Rscript -e 'pkgdown::deploy_site_github()'
-#  skip_cleanup: true
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_PAT
+  keep-history: true
+  local-dir: docs
+  on:
+    branch: master
 
+# matrix:
+#   include:
+#     - r: release
+#       env: R_CODECOV=true
+#       before_cache: Rscript -e 'remotes::install_github("r-lib/pkgdown@fix/examples-dontshow")'
+#       deploy:
+#         provider: script
+#         script: Rscript -e 'pkgdown::deploy_site_github()'
+#         skip_cleanup: true
+#         on:
+#           all_branches: true
+#           condition: '"$TRAVIS_BRANCH" == "gh-pages" || -n "$TRAVIS_TAG"'
 # end yml

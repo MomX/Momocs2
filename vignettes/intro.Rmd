@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 ** ONLY SERVES AS NOTEBOOK FOR NOW **
 
-
+?usethis::use_pkgdown_travis()
 ### Morphometrics from the programmer point of view
 Morphometrics is the study of shape (co)variation. It essentially consists in mapping shapes into descriptors.
 
