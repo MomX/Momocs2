@@ -9,6 +9,9 @@ test_that("stat_pca works", {
   x <- bf %>% stat_pca(center=TRUE, scale=TRUE)
   expect_is(x, "tbl")
   expect_is(x, "pca")
+
+  # print method
+  expect_output(print(x))
 })
 
 test_that("scree works", {
@@ -21,5 +24,10 @@ test_that("scree works", {
 
   expect_is(scree_plot(p, 3), "gg")
   expect_is(scree_plot(p, prop=0.5), "gg")
+
+  # test default methods
+  expect_message(scree_plot("foo"))
+  expect_message(scree_min("foo"))
+  expect_message(scree("foo"))
 })
 
