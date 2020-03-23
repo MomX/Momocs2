@@ -15,10 +15,15 @@ test_that(".morphospace_templating_table works",{
 })
 
 test_that("morphospace works", {
+  # todo
   x <- bot2 %>% dplyr::slice(1:5) %>% efourier %>% stat_pca
   expect_message(y <- x %>% morphospace())
   expect_is(y, "tbl")
 
+  z <- y %>% morphospace_template()
+  expect_is(z, "tbl")
+
+  expect_equal(nrow(y), nrow(z))
 })
 
 
