@@ -5,14 +5,16 @@
 \alias{coo_rotatecenter}
 \title{Rotate shapes}
 \usage{
-coo_rotate(x, theta = 0)
+coo_rotate(x, theta = 0, ...)
 
-coo_rotatecenter(x, theta = 0, center = c(0, 0))
+coo_rotatecenter(x, theta = 0, center = c(0, 0), ...)
 }
 \arguments{
 \item{x}{\link{coo_single}, \link{coo_list} or \link{coo_tbl}}
 
 \item{theta}{\code{numeric} angle to rotate (in radians) and in the trigonometric direction (anti-clockwise). Default to \code{0}.}
+
+\item{...}{useless here}
 
 \item{center}{\code{numeric} of length 2, sepcifying the \verb{(x; y)} coordinates of the rotation center. Default to \code{c(0, 0)}}
 }

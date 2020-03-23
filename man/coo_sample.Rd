@@ -5,14 +5,16 @@
 \alias{coo_interpolate}
 \title{Sample shapes}
 \usage{
-coo_sample(x, n)
+coo_sample(x, n, ...)
 
-coo_interpolate(x, n)
+coo_interpolate(x, n, ...)
 }
 \arguments{
 \item{x}{\link{coo_single}, \link{coo_list} or \link{coo_tbl}}
 
 \item{n}{\code{integer} desired number of coordinates (required)}
+
+\item{...}{useless here}
 }
 \value{
 a \link{coo_single}, \link{coo_list} or \link{coo_tbl}

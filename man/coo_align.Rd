@@ -4,10 +4,12 @@
 \alias{coo_align}
 \title{Align shapes}
 \usage{
-coo_align(x)
+coo_align(x, ...)
 }
 \arguments{
 \item{x}{\link{coo_single}, \link{coo_list} or \link{coo_tbl}}
+
+\item{...}{useless here}
 }
 \value{
 a \link{coo_single}, \link{coo_list} or \link{coo_tbl}

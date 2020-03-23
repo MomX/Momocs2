@@ -11,7 +11,7 @@ coo_template(x, size, ...)
 
 \item{size}{\code{numeric} the side of the square inscribing the shape}
 
-\item{...}{additional parameters}
+\item{...}{useless here}
 }
 \value{
 a \link{coo_single}, \link{coo_list} or \link{coo_tbl}

@@ -4,12 +4,14 @@
 \alias{coo_trans}
 \title{Translate shapes}
 \usage{
-coo_trans(x, x_trans = 0, y_trans = 0)
+coo_trans(x, x_trans = 0, y_trans = 0, ...)
 }
 \arguments{
 \item{x}{\link{coo_single}, \link{coo_list} or \link{coo_tbl}}
 
 \item{x_trans, y_trans}{\code{numeric} how much translate on each direction}
+
+\item{...}{useless here}
 }
 \value{
 a \link{coo_single}, \link{coo_list} or \link{coo_tbl}

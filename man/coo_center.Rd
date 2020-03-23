@@ -3,14 +3,31 @@
 \name{coo_center}
 \alias{coo_center}
 \alias{coo_centre}
+\alias{coo_center.default}
+\alias{coo_center.list}
+\alias{coo_center.coo_single}
+\alias{coo_center.coo_tbl}
 \title{Center shapes}
 \usage{
-coo_center(x)
+coo_center(x, ...)
 
-coo_centre(x)
+\method{coo_center}{default}(x, ...)
+
+\method{coo_center}{list}(x, ...)
+
+\method{coo_center}{coo_single}(x, ...)
+
+\method{coo_center}{coo_tbl}(x, from_col = coo, to_col = coo, ...)
+
+coo_centre(x, ...)
 }
 \arguments{
 \item{x}{\link{coo_single}, \link{coo_list} or \link{coo_tbl}}
+
+\item{...}{useless here}
+
+\item{from_col, to_col}{colnames from where to get the \link{coo_list}
+and how to name the resulting one (only for \link{coo_tbl} method)}
 }
 \value{
 a \link{coo_single}, \link{coo_list} or \link{coo_tbl}
@@ -18,6 +35,17 @@ a \link{coo_single}, \link{coo_list} or \link{coo_tbl}
 \description{
 Returns a shape centered on the origin.
 }
+\section{Methods (by class)}{
+\itemize{
+\item \code{default}: methods
+
+\item \code{list}: methods
+
+\item \code{coo_single}: methods
+
+\item \code{coo_tbl}: methods
+}}
+
 \examples{
 
 bot2 \%>\% pick(1) \%>\% coo_center \%>\% gg()

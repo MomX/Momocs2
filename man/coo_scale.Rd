@@ -4,12 +4,14 @@
 \alias{coo_scale}
 \title{Scale shapes}
 \usage{
-coo_scale(x, scale)
+coo_scale(x, scale, ...)
 }
 \arguments{
 \item{x}{\link{coo_single}, \link{coo_list} or \link{coo_tbl}}
 
 \item{scale}{\code{numeric} scaling factor (\link{get_centsize} by default).}
+
+\item{...}{useless here}
 }
 \value{
 a \link{coo_single}, \link{coo_list} or \link{coo_tbl}
