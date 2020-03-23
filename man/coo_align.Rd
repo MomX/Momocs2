@@ -2,14 +2,29 @@
 % Please edit documentation in R/coo_modifyers.R
 \name{coo_align}
 \alias{coo_align}
+\alias{coo_align.default}
+\alias{coo_align.list}
+\alias{coo_align.coo_tbl}
 \title{Align shapes}
 \usage{
 coo_align(x, ...)
+
+\method{coo_align}{default}(x, ...)
+
+\method{coo_align}{list}(x, ...)
+
+\method{coo_align}{coo_tbl}(x, from_col = coo, to_col = coo, ...)
 }
 \arguments{
 \item{x}{\link{coo_single}, \link{coo_list} or \link{coo_tbl}}
 
 \item{...}{useless here}
+
+\item{from_col}{colnames from where to get the \link{coo_list}
+and how to name the resulting one (only for \link{coo_tbl} method)}
+
+\item{to_col}{colnames from where to get the \link{coo_list}
+and how to name the resulting one (only for \link{coo_tbl} method)}
 }
 \value{
 a \link{coo_single}, \link{coo_list} or \link{coo_tbl}
@@ -17,12 +32,22 @@ a \link{coo_single}, \link{coo_list} or \link{coo_tbl}
 \description{
 Align shape along their longer axis using var-cov matrix and eigen values.
 }
+\section{Methods (by class)}{
+\itemize{
+\item \code{default}: default method
+
+\item \code{list}: list method
+
+\item \code{coo_tbl}: coo_tbl method
+}}
+
 \examples{
 bot2$coo[[5]] \%>\% coo_align
 }
 \seealso{
 Other coo_modifyers: 
 \code{\link{coo_center}()},
+\code{\link{coo_rotatecenter}()},
 \code{\link{coo_rotate}()},
 \code{\link{coo_sample}()},
 \code{\link{coo_scale}()},
@@ -30,6 +55,7 @@ Other coo_modifyers:
 \code{\link{coo_trans}()}
 
 Other rotations: 
+\code{\link{coo_rotatecenter}()},
 \code{\link{coo_rotate}()}
 }
 \concept{coo_modifyers}

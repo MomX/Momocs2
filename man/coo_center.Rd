@@ -53,6 +53,7 @@ bot2 \%>\% coo_center \%>\% pile()
 \seealso{
 Other coo_modifyers: 
 \code{\link{coo_align}()},
+\code{\link{coo_rotatecenter}()},
 \code{\link{coo_rotate}()},
 \code{\link{coo_sample}()},
 \code{\link{coo_scale}()},

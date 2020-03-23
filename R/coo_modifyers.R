@@ -84,17 +84,20 @@ coo_trans <- function(x, x_trans=0, y_trans=0, ...) {
   UseMethod("coo_trans")
 }
 
+#' @describeIn coo_trans default method
 #' @export
 coo_trans.default <- function(x, x_trans=0, y_trans=0, ...) {
   x %>% coo_single() %>%
     dplyr::mutate(x = .data$x + x_trans, y = .data$y + y_trans)
 }
 
+#' @describeIn coo_trans list method
 #' @export
 coo_trans.list <- function(x, x_trans=0, y_trans=0, ...){
   x %>% purrr::map(coo_trans, x_trans=x_trans, y_trans=y_trans) %>% coo_list()
 }
 
+#' @describeIn coo_trans coo_tbl method
 #' @export
 coo_trans.coo_tbl <- function(x, x_trans=0, y_trans=0, from_col=coo, to_col=coo, ...) {
 
@@ -130,6 +133,7 @@ coo_scale <- function(x, scale, ...) {
   UseMethod("coo_scale")
 }
 
+#' @describeIn coo_scale default method
 #' @export
 coo_scale.default <- function(x, scale, ...) {
   # use centroid size by default
@@ -145,6 +149,7 @@ coo_scale.default <- function(x, scale, ...) {
     coo_single()
 }
 
+#' @describeIn coo_scale list method
 #' @export
 coo_scale.list <- function(x, scale, ...){
   x <- purrr::map(x, coo_single)
@@ -153,6 +158,7 @@ coo_scale.list <- function(x, scale, ...){
   purrr::map2(x, scale, coo_scale) %>% coo_list()
 }
 
+#' @describeIn coo_scale coo_tbl method
 #' @export
 coo_scale.coo_tbl <- function(x, scale, from_col=coo, to_col=coo, ...) {
   # tidyeval
@@ -184,6 +190,7 @@ coo_template <- function(x, size, ...) {
   UseMethod("coo_template")
 }
 
+#' @describeIn coo_template default method
 #' @export
 coo_template.default <- function(x, size=1, ...) {
   # get the rescaling ratio
@@ -192,11 +199,14 @@ coo_template.default <- function(x, size=1, ...) {
   x %>% coo_center %>% dplyr::mutate(x=.data$x*k, y=.data$y*k)
 }
 
+#' @describeIn coo_template list method
 #' @export
 coo_template.list <- function(x, size=1, ...){
   x %>% purrr::map(coo_template, size=size) %>% coo_list()
 }
 
+
+#' @describeIn coo_template coo_tbl method
 #' @export
 coo_template.coo_tbl <- function(x, size=1, from_col=coo, to_col=coo, ...) {
   # tidyeval
@@ -255,16 +265,19 @@ coo_align <- function(x, ...) {
   UseMethod("coo_align")
 }
 
+#' @describeIn coo_align default method
 #' @export
 coo_align.default <- function(x, ...){
   (as.matrix(x) %*% (svd(stats::var(as.matrix(x)))$u)) %>% coo_single()
 }
 
+#' @describeIn coo_align list method
 #' @export
 coo_align.list <- function(x, ...){
   x %>% purrr::map(coo_align) %>% coo_list()
 }
 
+#' @describeIn coo_align coo_tbl method
 #' @export
 coo_align.coo_tbl <- function(x, from_col=coo, to_col=coo, ...){
   # tidyeval
@@ -285,10 +298,8 @@ coo_align.coo_tbl <- function(x, from_col=coo, to_col=coo, ...){
 #'
 #' Rotates the coordinates by a `theta` angle (in radians) in
 #' the trigonometric direction (anti-clockwise).
-#' `coo_rotate` uses the origin, but `coo_rotatecenter` allows to specify another center.
 #' @inherit coo_center params return
 #' @param theta `numeric` angle to rotate (in radians) and in the trigonometric direction (anti-clockwise). Default to `0`.
-#' @param center `numeric` of length 2, sepcifying the `(x; y)` coordinates of the rotation center. Default to `c(0, 0)`
 #' @family coo_modifyers
 #' @family rotations
 #' @examples
@@ -300,27 +311,30 @@ coo_align.coo_tbl <- function(x, from_col=coo, to_col=coo, ...){
 #'
 #' bot2 %>% coo_rotate(pi) %>% pile()
 #'
-#' @rdname coo_rotate
 #' @export
 coo_rotate <- function(x, theta = 0, ...) {
   UseMethod("coo_rotate")
 }
 
+#' @describeIn coo_rotate default method
 #' @export
 coo_rotate.default <- function(x, theta = 0, ...) {
   mat <- matrix(c(cos(-theta), sin(-theta), -sin(-theta), cos(-theta)), nrow = 2)
   x %>% as.matrix() %*% mat %>% coo_single()
 }
 
+#' @describeIn coo_rotate coo_list method
 #' @export
 coo_rotate.coo_list <- function(x, theta = 0, ...) {
   mat <- matrix(c(cos(-theta), sin(-theta), -sin(-theta), cos(-theta)), nrow = 2)
   x %>% purrr::map(~.x %>% as.matrix() %*% mat %>% coo_single()) %>% coo_list()
 }
 
+#' @describeIn coo_rotate default method
 #' @export
 coo_rotate.list <- coo_rotate.coo_list
 
+#' @describeIn coo_rotate coo_tbl method
 #' @export
 coo_rotate.coo_tbl<- function(x, theta = 0, from_col=coo, to_col=coo, ...) {
   # tidyeval
@@ -337,12 +351,27 @@ coo_rotate.coo_tbl<- function(x, theta = 0, from_col=coo, to_col=coo, ...) {
 }
 
 # coo_rotatecenter ----------------------------------------
-#' @rdname coo_rotate
+#' Rotate shapes and specify center
+#'
+#' Rotates the coordinates by a `theta` angle (in radians) in
+#' the trigonometric direction (anti-clockwise) and using `center` as coordinates.
+#' @inherit coo_center params return
+#' @param theta `numeric` angle to rotate (in radians) and in the trigonometric direction (anti-clockwise). Default to `0`.
+#' @param center `numeric` of length 2, sepcifying the `(x; y)` coordinates of the rotation center. Default to `c(0, 0)`
+#' @family coo_modifyers
+#' @family rotations
+#' @examples
+#' x <- bot2 %>% pick(5) %>% coo_center() %>% coo_scale()
+#' seq(0, pi, pi/6) %>%
+#'   purrr::map(~ x %>% coo_rotatecenter(x, theta=.x, center=c(5, 5)) %>% coo_single) %>%
+#'   coo_tbl() %>%
+#'   pile()
 #' @export
 coo_rotatecenter <- function(x, theta=0, center = c(0, 0), ...) {
   UseMethod("coo_rotatecenter")
 }
 
+#' @describeIn coo_rotatecenter default method
 #' @export
 coo_rotatecenter.default <- function(x, theta=0, center = c(0, 0), ...){
   center <- unlist(center) # if passed as data.frame like
@@ -353,14 +382,17 @@ coo_rotatecenter.default <- function(x, theta=0, center = c(0, 0), ...){
     coo_trans(x_trans = center[1], y_trans = center[2])
 }
 
+#' @describeIn coo_rotatecenter coo_list method
 #' @export
 coo_rotatecenter.coo_list <- function(x, theta=0, center = c(0, 0), ...) {
   x %>% purrr::map(coo_rotatecenter, center=center) %>% coo_list()
 }
 
+#' @describeIn coo_rotatecenter list method
 #' @export
 coo_rotatecenter.list <- coo_rotatecenter.coo_list
 
+#' @describeIn coo_rotatecenter coo_tbl method
 #' @export
 coo_rotatecenter.coo_tbl <- function(x, theta=0, center = c(0, 0), from_col=coo, to_col=coo, ...) {
   # tidyeval
@@ -374,8 +406,6 @@ coo_rotatecenter.coo_tbl <- function(x, theta=0, center = c(0, 0), from_col=coo,
   x %>% dplyr::mutate(!!to_col := x %>%
                         dplyr::pull(!!from_col) %>%
                         coo_rotatecenter(theta=theta, center=center))
-  ########
-
 }
 
 # SAMPLING AND CO -----------------------------------------

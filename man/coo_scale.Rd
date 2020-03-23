@@ -2,9 +2,18 @@
 % Please edit documentation in R/coo_modifyers.R
 \name{coo_scale}
 \alias{coo_scale}
+\alias{coo_scale.default}
+\alias{coo_scale.list}
+\alias{coo_scale.coo_tbl}
 \title{Scale shapes}
 \usage{
 coo_scale(x, scale, ...)
+
+\method{coo_scale}{default}(x, scale, ...)
+
+\method{coo_scale}{list}(x, scale, ...)
+
+\method{coo_scale}{coo_tbl}(x, scale, from_col = coo, to_col = coo, ...)
 }
 \arguments{
 \item{x}{\link{coo_single}, \link{coo_list} or \link{coo_tbl}}
@@ -12,6 +21,12 @@ coo_scale(x, scale, ...)
 \item{scale}{\code{numeric} scaling factor (\link{get_centsize} by default).}
 
 \item{...}{useless here}
+
+\item{from_col}{colnames from where to get the \link{coo_list}
+and how to name the resulting one (only for \link{coo_tbl} method)}
+
+\item{to_col}{colnames from where to get the \link{coo_list}
+and how to name the resulting one (only for \link{coo_tbl} method)}
 }
 \value{
 a \link{coo_single}, \link{coo_list} or \link{coo_tbl}
@@ -19,6 +34,15 @@ a \link{coo_single}, \link{coo_list} or \link{coo_tbl}
 \description{
 Returns a scaled shape.
 }
+\section{Methods (by class)}{
+\itemize{
+\item \code{default}: default method
+
+\item \code{list}: list method
+
+\item \code{coo_tbl}: coo_tbl method
+}}
+
 \examples{
 
 bot2$coo[[1]] \%>\% coo_scale
@@ -28,6 +52,7 @@ bot2$coo[[1]] \%>\% coo_scale
 Other coo_modifyers: 
 \code{\link{coo_align}()},
 \code{\link{coo_center}()},
+\code{\link{coo_rotatecenter}()},
 \code{\link{coo_rotate}()},
 \code{\link{coo_sample}()},
 \code{\link{coo_template}()},
