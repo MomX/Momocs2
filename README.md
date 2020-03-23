@@ -5,6 +5,7 @@
 [![Travis build status](https://travis-ci.org/MomX/Momocs2.svg?branch=master)](https://travis-ci.org/MomX/Momocs2)
 [![Codecov test coverage](https://codecov.io/gh/MomX/Momocs2/branch/master/graph/badge.svg)](https://codecov.io/gh/MomX/Momocs2?branch=master)
 [![Code size](https://img.shields.io/github/languages/code-size/MomX/Momocs.svg)](https://github.com/MomX/Momocs2)
+[![Last commit](https://img.shields.io/github/last-commit/MomX/Momocs2.svg)](https://github.com/MomX/Momocs2/commits/master)
 
 
 [![CRAN status](https://www.r-pkg.org/badges/version/Momocs2)](https://CRAN.R-project.org/package=Momocs2)
