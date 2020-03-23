@@ -212,14 +212,14 @@ is_vector_s3.coo_list <- function(x) TRUE
 #' @export
 #' @importFrom pillar type_sum
 type_sum.coo_list <- function(x) {
-  "cool"
+  "coo_list"
 }
 
-#' @export
-#' @importFrom pillar obj_sum
-obj_sum.coo_list <- function(x) {
-  "cool"
-}
+# #' @export
+# #' @importFrom pillar obj_sum
+# obj_sum.coo_list <- function(x) {
+#   "cool"
+# }
 
 #' @importFrom pillar is_vector_s3
 #' @export

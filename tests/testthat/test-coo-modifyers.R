@@ -85,6 +85,9 @@ test_that("coo_sample works", {
   y <- bot2 %>% dplyr::slice(1:5) %$% coo %>% coo_sample(6)
   z <- bot2 %>% dplyr::slice(1:5) %>% coo_sample(6) %$% coo
 
+  # early return
+  expect_identical(x, x %>% coo_sample(n=nrow(x)))
+
   # classes
   expect_is(x, "coo_single")
   expect_is(y, "coo_list")
@@ -102,6 +105,20 @@ test_that("coo_sample works", {
   expect_equal(x2 %>% dplyr::distinct() %>% nrow(), 120)
 })
 
+test_that("coo_interpolate works", {
+  x <- bot2 %>% pick(5) %>% coo_sample(12)
+  expect_equal(x %>% coo_interpolate(120) %>% nrow(), 120)
+  y <- bot2 %>% dplyr::slice(1:2)
+
+  # coo_list
+  expect_equivalent(y$coo %>% coo_sample(12) %>% coo_interpolate(24) %>% purrr::map_dbl(nrow),
+                    rep(24, 2))
+
+  # coo_tbl
+  expect_equivalent(y %>% coo_sample(12) %>% coo_interpolate(24) %$% coo %>% purrr::map_dbl(nrow),
+               rep(24, 2))
+
+})
 
 
 

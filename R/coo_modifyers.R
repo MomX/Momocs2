@@ -345,12 +345,12 @@ coo_sample <- function(x, n) {
 #' @export
 coo_sample.coo_single <- function(x, n) {
   # early return when unchanged must be returned
-  if (n==nrow(x)){
+  if (nrow(x) == n){
     return(x)
   }
   # case where n is too ambitious,
   # so we message and shoft to coo_interpolate
-  if (n > nrow(x)) {
+  if (nrow(x) < n) {
     .msg_warning("coo_sample: less coordinates than `n`, using coo_interpolate")
     return(coo_interpolate(x, n))
   }
@@ -377,7 +377,13 @@ coo_interpolate <- function(x, n) {
 
 #' @export
 coo_interpolate.coo_single <- function(x, n) {
-
+  # early return when unchanged must be returned
+  if (nrow(x) == n){
+    return(x)
+  }
+  # interpolate will cut based on perimeter_along
+  # with a reference (x) and a target
+  # on which we get ideal cutting along, given n
   old_along <- x %>% get_perim_cumsum() %>% unlist()
   new_along <- seq(0, get_perim(x), length = n + 1)[-(n + 1)]
 
