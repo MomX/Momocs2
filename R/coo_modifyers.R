@@ -45,6 +45,7 @@ coo_center.coo_tbl <- function(x) {
   x %>% dplyr::mutate(coo=purrr::map(x$coo, coo_center))
 }
 
+# For my english pals
 #' @rdname coo_center
 #' @export
 coo_centre <- coo_center
