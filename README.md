@@ -6,8 +6,6 @@
 [![Codecov test coverage](https://codecov.io/gh/MomX/Momocs2/branch/master/graph/badge.svg)](https://codecov.io/gh/MomX/Momocs2?branch=master)
 [![Code size](https://img.shields.io/github/languages/code-size/MomX/Momocs.svg)](https://github.com/MomX/Momocs2)
 [![Last commit](https://img.shields.io/github/last-commit/MomX/Momocs2.svg)](https://github.com/MomX/Momocs2/commits/master)
-
-
 [![CRAN status](https://www.r-pkg.org/badges/version/Momocs2)](https://CRAN.R-project.org/package=Momocs2)
 ![CRAN downloads last month](http://cranlogs.r-pkg.org/badges/Momocs) ![CRAN downloads grand total](http://cranlogs.r-pkg.org/badges/grand-total/Momocs)
 <!-- badges: end -->
@@ -68,9 +66,3 @@ All suggestions, help, etc. are welcome, ring my bell: `bonhomme.vincent@gmail.c
   * all objects have now two defaut methods: `gg` a default visualization with sensible choices, `gg0` is the empty canvas that just waits for `geoms`
   * other plotting functions have more sensible names (eg `plot_ruban`)
   * I still think `grindr` has merits but it's deprecated.
-  
-
-
-
-
-
