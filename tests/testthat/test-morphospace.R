@@ -7,6 +7,21 @@ test_that(".mprod works",{
   expect_equal(sum(x[, c("col1", "col4")]), 0)
 })
 
+test_that(".morphospace_templating_table works",{
+  s <- 1:12
+  # at least correct format is returned
+  expect_equal(purrr:::map_dbl(s, ~.morphospace_templating_table(.x) %>% nrow),
+               s)
+})
+
+test_that("morphospace works", {
+  x <- bot2 %>% dplyr::slice(1:5) %>% efourier %>% stat_pca
+  expect_message(y <- x %>% morphospace())
+  expect_is(y, "tbl")
+
+})
+
+
 test_that("morphospace_positionners work", {
   xy <- bot2 %>% efourier(6) %>% stat_pca() %>% dplyr::select(PC1, PC2)
   df <- morphospace_grid_window(xy, nr=12, nc=8)
