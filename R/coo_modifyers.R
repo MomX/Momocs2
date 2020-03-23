@@ -8,6 +8,9 @@
 #' Returns a shape centered on the origin.
 #'
 #' @param x [coo_single], [coo_list] or [coo_tbl]
+#' @param from_col,to_col colnames from where to get the [coo_list]
+#' and how to name the resulting one (only for [coo_tbl] method)
+#' @param ... useless here
 #' @return a [coo_single], [coo_list] or [coo_tbl]
 #' @family coo_modifyers
 #' @family translations
@@ -21,34 +24,46 @@
 #' bot2 %>% coo_center %>% pile()
 #'
 #' @export
-coo_center <- function(x) {
+coo_center <- function(x, ...) {
   UseMethod("coo_center")
 }
 
+#' @describeIn coo_center plop
 #' @export
-coo_center.default <- function(x) {
+coo_center.default <- function(x, ...) {
   x %>% scale(scale=FALSE) %>% coo_single()
 }
 
+#' @describeIn coo_center plip
 #' @export
-coo_center.list <- function(x){
+coo_center.list <- function(x, ...){
   x %>% purrr::map(coo_center) %>% coo_list()
 }
 
+#' @describeIn coo_center plup
 #' @export
-coo_center.coo_single <- function(x) {
+coo_center.coo_single <- function(x, ...) {
   x %>% scale(scale=FALSE) %>% coo_single()
 }
 
+#' @describeIn coo_center plyp
 #' @export
-coo_center.coo_tbl <- function(x) {
-  x %>% dplyr::mutate(coo=purrr::map(x$coo, coo_center))
+coo_center.coo_tbl <- function(x, from_col=coo, to_col=coo, ...) {
+  # tidyeval
+  from_col <- enquo(from_col)
+  # here, ensures that if to_col is not provided, it is from_coo too
+  if (missing(to_col))
+    to_col   <- enquo(from_col)
+  else
+    to_col <- enquo(to_col)
+  # operate
+  x %>% dplyr::mutate(!!to_col := x %>% dplyr::pull(!!from_col) %>% coo_center())
 }
 
-# For my english pals
-#' @rdname coo_center
-#' @export
-coo_centre <- coo_center
+# # For my english pals
+# #' @rdname coo_center
+# #' @export
+# coo_centre <- coo_center
 
 
 # coo_trans ----------------------------------------------
@@ -65,24 +80,33 @@ coo_centre <- coo_center
 #' bot2$coo[[1]] %>% coo_trans
 #'
 #' @export
-coo_trans <- function(x, x_trans=0, y_trans=0) {
+coo_trans <- function(x, x_trans=0, y_trans=0, ...) {
   UseMethod("coo_trans")
 }
 
 #' @export
-coo_trans.default <- function(x, x_trans=0, y_trans=0) {
+coo_trans.default <- function(x, x_trans=0, y_trans=0, ...) {
   x %>% coo_single() %>%
     dplyr::mutate(x = .data$x + x_trans, y = .data$y + y_trans)
 }
 
 #' @export
-coo_trans.list <- function(x, x_trans=0, y_trans=0){
+coo_trans.list <- function(x, x_trans=0, y_trans=0, ...){
   x %>% purrr::map(coo_trans, x_trans=x_trans, y_trans=y_trans) %>% coo_list()
 }
 
 #' @export
-coo_trans.coo_tbl <- function(x, x_trans=0, y_trans=0) {
-  x %>% dplyr::mutate(coo=purrr::map(x$coo, coo_trans, x_trans=x_trans, y_trans=y_trans))
+coo_trans.coo_tbl <- function(x, x_trans=0, y_trans=0, from_col=coo, to_col=coo, ...) {
+
+  # tidyeval
+  from_col <- enquo(from_col)
+  # here, ensures that if to_col is not provided, it is from_coo too
+  if (missing(to_col))
+    to_col   <- enquo(from_col)
+  else
+    to_col <- enquo(to_col)
+  # operate
+  x %>% dplyr::mutate(!!to_col := x %>% dplyr::pull(!!from_col) %>% coo_trans(x_trans=x_trans, y_trans=y_trans))
 }
 
 # SCALING AND CO ----------------
@@ -102,12 +126,12 @@ coo_trans.coo_tbl <- function(x, x_trans=0, y_trans=0) {
 #' bot2$coo[[1]] %>% coo_scale
 #'
 #' @export
-coo_scale <- function(x, scale) {
+coo_scale <- function(x, scale, ...) {
   UseMethod("coo_scale")
 }
 
 #' @export
-coo_scale.default <- function(x, scale) {
+coo_scale.default <- function(x, scale, ...) {
   # use centroid size by default
   if (missing(scale))
     scale <- get_centsize(x)
@@ -122,7 +146,7 @@ coo_scale.default <- function(x, scale) {
 }
 
 #' @export
-coo_scale.list <- function(x, scale){
+coo_scale.list <- function(x, scale, ...){
   x <- purrr::map(x, coo_single)
   if (missing(scale))
     scale <- purrr::map_dbl(x, get_centsize)
@@ -130,8 +154,16 @@ coo_scale.list <- function(x, scale){
 }
 
 #' @export
-coo_scale.coo_tbl <- function(x, scale) {
-  x %>% dplyr::mutate(coo=purrr::map(x$coo, coo_scale))
+coo_scale.coo_tbl <- function(x, scale, from_col=coo, to_col=coo, ...) {
+  # tidyeval
+  from_col <- enquo(from_col)
+  # here, ensures that if to_col is not provided, it is from_coo too
+  if (missing(to_col))
+    to_col   <- enquo(from_col)
+  else
+    to_col <- enquo(to_col)
+  # operate
+  x %>% dplyr::mutate(!!to_col := x %>% dplyr::pull(!!from_col) %>% coo_scale())
 }
 
 # coo_template ----------------------------------------------
@@ -142,7 +174,6 @@ coo_scale.coo_tbl <- function(x, scale) {
 #'
 #' @inherit coo_center params return
 #' @param size `numeric` the side of the square inscribing the shape
-#' @param ... additional parameters
 #' @family coo_modifyers
 #' @family scalings
 #' @examples
@@ -167,8 +198,16 @@ coo_template.list <- function(x, size=1, ...){
 }
 
 #' @export
-coo_template.coo_tbl <- function(x, size=1, ...) {
-  x %>% dplyr::mutate(coo=purrr::map(coo, coo_template, size=size))
+coo_template.coo_tbl <- function(x, size=1, from_col=coo, to_col=coo, ...) {
+  # tidyeval
+  from_col <- enquo(from_col)
+  # here, ensures that if to_col is not provided, it is from_coo too
+  if (missing(to_col))
+    to_col   <- enquo(from_col)
+  else
+    to_col <- enquo(to_col)
+  # operate
+  x %>% dplyr::mutate(!!to_col := x %>% dplyr::pull(!!from_col) %>% coo_template(size=size))
 }
 
 
@@ -212,23 +251,31 @@ coo_template.coo_tbl <- function(x, size=1, ...) {
 #' @examples
 #' bot2$coo[[5]] %>% coo_align
 #' @export
-coo_align <- function(x) {
+coo_align <- function(x, ...) {
   UseMethod("coo_align")
 }
 
 #' @export
-coo_align.default <- function(x){
+coo_align.default <- function(x, ...){
   (as.matrix(x) %*% (svd(stats::var(as.matrix(x)))$u)) %>% coo_single()
 }
 
 #' @export
-coo_align.list <- function(x){
+coo_align.list <- function(x, ...){
   x %>% purrr::map(coo_align) %>% coo_list()
 }
 
 #' @export
-coo_align.coo_tbl <- function(x){
-  x %>% dplyr::mutate(coo=purrr::map(x$coo, coo_align))
+coo_align.coo_tbl <- function(x, from_col=coo, to_col=coo, ...){
+  # tidyeval
+  from_col <- enquo(from_col)
+  # here, ensures that if to_col is not provided, it is from_coo too
+  if (missing(to_col))
+    to_col   <- enquo(from_col)
+  else
+    to_col <- enquo(to_col)
+  # operate
+  x %>% dplyr::mutate(!!to_col := x %>% dplyr::pull(!!from_col) %>% coo_align())
 }
 
 
@@ -255,18 +302,18 @@ coo_align.coo_tbl <- function(x){
 #'
 #' @rdname coo_rotate
 #' @export
-coo_rotate <- function(x, theta = 0) {
+coo_rotate <- function(x, theta = 0, ...) {
   UseMethod("coo_rotate")
 }
 
 #' @export
-coo_rotate.default <- function(x, theta = 0) {
+coo_rotate.default <- function(x, theta = 0, ...) {
   mat <- matrix(c(cos(-theta), sin(-theta), -sin(-theta), cos(-theta)), nrow = 2)
   x %>% as.matrix() %*% mat %>% coo_single()
 }
 
 #' @export
-coo_rotate.coo_list <- function(x, theta = 0) {
+coo_rotate.coo_list <- function(x, theta = 0, ...) {
   mat <- matrix(c(cos(-theta), sin(-theta), -sin(-theta), cos(-theta)), nrow = 2)
   x %>% purrr::map(~.x %>% as.matrix() %*% mat %>% coo_single()) %>% coo_list()
 }
@@ -275,19 +322,29 @@ coo_rotate.coo_list <- function(x, theta = 0) {
 coo_rotate.list <- coo_rotate.coo_list
 
 #' @export
-coo_rotate.coo_tbl<- function(x, theta = 0) {
-  x %>% dplyr::mutate(coo=coo_rotate(coo, theta=theta))
+coo_rotate.coo_tbl<- function(x, theta = 0, from_col=coo, to_col=coo, ...) {
+  # tidyeval
+  from_col <- enquo(from_col)
+  # here, ensures that if to_col is not provided, it is from_coo too
+  if (missing(to_col))
+    to_col   <- enquo(from_col)
+  else
+    to_col <- enquo(to_col)
+  # operate
+  x %>% dplyr::mutate(!!to_col := x %>%
+                        dplyr::pull(!!from_col) %>%
+                        coo_rotate(theta=theta))
 }
 
 # coo_rotatecenter ----------------------------------------
 #' @rdname coo_rotate
 #' @export
-coo_rotatecenter <- function(x, theta=0, center = c(0, 0)) {
+coo_rotatecenter <- function(x, theta=0, center = c(0, 0), ...) {
   UseMethod("coo_rotatecenter")
 }
 
 #' @export
-coo_rotatecenter.default <- function(x, theta=0, center = c(0, 0)){
+coo_rotatecenter.default <- function(x, theta=0, center = c(0, 0), ...){
   center <- unlist(center) # if passed as data.frame like
   x %>%
     # probably a more direct option
@@ -297,7 +354,7 @@ coo_rotatecenter.default <- function(x, theta=0, center = c(0, 0)){
 }
 
 #' @export
-coo_rotatecenter.coo_list <- function(x, theta=0, center = c(0, 0)) {
+coo_rotatecenter.coo_list <- function(x, theta=0, center = c(0, 0), ...) {
   x %>% purrr::map(coo_rotatecenter, center=center) %>% coo_list()
 }
 
@@ -305,8 +362,20 @@ coo_rotatecenter.coo_list <- function(x, theta=0, center = c(0, 0)) {
 coo_rotatecenter.list <- coo_rotatecenter.coo_list
 
 #' @export
-coo_rotatecenter.coo_tbl <- function(x, theta=0, center = c(0, 0)) {
-  x %>% dplyr::mutate(coo=coo_rotatecenter(coo, center=center))
+coo_rotatecenter.coo_tbl <- function(x, theta=0, center = c(0, 0), from_col=coo, to_col=coo, ...) {
+  # tidyeval
+  from_col <- enquo(from_col)
+  # here, ensures that if to_col is not provided, it is from_coo too
+  if (missing(to_col))
+    to_col   <- enquo(from_col)
+  else
+    to_col <- enquo(to_col)
+  # operate
+  x %>% dplyr::mutate(!!to_col := x %>%
+                        dplyr::pull(!!from_col) %>%
+                        coo_rotatecenter(theta=theta, center=center))
+  ########
+
 }
 
 # SAMPLING AND CO -----------------------------------------
@@ -339,12 +408,12 @@ coo_rotatecenter.coo_tbl <- function(x, theta=0, center = c(0, 0)) {
 #' x %>% coo_interpolate(48) %>% pile()
 #'
 #' @export
-coo_sample <- function(x, n) {
+coo_sample <- function(x, n, ...) {
   UseMethod("coo_sample")
 }
 
 #' @export
-coo_sample.coo_single <- function(x, n) {
+coo_sample.coo_single <- function(x, n, ...) {
   # early return when unchanged must be returned
   if (nrow(x) == n){
     return(x)
@@ -360,24 +429,33 @@ coo_sample.coo_single <- function(x, n) {
 }
 
 #' @export
-coo_sample.list <- function(x, n) {
+coo_sample.list <- function(x, n, ...) {
   x %>% purrr::map(coo_sample, n) %>% coo_list()
 }
 
 #' @export
-coo_sample.coo_tbl <- function(x, n) {
-  x %>% dplyr::mutate(coo=coo_sample(x$coo, n))
+coo_sample.coo_tbl <- function(x, n, from_col=coo, to_col=coo, ...) {
+  # tidyeval
+  from_col <- enquo(from_col)
+  # here, ensures that if to_col is not provided, it is from_coo too
+  if (missing(to_col))
+    to_col   <- enquo(from_col)
+  else
+    to_col <- enquo(to_col)
+  # operate
+  x %>% dplyr::mutate(!!to_col := x %>% dplyr::pull(!!from_col) %>% coo_sample(n=n))
+  ########
 }
 
 # coo_interpolate -----------------------------------------
 #' @describeIn coo_sample Interpolates shape coordinates
 #' @export
-coo_interpolate <- function(x, n) {
+coo_interpolate <- function(x, n, ...) {
   UseMethod("coo_interpolate")
 }
 
 #' @export
-coo_interpolate.coo_single <- function(x, n) {
+coo_interpolate.coo_single <- function(x, n, ...) {
   # early return when unchanged must be returned
   if (nrow(x) == n){
     return(x)
@@ -401,16 +479,26 @@ coo_interpolate.coo_single <- function(x, n) {
     new_x[i, ] <- edi(x[k, ], x[k + 1, ], r)
   }
 
+  # return this beauty
   new_x %>% coo_single()
 }
 
 #' @export
-coo_interpolate.list <- function(x, n){
+coo_interpolate.list <- function(x, n, ...){
   x %>% purrr::map(coo_interpolate, n)
 }
 
 #' @export
-coo_interpolate.coo_tbl <- function(x, n){
-  x %>% dplyr::mutate(coo=purrr::map(x$coo, coo_interpolate, n))
+coo_interpolate.coo_tbl <- function(x, n, from_col=coo, to_col=coo, ...){
+
+  # tidyeval
+  from_col <- enquo(from_col)
+  # here, ensures that if to_col is not provided, it is from_coo too
+  if (missing(to_col))
+    to_col   <- enquo(from_col)
+  else
+    to_col <- enquo(to_col)
+  # operate
+  x %>% dplyr::mutate(!!to_col := x %>% dplyr::pull(!!from_col) %>% coo_interpolate(n=n))
 }
 

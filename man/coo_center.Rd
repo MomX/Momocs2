@@ -18,8 +18,6 @@ coo_center(x, ...)
 \method{coo_center}{coo_single}(x, ...)
 
 \method{coo_center}{coo_tbl}(x, from_col = coo, to_col = coo, ...)
-
-coo_centre(x, ...)
 }
 \arguments{
 \item{x}{\link{coo_single}, \link{coo_list} or \link{coo_tbl}}
@@ -37,13 +35,13 @@ Returns a shape centered on the origin.
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{default}: methods
+\item \code{default}: plop
 
-\item \code{list}: methods
+\item \code{list}: plip
 
-\item \code{coo_single}: methods
+\item \code{coo_single}: plup
 
-\item \code{coo_tbl}: methods
+\item \code{coo_tbl}: plyp
 }}
 
 \examples{

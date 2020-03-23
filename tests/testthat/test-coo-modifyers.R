@@ -1,3 +1,18 @@
+from_to_helper <- function(fun, ...){
+  w <- bot2 %>% dplyr::slice(1:2)
+  # default
+  x <- w %>% fun(...) %>% dplyr::pull(coo)
+  # another from used but still default target (ie from_col too)
+  y <- w %>% dplyr::rename(coo2=coo) %>% fun(from_col=coo2, ...) %>% dplyr::pull(coo2)
+  # from and col specified
+  z <- w %>% dplyr::rename(coo2=coo) %>% fun(from_col=coo2, to_col=coo3, ...) %>% dplyr::pull(coo3)
+  expect_identical(x, y)
+  expect_identical(y, z)
+  expect_identical(x, z)
+}
+
+from_to_helper(coo_interpolate, n=1e3)
+
 # coo_center ---------
 test_that("coo_center, coo_trans works", {
   xy <- bot2$coo[[1]] %>% coo_center %>% get_centpos() %>% unlist
@@ -21,6 +36,15 @@ test_that("coo_center, coo_trans works", {
 
   expect_is(bot2$coo %>% coo_center, "coo_list")
   expect_is(bot2$coo %>% coo_trans, "coo_list")
+
+  from_to_helper(coo_trans)
+})
+
+# coo_trans ---------
+test_that("coo_trans works", {
+  expect_is(bot2$coo %>% coo_trans(), "coo_list")
+  expect_is(bot2 %>% coo_trans(), "coo_tbl")
+  from_to_helper(coo_trans)
 })
 
 # coo_scale ---------
@@ -36,14 +60,9 @@ test_that("coo_scale works", {
 
   expect_is(bot2 %>% coo_scale, "coo_tbl")
 
+  from_to_helper(coo_trans)
 })
 
-# coo_trans ---------
-test_that("coo_trans works", {
-  expect_is(bot2$coo %>% coo_trans(), "coo_list")
-  expect_is(bot2 %>% coo_trans(), "coo_tbl")
-
-})
 
 # coo_template ---------
 test_that("coo_template works", {
@@ -55,6 +74,8 @@ test_that("coo_template works", {
   expect_equivalent(apply(dplyr::select(y, x_range, y_range), 1, max),
                           expected=rep(1, nrow(bot2)), tol=1e-10)
   expect_is(y, "coo_tbl")
+
+  from_to_helper(coo_template)
 })
 
 # coo_rotate ---------
@@ -77,6 +98,9 @@ test_that("coo_rotate works", {
   expect_is(bot2 %>% pick(1) %>% coo_rotatecenter, "coo_single")
   expect_is(bot2$coo %>% coo_rotatecenter, "coo_list")
   expect_is(bot2 %>% coo_rotatecenter, "coo_tbl")
+
+  from_to_helper(coo_rotate)
+  from_to_helper(coo_rotatecenter)
 })
 
 # coo_sample -----
@@ -103,6 +127,8 @@ test_that("coo_sample works", {
   x2 <- expect_message(x %>% coo_sample(120))
   expect_equal(nrow(x2), 120 )
   expect_equal(x2 %>% dplyr::distinct() %>% nrow(), 120)
+
+  from_to_helper(coo_scale)
 })
 
 test_that("coo_interpolate works", {
@@ -120,6 +146,8 @@ test_that("coo_interpolate works", {
   # coo_tbl
   expect_equivalent(y %>% coo_sample(12) %>% coo_interpolate(24) %$% coo %>% purrr::map_dbl(nrow),
                rep(24, 2))
+
+  from_to_helper(coo_interpolate, n=1e3)
 
 })
 

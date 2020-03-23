@@ -346,7 +346,8 @@ coe_single.default <- function(x){
 coe_single.numeric <- function(x){
   # todo improve a bit, eg colnames?
   x %>%
-    tibble::as_tibble.list(.name_repair = "universal") %>%
+    list() %>%
+    tibble::as_tibble(.name_repair = "universal") %>%
     .append_class("coe_single")
 }
 
