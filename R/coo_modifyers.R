@@ -28,25 +28,25 @@ coo_center <- function(x, ...) {
   UseMethod("coo_center")
 }
 
-#' @describeIn coo_center plop
+#' @describeIn coo_center default method
 #' @export
 coo_center.default <- function(x, ...) {
   x %>% scale(scale=FALSE) %>% coo_single()
 }
 
-#' @describeIn coo_center plip
+#' @describeIn coo_center list method
 #' @export
 coo_center.list <- function(x, ...){
   x %>% purrr::map(coo_center) %>% coo_list()
 }
 
-#' @describeIn coo_center plup
+#' @describeIn coo_center coo_single method
 #' @export
 coo_center.coo_single <- function(x, ...) {
   x %>% scale(scale=FALSE) %>% coo_single()
 }
 
-#' @describeIn coo_center plyp
+#' @describeIn coo_center coo_tbl method
 #' @export
 coo_center.coo_tbl <- function(x, from_col=coo, to_col=coo, ...) {
   # tidyeval

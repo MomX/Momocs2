@@ -35,13 +35,13 @@ Returns a shape centered on the origin.
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{default}: plop
+\item \code{default}: default method
 
-\item \code{list}: plip
+\item \code{list}: list method
 
-\item \code{coo_single}: plup
+\item \code{coo_single}: coo_single method
 
-\item \code{coo_tbl}: plyp
+\item \code{coo_tbl}: coo_tbl method
 }}
 
 \examples{
