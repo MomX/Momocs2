@@ -1,3 +1,4 @@
+# COO ------
 # coo_single -------
 
 test_that("coo_single constructor works", {
@@ -100,8 +101,64 @@ test_that("coo_tbl works", {
   expect_is(bot2 %>% pick(1) %>% coo_tbl(), "coo_tbl")
 })
 
+# COE -----------
+# coe_single ----
+
+test_that("coe_single works", {
+  expect_message(coe_single("foo"))
+
+  # passing a tibble
+  x <- tibble::tibble(a=1, b=2)
+  expect_is(coe_single(x), "coe_single")
+
+  # passing coe_single
+  expect_identical(coe_single(x), coe_single(coe_single(x)))
+
+  # passing a numeric
+  expect_is(coe_single(c(4, 5, 6)), "coe_single")
+
+  y <- list(tibble::tibble(a=3, b=4),
+            x)
+  expect_is(coe_list(y), "coe_list")
+  expect_message(coe_list("foo"))
+})
+
+# coe_list ----
+test_that("coe_list works", {
+  expect_message(coe_list("foo"))
+
+  x <- bot2 %>%
+    dplyr::slice(1:4) %$% coo %>%
+    purrr::map(efourier, nb_h=3)
+  expect_is(coe_list(x), "coe_list")
+})
+
+# coe_tbl ----
 test_that("coe_tbl works", {
   bot2 %>% efourier(2) -> x
   expect_is(x, "coe_tbl")
+})
+
+# validate_coe_single ----
+test_that("validate_coe_single validator works",{
+  x_ok <- coe_single(c(var1=1, var2=2))
+
+  # a valid one
+  expect_is(x_ok %>% validate_coe_single(), "coe_single")
+
+  # drop tbl class
+  y <- x_ok
+  class(y) <- c("coe_single", "data.frame")
+  expect_message(validate_coe_single(y))
+
+  # wrong colnames
+  # expect_message(x_ok %>% `colnames<-`(c("a", "y")) %>% validate_coo_single())
+
+  # no column
+  expect_message(x_ok %>% dplyr::select() %>% validate_coe_single())
+
+  # more than one column
+  # might be release when nrow()>1 will be allowed
+  expect_message(dplyr::bind_rows(x_ok, x_ok) %>% validate_coe_single())
 })
 

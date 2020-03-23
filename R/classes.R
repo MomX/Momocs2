@@ -344,9 +344,10 @@ coe_single.default <- function(x){
 #' @rdname coe_single
 #' @export
 coe_single.numeric <- function(x){
-  if (nrow(x)>1)
-    .msg_danger("coe_single: more than one row, only retain the first one")
-  x %>% tibble::as_tibble() %>% .append_class("coe_single")
+  # todo improve a bit, eg colnames?
+  x %>%
+    tibble:::as_tibble.list(.name_repair = "universal") %>%
+    .append_class("coe_single")
 }
 
 #' @rdname coe_single
@@ -354,7 +355,9 @@ coe_single.numeric <- function(x){
 coe_single.data.frame <- function(x){
   if (nrow(x)>1)
     .msg_danger("coe_single: more than one row, only retain the first one")
-  x %>% tibble::as_tibble() %>% .append_class("coe_single")
+  x %>%
+    tibble::as_tibble(.name_repair = "universal") %>%
+    .append_class("coe_single")
 }
 
 #' @rdname coe_single
