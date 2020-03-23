@@ -110,6 +110,9 @@ test_that("coo_interpolate works", {
   expect_equal(x %>% coo_interpolate(120) %>% nrow(), 120)
   y <- bot2 %>% dplyr::slice(1:2)
 
+  # early return
+  expect_identical(x, x %>% coo_interpolate(n=nrow(x)))
+
   # coo_list
   expect_equivalent(y$coo %>% coo_sample(12) %>% coo_interpolate(24) %>% purrr::map_dbl(nrow),
                     rep(24, 2))
