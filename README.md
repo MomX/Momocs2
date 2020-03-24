@@ -1,5 +1,7 @@
 # Momocs 2.0 <a href='http://momx.github.io/Momocs'><img src='man/figures/logo.png' align="right" height="140" /></a>
 
+*Part of [MomX](https://momx.github.io/MomX/)*
+
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Travis build status](https://travis-ci.org/MomX/Momocs2.svg?branch=master)](https://travis-ci.org/MomX/Momocs2)
