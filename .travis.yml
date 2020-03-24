@@ -5,6 +5,7 @@ cache: packages
 
 after_success:
   - Rscript -e 'covr::codecov()'
+  - Rscript -e 'pkgdown::build_site()'
 
 notifications:
   email:
@@ -12,9 +13,6 @@ notifications:
       - bonhomme.vincent@gmail.com
     on_success: change
     on_failure: change
-
-after_success:
-  - Rscript -e 'pkgdown::build_site()'
 
 deploy:
   provider: pages
