@@ -2,4 +2,7 @@ pandoc: '2.2'
 pkgdown: 1.4.1
 pkgdown_sha: ~
 articles: []
+urls:
+  reference: http://momx.github.io/Momocs2/reference
+  article: http://momx.github.io/Momocs2/articles
 
