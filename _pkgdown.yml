@@ -1,1 +1,20 @@
 destination: docs
+
+url: http://momx.github.io/Momocs2
+
+template:
+  params:
+    bootswatch: cosmo
+
+home:
+  strip_header: true
+
+navbar:
+  type: default
+  right:
+  - icon: fa-github fa-lg
+    href: https://github.com/MomX/Momocs2
+
+authors:
+  Vincent Bonhomme:
+    href: http://www.vincentbonhomme.fr
