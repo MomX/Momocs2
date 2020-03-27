@@ -43,4 +43,6 @@ Imports:
     crayon,
     tidyr,
     methods
+Remotes:
+    tidyverse/ggplot2
 VignetteBuilder: knitr
