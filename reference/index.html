@@ -17,23 +17,27 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -44,7 +48,6 @@
 
 <meta property="og:title" content="Function reference" />
 <meta property="og:image" content="http://momx.github.io/Momocs2/logo.png" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -62,7 +65,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-index">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -76,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Momocs2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.9.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.9.0.0000</span>
       </span>
     </div>
 
@@ -151,6 +154,11 @@
           <p class="section-desc"><p>Modify coordinates</p></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
@@ -225,6 +233,11 @@
           <p class="section-desc"><p>Describe coordinates</p></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
@@ -263,6 +276,11 @@
           <p class="section-desc"><p>Functions that turn coordinates into coefficients</p></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
@@ -277,6 +295,11 @@
           <p class="section-desc"><p>Mostly to ease manipulation of list columns</p></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
@@ -303,6 +326,11 @@
           <p class="section-desc"><p>Prepare and build ggplot2 graphics</p></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
@@ -341,6 +369,11 @@
           <p class="section-desc"><p>Prepare and build morphospaces</p></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
@@ -355,6 +388,11 @@
           <p class="section-desc"><p>Classes constructors, validators</p></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
@@ -399,217 +437,12 @@
           <p class="section-desc"><p>Helpers to convert from/to different formats</p></p>
         </th>
       </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="babel.html">complex_2_cartesian()</a></code> <code><a href="babel.html">cartesian_2_complex()</a></code> <code><a href="babel.html">degrees_to_radians()</a></code> <code><a href="babel.html">radians_to_degrees()</a></code> </p>
-        </td>
-        <td><p>Convert between numeric and classes systems</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="bot2.html">bot2</a></code> </p>
-        </td>
-        <td><p>Some bottles</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="coe_list.html">coe_list()</a></code> <code><a href="coe_list.html">is_coe_list()</a></code> <code><a href="coe_list.html">is_coe_list1()</a></code> </p>
-        </td>
-        <td><p>coe_list constructor for list of shapes</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="coe_single.html">coe_single()</a></code> <code><a href="coe_single.html">validate_coe_single()</a></code> <code><a href="coe_single.html">is_coe_single()</a></code> <code><a href="coe_single.html">is_coe_single1()</a></code> </p>
-        </td>
-        <td><p>coe_single constructor for single coefficients lists</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="coe_tbl.html">is_coe_tbl()</a></code> <code><a href="coe_tbl.html">is_coe_tbl1()</a></code> <code><a href="coe_tbl.html">coe_tbl()</a></code> </p>
-        </td>
-        <td><p>coe_tbl class</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="coo_align.html">coo_align()</a></code> </p>
-        </td>
-        <td><p>Align shapes</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="coo_center.html">coo_center()</a></code> </p>
-        </td>
-        <td><p>Center shapes</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="coo_list.html">coo_list()</a></code> <code><a href="coo_list.html">is_coo_list()</a></code> <code><a href="coo_list.html">is_coo_list1()</a></code> </p>
-        </td>
-        <td><p>coo_list constructor for list of shapes</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="coo_rotate.html">coo_rotate()</a></code> </p>
-        </td>
-        <td><p>Rotate shapes</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="coo_rotatecenter.html">coo_rotatecenter()</a></code> </p>
-        </td>
-        <td><p>Rotate shapes and specify center</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="coo_sample.html">coo_sample()</a></code> <code><a href="coo_sample.html">coo_interpolate()</a></code> </p>
-        </td>
-        <td><p>Sample shapes</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="coo_scale.html">coo_scale()</a></code> </p>
-        </td>
-        <td><p>Scale shapes</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="coo_single.html">coo_single()</a></code> <code><a href="coo_single.html">validate_coo_single()</a></code> <code><a href="coo_single.html">is_coo_single()</a></code> <code><a href="coo_single.html">is_coo_single1()</a></code> </p>
-        </td>
-        <td><p>coo_single constructor for single shapes</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="coo_tbl.html">coo_tbl()</a></code> <code><a href="coo_tbl.html">is_coo_tbl()</a></code> <code><a href="coo_tbl.html">is_coo_tbl1()</a></code> </p>
-        </td>
-        <td><p>coo_tbl class</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="coo_template.html">coo_template()</a></code> </p>
-        </td>
-        <td><p>Templates shapes</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="coo_trans.html">coo_trans()</a></code> </p>
-        </td>
-        <td><p>Translate shapes</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="draw.html">draw()</a></code> </p>
-        </td>
-        <td><p>Add shapes on top of another plot</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="edi.html">edi()</a></code> </p>
-        </td>
-        <td><p>Distance helpers</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="efourier.html">efourier()</a></code> <code><a href="efourier.html">efourier_i()</a></code> <code><a href="efourier.html">efourier_norm()</a></code> </p>
-        </td>
-        <td><p>elliptical Fourier transforms</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_centpos.html">get_centpos()</a></code> </p>
-        </td>
-        <td><p>Calculate centroid position</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_centsize.html">get_centsize()</a></code> </p>
-        </td>
-        <td><p>Calculate centroid size</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_lw.html">get_lw()</a></code> <code><a href="get_lw.html">get_length()</a></code> <code><a href="get_lw.html">get_width()</a></code> </p>
-        </td>
-        <td><p>Calculates length and width of a shape</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_perim_along.html">get_perim_along()</a></code> <code><a href="get_perim_along.html">get_perim()</a></code> <code><a href="get_perim_along.html">get_perim_cumsum()</a></code> </p>
-        </td>
-        <td><p>Calculates perimeter and variations</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_range.html">get_range()</a></code> <code><a href="get_range.html">get_range()</a></code> <code><a href="get_range.html">get_diffrange()</a></code> </p>
-        </td>
-        <td><p>Get shape range</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="gg.html">gg()</a></code> <code><a href="gg.html">gg0()</a></code> </p>
-        </td>
-        <td><p>Default ggplot2 graphics</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="inspect.html">inspect()</a></code> </p>
-        </td>
-        <td><p>Graphical inspection of shapes</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="morphospace.html">morphospace()</a></code> </p>
-        </td>
-        <td><p>Versatile function to reconstruct shapes from statistical objects</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="morphospace_template.html">morphospace_template()</a></code> </p>
-        </td>
-        <td><p>Template and adjust for multiviews before drawing morphospaces</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="mosaic.html">mosaic()</a></code> </p>
-        </td>
-        <td><p>Plot all shapes as a mosaic</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="pick.html">pick()</a></code> </p>
-        </td>
-        <td><p>Pick a single coo_df from a coo_tbl</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="pile.html">pile()</a></code> </p>
-        </td>
-        <td><p>Plot all shapes on the same graph</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="plint.html">plint()</a></code> </p>
-        </td>
-        <td><p>Plot, print and pipe forward</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="scree.html">scree()</a></code> <code><a href="scree.html">scree_min()</a></code> <code><a href="scree.html">scree_plot()</a></code> </p>
-        </td>
-        <td><p>How many axes to retain this much of variance or trace ?</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="stat_pca.html">stat_pca()</a></code> </p>
-        </td>
-        <td><p>Principal component analysis</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="unpack.html">unpack()</a></code> </p>
-        </td>
-        <td><p>Unpack list columns</p></td>
-      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      
     </tbody><tbody>
       <tr>
         <th colspan="2">
@@ -617,6 +450,11 @@
           <p class="section-desc"><p>To play with</p></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
@@ -628,19 +466,10 @@
     </table>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-coo-">coo_*</a></li>
-      <li><a href="#section-get-">get_*</a></li>
-      <li><a href="#section-morphometrics">Morphometrics</a></li>
-      <li><a href="#section-momocs-verbs">Momocs verbs</a></li>
-      <li><a href="#section-graphics">Graphics</a></li>
-      <li><a href="#section-morphospaces">Morphospaces</a></li>
-      <li><a href="#section-classes">Classes</a></li>
-      <li><a href="#section-babel">Babel</a></li>
-      <li><a href="#section-datasets">Datasets</a></li>
-    </ul>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -651,7 +480,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
 </div>
 
       </footer>
