@@ -1,9 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-## Momocs 2.0
-
-<a href='http://momx.github.io/Momocs'><img src='man/figures/logo.png' align="right" height="140" /></a>
+## Momocs 2.0 <a href='http://momx.github.io/Momocs2'><img src='man/figures/logo.png' align="right" height="139" /></a>
 
 *Part of [MomX](https://momx.github.io/MomX/)*
 
