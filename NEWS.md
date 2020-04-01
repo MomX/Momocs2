@@ -11,6 +11,9 @@
 
 * overall style is improved, more consistent and follows most tidyverse recommendations. First argument is always `x`; arguments no longer use `-` but `_`, and the internal code is styled with `styler` package
 
+### Breaking changes
+* `[[` and `$` methods on shape collection are depreacted. `bot[[1]]` becomes `bot %>% pick(1)`. `$` to access `fac$` is now useless since everything is now a tibble
+* `coo_nb` now counts the number of `coo_list` columns (and not the number of points within a shape which is a getter now, called `get_nb`)
 # Momocs2 0.0.0.9000
 
 * Added a `NEWS.md` file to track changes to the package.

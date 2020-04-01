@@ -17,6 +17,9 @@ a coo_df
 \description{
 Pick a single coo_df from a coo_tbl
 }
+\note{
+Used to be \code{[[} in Momocs < 2.0 (eg \code{bot[[1]]} is replace with \code{bot \%>\% pick(1)})
+}
 \examples{
 bot2 \%>\% pick(1) \%>\% gg()
 bot2$coo \%>\% pick(2)

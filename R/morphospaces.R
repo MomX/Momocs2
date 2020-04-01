@@ -306,7 +306,7 @@ morphospace_template <- function(x, size=NULL){
 #
 #   shp_df <- pca %>%
 #     morphospace(xy = xy) %>%
-#     morphospace_template(size = size) %>% unpack()
+#     morphospace_template(size = size) %>% unfold()
 #
 #   gg + geom(data=shp_df,
 #             mapping=ggplot2::aes(x=.data$x, y=.data$y, group=.data$shp),

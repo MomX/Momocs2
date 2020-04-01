@@ -19,19 +19,6 @@ edi <- function(x, y, r = 0.5) {
   x
 }
 
-# messaging -----------------------------------------------
-.msg_info    <- cli::cli_alert_info
-.msg_danger  <- cli::cli_alert_danger
-.msg_warning <- cli::cli_alert_warning
-.msg_success <- cli::cli_alert_success
-
-# checking ------------------------------------------------
-.check <- function(cond_to_pass, mess_if_not=""){
-  if (!cond_to_pass)
-      .msg_danger(mess_if_not)
-}
-
-
 # vectors and list helpers --------
 # given an unnammed vector add names based on prefix+position_in_the_vector
 .seq_naming_vector <- function(x, prefix=""){
@@ -47,6 +34,9 @@ edi <- function(x, y, r = 0.5) {
 }
 # list(a=1:5, b=5:2) %>% .seq_naming_list()
 
+.prefix_element_columns_with_list_names <- function(x){
+  purrr::map2(x, names(x), ~.x %>% `colnames<-`(paste0(.y, "_", colnames(.x))))
+}
 
 
 

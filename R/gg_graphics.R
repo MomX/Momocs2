@@ -203,13 +203,13 @@ draw.coo_single <- function(x, gg=ggplot2::last_plot(), ...){
 
 #' @export
 draw.coo_list <- function(x, gg=ggplot2::last_plot(), ...){
-  x <- unpack(x)
+  x <- unfold(x)
   gg + geom_path(data = x, mapping=ggplot2::aes(group=shp), ...)
 }
 
 #' @export
 draw.coo_tbl <- function(x, gg=ggplot2::last_plot(), ...){
-  x <- unpack(x)
+  x <- unfold(x)
   gg + geom_path(data = x, mapping=ggplot2::aes(group=shp), ...)
 }
 
@@ -280,7 +280,7 @@ pile.default <- function(x, f, ...){
 # manage pile.coo_out
 #' @export
 pile.coo_tbl <- function(x, f, ...){
-  gg <- x %>% unpack() %>% gg0() + aes(group=.data$shp) # perhaps group wont be used for ldks
+  gg <- x %>% unfold() %>% gg0() + aes(group=.data$shp) # perhaps group wont be used for ldks
   if (missing(f)){
     gg <- gg + ggplot2::geom_path(...)
   } else {
@@ -361,7 +361,7 @@ mosaic.coo_tbl <- function(x, f, ..., ncol, geom=geom_path) {
   df$coo <- purrr::pmap(list(df$coo, df$ci, df$ri),
                         ~coo_trans(..1, x_trans=..2, y_trans=..3))
 
-  df %>% unpack() %>%
+  df %>% unfold() %>%
     gg0() + ggplot2::aes(group=shp) + geom(...)
 }
 
@@ -385,10 +385,6 @@ mosaic.coo_tbl <- function(x, f, ..., ncol, geom=geom_path) {
 # df$coo <- purrr::pmap(list(coo_scale(coo_center(df$coo)), df$ci, df$ri),
 #                       ~coo_trans(..1, x_trans=..2, y_trans=..3))
 #
-# df %>% unpack()
-#
-# df %>% unpack() %>%
-#   gg0() + aes(group=shp) + geom_polygon(aes(col=type, fill=fake), alpha=0.5)
-#
+
 
 

@@ -36,12 +36,24 @@ reference:
       Functions that turn coordinates into coefficients
     contents:
       - efourier
+  - title: "coo/e lists verbs"
+    desc: >
+      Mostly to ease manipulation of list columns
+    contents:
+      - coo_nb
+      - coe_nb
+      - coo_only
+      - coe_only
+      - coo_drop
+      - coe_drop
+      - coo_select
+      - coe_select
   - title: "Momocs verbs"
     desc: >
       Mostly to ease manipulation of list columns
     contents:
       - pick
-      - unpack
+      - unfold
       - plint
   - title: "Graphics"
     desc: >

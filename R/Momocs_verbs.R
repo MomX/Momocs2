@@ -4,6 +4,7 @@
 #' @param x a `coo_tbl` or a `coo_list`
 #' @param i `int` which to extract. If not provided, pick one randomly.
 #' @return a coo_df
+#' @note Used to be `[[` in Momocs < 2.0 (eg `bot[[1]]` is replace with `bot %>% pick(1)`)
 #' @examples
 #' bot2 %>% pick(1) %>% gg()
 #' bot2$coo %>% pick(2)
@@ -63,111 +64,60 @@ plint.coo_single <- function(x, ...){
 }
 
 
-# unpack --------------------------------------------------
-#' Unpack list columns
+# unfold --------------------------------------------------
+#' Unfold list columns
 #'
-#' Unpack list columns such as [coo_list] and [coe_list], repeat lines if required. Differs from unnest,
-#' in that it adds a "shp" column.
+#' Unfold list columns such as [coo_list] and [coe_list], repeat lines if required.
 #'
 #' @param x a Momocs object
 #' @param ... useless
+#' @note Differs from `tidyr::unnest`, in that it adds a "shp" column.
+#' Also `unpack` was already take by `tidyr`. `unfold.list` is just `dplyr::bind_rows`.
 #' @examples
 #'
-#' bot2$coo %>% unpack
+#' bot2$coo %>% unfold
 #'
-#' bot2 %>% unpack
+#' bot2 %>% unfold
 #' @export
-unpack <- function(x, ...) {
-  UseMethod("unpack")
+unfold <- function(x, ...){
+  UseMethod("unfold")
 }
 
 #' @export
-unpack.default <- function(x, ...){
-  .msg_info("unpack: no unpack method for this class")
+unfold.default <- function(x, ...){
+  .msg_info("unfold: no unfold method for this class")
 }
 
 #' @export
-unpack.list <- function(x, ...){
-  x %>%
-    purrr::imap(~.x %>%
-                  dplyr::mutate(shp=.y) %>%
-                  dplyr::select(shp, dplyr::everything())) %>%
-    # make it a single tbl
-    dplyr::bind_rows() %>%
-    # remove the class
-    dplyr::as_tibble()
+unfold.list <- function(x, ...){
+  dplyr::bind_rows(x)
 }
 
+# todo only a single coo
 #' @export
-unpack.coo_tbl <- function(x, ...){
+unfold.coo_tbl <- function(x, ...){
   # how many times do we have to repeat each line
   # ie number of rows for each coo_tbl
   reps <- rep(1:nrow(x), times=purrr::map_dbl(x$coo, nrow))
   # unpack coo, bind cols with others
   dplyr::bind_cols(
-    x$coo %>% unpack(),
+    tibble::tibble(shp=reps),
+    x$coo %>% unfold(),
     x %>% dplyr::select(-coo) %>% dplyr::slice(reps)
   )
 }
 
-
-# prefix_within -------------------------------------------
-
-
-# Prefix col ----------------------------------------------
-# todo prefix within
-# Given coe_tbl with 1 or mroe coe_list columns
-# Prefix individual coe_tbl colnames composing them with coe_list column name
-# See examples
-prefix_col <- function(x){
-  a <- x %>% dplyr::select_if(is_coe_list)
-  b <- x %>% dplyr::select_if(is_coe_list %>% purrr::negate())
-  new_a <- purrr::imap(a,
-                       ~.x %>% dplyr::bind_rows() %>%
-                         `colnames<-`(paste0(.y, "_", colnames(.))) %>%
-                         split(., 1:nrow(.)) %>%
-                         `names<-`(names(.x))) %>%
-    tibble::as_tibble()
-  dplyr::bind_cols(new_a, b)
+#' @export
+unfold.coe_tbl <- function(x, ...){
+  dplyr::bind_cols(
+    x %>% coe_drop(),
+    x %>%
+      coe_only() %>%
+      prefix_col() %>%
+      purrr::map(unfold) %>%
+      dplyr::bind_cols()
+  )
 }
-
-
-# choose_coe()
-# select_coe()
-# remove_coe()
-
-
-only_coe <- function(x){
-  dplyr::select_if(x, is_coe_list)
-}
-
-drop_coe <- function(x){
-  dplyr::select_if(x, purrr::negate(is_coe_list))
-}
-
-select_coe <- function(x, ...){
-  y <- x %>% drop_coe()
-
-  x %>% dplyr::select(!!!enquos(...)) %>%
-    dplyr::bind_cols(y)
-}
-#
-# x <- bot2 %>% efourier(4)
-# x$plop <- bot2$coo %>% efourier(6)
-# x$plip <- bot2$coo %>% efourier(12)
-# x %>% only_coe()
-# x %>% drop_coe()
-# x %>% select_coe(coe, plip)
-#
-# x %>% select_coe(starts_with("pl"))
-#
-#
-# bot2 %>% efourier %>% select_coe()
-
-ncoe <- function(x) x %>% purrr::map_lgl(is_coe_list) %>% sum()
-ncoo <- function(x) x %>% purrr::map_lgl(is_coo_list) %>% sum()
-# bot2 %>% ncoo
-# bot2 %>% efourier(4) %>% ncoe
 
 
 

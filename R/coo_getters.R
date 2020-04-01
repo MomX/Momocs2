@@ -339,3 +339,6 @@ get_width.list <- function(x){
 get_width.coo_tbl <- function(x){
   x %>% dplyr::mutate(width=purrr::map_dbl(coo, get_width))
 }
+
+
+# Todo get_nb
