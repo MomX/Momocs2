@@ -6,6 +6,7 @@
 #' List columns verbs
 #'
 #' @param x [coo_tbl] or a [coe_tbl]
+#' @param ... additional parameters, just like in `dplyr::select`
 #' @name list_columns
 NULL
 

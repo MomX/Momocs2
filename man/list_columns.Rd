@@ -30,6 +30,8 @@ coe_select(x, ...)
 }
 \arguments{
 \item{x}{\link{coo_tbl} or a \link{coe_tbl}}
+
+\item{...}{additional parameters, just like in \code{dplyr::select}}
 }
 \description{
 List columns verbs

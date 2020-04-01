@@ -442,7 +442,7 @@ type_sum.coe_single <- function(x) {
 #' Front users are not likely to use them directly.
 #' @return a `coe_list` object
 #' @examples
-#' bot2$coe %>% efourier %>% class()
+#' bot2$coo %>% efourier %>% class()
 #' @export
 coe_list <- function(x) {
   UseMethod("coe_list")

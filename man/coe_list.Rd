@@ -35,5 +35,5 @@ Front users are not likely to use them directly.
 }}
 
 \examples{
-bot2$coe \%>\% efourier \%>\% class()
+bot2$coo \%>\% efourier \%>\% class()
 }
