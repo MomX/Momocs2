@@ -10,6 +10,7 @@
 #' @name list_columns
 NULL
 
+# *_nb -------
 #' @export
 #' @describeIn list_columns count the number of coo columns
 coo_nb <- function(x){
@@ -22,6 +23,7 @@ coe_nb <- function(x){
   x %>% purrr::map_lgl(is_coe_list) %>% sum()
 }
 
+# *_only -------
 #' @export
 #' @describeIn list_columns only retain coo columns
 coo_only <- function(x){
@@ -34,6 +36,7 @@ coe_only <- function(x){
   dplyr::select_if(x, is_coe_list)
 }
 
+# *_drop -------
 #' @export
 #' @describeIn list_columns drop coo columns
 coo_drop <- function(x){
@@ -46,6 +49,7 @@ coe_drop <- function(x){
   dplyr::select_if(x, purrr::negate(is_coe_list))
 }
 
+# *_select -------
 #' @export
 #' @describeIn list_columns use select among coo columns
 coo_select <- function(x, ...){
@@ -60,6 +64,15 @@ coe_select <- function(x, ...){
   y <- x %>% coe_drop()
   x %>% dplyr::select(!!!enquos(...)) %>%
     dplyr::bind_cols(y)
+}
+
+# *_names -------
+coo_names <- function(x){
+  coo_only(x) %>% names()
+}
+
+coe_names <- function(x){
+  coe_only(x) %>% names()
 }
 
 
