@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Versatile function to reconstruct shapes from statistical objects — morphospace • Momocs2</title>
+<title>Unfold list columns — unfold • Momocs2</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Versatile function to reconstruct shapes from statistical objects — morphospace" />
-<meta property="og:description" content="Versatile function to reconstruct shapes from statistical objects" />
+<meta property="og:title" content="Unfold list columns — unfold" />
+<meta property="og:description" content="Unfold list columns such as coo_list and coe_list, repeat lines if required." />
 <meta property="og:image" content="http://momx.github.io/Momocs2/logo.png" />
 
 
@@ -137,53 +137,66 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Versatile function to reconstruct shapes from statistical objects</h1>
+    <h1>Unfold list columns</h1>
     
-    <div class="hidden name"><code>morphospace.Rd</code></div>
+    <div class="hidden name"><code>unfold.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Versatile function to reconstruct shapes from statistical objects</p>
+    <p>Unfold list columns such as coo_list and coe_list, repeat lines if required.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>morphospace</span>(<span class='no'>x</span>, <span class='no'>xy</span>)</pre>
+    <pre class="usage"><span class='fu'>unfold</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>a statistical object. Currently supported: stat_pca</p></td>
+      <td><p>a Momocs object</p></td>
     </tr>
     <tr>
-      <th>xy</th>
-      <td><p>a tibble with positions to calculate. Default to morphospace_range on PC1 and PC2</p></td>
+      <th>...</th>
+      <td><p>useless</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>coo_tbl with raw shapes and other useful columns</p>
+    <p>Differs from <code><a href='https://tidyr.tidyverse.org/reference/nest.html'>tidyr::unnest</a></code>, in that it adds a "shp" column.
+Also <code>unpack</code> was already take by <code>tidyr</code>. <code>unfold.list</code> is just <code><a href='https://dplyr.tidyverse.org/reference/bind.html'>dplyr::bind_rows</a></code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>bot2</span> <span class='kw'>%&gt;%</span> <span class='fu'>efourier</span>(<span class='fl'>6</span>) <span class='kw'>%&gt;%</span> <span class='fu'>stat_pca</span>()</div><div class='output co'>#&gt; <span class='message'>! describe_pca: 'center' was missing, set to TRUE</span></div><div class='output co'>#&gt; <span class='message'>! describe_pca: 'scale' was missing, set to TRUE</span></div><div class='input'><span class='no'>pos1</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>PC1</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(-<span class='fl'>5</span>, <span class='fl'>5</span>, <span class='fl'>0.1</span>))
-<span class='no'>pos2</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>PC1</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(-<span class='fl'>5</span>, <span class='fl'>5</span>, <span class='fl'>0.1</span>), <span class='kw'>PC2</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(-<span class='fl'>5</span>, <span class='fl'>5</span>, <span class='fl'>0.1</span>))
-<span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='no'>x</span> <span class='kw'>%&gt;%</span> <span class='fu'>morphospace</span>(<span class='no'>pos1</span>)
-<span class='no'>m</span> <span class='kw'>%&gt;%</span> <span class='fu'>pile</span>()</div><div class='img'><img src='morphospace-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>m</span> <span class='kw'>%&gt;%</span> <span class='fu'>morphospace_template</span>()</div><div class='output co'>#&gt; <span class='warning'>Warning: Unknown or uninitialised column: `y`.</span></div><div class='output co'>#&gt; # A tibble: 101 x 9
-#&gt;    coo              name  number     x  size     y x_adjust y_adjust size_adjust
-#&gt;    &lt;list&gt;           &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;
-#&gt;  1 &lt;coo_single [12… coe        1  -5   0.945     0        0        0           1
-#&gt;  2 &lt;coo_single [12… coe        1  -4.9 0.945     0        0        0           1
-#&gt;  3 &lt;coo_single [12… coe        1  -4.8 0.945     0        0        0           1
-#&gt;  4 &lt;coo_single [12… coe        1  -4.7 0.945     0        0        0           1
-#&gt;  5 &lt;coo_single [12… coe        1  -4.6 0.945     0        0        0           1
-#&gt;  6 &lt;coo_single [12… coe        1  -4.5 0.945     0        0        0           1
-#&gt;  7 &lt;coo_single [12… coe        1  -4.4 0.945     0        0        0           1
-#&gt;  8 &lt;coo_single [12… coe        1  -4.3 0.945     0        0        0           1
-#&gt;  9 &lt;coo_single [12… coe        1  -4.2 0.945     0        0        0           1
-#&gt; 10 &lt;coo_single [12… coe        1  -4.1 0.945     0        0        0           1
-#&gt; # … with 91 more rows
-#&gt; ❯ a coo_tbl with 101 coo_single</div></pre>
+    <pre class="examples"><div class='input'>
+<span class='no'>bot2</span>$<span class='no'>coo</span> <span class='kw'>%&gt;%</span> <span class='no'>unfold</span></div><div class='output co'>#&gt; # A tibble: 6,469 x 2
+#&gt;        x     y
+#&gt;    &lt;dbl&gt; &lt;dbl&gt;
+#&gt;  1    37   561
+#&gt;  2    40   540
+#&gt;  3    40   529
+#&gt;  4    43   508
+#&gt;  5    46   487
+#&gt;  6    48   477
+#&gt;  7    52   456
+#&gt;  8    54   435
+#&gt;  9    57   414
+#&gt; 10    59   403
+#&gt; # … with 6,459 more rows
+#&gt; ❯ a coo_single with 6469 points</div><div class='input'>
+<span class='no'>bot2</span> <span class='kw'>%&gt;%</span> <span class='no'>unfold</span></div><div class='output co'>#&gt; # A tibble: 6,469 x 5
+#&gt;      shp     x     y type   fake 
+#&gt;    &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;  &lt;fct&gt;
+#&gt;  1     1    37   561 whisky a    
+#&gt;  2     1    40   540 whisky a    
+#&gt;  3     1    40   529 whisky a    
+#&gt;  4     1    43   508 whisky a    
+#&gt;  5     1    46   487 whisky a    
+#&gt;  6     1    48   477 whisky a    
+#&gt;  7     1    52   456 whisky a    
+#&gt;  8     1    54   435 whisky a    
+#&gt;  9     1    57   414 whisky a    
+#&gt; 10     1    59   403 whisky a    
+#&gt; # … with 6,459 more rows</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

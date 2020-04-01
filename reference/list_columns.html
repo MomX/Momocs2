@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Unpack list columns — unpack • Momocs2</title>
+<title>List columns verbs — list_columns • Momocs2</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,8 @@
 
 
 
-<meta property="og:title" content="Unpack list columns — unpack" />
-<meta property="og:description" content="Unpack list columns such as coo_list and coe_list, repeat lines if required. Differs from unnest,
-in that it adds a &quot;shp&quot; column." />
+<meta property="og:title" content="List columns verbs — list_columns" />
+<meta property="og:description" content="List columns verbs" />
 <meta property="og:image" content="http://momx.github.io/Momocs2/logo.png" />
 
 
@@ -138,62 +137,58 @@ in that it adds a &quot;shp&quot; column." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Unpack list columns</h1>
+    <h1>List columns verbs</h1>
     
-    <div class="hidden name"><code>unpack.Rd</code></div>
+    <div class="hidden name"><code>list_columns.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Unpack list columns such as coo_list and coe_list, repeat lines if required. Differs from unnest,
-in that it adds a "shp" column.</p>
+    <p>List columns verbs</p>
     </div>
 
-    <pre class="usage"><span class='fu'>unpack</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>coo_nb</span>(<span class='no'>x</span>)
+
+<span class='fu'>coe_nb</span>(<span class='no'>x</span>)
+
+<span class='fu'>coo_only</span>(<span class='no'>x</span>)
+
+<span class='fu'>coe_only</span>(<span class='no'>x</span>)
+
+<span class='fu'>coo_drop</span>(<span class='no'>x</span>)
+
+<span class='fu'>coe_drop</span>(<span class='no'>x</span>)
+
+<span class='fu'>coo_select</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='fu'>coe_select</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>a Momocs object</p></td>
+      <td><p>coo_tbl or a coe_tbl</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>useless</p></td>
+      <td><p>additional parameters, just like in <code><a href='https://dplyr.tidyverse.org/reference/select.html'>dplyr::select</a></code></p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='no'>bot2</span>$<span class='no'>coo</span> <span class='kw'>%&gt;%</span> <span class='no'>unpack</span></div><div class='output co'>#&gt; # A tibble: 6,469 x 3
-#&gt;    shp        x     y
-#&gt;    &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;
-#&gt;  1 brahma    37   561
-#&gt;  2 brahma    40   540
-#&gt;  3 brahma    40   529
-#&gt;  4 brahma    43   508
-#&gt;  5 brahma    46   487
-#&gt;  6 brahma    48   477
-#&gt;  7 brahma    52   456
-#&gt;  8 brahma    54   435
-#&gt;  9 brahma    57   414
-#&gt; 10 brahma    59   403
-#&gt; # … with 6,459 more rows</div><div class='input'>
-<span class='no'>bot2</span> <span class='kw'>%&gt;%</span> <span class='no'>unpack</span></div><div class='output co'>#&gt; # A tibble: 6,469 x 5
-#&gt;    shp        x     y type   fake 
-#&gt;    &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;  &lt;fct&gt;
-#&gt;  1 brahma    37   561 whisky a    
-#&gt;  2 brahma    40   540 whisky a    
-#&gt;  3 brahma    40   529 whisky a    
-#&gt;  4 brahma    43   508 whisky a    
-#&gt;  5 brahma    46   487 whisky a    
-#&gt;  6 brahma    48   477 whisky a    
-#&gt;  7 brahma    52   456 whisky a    
-#&gt;  8 brahma    54   435 whisky a    
-#&gt;  9 brahma    57   414 whisky a    
-#&gt; 10 brahma    59   403 whisky a    
-#&gt; # … with 6,459 more rows</div></pre>
+    
+<ul>
+<li><p><code>coo_nb</code>: count the number of coo columns</p></li>
+<li><p><code>coe_nb</code>: count the number of coe columns</p></li>
+<li><p><code>coo_only</code>: only retain coo columns</p></li>
+<li><p><code>coe_only</code>: only retain coe columns</p></li>
+<li><p><code>coo_drop</code>: drop coo columns</p></li>
+<li><p><code>coe_drop</code>: drop coe columns</p></li>
+<li><p><code>coo_select</code>: use select among coo columns</p></li>
+<li><p><code>coe_select</code>: use select among coe columns</p></li>
+</ul>
+
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

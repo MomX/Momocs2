@@ -82,6 +82,9 @@
     <loc>http://momx.github.io/Momocs2/reference/inspect.html</loc>
   </url>
   <url>
+    <loc>http://momx.github.io/Momocs2/reference/list_columns.html</loc>
+  </url>
+  <url>
     <loc>http://momx.github.io/Momocs2/reference/morphospace.html</loc>
   </url>
   <url>
@@ -115,7 +118,7 @@
     <loc>http://momx.github.io/Momocs2/reference/tidyeval.html</loc>
   </url>
   <url>
-    <loc>http://momx.github.io/Momocs2/reference/unpack.html</loc>
+    <loc>http://momx.github.io/Momocs2/reference/unfold.html</loc>
   </url>
   <url>
     <loc>http://momx.github.io/Momocs2/articles/coo.html</loc>

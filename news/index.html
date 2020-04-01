@@ -145,7 +145,7 @@
 <a href="#momocs2-2-0-0" class="anchor"></a>Momocs2 2.0.0</h1>
 <ul>
 <li>Everything is tidyverse ready and in tibbles.</li>
-<li>Classes have been refreshed and are described in the vignette ‘architectures and classes’</li>
+<li>Classes have been refreshed and are described in the vignette âarchitectures and classesâ</li>
 <li>Coo with <code>$coo</code>, <code>$fac</code>, etc. and Coe with <code>$coe</code>, <code>$fac</code>, etc. are deprecated for single tibbles. Now Momocs main objects are tibbles with attributes (but you will probably not use them). Single coo (formerly referred as shapes) (<code>coo</code>) and coefficients (<code>coe</code>) are also tibbles.</li>
 <li>All graphics are <code>ggplot2</code> ready. Including morphospaces.</li>
 <li>Only <code>PCA</code> and <code>LDA</code> are maintained in Momocs. Other statistical and graphical methods will be part of <code>Momstats</code>.</li>
@@ -155,13 +155,19 @@
 <li><p>fixed a bug in <code>coo_centsize</code> (!!). Thanks to Almond-S on github.</p></li>
 <li><p>overall style is improved, more consistent and follows most tidyverse recommendations. First argument is always <code>x</code>; arguments no longer use <code><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></code> but <code>_</code>, and the internal code is styled with <code>styler</code> package</p></li>
 </ul>
-</div>
-    <div id="momocs2-0-0-0-9000" class="section level1">
-<h1 class="page-header" data-toc-text="0.0.0.9000">
-<a href="#momocs2-0-0-0-9000" class="anchor"></a>Momocs2 0.0.0.9000</h1>
+<div id="breaking-changes" class="section level3">
+<h3 class="hasAnchor">
+<a href="#breaking-changes" class="anchor"></a>Breaking changes</h3>
 <ul>
-<li>Added a <code>NEWS.md</code> file to track changes to the package.</li>
+<li>
+<code><a href="https://rdrr.io/r/base/Extract.html">[[</a></code> and <code><a href="https://rdrr.io/r/base/Extract.html">$</a></code> methods on shape collection are depreacted. <code>bot[[1]]</code> becomes <code>bot %&gt;% pick(1)</code>. <code><a href="https://rdrr.io/r/base/Extract.html">$</a></code> to access <code>fac$</code> is now useless since everything is now a tibble</li>
+<li>
+<p><code>coo_nb</code> now counts the number of <code>coo_list</code> columns (and not the number of points within a shape which is a getter now, called <code>get_nb</code>)</p>
+<h1 id="momocs2-0.0.0.9000" class="page-header" data-toc-text="2.0.0">Momocs2 0.0.0.9000</h1>
+</li>
+<li><p>Added a <code>NEWS.md</code> file to track changes to the package.</p></li>
 </ul>
+</div>
 </div>
   </div>
 
