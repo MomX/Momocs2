@@ -4,7 +4,7 @@
 \alias{get_lw}
 \alias{get_length}
 \alias{get_width}
-\title{Calculates length and width of a shape}
+\title{Calculate length and width of a shape}
 \usage{
 get_lw(x)
 

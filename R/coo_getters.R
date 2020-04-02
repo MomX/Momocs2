@@ -74,10 +74,10 @@ get_centsize.coo_tbl <- function(x){
 # PERIM AND CO --------------------------------------------
 
 # get_perimpts --------------
-#' Calculates perimeter and variations
+#' Calculate perimeter and variations
 #'
 #' @description
-#' * `get_perim_along` calculates the euclidean distance between every points of a shape
+#' * `get_perim_along` calculate the euclidean distance between every points of a shape
 #' * `get_perim` is simply `sum(coo_perim_along)`
 #' * `get_perim_cumsum` is simply `cumsum(coo_perim_along)`
 #'
@@ -113,7 +113,7 @@ get_perim_along.coo_tbl <- function(x){
     dplyr::mutate(perim_along=purrr::map(x$coo, get_perim_along))
 }
 
-#' @describeIn get_perim_along Calculates total perimeter
+#' @describeIn get_perim_along Calculate total perimeter
 #' @export
 get_perim <- function(x){
   UseMethod("get_perim")
@@ -134,7 +134,7 @@ get_perim.coo_tbl <- function(x){
   x %>% dplyr::mutate(perim=purrr::map_dbl(x$coo, get_perim))
 }
 
-#' @describeIn get_perim_along Calculates cumsum between successive points of a shape
+#' @describeIn get_perim_along Calculate cumsum between successive points of a shape
 #' @export
 get_perim_cumsum <- function(x){
   UseMethod("get_perim_cumsum")
@@ -260,7 +260,7 @@ get_diffrange.coo_tbl <- function(x){
 
 
 # lw ------
-#' Calculates length and width of a shape
+#' Calculate length and width of a shape
 #'
 #' Returns the length and width of a shape. The shape is first aligned using
 #' [coo_align], then length is the range along the x-axis and the width as
@@ -340,5 +340,35 @@ get_width.coo_tbl <- function(x){
   x %>% dplyr::mutate(width=purrr::map_dbl(coo, get_width))
 }
 
+# get_nb --------------------------------------------------
+#' Calculate the number of coordinates per shape
+#'
+#' Wraps around `nrow`
+#'
+#' @inherit get_centsize params return
+#' @family getters
+#' @family shape getters
+#' @examples
+#' bot2 %>% pick(1) %>% get_nb()
+#' bot2 %>% get_nb()
+#' @export
+get_nb <- function(x) {
+  UseMethod("get_nb")
+}
 
-# Todo get_nb
+#' @export
+get_nb.coo_single <- function(x){
+  nrow(x)
+}
+
+#' @export
+get_nb.list <- function(x){
+  purrr::map_dbl(x, nrow)
+}
+
+#' @export
+get_nb.coo_tbl <- function(x){
+  x %>% dplyr::mutate(nb=purrr::map_dbl(coo, nrow))
+}
+
+

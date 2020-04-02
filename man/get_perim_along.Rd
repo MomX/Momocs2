@@ -4,7 +4,7 @@
 \alias{get_perim_along}
 \alias{get_perim}
 \alias{get_perim_cumsum}
-\title{Calculates perimeter and variations}
+\title{Calculate perimeter and variations}
 \usage{
 get_perim_along(x)
 
@@ -20,20 +20,24 @@ get_perim_cumsum(x)
 }
 \description{
 \itemize{
-\item \code{get_perim_along} calculates the euclidean distance between every points of a shape
+\item \code{get_perim_along} calculate the euclidean distance between every points of a shape
 \item \code{get_perim} is simply \code{sum(coo_perim_along)}
 \item \code{get_perim_cumsum} is simply \code{cumsum(coo_perim_along)}
 }
 }
 \section{Functions}{
 \itemize{
-\item \code{get_perim}: Calculates total perimeter
+\item \code{get_perim}: Calculate total perimeter
 
-\item \code{get_perim_cumsum}: Calculates cumsum between successive points of a shape
+\item \code{get_perim_cumsum}: Calculate cumsum between successive points of a shape
 }}
 
 \examples{
 bot2 \%>\% pick(1) \%>\% get_perim_along()
+}
+\seealso{
+Other getters: 
+\code{\link{get_nb}()}
 }
 \concept{getters}
 \concept{perimeter getters}
