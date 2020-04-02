@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Default ggplot2 graphics — gg • Momocs2</title>
+<title>Universal graphics functions — gg0 • Momocs2</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,7 +46,7 @@
 
 
 
-<meta property="og:title" content="Default ggplot2 graphics — gg" />
+<meta property="og:title" content="Universal graphics functions — gg0" />
 <meta property="og:description" content="Default (ggplot2) visualisations for Momocs objects." />
 <meta property="og:image" content="http://momx.github.io/Momocs2/logo.png" />
 
@@ -137,7 +137,7 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Default ggplot2 graphics</h1>
+    <h1>Universal graphics functions</h1>
     
     <div class="hidden name"><code>gg.Rd</code></div>
     </div>
@@ -146,9 +146,7 @@
     <p>Default (ggplot2) visualisations for Momocs objects.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>gg</span>(<span class='no'>x</span>, <span class='kw'>first</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>centroid</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
-
-<span class='fu'>gg0</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>gg0</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for default</span>
 <span class='fu'>gg0</span>(<span class='no'>x</span>, <span class='no'>...</span>)
@@ -156,8 +154,13 @@
 <span class='co'># S3 method for coo_single</span>
 <span class='fu'>gg0</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
+<span class='co'># S3 method for coo_tbl</span>
+<span class='fu'>gg0</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
 <span class='co'># S3 method for tbl</span>
 <span class='fu'>gg0</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='fu'>gg</span>(<span class='no'>x</span>, <span class='kw'>first</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>centroid</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for pca</span>
 <span class='fu'>gg0</span>(<span class='no'>x</span>, <span class='no'>x_axis</span>, <span class='no'>y_axis</span>, <span class='no'>...</span>)</pre>
@@ -170,6 +173,10 @@
       <td><p>a Momocs object</p></td>
     </tr>
     <tr>
+      <th>...</th>
+      <td><p>additional parameters to feed geoms</p></td>
+    </tr>
+    <tr>
       <th>first</th>
       <td><p><code>logical</code> whether to draw first point</p></td>
     </tr>
@@ -180,10 +187,6 @@
     <tr>
       <th>axes</th>
       <td><p><code>logical</code> whether to draw axes, text and grid</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>additional parameters to feed geoms</p></td>
     </tr>
     <tr>
       <th>x_axis</th>
@@ -207,9 +210,25 @@
     <p><code>gg</code> is the base plotter.
 <code>gg0</code> prepare the canvas but let you pick your <code>ggplot2::geoms</code>.
 <code>draw</code> add shapes on top of last plot</p>
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p>I call it "universal" as a reminder to provide a gg for each object.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>bot2</span> <span class='kw'>%&gt;%</span> <span class='fu'>pick</span>(<span class='fl'>1</span>) <span class='kw'>%&gt;%</span> <span class='fu'>gg</span>()</div><div class='img'><img src='gg-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>bot2</span> <span class='kw'>%&gt;%</span> <span class='fu'>pick</span>(<span class='fl'>1</span>) <span class='kw'>%&gt;%</span> <span class='fu'>gg0</span>() + <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='kw'>shape</span><span class='kw'>=</span><span class='st'>"circle plus"</span>)</div><div class='img'><img src='gg-2.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><div class='input'><span class='no'>b</span> <span class='kw'>&lt;-</span> <span class='no'>bot2</span> <span class='kw'>%&gt;%</span> <span class='fu'>pick</span>(<span class='fl'>5</span>)
+<span class='fu'>gg</span>(<span class='no'>b</span>)</div><div class='img'><img src='gg-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Let's add some geoms to</span>
+<span class='no'>nice_plot</span> <span class='kw'>&lt;-</span> <span class='fu'>gg0</span>(<span class='no'>b</span>) +
+    <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_polygon.html'>geom_polygon</a></span>(<span class='kw'>color</span><span class='kw'>=</span><span class='st'>"grey50"</span>, <span class='kw'>fill</span><span class='kw'>=</span><span class='st'>"red"</span>, <span class='kw'>alpha</span><span class='kw'>=</span><span class='fl'>0.25</span>) +
+    <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='kw'>shape</span><span class='kw'>=</span><span class='st'>"circle plus"</span>)
+<span class='no'>nice_plot</span> <span class='co'># print it</span></div><div class='img'><img src='gg-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># you have all ggplot2 for free 8-)</span>
+<span class='co'># you do not have to ggplot2:: if you library(ggplot2) before</span>
+<span class='no'>gorgeous_plot</span> <span class='kw'>&lt;-</span> <span class='no'>nice_plot</span> + <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span>() +
+    <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span>(<span class='kw'>x</span><span class='kw'>=</span><span class='st'>"abscissa"</span>, <span class='kw'>y</span><span class='kw'>=</span><span class='st'>"ordinate"</span>, <span class='kw'>title</span><span class='kw'>=</span><span class='st'>"Drink responsibly"</span>)
+
+<span class='co'># this is a plotting factory !</span>
+<span class='co'># gorgeous_plot %+% pick(bot2, 12)</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

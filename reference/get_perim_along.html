@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Calculates perimeter and variations — get_perim_along • Momocs2</title>
+<title>Calculate perimeter and variations — get_perim_along • Momocs2</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,10 +46,10 @@
 
 
 
-<meta property="og:title" content="Calculates perimeter and variations — get_perim_along" />
+<meta property="og:title" content="Calculate perimeter and variations — get_perim_along" />
 <meta property="og:description" content="
 
-get_perim_along calculates the euclidean distance between every points of a shape
+get_perim_along calculate the euclidean distance between every points of a shape
 get_perim is simply sum(coo_perim_along)
 get_perim_cumsum is simply cumsum(coo_perim_along)
 
@@ -143,7 +143,7 @@ get_perim_cumsum is simply cumsum(coo_perim_along)
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Calculates perimeter and variations</h1>
+    <h1>Calculate perimeter and variations</h1>
     
     <div class="hidden name"><code>get_perim_along.Rd</code></div>
     </div>
@@ -151,7 +151,7 @@ get_perim_cumsum is simply cumsum(coo_perim_along)
     <div class="ref-description">
     
 <ul>
-<li><p><code>get_perim_along</code> calculates the euclidean distance between every points of a shape</p></li>
+<li><p><code>get_perim_along</code> calculate the euclidean distance between every points of a shape</p></li>
 <li><p><code>get_perim</code> is simply <code><a href='https://rdrr.io/r/base/sum.html'>sum(coo_perim_along)</a></code></p></li>
 <li><p><code>get_perim_cumsum</code> is simply <code><a href='https://rdrr.io/r/base/cumsum.html'>cumsum(coo_perim_along)</a></code></p></li>
 </ul>
@@ -180,9 +180,13 @@ get_perim_cumsum is simply cumsum(coo_perim_along)
 
     
 <ul>
-<li><p><code>get_perim</code>: Calculates total perimeter</p></li>
-<li><p><code>get_perim_cumsum</code>: Calculates cumsum between successive points of a shape</p></li>
+<li><p><code>get_perim</code>: Calculate total perimeter</p></li>
+<li><p><code>get_perim_cumsum</code>: Calculate cumsum between successive points of a shape</p></li>
 </ul>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other getters: 
+<code>get_nb()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>bot2</span> <span class='kw'>%&gt;%</span> <span class='fu'>pick</span>(<span class='fl'>1</span>) <span class='kw'>%&gt;%</span> <span class='fu'>get_perim_along</span>()</div><div class='output co'>#&gt; # A tibble: 138 x 1
