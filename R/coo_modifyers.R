@@ -515,7 +515,7 @@ coo_interpolate.coo_single <- function(x, n, ...) {
 
 #' @export
 coo_interpolate.list <- function(x, n, ...){
-  x %>% purrr::map(coo_interpolate, n)
+  x %>% purrr::map(coo_interpolate, n) %>% coo_list()
 }
 
 #' @export
