@@ -65,6 +65,9 @@ plint.coo_single <- function(x, ...){
 
 
 # unfold --------------------------------------------------
+# todo replace group for .group everywhere so that we minimize conflict
+#  with any col named group
+
 #' Unfold list columns
 #'
 #' Unfold list columns such as [coo_list] and [coe_list], repeat lines if required.
