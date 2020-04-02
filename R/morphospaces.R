@@ -128,11 +128,13 @@ morphospace_xy <- function(xy){
 #' @return [coo_tbl] with raw shapes and other useful columns
 #' @examples
 #' x <- bot2 %>% efourier(6) %>% stat_pca()
-#' pos1 <- tibble::tibble(PC1=seq(-5, 5, 0.1))
-#' pos2 <- tibble::tibble(PC1=seq(-5, 5, 0.1), PC2=seq(-5, 5, 0.1))
+#' pos1 <- tibble::tibble(PC1=seq(-5, 5, 1))
+#' pos2 <- tibble::tibble(PC1=seq(-5, 5, 1), PC2=seq(-5, 5, 1))
 #' m <- x %>% morphospace(pos1)
+#' # both useless
 #' m %>% pile()
-#' m %>% morphospace_template()
+#' m %>% mosaic()
+#' m %>% morphospace_template() # warning is normal, only PC1 was passed
 #' @export
 morphospace <- function(x, xy){
   UseMethod("morphospace")
@@ -184,7 +186,7 @@ morphospace.pca <- function(x, xy){
       coe_predicted <- mshape1 + ax_contrib
 
       do.call(partition1$inverse, list(coe_predicted))
-    }) %>% coo_tbl() -> z
+    }) %>% coo_list() %>% coo_tbl() -> z
     # purrr loop ends here
 
     # PREPARE FOR EXIT
@@ -198,7 +200,8 @@ morphospace.pca <- function(x, xy){
   # bind them all and return
   # suppressWarning since dplyr complaints for coo_tbl attributes
   # we call this beauty  "morpho_tbl"
-  suppressWarnings(dplyr::bind_rows(res)) %>% coo_tbl()
+  suppressWarnings(dplyr::bind_rows(res)) %>% coo_tbl() %>%
+    dplyr::mutate(coo=coo_list(.data$coo))
 }
 
 # morphospace_template -------------------------------------
@@ -275,7 +278,7 @@ morphospace_template <- function(x, size=NULL){
   res_df$coo <- purrr::pmap(res_df, vec_trans)
 
   # return this beauty
-  res_df
+  res_df %>% dplyr::mutate(coo=coo_list(coo))
 }
 
 #' draw morphospace

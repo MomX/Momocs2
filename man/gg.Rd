@@ -61,14 +61,15 @@ gg(b)
 
 # Let's add some geoms to
 nice_plot <- gg0(b) +
-    geom_polygon(color="grey50", fill="red", alpha=0.25) +
-    geom_point(shape="circle plus")
+    ggplot2::geom_polygon(color="grey50", fill="red", alpha=0.25) +
+    ggplot2::geom_point(shape="circle plus")
 nice_plot # print it
 
 # you have all ggplot2 for free 8-)
-gorgeous_plot <- nice_plot + theme_minimal() +
-    labs(x="abscissa", y="ordinate", title="Drink responsibly")
+# you do not have to ggplot2:: if you library(ggplot2) before
+gorgeous_plot <- nice_plot + ggplot2::theme_minimal() +
+    ggplot2::labs(x="abscissa", y="ordinate", title="Drink responsibly")
 
 # this is a plotting factory !
-gorgeous_plot \%+\% pick(bot2, 12)
+# gorgeous_plot \%+\% pick(bot2, 12)
 }

@@ -236,7 +236,7 @@ gg0.pca <- function(x, x_axis, y_axis, ...){
     ggplot2::aes(x=!!x_axis, y=!!y_axis) +
     ggplot2::coord_equal(xlim = c(-w, w), ylim=c(-w, w)) +
     ggplot2::labs(x=xlab, y=ylab) +
-    theme_minimal()
+    ggplot2::theme_minimal()
 }
 
 

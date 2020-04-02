@@ -19,9 +19,11 @@ Versatile function to reconstruct shapes from statistical objects
 }
 \examples{
 x <- bot2 \%>\% efourier(6) \%>\% stat_pca()
-pos1 <- tibble::tibble(PC1=seq(-5, 5, 0.1))
-pos2 <- tibble::tibble(PC1=seq(-5, 5, 0.1), PC2=seq(-5, 5, 0.1))
+pos1 <- tibble::tibble(PC1=seq(-5, 5, 1))
+pos2 <- tibble::tibble(PC1=seq(-5, 5, 1), PC2=seq(-5, 5, 1))
 m <- x \%>\% morphospace(pos1)
+# both useless
 m \%>\% pile()
-m \%>\% morphospace_template()
+m \%>\% mosaic()
+m \%>\% morphospace_template() # warning is normal, only PC1 was passed
 }

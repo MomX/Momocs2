@@ -67,10 +67,14 @@ coe_select <- function(x, ...){
 }
 
 # *_names -------
+#' @export
+#' @describeIn list_columns return names of coo columns
 coo_names <- function(x){
   coo_only(x) %>% names()
 }
 
+#' @export
+#' @describeIn list_columns return names of coe columns
 coe_names <- function(x){
   coe_only(x) %>% names()
 }

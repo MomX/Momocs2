@@ -114,16 +114,17 @@ gg0.tbl <- gg0.coo_single
 #'
 #' # Let's add some geoms to
 #' nice_plot <- gg0(b) +
-#'     geom_polygon(color="grey50", fill="red", alpha=0.25) +
-#'     geom_point(shape="circle plus")
+#'     ggplot2::geom_polygon(color="grey50", fill="red", alpha=0.25) +
+#'     ggplot2::geom_point(shape="circle plus")
 #' nice_plot # print it
 #'
 #' # you have all ggplot2 for free 8-)
-#' gorgeous_plot <- nice_plot + theme_minimal() +
-#'     labs(x="abscissa", y="ordinate", title="Drink responsibly")
+#' # you do not have to ggplot2:: if you library(ggplot2) before
+#' gorgeous_plot <- nice_plot + ggplot2::theme_minimal() +
+#'     ggplot2::labs(x="abscissa", y="ordinate", title="Drink responsibly")
 #'
 #' # this is a plotting factory !
-#' gorgeous_plot %+% pick(bot2, 12)
+#' # gorgeous_plot %+% pick(bot2, 12)
 #' @rdname gg
 #'
 #' @export
@@ -330,13 +331,13 @@ pile.default <- function(x, f, ...){
 # manage pile.coo_out
 #' @export
 pile.coo_tbl <- function(x, f, ...){
-  gg <- x %>% gg0() + theme_minimal()
+  gg <- x %>% gg0() + ggplot2::theme_minimal()
   # todo handle geom decent_geom
   if (missing(f)){
     gg <- gg + ggplot2::geom_path(...)
   } else {
     f <- enquo(f)
-    gg <- gg + aes(colour=!!f) + ggplot2::geom_path(...)
+    gg <- gg + ggplot2::aes(colour=!!f) + ggplot2::geom_path(...)
   }
   # return this beauty
   gg

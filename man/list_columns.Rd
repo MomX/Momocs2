@@ -10,6 +10,8 @@
 \alias{coe_drop}
 \alias{coo_select}
 \alias{coe_select}
+\alias{coo_names}
+\alias{coe_names}
 \title{List columns verbs}
 \usage{
 coo_nb(x)
@@ -27,6 +29,10 @@ coe_drop(x)
 coo_select(x, ...)
 
 coe_select(x, ...)
+
+coo_names(x)
+
+coe_names(x)
 }
 \arguments{
 \item{x}{\link{coo_tbl} or a \link{coe_tbl}}
@@ -53,5 +59,9 @@ List columns verbs
 \item \code{coo_select}: use select among coo columns
 
 \item \code{coe_select}: use select among coe columns
+
+\item \code{coo_names}: return names of coo columns
+
+\item \code{coe_names}: return names of coe columns
 }}
 
