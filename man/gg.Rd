@@ -4,6 +4,7 @@
 \alias{gg0}
 \alias{gg0.default}
 \alias{gg0.coo_single}
+\alias{gg0.coo_tbl}
 \alias{gg0.tbl}
 \alias{gg}
 \alias{gg0.pca}
@@ -14,6 +15,8 @@ gg0(x, ...)
 \method{gg0}{default}(x, ...)
 
 \method{gg0}{coo_single}(x, ...)
+
+\method{gg0}{coo_tbl}(x, ...)
 
 \method{gg0}{tbl}(x, ...)
 
