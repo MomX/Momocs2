@@ -12,6 +12,30 @@ test_that("gg works", {
   expect_is(bot2 %>% pick %>% plot(col="red"), "ggplot")
 })
 
+test_that(".bind_distanciate_rows", {
+  x <- bot2 %>% pick(1)
+  y <- bot2 %>% pick(2)
+
+  # x has no group column so far
+  expect_error(.bind_distanciate_rows(x, y))
+  x <- unfold(x)
+
+  # now expected to work
+  z <- .bind_distanciate_rows(x, y)
+  expect_is(z, "tbl")
+  expect_equal(unique(z$group), 1:2)
+
+  # including when we unfold y before
+  z <- .bind_distanciate_rows(x, unfold(y))
+  expect_is(z, "tbl")
+  expect_equal(unique(z$group), 1:2)
+
+  yy <- dplyr::slice(bot2, 10:12)$coo  # 3 shapes here
+  zz <- .bind_distanciate_rows(unfold(x), unfold(yy))
+  expect_is(zz, "tbl")
+  expect_equal(unique(zz$group), 1:4)   # so expect 4 here
+})
+
 test_that("draw works", {
   bot2 %>% pick(1) %>% gg()
 
@@ -26,7 +50,7 @@ test_that("draw works", {
 
   # list
   bot2 %>% pick(1) %>% gg()
-  x <- bot2 %>% coo_center() %>% draw()
+  x <- bot2 %>% draw()
   expect_is(x, "ggplot")
 
 })

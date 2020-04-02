@@ -94,11 +94,11 @@ unfold.coo_single <- function(x, ...){
 }
 
 #' @export
-unfold.coo_list <- function(x, ...){
+unfold.list <- function(x, ...){
   # dplyr::bind_rows(x, .id="group") wouldnt work since we want numeric
   reps <- get_nb(x)
   dplyr::bind_cols(
-    tibble::tibble(group=purrr::map2(seq_along(reps_n), reps_n, ~rep(.x, .y)) %>% unlist()),
+    tibble::tibble(group=purrr::map2(seq_along(reps), reps, ~rep(.x, .y)) %>% unlist()),
     dplyr::bind_rows(x)
   )
 }

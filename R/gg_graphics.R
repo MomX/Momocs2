@@ -24,68 +24,27 @@
   )
 }
 
+# bind_distanciate_rows -----------------------------------
+# handles grouping for ggplot2 graphics
+.bind_distanciate_rows <- function(x, y){
+  # throw an error if no group in x
+  if (!("group" %in% names(x)))
+    stop("bind_distanciate_rows: no 'group' column in x")
+  m <- max(x$group)
+  # if no group column, assumes it is unfolded
+  # otherwise assume you know what you're doing
+  if (!("group" %in% names(y)))
+    y <- unfold(y)
+
+  # if no grouping in y, create it and increment to avoid id crashes
+  y <- dplyr::mutate(y, group=.data$group+m)
+  # bind the two tibbles
+  dplyr::bind_rows(x, y)
+}
+
+
 # theme should come here ----------------------------------
 # todo
-
-
-# gg ------------------------------------------------------
-#' Default ggplot2 graphics
-#'
-#' Default (ggplot2) visualisations for Momocs objects.
-#'
-#' @param x a Momocs object
-#' @param first `logical` whether to draw first point
-#' @param centroid `logical` whether to draw centroid
-#' @param axes `logical` whether to draw axes, text and grid
-#' @param gg `ggplot` object, default to [ggplot2::last_plot]
-#' @param ... additional parameters to feed geoms
-#'
-#' @details `gg` is the base plotter.
-#' `gg0` prepare the canvas but let you pick your `ggplot2::geoms`.
-#' `draw` add shapes on top of last plot
-#'
-#' @return a `ggplot` object
-#' @examples
-#' bot2 %>% pick(1) %>% gg()
-#' bot2 %>% pick(1) %>% gg0() + ggplot2::geom_point(shape="circle plus")
-#' @rdname gg
-#'
-#' @export
-gg <- function(x, first=TRUE, centroid=TRUE, axes=TRUE, ...) {
-  UseMethod("gg")
-}
-
-#' @export
-gg.default <- function(x, first=TRUE, centroid=TRUE, axes=TRUE, ...){
-  .msg_info("gg: no gg method for this class")
-}
-
-#' @export
-gg.coo_single <- function(x, first=TRUE, centroid=TRUE, axes=TRUE, ...){
-  # prepare the canvas
-  gg <- gg0(x)
-
-  # add more on demand
-  #   first point
-  if (first)
-    gg <- gg + ggplot2::geom_point(data=dplyr::slice(x, 1), shape="triangle filled")
-  #   centroid
-  if (centroid)
-    gg <- gg + ggplot2::geom_point(data=dplyr::summarize_all(x, mean), shape="plus")
-  if (axes)
-    gg <- gg + ggplot2::theme_minimal()
-
-  # tries to guess
-  n <- nrow(x)
-  if (n < 60)
-    gg <- gg + ggplot2::geom_point(..., shape="plus") # option here
-  else
-    gg <- gg + ggplot2::geom_path(...)
-  # return this beauty
-  gg
-}
-
-
 
 # gg0 -----------------------------------------------------
 # empty gg plots
@@ -106,18 +65,101 @@ gg0.default <- function(x, ...){
 #' @export
 gg0.coo_single <- function(x, ...){
   x %>%
+    unfold() %>%
     ggplot2::ggplot() +
-    ggplot2::aes(x=.data$x, y=.data$y) +
+    ggplot2::aes(x=.data$x, y=.data$y, group=.data$group) +
+    ggplot2::coord_equal() +
+    ggplot2::theme_void()
+}
+
+#' @rdname gg
+#' @export
+gg0.coo_tbl <- function(x, ...){
+  x %>%
+    unfold() %>%
+    ggplot2::ggplot() +
+    ggplot2::aes(x=.data$x, y=.data$y, group=.data$group) +
     ggplot2::coord_equal() +
     ggplot2::theme_void()
 }
 
 # so that foreign tbl can be plotted too
 # as long as they have 'x' and 'y' columns
+# todo, ensure that
 #' @rdname gg
 #' @export
 gg0.tbl <- gg0.coo_single
 
+
+# gg ------------------------------------------------------
+#' Universal graphics functions
+#'
+#' Default (ggplot2) visualisations for Momocs objects.
+#'
+#' @param x a Momocs object
+#' @param first `logical` whether to draw first point
+#' @param centroid `logical` whether to draw centroid
+#' @param axes `logical` whether to draw axes, text and grid
+#' @param gg `ggplot` object, default to [ggplot2::last_plot]
+#' @param ... additional parameters to feed geoms
+#' @note I call it "universal" as a reminder to provide a gg for each object.
+#' @details `gg` is the base plotter.
+#' `gg0` prepare the canvas but let you pick your `ggplot2::geoms`.
+#' `draw` add shapes on top of last plot
+#'
+#' @return a `ggplot` object
+#' @examples
+#' b <- bot2 %>% pick(5)
+#' gg(b)
+#'
+#' # Let's add some geoms to
+#' nice_plot <- gg0(b) +
+#'     geom_polygon(color="grey50", fill="red", alpha=0.25) +
+#'     geom_point(shape="circle plus")
+#' nice_plot # print it
+#'
+#' # you have all ggplot2 for free 8-)
+#' gorgeous_plot <- nice_plot + theme_minimal() +
+#'     labs(x="abscissa", y="ordinate", title="Drink responsibly")
+#'
+#' # this is a plotting factory !
+#' gorgeous_plot %+% pick(bot2, 12)
+#' @rdname gg
+#'
+#' @export
+gg <- function(x, first=TRUE, centroid=TRUE, axes=TRUE, ...) {
+  UseMethod("gg")
+}
+
+#' @export
+gg.default <- function(x, first=TRUE, centroid=TRUE, axes=TRUE, ...){
+  .msg_info("gg: no gg method for this class")
+}
+
+#' @export
+gg.coo_single <- function(x, first=TRUE, centroid=TRUE, axes=TRUE, ...){
+  # prepare the canvas
+  gg <- x %>% gg0()
+  x <- unfold(x)
+  # add more on demand
+  #   first point
+  if (first)
+    gg <- gg + ggplot2::geom_point(data=dplyr::slice(x, 1), shape="triangle filled")
+  #   centroid
+  if (centroid)
+    gg <- gg + ggplot2::geom_point(data=dplyr::summarize_all(x, mean), shape="plus")
+  if (axes)
+    gg <- gg + ggplot2::theme_minimal()
+
+  # tries to guess
+  n <- nrow(x)
+  if (n < 60)
+    gg <- gg + ggplot2::geom_point(..., shape="plus") # option here
+  else
+    gg <- gg + ggplot2::geom_path(...)
+  # return this beauty
+  gg
+}
 
 # gg methods ---------
 # gg.pca <- function(x, f,
@@ -139,7 +181,6 @@ gg0.tbl <- gg0.coo_single
 #
 # }
 
-# gg0 method ----------
 # gg0.pca <- function(x, x_axis=PC1, y_axis=PC2,
 #                     morphospace_position=morphospace_grid_window,
 #                     morphospace_size=NULL,
@@ -197,20 +238,29 @@ draw <- function(x, gg, ...){
 }
 
 #' @export
+draw.default <- function(x, gg, ...){
+  .msg_info("draw: no draw method for this class")
+}
+
+# geom_guesser here
+# draw_outlines
+# draw_polygon / # draw_outline
+# draw_point / #draw_landmark
+# draw_picture
+
+#' @export
 draw.coo_single <- function(x, gg=ggplot2::last_plot(), ...){
-  gg + geom_path(data = x, ...)
+  gg %+% .bind_distanciate_rows(gg$data, unfold(x))
 }
 
 #' @export
 draw.coo_list <- function(x, gg=ggplot2::last_plot(), ...){
-  x <- unfold(x)
-  gg + geom_path(data = x, mapping=ggplot2::aes(group=shp), ...)
+  gg %+% .bind_distanciate_rows(gg$data, unfold(x))
 }
 
 #' @export
 draw.coo_tbl <- function(x, gg=ggplot2::last_plot(), ...){
-  x <- unfold(x)
-  gg + geom_path(data = x, mapping=ggplot2::aes(group=shp), ...)
+  gg %+% .bind_distanciate_rows(gg$data, unfold(x))
 }
 
 # inspect -------------------------------------------------
@@ -280,7 +330,8 @@ pile.default <- function(x, f, ...){
 # manage pile.coo_out
 #' @export
 pile.coo_tbl <- function(x, f, ...){
-  gg <- x %>% unfold() %>% gg0() + aes(group=.data$shp) # perhaps group wont be used for ldks
+  gg <- x %>% gg0() + theme_minimal()
+  # todo handle geom decent_geom
   if (missing(f)){
     gg <- gg + ggplot2::geom_path(...)
   } else {
@@ -288,7 +339,7 @@ pile.coo_tbl <- function(x, f, ...){
     gg <- gg + aes(colour=!!f) + ggplot2::geom_path(...)
   }
   # return this beauty
-  gg + theme_minimal()
+  gg
 }
 
 # mosaic ----------------------------------------------
@@ -359,10 +410,10 @@ mosaic.coo_tbl <- function(x, f, ..., ncol, geom=geom_path) {
     coo_template(size=0.95)
 
   df$coo <- purrr::pmap(list(df$coo, df$ci, df$ri),
-                        ~coo_trans(..1, x_trans=..2, y_trans=..3))
+                        ~coo_trans(..1, x_trans=..2, y_trans=..3)) %>% coo_list()
 
-  df %>% unfold() %>%
-    gg0() + ggplot2::aes(group=shp) + geom(...)
+  df %>%
+    gg0() + geom(...)
 }
 
 #
