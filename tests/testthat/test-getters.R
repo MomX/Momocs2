@@ -98,3 +98,11 @@ test_that("get_perim and friends work", {
   expect_equivalent(sum(x_a), unlist(x_s[nrow(x_s), 1]))
   expect_equivalent(sum(x_a), x_0)
 })
+
+test_that("get_nb works", {
+  x <- matrix(1:10, nrow=5, ncol=2) %>% coo_single()
+  y <- matrix(1:12, nrow=6, ncol=2) %>% coo_single()
+  expect_equal(get_nb(x), 5)
+  expect_equal(coo_list(list(x, y)) %>% get_nb(), c(5, 6))
+  expect_equal(coo_tbl(coo_list(list(x, y))) %>% get_nb() %>% dplyr::pull(nb), c(5, 6))
+})

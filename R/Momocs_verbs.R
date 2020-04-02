@@ -89,21 +89,42 @@ unfold.default <- function(x, ...){
 }
 
 #' @export
-unfold.list <- function(x, ...){
-  dplyr::bind_rows(x)
+unfold.coo_single <- function(x, ...){
+  x %>% dplyr::mutate(group=1)
 }
 
-# todo only a single coo
+#' @export
+unfold.coo_list <- function(x, ...){
+  # dplyr::bind_rows(x, .id="group") wouldnt work since we want numeric
+  reps <- get_nb(x)
+  dplyr::bind_cols(
+    tibble::tibble(group=purrr::map2(seq_along(reps_n), reps_n, ~rep(.x, .y)) %>% unlist()),
+    dplyr::bind_rows(x)
+  )
+}
+
 #' @export
 unfold.coo_tbl <- function(x, ...){
-  # how many times do we have to repeat each line
-  # ie number of rows for each coo_tbl
-  reps <- rep(1:nrow(x), times=purrr::map_dbl(x$coo, nrow))
-  # unpack coo, bind cols with others
+  # check a bit for coo_list columns
+  if (coo_nb(x) == 0)
+    stop("unfold.coo_tbl: no coo_list column")
+  if (coo_nb(x) > 1)
+    paste0("unfold.coo_tbl: can only handle a single coo_list, picking ",
+           coo_names(x)[1], "column") %>%
+    .msg_info()
+
+  # there is probably a more elegan wayt
+  coo_col  <- coo_names(x)[1] # which coo column is concerned
+  # times we have to repeat each line
+  reps_n   <- x %>% dplyr::pull(coo_col) %>% get_nb()
+  # same as a vector
+  group    <- purrr::map2(seq_along(reps_n), reps_n, ~rep(.x, .y)) %>% unlist()
+
+  # unfold coo, bind cols with others
   dplyr::bind_cols(
-    tibble::tibble(shp=reps),
-    x$coo %>% unfold(),
-    x %>% dplyr::select(-coo) %>% dplyr::slice(reps)
+    group=group,
+    x %>% dplyr::pull(coo_col) %>% dplyr::bind_rows(),
+    x %>% coo_drop() %>% dplyr::slice(group)
   )
 }
 

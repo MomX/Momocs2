@@ -22,11 +22,12 @@ test_that("plint works", {
 test_that("unfold works", {
   expect_message(unfold("a"))
 
+  # coo_tbl
   x <- bot2 %>% unfold()
   expect_false(is(x, "coo_tbl"))
   expect_false(is(x, "coo_list"))
   # also tests for 3 columns
-  expect_true(all(colnames(x)[1:3] == c("shp", "x", "y")))
+  expect_true(all(colnames(x)[1:3] == c("group", "x", "y")))
 
   # and that with NULL names, unfold still works
   y <- bot2
@@ -35,6 +36,15 @@ test_that("unfold works", {
   expect_false(is(x, "coo_tbl"))
   expect_false(is(x, "coo_list"))
   # also tests for 3 columns
-  expect_true(all(c("shp", "x", "y") %in% colnames(x)))
-  expect_true(is.numeric(x$shp))
+  expect_true(all(c("group", "x", "y") %in% colnames(x)))
+  expect_true(is.numeric(x$group))
+
+  # coo_list columns
+  z <- bot2$coo %>% unfold()
+  expect_false(is(z, "coo_tbl"))
+  expect_false(is(z, "coo_list"))
+  # also tests for 3 columns
+  expect_true(all(c("group", "x", "y") %in% colnames(z)))
+  expect_true(is.numeric(z$group))
+  expect_equal(length(bot2$coo), length(unique(z$group)))
 })
