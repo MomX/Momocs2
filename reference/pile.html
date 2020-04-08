@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Momocs2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.9.0.0000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
       </span>
     </div>
 
@@ -109,7 +109,7 @@
       <a href="../articles/intro-to.html">Introduction to</a>
     </li>
     <li>
-      <a href="../articles/intro.html">Momocs design</a>
+      <a href="../articles/intro.html">MomX philosophy</a>
     </li>
   </ul>
 </li>
@@ -153,7 +153,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>a coo_tbl object</p></td>
+      <td><p>a mom_tbl object</p></td>
     </tr>
     <tr>
       <th>f</th>
@@ -175,11 +175,11 @@
 <code>mosaic()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>bot2</span> <span class='kw'>%&gt;%</span> <span class='fu'>pile</span>()</div><div class='img'><img src='pile-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># global spec</span>
-<span class='no'>bot2</span> <span class='kw'>%&gt;%</span> <span class='fu'>pile</span>(<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"gold"</span>)</div><div class='img'><img src='pile-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># aes bounded to x columns</span>
-<span class='no'>bot2</span> <span class='kw'>%&gt;%</span> <span class='fu'>pile</span>(<span class='no'>type</span>) <span class='co'># you can omit ggplot2:: if it's loaded</span></div><div class='img'><img src='pile-3.png' alt='' width='700' height='433' /></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='no'>bot</span> <span class='kw'>%&gt;%</span> <span class='fu'>pile</span>()</div><div class='img'><img src='pile-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># global spec</span>
+<span class='no'>bot</span> <span class='kw'>%&gt;%</span> <span class='fu'>pile</span>(<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"gold"</span>)</div><div class='img'><img src='pile-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># aes bounded to x columns</span>
+<span class='no'>bot</span> <span class='kw'>%&gt;%</span> <span class='fu'>pile</span>(<span class='no'>type</span>) <span class='co'># you can omit ggplot2:: if it's loaded</span></div><div class='img'><img src='pile-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># a more complex example</span>
-<span class='no'>bot2</span> <span class='kw'>%&gt;%</span> <span class='fu'>pile</span>(<span class='no'>type</span>) +
+<span class='no'>bot</span> <span class='kw'>%&gt;%</span> <span class='fu'>pile</span>(<span class='no'>type</span>) +
    <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span>(~<span class='no'>type</span>) +
    <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_colour_manual</a></span>(<span class='kw'>values</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"forestgreen"</span>, <span class='st'>"orange"</span>))</div><div class='img'><img src='pile-4.png' alt='' width='700' height='433' /></div></pre>
   </div>

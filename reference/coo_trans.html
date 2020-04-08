@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Momocs2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.9.0.0000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
       </span>
     </div>
 
@@ -109,7 +109,7 @@
       <a href="../articles/intro-to.html">Introduction to</a>
     </li>
     <li>
-      <a href="../articles/intro.html">Momocs design</a>
+      <a href="../articles/intro.html">MomX philosophy</a>
     </li>
   </ul>
 </li>
@@ -151,10 +151,10 @@
 <span class='co'># S3 method for default</span>
 <span class='fu'>coo_trans</span>(<span class='no'>x</span>, <span class='kw'>x_trans</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>y_trans</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='no'>...</span>)
 
-<span class='co'># S3 method for list</span>
+<span class='co'># S3 method for coo_list</span>
 <span class='fu'>coo_trans</span>(<span class='no'>x</span>, <span class='kw'>x_trans</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>y_trans</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='no'>...</span>)
 
-<span class='co'># S3 method for coo_tbl</span>
+<span class='co'># S3 method for mom_tbl</span>
 <span class='fu'>coo_trans</span>(<span class='no'>x</span>, <span class='kw'>x_trans</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>y_trans</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>from_col</span> <span class='kw'>=</span> <span class='no'>coo</span>, <span class='kw'>to_col</span> <span class='kw'>=</span> <span class='no'>coo</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -162,7 +162,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>coo_single, coo_list or coo_tbl</p></td>
+      <td><p>coo_single, coo_list or mom_tbl</p></td>
     </tr>
     <tr>
       <th>x_trans, y_trans</th>
@@ -175,25 +175,25 @@
     <tr>
       <th>from_col</th>
       <td><p>colnames from where to get the coo_list
-and how to name the resulting one (only for coo_tbl method)</p></td>
+and how to name the resulting one (only for mom_tbl method)</p></td>
     </tr>
     <tr>
       <th>to_col</th>
       <td><p>colnames from where to get the coo_list
-and how to name the resulting one (only for coo_tbl method)</p></td>
+and how to name the resulting one (only for mom_tbl method)</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a coo_single, coo_list or coo_tbl</p>
+    <p>a coo_single, coo_list or mom_tbl</p>
     <h2 class="hasAnchor" id="methods-by-class-"><a class="anchor" href="#methods-by-class-"></a>Methods (by class)</h2>
 
     
 <ul>
 <li><p><code>default</code>: default method</p></li>
-<li><p><code>list</code>: list method</p></li>
-<li><p><code>coo_tbl</code>: coo_tbl method</p></li>
+<li><p><code>coo_list</code>: list method</p></li>
+<li><p><code>mom_tbl</code>: mom_tbl method</p></li>
 </ul>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -209,7 +209,7 @@ and how to name the resulting one (only for coo_tbl method)</p></td>
 <code>coo_center()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>bot2</span>$<span class='no'>coo</span><span class='kw'>[[</span><span class='fl'>1</span>]] <span class='kw'>%&gt;%</span> <span class='no'>coo_trans</span></div><div class='output co'>#&gt; # A tibble: 138 x 2
+    <pre class="examples"><div class='input'><span class='no'>bot</span>$<span class='no'>coo</span><span class='kw'>[[</span><span class='fl'>1</span>]] <span class='kw'>%&gt;%</span> <span class='no'>coo_trans</span></div><div class='output co'>#&gt; # A tibble: 138 x 2
 #&gt;        x     y
 #&gt;    &lt;dbl&gt; &lt;dbl&gt;
 #&gt;  1    37   561
@@ -223,7 +223,7 @@ and how to name the resulting one (only for coo_tbl method)</p></td>
 #&gt;  9    57   414
 #&gt; 10    59   403
 #&gt; # … with 128 more rows
-#&gt; ❯ a coo_single with 138 points</div><div class='input'>
+#&gt; ❯coo_single with 138 coordinates</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

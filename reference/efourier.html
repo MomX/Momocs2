@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Momocs2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.9.0.0000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
       </span>
     </div>
 
@@ -109,7 +109,7 @@
       <a href="../articles/intro-to.html">Introduction to</a>
     </li>
     <li>
-      <a href="../articles/intro.html">Momocs design</a>
+      <a href="../articles/intro.html">MomX philosophy</a>
     </li>
   </ul>
 </li>
@@ -157,7 +157,7 @@
 <span class='co'># S3 method for coo_list</span>
 <span class='fu'>efourier</span>(<span class='no'>x</span>, <span class='kw'>nb_h</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='no'>...</span>)
 
-<span class='co'># S3 method for coo_tbl</span>
+<span class='co'># S3 method for mom_tbl</span>
 <span class='fu'>efourier</span>(<span class='no'>x</span>, <span class='kw'>nb_h</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>keep_coo</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
 
 <span class='fu'>efourier_i</span>(<span class='no'>x</span>, <span class='kw'>nb_h</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>nb_pts</span> <span class='kw'>=</span> <span class='fl'>120</span>)
@@ -170,7 +170,7 @@
 <span class='co'># S3 method for coe_list</span>
 <span class='fu'>efourier_norm</span>(<span class='no'>x</span>, <span class='kw'>first_point</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
 
-<span class='co'># S3 method for coe_tbl</span>
+<span class='co'># S3 method for mom_tbl</span>
 <span class='fu'>efourier_norm</span>(<span class='no'>x</span>, <span class='kw'>first_point</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -178,7 +178,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>coo_single, coo_list or coo_tbl</p></td>
+      <td><p>coo_single, coo_list or mom_tbl</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -250,32 +250,33 @@ Ferson S, Rohlf FJ, Koehn RK. 1985. Measuring shape variation of
 two-dimensional outlines. <strong>Systematic Biology</strong> <strong>34</strong>: 59-68.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>bot2</span> <span class='kw'>%&gt;%</span> <span class='fu'>pick</span>() <span class='kw'>%&gt;%</span> <span class='fu'>efourier</span>(<span class='fl'>4</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'>efourier_i</span>()</div><div class='output co'>#&gt; # A tibble: 1 x 16
+    <pre class="examples"><div class='input'><span class='no'>bot</span> <span class='kw'>%&gt;%</span> <span class='fu'>pick</span>() <span class='kw'>%&gt;%</span> <span class='fu'>efourier</span>(<span class='fl'>4</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'>efourier_i</span>()</div><div class='output co'>#&gt; # A tibble: 1 x 16
 #&gt;      a1    a2    a3    a4    b1    b2    b3    b4    c1    c2    c3    c4    d1
 #&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1 -135.  5.88  18.0 -3.42 -12.4 -34.6  5.91  9.02  45.1 -1.88 -12.8  10.3 -452.
 #&gt; # … with 3 more variables: d2 &lt;dbl&gt;, d3 &lt;dbl&gt;, d4 &lt;dbl&gt;
-#&gt; ❯ a coe_single with 16 variables</div><div class='output co'>#&gt; # A tibble: 120 x 2
-#&gt;        x       y
-#&gt;    &lt;dbl&gt;   &lt;dbl&gt;
-#&gt;  1 -114.   40.7 
-#&gt;  2 -116.   24.2 
-#&gt;  3 -117.    7.38
-#&gt;  4 -119.   -9.95
-#&gt;  5 -121.  -27.8 
-#&gt;  6 -123.  -46.4 
-#&gt;  7 -125.  -65.5 
-#&gt;  8 -127.  -85.4 
-#&gt;  9 -129. -106.  
-#&gt; 10 -132. -127.  
+#&gt; ❯coe_single with 16 coefficients</div><div class='output co'>#&gt; # A tibble: 120 x 2
+#&gt;        x     y
+#&gt;    &lt;dbl&gt; &lt;dbl&gt;
+#&gt;  1     0     0
+#&gt;  2     0     0
+#&gt;  3     0     0
+#&gt;  4     0     0
+#&gt;  5     0     0
+#&gt;  6     0     0
+#&gt;  7     0     0
+#&gt;  8     0     0
+#&gt;  9     0     0
+#&gt; 10     0     0
 #&gt; # … with 110 more rows
-#&gt; ❯ a coo_single with 120 points</div><div class='input'><span class='no'>bot2</span>$<span class='no'>coo</span> <span class='kw'>%&gt;%</span> <span class='fu'>efourier</span>(<span class='fl'>4</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'>efourier_i</span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span>()</div><div class='output co'>#&gt; $brahma
+#&gt; ❯coo_single with 120 coordinates</div><div class='input'><span class='no'>bot</span>$<span class='no'>coo</span> <span class='kw'>%&gt;%</span> <span class='fu'>efourier</span>(<span class='fl'>4</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'>efourier_i</span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span>()</div><div class='output co'>#&gt; &lt;coe_list[40]&gt;
+#&gt; $brahma
 #&gt; # A tibble: 1 x 16
 #&gt;      a1    a2    a3    a4    b1    b2    b3    b4    c1    c2    c3    c4    d1
 #&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1 -143.  5.29  23.0 -11.4 -13.9 -21.9  11.4  13.6  64.4 -3.15 -18.0  5.76 -485.
 #&gt; # … with 3 more variables: d2 &lt;dbl&gt;, d3 &lt;dbl&gt;, d4 &lt;dbl&gt;
-#&gt; ❯ a coe_single with 16 variables
+#&gt; ❯coe_single with 16 coefficients
 #&gt; 
 #&gt; $caney
 #&gt; # A tibble: 1 x 16
@@ -283,7 +284,7 @@ two-dimensional outlines. <strong>Systematic Biology</strong> <strong>34</strong
 #&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1 -134.  8.42  20.8 -2.59 -19.3 -30.3  8.69  4.37  57.0 -3.16 -15.7  5.58 -441.
 #&gt; # … with 3 more variables: d2 &lt;dbl&gt;, d3 &lt;dbl&gt;, d4 &lt;dbl&gt;
-#&gt; ❯ a coe_single with 16 variables
+#&gt; ❯coe_single with 16 coefficients
 #&gt; 
 #&gt; $chimay
 #&gt; # A tibble: 1 x 16
@@ -291,7 +292,7 @@ two-dimensional outlines. <strong>Systematic Biology</strong> <strong>34</strong
 #&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1 -124.  6.75  12.8 -2.68 -10.3 -27.2  5.72  5.11  38.7 -4.58 -9.03  6.83 -296.
 #&gt; # … with 3 more variables: d2 &lt;dbl&gt;, d3 &lt;dbl&gt;, d4 &lt;dbl&gt;
-#&gt; ❯ a coe_single with 16 variables
+#&gt; ❯coe_single with 16 coefficients
 #&gt; 
 #&gt; $corona
 #&gt; # A tibble: 1 x 16
@@ -299,7 +300,7 @@ two-dimensional outlines. <strong>Systematic Biology</strong> <strong>34</strong
 #&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1 -98.0  5.14  17.2 -2.29 -13.8 -20.1  7.03  3.35  50.1 -2.63 -14.1  3.84 -357.
 #&gt; # … with 3 more variables: d2 &lt;dbl&gt;, d3 &lt;dbl&gt;, d4 &lt;dbl&gt;
-#&gt; ❯ a coe_single with 16 variables
+#&gt; ❯coe_single with 16 coefficients
 #&gt; 
 #&gt; $deusventrue
 #&gt; # A tibble: 1 x 16
@@ -307,7 +308,7 @@ two-dimensional outlines. <strong>Systematic Biology</strong> <strong>34</strong
 #&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1 -125.  11.8  20.8  1.80 -14.6 -46.3  7.36 -2.28  47.0 -7.60 -12.8  8.19 -397.
 #&gt; # … with 3 more variables: d2 &lt;dbl&gt;, d3 &lt;dbl&gt;, d4 &lt;dbl&gt;
-#&gt; ❯ a coe_single with 16 variables
+#&gt; ❯coe_single with 16 coefficients
 #&gt; 
 #&gt; $duvel
 #&gt; # A tibble: 1 x 16
@@ -315,7 +316,7 @@ two-dimensional outlines. <strong>Systematic Biology</strong> <strong>34</strong
 #&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1 -124.  10.0  11.9 -4.65 -24.8 -23.8  7.98  4.92  55.2 -5.81 -10.9  6.79 -276.
 #&gt; # … with 3 more variables: d2 &lt;dbl&gt;, d3 &lt;dbl&gt;, d4 &lt;dbl&gt;
-#&gt; ❯ a coe_single with 16 variables
+#&gt; ❯coe_single with 16 coefficients
 #&gt; 
 #&gt; $franziskaner
 #&gt; # A tibble: 1 x 16
@@ -323,7 +324,7 @@ two-dimensional outlines. <strong>Systematic Biology</strong> <strong>34</strong
 #&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1 -115.  6.06  15.5 -7.01 -17.9 -21.1  7.42  9.47  58.6 -2.82 -15.4  4.30 -384.
 #&gt; # … with 3 more variables: d2 &lt;dbl&gt;, d3 &lt;dbl&gt;, d4 &lt;dbl&gt;
-#&gt; ❯ a coe_single with 16 variables
+#&gt; ❯coe_single with 16 coefficients
 #&gt; 
 #&gt; $grimbergen
 #&gt; # A tibble: 1 x 16
@@ -331,7 +332,7 @@ two-dimensional outlines. <strong>Systematic Biology</strong> <strong>34</strong
 #&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1 -128.  7.07  17.0 -1.58 -12.8 -31.1  5.42  3.24  35.8 -3.31 -9.05  6.35 -350.
 #&gt; # … with 3 more variables: d2 &lt;dbl&gt;, d3 &lt;dbl&gt;, d4 &lt;dbl&gt;
-#&gt; ❯ a coe_single with 16 variables
+#&gt; ❯coe_single with 16 coefficients
 #&gt; 
 #&gt; $guiness
 #&gt; # A tibble: 1 x 16
@@ -339,7 +340,7 @@ two-dimensional outlines. <strong>Systematic Biology</strong> <strong>34</strong
 #&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1 -118.  5.52  14.4 -3.09 -11.9 -27.1  4.01  6.98  34.7 -3.16 -8.98  7.03 -336.
 #&gt; # … with 3 more variables: d2 &lt;dbl&gt;, d3 &lt;dbl&gt;, d4 &lt;dbl&gt;
-#&gt; ❯ a coe_single with 16 variables
+#&gt; ❯coe_single with 16 coefficients
 #&gt; 
 #&gt; $hoegardeen
 #&gt; # A tibble: 1 x 16
@@ -347,7 +348,7 @@ two-dimensional outlines. <strong>Systematic Biology</strong> <strong>34</strong
 #&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1 -139.  6.22  22.9 -2.03 -13.3 -32.2  7.52  5.69  52.9 -4.40 -14.6  5.85 -471.
 #&gt; # … with 3 more variables: d2 &lt;dbl&gt;, d3 &lt;dbl&gt;, d4 &lt;dbl&gt;
-#&gt; ❯ a coe_single with 16 variables
+#&gt; ❯coe_single with 16 coefficients
 #&gt; 
 #&gt; $jupiler
 #&gt; # A tibble: 1 x 16
@@ -355,7 +356,7 @@ two-dimensional outlines. <strong>Systematic Biology</strong> <strong>34</strong
 #&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1 -125.  5.53  21.3 -1.62 -17.8 -29.5  6.37  4.57  39.9 -3.60 -11.1  5.01 -437.
 #&gt; # … with 3 more variables: d2 &lt;dbl&gt;, d3 &lt;dbl&gt;, d4 &lt;dbl&gt;
-#&gt; ❯ a coe_single with 16 variables
+#&gt; ❯coe_single with 16 coefficients
 #&gt; 
 #&gt; $kingfisher
 #&gt; # A tibble: 1 x 16
@@ -363,7 +364,7 @@ two-dimensional outlines. <strong>Systematic Biology</strong> <strong>34</strong
 #&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1 -96.8  6.97  12.4 -3.82 -9.96 -21.0  6.40  5.87  47.3 -2.28 -13.1  3.50 -316.
 #&gt; # … with 3 more variables: d2 &lt;dbl&gt;, d3 &lt;dbl&gt;, d4 &lt;dbl&gt;
-#&gt; ❯ a coe_single with 16 variables
+#&gt; ❯coe_single with 16 coefficients
 #&gt; 
 #&gt; $latrappe
 #&gt; # A tibble: 1 x 16
@@ -371,7 +372,7 @@ two-dimensional outlines. <strong>Systematic Biology</strong> <strong>34</strong
 #&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1 -159.  13.2  12.5 -10.2 -31.7 -27.4  8.80  8.90  72.0 -5.74 -12.4  8.94 -340.
 #&gt; # … with 3 more variables: d2 &lt;dbl&gt;, d3 &lt;dbl&gt;, d4 &lt;dbl&gt;
-#&gt; ❯ a coe_single with 16 variables
+#&gt; ❯coe_single with 16 coefficients
 #&gt; 
 #&gt; $lindemanskriek
 #&gt; # A tibble: 1 x 16
@@ -379,7 +380,7 @@ two-dimensional outlines. <strong>Systematic Biology</strong> <strong>34</strong
 #&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1 -110.  7.71  16.5 -2.19 -13.7 -30.0  6.39  4.66  49.6 -4.34 -13.6  5.54 -366.
 #&gt; # … with 3 more variables: d2 &lt;dbl&gt;, d3 &lt;dbl&gt;, d4 &lt;dbl&gt;
-#&gt; ❯ a coe_single with 16 variables
+#&gt; ❯coe_single with 16 coefficients
 #&gt; 
 #&gt; $nicechouffe
 #&gt; # A tibble: 1 x 16
@@ -387,7 +388,7 @@ two-dimensional outlines. <strong>Systematic Biology</strong> <strong>34</strong
 #&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1 -95.5  8.82  12.1 -3.63 -14.3 -26.7  6.16  4.97  49.5 -4.34 -13.0  5.09 -305.
 #&gt; # … with 3 more variables: d2 &lt;dbl&gt;, d3 &lt;dbl&gt;, d4 &lt;dbl&gt;
-#&gt; ❯ a coe_single with 16 variables
+#&gt; ❯coe_single with 16 coefficients
 #&gt; 
 #&gt; $pecheresse
 #&gt; # A tibble: 1 x 16
@@ -395,7 +396,7 @@ two-dimensional outlines. <strong>Systematic Biology</strong> <strong>34</strong
 #&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1 -118.  7.49  20.0 -1.64 -19.9 -28.4  8.06  3.52  50.3 -3.50 -13.7  4.36 -414.
 #&gt; # … with 3 more variables: d2 &lt;dbl&gt;, d3 &lt;dbl&gt;, d4 &lt;dbl&gt;
-#&gt; ❯ a coe_single with 16 variables
+#&gt; ❯coe_single with 16 coefficients
 #&gt; 
 #&gt; $sierranevada
 #&gt; # A tibble: 1 x 16
@@ -403,7 +404,7 @@ two-dimensional outlines. <strong>Systematic Biology</strong> <strong>34</strong
 #&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1 -113.  7.05  14.3 -3.70 -14.5 -22.5  6.71  5.39  42.8 -4.31 -10.2  6.61 -298.
 #&gt; # … with 3 more variables: d2 &lt;dbl&gt;, d3 &lt;dbl&gt;, d4 &lt;dbl&gt;
-#&gt; ❯ a coe_single with 16 variables
+#&gt; ❯coe_single with 16 coefficients
 #&gt; 
 #&gt; $tanglefoot
 #&gt; # A tibble: 1 x 16
@@ -411,7 +412,7 @@ two-dimensional outlines. <strong>Systematic Biology</strong> <strong>34</strong
 #&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1 -129.  7.38  12.3 -4.43 -16.7 -30.5  4.69  7.92  39.5 -5.82 -8.35  10.9 -317.
 #&gt; # … with 3 more variables: d2 &lt;dbl&gt;, d3 &lt;dbl&gt;, d4 &lt;dbl&gt;
-#&gt; ❯ a coe_single with 16 variables
+#&gt; ❯coe_single with 16 coefficients
 #&gt; 
 #&gt; $tauro
 #&gt; # A tibble: 1 x 16
@@ -419,7 +420,7 @@ two-dimensional outlines. <strong>Systematic Biology</strong> <strong>34</strong
 #&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1 -125.  4.35  21.6 -0.938 -16.1 -29.8  5.56  4.68  33.8 -3.24 -9.33  4.84 -438.
 #&gt; # … with 3 more variables: d2 &lt;dbl&gt;, d3 &lt;dbl&gt;, d4 &lt;dbl&gt;
-#&gt; ❯ a coe_single with 16 variables
+#&gt; ❯coe_single with 16 coefficients
 #&gt; 
 #&gt; $westmalle
 #&gt; # A tibble: 1 x 16
@@ -427,7 +428,7 @@ two-dimensional outlines. <strong>Systematic Biology</strong> <strong>34</strong
 #&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1 -98.9  6.01  15.9 -1.94 -9.63 -23.8  5.63  3.80  38.7 -2.98 -11.0  4.41 -340.
 #&gt; # … with 3 more variables: d2 &lt;dbl&gt;, d3 &lt;dbl&gt;, d4 &lt;dbl&gt;
-#&gt; ❯ a coe_single with 16 variables
+#&gt; ❯coe_single with 16 coefficients
 #&gt; 
 #&gt; $amrut
 #&gt; # A tibble: 1 x 16
@@ -435,7 +436,7 @@ two-dimensional outlines. <strong>Systematic Biology</strong> <strong>34</strong
 #&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1 -112.  6.38  14.3 -4.36 -13.1 -26.8  5.28  8.98  43.8 -1.56 -12.4  7.39 -383.
 #&gt; # … with 3 more variables: d2 &lt;dbl&gt;, d3 &lt;dbl&gt;, d4 &lt;dbl&gt;
-#&gt; ❯ a coe_single with 16 variables
+#&gt; ❯coe_single with 16 coefficients
 #&gt; 
 #&gt; $ballantines
 #&gt; # A tibble: 1 x 16
@@ -443,7 +444,7 @@ two-dimensional outlines. <strong>Systematic Biology</strong> <strong>34</strong
 #&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1 -151.  7.34  14.0 -10.4 -21.6 -22.8  6.58  14.7  51.2 0.263 -8.89  8.30 -325.
 #&gt; # … with 3 more variables: d2 &lt;dbl&gt;, d3 &lt;dbl&gt;, d4 &lt;dbl&gt;
-#&gt; ❯ a coe_single with 16 variables
+#&gt; ❯coe_single with 16 coefficients
 #&gt; 
 #&gt; $bushmills
 #&gt; # A tibble: 1 x 16
@@ -451,7 +452,7 @@ two-dimensional outlines. <strong>Systematic Biology</strong> <strong>34</strong
 #&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1 -125.  3.30  19.4 -8.95 -16.5 -11.5  8.12  13.5  57.8  1.99 -14.1  3.18 -395.
 #&gt; # … with 3 more variables: d2 &lt;dbl&gt;, d3 &lt;dbl&gt;, d4 &lt;dbl&gt;
-#&gt; ❯ a coe_single with 16 variables
+#&gt; ❯coe_single with 16 coefficients
 #&gt; 
 #&gt; $chivas
 #&gt; # A tibble: 1 x 16
@@ -459,7 +460,7 @@ two-dimensional outlines. <strong>Systematic Biology</strong> <strong>34</strong
 #&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1 -145.  11.2  15.5 -0.627 -18.9 -43.5  6.92  1.09  47.6 -7.54 -12.2  13.6 -361.
 #&gt; # … with 3 more variables: d2 &lt;dbl&gt;, d3 &lt;dbl&gt;, d4 &lt;dbl&gt;
-#&gt; ❯ a coe_single with 16 variables
+#&gt; ❯coe_single with 16 coefficients
 #&gt; 
 #&gt; $dalmore
 #&gt; # A tibble: 1 x 16
@@ -467,7 +468,7 @@ two-dimensional outlines. <strong>Systematic Biology</strong> <strong>34</strong
 #&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1 -127.  22.3  9.94 -2.90 -29.2 -40.7  9.54  1.50  75.5 -10.3 -15.4  9.71 -304.
 #&gt; # … with 3 more variables: d2 &lt;dbl&gt;, d3 &lt;dbl&gt;, d4 &lt;dbl&gt;
-#&gt; ❯ a coe_single with 16 variables
+#&gt; ❯coe_single with 16 coefficients
 #&gt; 
 #&gt; $famousgrouse
 #&gt; # A tibble: 1 x 16
@@ -475,7 +476,7 @@ two-dimensional outlines. <strong>Systematic Biology</strong> <strong>34</strong
 #&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1 -83.6  4.61  10.7 -5.52 -10.2 -15.7  4.44  8.83  38.1 -0.844 -9.84  4.63 -270.
 #&gt; # … with 3 more variables: d2 &lt;dbl&gt;, d3 &lt;dbl&gt;, d4 &lt;dbl&gt;
-#&gt; ❯ a coe_single with 16 variables
+#&gt; ❯coe_single with 16 coefficients
 #&gt; 
 #&gt; $glendronach
 #&gt; # A tibble: 1 x 16
@@ -483,7 +484,7 @@ two-dimensional outlines. <strong>Systematic Biology</strong> <strong>34</strong
 #&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1 -105.  7.36  13.5 -5.19 -14.3 -24.4  5.97  8.06  53.4 -1.08 -14.9  6.30 -363.
 #&gt; # … with 3 more variables: d2 &lt;dbl&gt;, d3 &lt;dbl&gt;, d4 &lt;dbl&gt;
-#&gt; ❯ a coe_single with 16 variables
+#&gt; ❯coe_single with 16 coefficients
 #&gt; 
 #&gt; $glenmorangie
 #&gt; # A tibble: 1 x 16
@@ -491,7 +492,7 @@ two-dimensional outlines. <strong>Systematic Biology</strong> <strong>34</strong
 #&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1 -121.  8.96  11.6 -6.25 -18.6 -29.4  5.68  9.25  65.1 -3.62 -17.8  7.78 -436.
 #&gt; # … with 3 more variables: d2 &lt;dbl&gt;, d3 &lt;dbl&gt;, d4 &lt;dbl&gt;
-#&gt; ❯ a coe_single with 16 variables
+#&gt; ❯coe_single with 16 coefficients
 #&gt; 
 #&gt; $highlandpark
 #&gt; # A tibble: 1 x 16
@@ -499,7 +500,7 @@ two-dimensional outlines. <strong>Systematic Biology</strong> <strong>34</strong
 #&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1 -136.  7.54  13.2 -8.49 -21.0 -24.6  6.57  11.7  51.2 0.607 -10.2  9.49 -321.
 #&gt; # … with 3 more variables: d2 &lt;dbl&gt;, d3 &lt;dbl&gt;, d4 &lt;dbl&gt;
-#&gt; ❯ a coe_single with 16 variables
+#&gt; ❯coe_single with 16 coefficients
 #&gt; 
 #&gt; $jackdaniels
 #&gt; # A tibble: 1 x 16
@@ -507,7 +508,7 @@ two-dimensional outlines. <strong>Systematic Biology</strong> <strong>34</strong
 #&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1 -124.  9.19  14.3 -4.72 -19.6 -28.2  7.81  7.02  55.8 -3.02 -13.8  8.87 -358.
 #&gt; # … with 3 more variables: d2 &lt;dbl&gt;, d3 &lt;dbl&gt;, d4 &lt;dbl&gt;
-#&gt; ❯ a coe_single with 16 variables
+#&gt; ❯coe_single with 16 coefficients
 #&gt; 
 #&gt; $jb
 #&gt; # A tibble: 1 x 16
@@ -515,7 +516,7 @@ two-dimensional outlines. <strong>Systematic Biology</strong> <strong>34</strong
 #&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1 -135.  5.88  18.0 -3.42 -12.4 -34.6  5.91  9.02  45.1 -1.88 -12.8  10.3 -452.
 #&gt; # … with 3 more variables: d2 &lt;dbl&gt;, d3 &lt;dbl&gt;, d4 &lt;dbl&gt;
-#&gt; ❯ a coe_single with 16 variables
+#&gt; ❯coe_single with 16 coefficients
 #&gt; 
 #&gt; $johnniewalker
 #&gt; # A tibble: 1 x 16
@@ -523,7 +524,7 @@ two-dimensional outlines. <strong>Systematic Biology</strong> <strong>34</strong
 #&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1 -47.3  2.56  6.36 -2.85 -3.84 -6.79  2.48  5.45  19.2 -0.248 -4.98  2.15 -152.
 #&gt; # … with 3 more variables: d2 &lt;dbl&gt;, d3 &lt;dbl&gt;, d4 &lt;dbl&gt;
-#&gt; ❯ a coe_single with 16 variables
+#&gt; ❯coe_single with 16 coefficients
 #&gt; 
 #&gt; $magallan
 #&gt; # A tibble: 1 x 16
@@ -531,7 +532,7 @@ two-dimensional outlines. <strong>Systematic Biology</strong> <strong>34</strong
 #&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1 -91.5  3.01  5.78 -4.49 -8.57 -15.4  1.51  11.2  30.9  2.73 -8.78  4.56 -328.
 #&gt; # … with 3 more variables: d2 &lt;dbl&gt;, d3 &lt;dbl&gt;, d4 &lt;dbl&gt;
-#&gt; ❯ a coe_single with 16 variables
+#&gt; ❯coe_single with 16 coefficients
 #&gt; 
 #&gt; $makersmark
 #&gt; # A tibble: 1 x 16
@@ -539,7 +540,7 @@ two-dimensional outlines. <strong>Systematic Biology</strong> <strong>34</strong
 #&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1 -149.  15.8  15.7  3.43 -25.4 -44.4  8.80 -4.64  63.3 -6.36 -18.0  10.4 -381.
 #&gt; # … with 3 more variables: d2 &lt;dbl&gt;, d3 &lt;dbl&gt;, d4 &lt;dbl&gt;
-#&gt; ❯ a coe_single with 16 variables
+#&gt; ❯coe_single with 16 coefficients
 #&gt; 
 #&gt; $oban
 #&gt; # A tibble: 1 x 16
@@ -547,7 +548,7 @@ two-dimensional outlines. <strong>Systematic Biology</strong> <strong>34</strong
 #&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1 -106.  3.67  12.4 -2.21 -7.10 -27.5  2.51  8.80  25.3 -0.600 -7.60  7.80 -381.
 #&gt; # … with 3 more variables: d2 &lt;dbl&gt;, d3 &lt;dbl&gt;, d4 &lt;dbl&gt;
-#&gt; ❯ a coe_single with 16 variables
+#&gt; ❯coe_single with 16 coefficients
 #&gt; 
 #&gt; $oldpotrero
 #&gt; # A tibble: 1 x 16
@@ -555,7 +556,7 @@ two-dimensional outlines. <strong>Systematic Biology</strong> <strong>34</strong
 #&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1 -94.3  14.7  11.3  1.70 -18.3 -34.6  7.67 -1.49  53.6 -5.71 -14.4  5.89 -265.
 #&gt; # … with 3 more variables: d2 &lt;dbl&gt;, d3 &lt;dbl&gt;, d4 &lt;dbl&gt;
-#&gt; ❯ a coe_single with 16 variables
+#&gt; ❯coe_single with 16 coefficients
 #&gt; 
 #&gt; $redbreast
 #&gt; # A tibble: 1 x 16
@@ -563,7 +564,7 @@ two-dimensional outlines. <strong>Systematic Biology</strong> <strong>34</strong
 #&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1 -73.2  11.3  6.13 -0.596 -16.8 -23.0  5.08 0.434  44.6 -3.01 -11.6  5.08 -188.
 #&gt; # … with 3 more variables: d2 &lt;dbl&gt;, d3 &lt;dbl&gt;, d4 &lt;dbl&gt;
-#&gt; ❯ a coe_single with 16 variables
+#&gt; ❯coe_single with 16 coefficients
 #&gt; 
 #&gt; $tamdhu
 #&gt; # A tibble: 1 x 16
@@ -571,7 +572,7 @@ two-dimensional outlines. <strong>Systematic Biology</strong> <strong>34</strong
 #&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1 -133.  7.03  17.6 -5.08 -12.4 -27.2  5.85  10.1  52.3 -2.16 -14.8  8.05 -449.
 #&gt; # … with 3 more variables: d2 &lt;dbl&gt;, d3 &lt;dbl&gt;, d4 &lt;dbl&gt;
-#&gt; ❯ a coe_single with 16 variables
+#&gt; ❯coe_single with 16 coefficients
 #&gt; 
 #&gt; $wildturkey
 #&gt; # A tibble: 1 x 16
@@ -579,7 +580,7 @@ two-dimensional outlines. <strong>Systematic Biology</strong> <strong>34</strong
 #&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1 -157.  11.3  16.5 -5.65 -18.5 -43.0  7.16  10.3  63.1 -3.97 -17.6  13.9 -492.
 #&gt; # … with 3 more variables: d2 &lt;dbl&gt;, d3 &lt;dbl&gt;, d4 &lt;dbl&gt;
-#&gt; ❯ a coe_single with 16 variables
+#&gt; ❯coe_single with 16 coefficients
 #&gt; 
 #&gt; $yoichi
 #&gt; # A tibble: 1 x 16
@@ -587,25 +588,23 @@ two-dimensional outlines. <strong>Systematic Biology</strong> <strong>34</strong
 #&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1 -121.  6.19  12.6 -6.60 -16.9 -22.3  5.48  11.5  44.2 0.560 -10.1  7.93 -324.
 #&gt; # … with 3 more variables: d2 &lt;dbl&gt;, d3 &lt;dbl&gt;, d4 &lt;dbl&gt;
-#&gt; ❯ a coe_single with 16 variables
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "efourier_list" "coe_list"      "list"         
-#&gt; ❯ a coo_list with 40 coe_single</div><div class='output co'>#&gt; [1] "coo_list" "list"    </div><div class='input'><span class='no'>bot2</span> <span class='kw'>%&gt;%</span> <span class='fu'>efourier</span>(<span class='fl'>4</span>) <span class='kw'>%&gt;%</span> <span class='fu'>efourier_norm</span>()</div><div class='output co'>#&gt; # A tibble: 40 x 3
-#&gt;    type   fake  coe                  
-#&gt;    &lt;fct&gt;  &lt;fct&gt; &lt;named list&gt;         
-#&gt;  1 whisky a     &lt;coe_single [1 × 16]&gt;
-#&gt;  2 whisky a     &lt;coe_single [1 × 16]&gt;
-#&gt;  3 whisky a     &lt;coe_single [1 × 16]&gt;
-#&gt;  4 whisky a     &lt;coe_single [1 × 16]&gt;
-#&gt;  5 whisky a     &lt;coe_single [1 × 16]&gt;
-#&gt;  6 whisky a     &lt;coe_single [1 × 16]&gt;
-#&gt;  7 whisky a     &lt;coe_single [1 × 16]&gt;
-#&gt;  8 whisky a     &lt;coe_single [1 × 16]&gt;
-#&gt;  9 whisky a     &lt;coe_single [1 × 16]&gt;
-#&gt; 10 whisky a     &lt;coe_single [1 × 16]&gt;
+#&gt; ❯coe_single with 16 coefficients
+#&gt; </div><div class='output co'>#&gt; [1] "coo_list"      "list"          "vctrs_list_of" "vctrs_vctr"   </div><div class='input'><span class='no'>bot</span> <span class='kw'>%&gt;%</span> <span class='fu'>efourier</span>(<span class='fl'>4</span>) <span class='kw'>%&gt;%</span> <span class='fu'>efourier_norm</span>()</div><div class='output co'>#&gt; # A tibble: 40 x 3
+#&gt;    type   fake  coe              
+#&gt;    &lt;fct&gt;  &lt;fct&gt; &lt;coe_list&gt;       
+#&gt;  1 whisky a     &lt;tibble [1 × 16]&gt;
+#&gt;  2 whisky a     &lt;tibble [1 × 16]&gt;
+#&gt;  3 whisky a     &lt;tibble [1 × 16]&gt;
+#&gt;  4 whisky a     &lt;tibble [1 × 16]&gt;
+#&gt;  5 whisky a     &lt;tibble [1 × 16]&gt;
+#&gt;  6 whisky a     &lt;tibble [1 × 16]&gt;
+#&gt;  7 whisky a     &lt;tibble [1 × 16]&gt;
+#&gt;  8 whisky a     &lt;tibble [1 × 16]&gt;
+#&gt;  9 whisky a     &lt;tibble [1 × 16]&gt;
+#&gt; 10 whisky a     &lt;tibble [1 × 16]&gt;
 #&gt; # … with 30 more rows
-#&gt; ❯ a coe_tbl with 40 coe_single</div><div class='input'>
+#&gt; ❯mom_tbl
+#&gt; ❯coe_list: coe</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

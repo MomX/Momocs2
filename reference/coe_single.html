@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>coe_single constructor for single coefficients lists — coe_single • Momocs2</title>
+<title>Create single coefficients — coe_single • Momocs2</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,7 +46,7 @@
 
 
 
-<meta property="og:title" content="coe_single constructor for single coefficients lists — coe_single" />
+<meta property="og:title" content="Create single coefficients — coe_single" />
 <meta property="og:description" content="coe objects are tibble with as many rows as created by morphometric methods.
 It is not really intended to be used directly but is useful if you want to extend Momocs." />
 <meta property="og:image" content="http://momx.github.io/Momocs2/logo.png" />
@@ -81,7 +81,7 @@ It is not really intended to be used directly but is useful if you want to exten
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Momocs2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.9.0.0000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
       </span>
     </div>
 
@@ -110,7 +110,7 @@ It is not really intended to be used directly but is useful if you want to exten
       <a href="../articles/intro-to.html">Introduction to</a>
     </li>
     <li>
-      <a href="../articles/intro.html">Momocs design</a>
+      <a href="../articles/intro.html">MomX philosophy</a>
     </li>
   </ul>
 </li>
@@ -138,7 +138,7 @@ It is not really intended to be used directly but is useful if you want to exten
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>coe_single constructor for single coefficients lists</h1>
+    <h1>Create single coefficients</h1>
     
     <div class="hidden name"><code>coe_single.Rd</code></div>
     </div>
@@ -148,24 +148,9 @@ It is not really intended to be used directly but is useful if you want to exten
 It is not really intended to be used directly but is useful if you want to extend Momocs.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>coe_single</span>(<span class='no'>x</span>)
+    <pre class="usage"><span class='fu'>new_coe_single</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>())
 
-<span class='co'># S3 method for default</span>
-<span class='fu'>coe_single</span>(<span class='no'>x</span>)
-
-<span class='co'># S3 method for numeric</span>
-<span class='fu'>coe_single</span>(<span class='no'>x</span>)
-
-<span class='co'># S3 method for data.frame</span>
-<span class='fu'>coe_single</span>(<span class='no'>x</span>)
-
-<span class='co'># S3 method for list</span>
-<span class='fu'>coe_single</span>(<span class='no'>x</span>)
-
-<span class='co'># S3 method for coe_single</span>
-<span class='fu'>coe_single</span>(<span class='no'>x</span>)
-
-<span class='fu'>validate_coe_single</span>(<span class='no'>x</span>)
+<span class='fu'>coe_single</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>new_coe_single</span>())
 
 <span class='fu'>is_coe_single</span>(<span class='no'>x</span>)
 
@@ -188,17 +173,18 @@ two columns</p></td>
 
     
 <ul>
-<li><p><code>validate_coe_single</code>: Class validator</p></li>
+<li><p><code>new_coe_single</code>: Constructor</p></li>
+<li><p><code>coe_single</code>: Helper</p></li>
 <li><p><code>is_coe_single</code>: Class tester</p></li>
-<li><p><code>is_coe_single1</code>: Class tester</p></li>
+<li><p><code>is_coe_single1</code>: Class1 tester</p></li>
 </ul>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>1</span>, <span class='kw'>b</span><span class='kw'>=</span><span class='fl'>2</span>) <span class='kw'>%&gt;%</span> <span class='fu'>coe_single</span>()</div><div class='output co'>#&gt; # A tibble: 1 x 2
-#&gt;       a     b
-#&gt;   &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1     1     2
-#&gt; ❯ a coe_single with 2 variables</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fl'>1</span>:<span class='fl'>12</span>, <span class='kw'>nrow</span><span class='kw'>=</span><span class='fl'>1</span>) <span class='kw'>%&gt;%</span> <span class='fu'>coe_single</span>()</div><div class='output co'>#&gt; # A tibble: 1 x 12
+#&gt;      V1    V2    V3    V4    V5    V6    V7    V8    V9   V10   V11   V12
+#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
+#&gt; 1     1     2     3     4     5     6     7     8     9    10    11    12
+#&gt; ❯coe_single with 12 coefficients</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

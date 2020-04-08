@@ -7,16 +7,13 @@
     <loc>http://momx.github.io/Momocs2/reference/babel.html</loc>
   </url>
   <url>
-    <loc>http://momx.github.io/Momocs2/reference/bot2.html</loc>
+    <loc>http://momx.github.io/Momocs2/reference/bot.html</loc>
   </url>
   <url>
     <loc>http://momx.github.io/Momocs2/reference/coe_list.html</loc>
   </url>
   <url>
     <loc>http://momx.github.io/Momocs2/reference/coe_single.html</loc>
-  </url>
-  <url>
-    <loc>http://momx.github.io/Momocs2/reference/coe_tbl.html</loc>
   </url>
   <url>
     <loc>http://momx.github.io/Momocs2/reference/coo_align.html</loc>
@@ -41,9 +38,6 @@
   </url>
   <url>
     <loc>http://momx.github.io/Momocs2/reference/coo_single.html</loc>
-  </url>
-  <url>
-    <loc>http://momx.github.io/Momocs2/reference/coo_tbl.html</loc>
   </url>
   <url>
     <loc>http://momx.github.io/Momocs2/reference/coo_template.html</loc>
@@ -85,7 +79,13 @@
     <loc>http://momx.github.io/Momocs2/reference/inspect.html</loc>
   </url>
   <url>
+    <loc>http://momx.github.io/Momocs2/reference/jb.html</loc>
+  </url>
+  <url>
     <loc>http://momx.github.io/Momocs2/reference/list_columns.html</loc>
+  </url>
+  <url>
+    <loc>http://momx.github.io/Momocs2/reference/mom_tbl.html</loc>
   </url>
   <url>
     <loc>http://momx.github.io/Momocs2/reference/morphospace.html</loc>
@@ -106,7 +106,7 @@
     <loc>http://momx.github.io/Momocs2/reference/pipe.html</loc>
   </url>
   <url>
-    <loc>http://momx.github.io/Momocs2/reference/plint.html</loc>
+    <loc>http://momx.github.io/Momocs2/reference/press.html</loc>
   </url>
   <url>
     <loc>http://momx.github.io/Momocs2/reference/reexports.html</loc>

@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Momocs2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.9.0.0000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
       </span>
     </div>
 
@@ -108,7 +108,7 @@
       <a href="../articles/intro-to.html">Introduction to</a>
     </li>
     <li>
-      <a href="../articles/intro.html">Momocs design</a>
+      <a href="../articles/intro.html">MomX philosophy</a>
     </li>
   </ul>
 </li>
@@ -174,9 +174,9 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="coo_list.html">coo_list()</a></code> <code><a href="coo_list.html">is_coo_list()</a></code> <code><a href="coo_list.html">is_coo_list1()</a></code> </p>
+          <p><code><a href="coo_list.html">new_coo_list()</a></code> <code><a href="coo_list.html">coo_list()</a></code> <code><a href="coo_list.html">vec_ptype_full.coo_list()</a></code> <code><a href="coo_list.html">vec_ptype_abbr.coo_list()</a></code> <code><a href="coo_list.html">is_coo_list()</a></code> <code><a href="coo_list.html">is_coo_list1()</a></code> </p>
         </td>
-        <td><p>coo_list constructor for list of shapes</p></td>
+        <td><p>Create list of coo_single</p></td>
       </tr><tr>
         
         <td>
@@ -204,15 +204,9 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="coo_single.html">coo_single()</a></code> <code><a href="coo_single.html">validate_coo_single()</a></code> <code><a href="coo_single.html">is_coo_single()</a></code> <code><a href="coo_single.html">is_coo_single1()</a></code> </p>
+          <p><code><a href="coo_single.html">new_coo_single()</a></code> <code><a href="coo_single.html">validate_coo_single()</a></code> <code><a href="coo_single.html">coo_single()</a></code> <code><a href="coo_single.html">is_coo_single()</a></code> <code><a href="coo_single.html">is_coo_single1()</a></code> </p>
         </td>
-        <td><p>coo_single constructor for single shapes</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="coo_tbl.html">coo_tbl()</a></code> <code><a href="coo_tbl.html">is_coo_tbl()</a></code> <code><a href="coo_tbl.html">is_coo_tbl1()</a></code> </p>
-        </td>
-        <td><p>coo_tbl class</p></td>
+        <td><p>Create single shape made of coordinates</p></td>
       </tr><tr>
         
         <td>
@@ -336,7 +330,7 @@
         <td>
           <p><code><a href="pick.html">pick()</a></code> </p>
         </td>
-        <td><p>Pick a single coo_df from a coo_tbl</p></td>
+        <td><p>Pick a single coo_df from a mom_tbl</p></td>
       </tr><tr>
         
         <td>
@@ -346,9 +340,9 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="plint.html">plint()</a></code> </p>
+          <p><code><a href="press.html">press()</a></code> </p>
         </td>
-        <td><p>Plot, print and pipe forward</p></td>
+        <td><p>Flatten coe list columns</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -427,39 +421,33 @@
       <tr>
         
         <td>
-          <p><code><a href="coo_single.html">coo_single()</a></code> <code><a href="coo_single.html">validate_coo_single()</a></code> <code><a href="coo_single.html">is_coo_single()</a></code> <code><a href="coo_single.html">is_coo_single1()</a></code> </p>
+          <p><code><a href="mom_tbl.html">new_mom()</a></code> <code><a href="mom_tbl.html">mom()</a></code> <code><a href="mom_tbl.html">is_mom_tbl()</a></code> <code><a href="mom_tbl.html">is_mom_tbl1()</a></code> </p>
         </td>
-        <td><p>coo_single constructor for single shapes</p></td>
+        <td><p>Declare MomX tibble</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="coo_list.html">coo_list()</a></code> <code><a href="coo_list.html">is_coo_list()</a></code> <code><a href="coo_list.html">is_coo_list1()</a></code> </p>
+          <p><code><a href="coo_single.html">new_coo_single()</a></code> <code><a href="coo_single.html">validate_coo_single()</a></code> <code><a href="coo_single.html">coo_single()</a></code> <code><a href="coo_single.html">is_coo_single()</a></code> <code><a href="coo_single.html">is_coo_single1()</a></code> </p>
         </td>
-        <td><p>coo_list constructor for list of shapes</p></td>
+        <td><p>Create single shape made of coordinates</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="coo_tbl.html">coo_tbl()</a></code> <code><a href="coo_tbl.html">is_coo_tbl()</a></code> <code><a href="coo_tbl.html">is_coo_tbl1()</a></code> </p>
+          <p><code><a href="coo_list.html">new_coo_list()</a></code> <code><a href="coo_list.html">coo_list()</a></code> <code><a href="coo_list.html">vec_ptype_full.coo_list()</a></code> <code><a href="coo_list.html">vec_ptype_abbr.coo_list()</a></code> <code><a href="coo_list.html">is_coo_list()</a></code> <code><a href="coo_list.html">is_coo_list1()</a></code> </p>
         </td>
-        <td><p>coo_tbl class</p></td>
+        <td><p>Create list of coo_single</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="coe_single.html">coe_single()</a></code> <code><a href="coe_single.html">validate_coe_single()</a></code> <code><a href="coe_single.html">is_coe_single()</a></code> <code><a href="coe_single.html">is_coe_single1()</a></code> </p>
+          <p><code><a href="coe_single.html">new_coe_single()</a></code> <code><a href="coe_single.html">coe_single()</a></code> <code><a href="coe_single.html">is_coe_single()</a></code> <code><a href="coe_single.html">is_coe_single1()</a></code> </p>
         </td>
-        <td><p>coe_single constructor for single coefficients lists</p></td>
+        <td><p>Create single coefficients</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="coe_list.html">coe_list()</a></code> <code><a href="coe_list.html">is_coe_list()</a></code> <code><a href="coe_list.html">is_coe_list1()</a></code> </p>
+          <p><code><a href="coe_list.html">new_coe_list()</a></code> <code><a href="coe_list.html">coe_list()</a></code> <code><a href="coe_list.html">vec_ptype_full.coe_list()</a></code> <code><a href="coe_list.html">vec_ptype_abbr.coe_list()</a></code> <code><a href="coe_list.html">is_coe_list()</a></code> <code><a href="coe_list.html">is_coe_list1()</a></code> </p>
         </td>
-        <td><p>coe_list constructor for list of shapes</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="coe_tbl.html">is_coe_tbl()</a></code> <code><a href="coe_tbl.html">is_coe_tbl1()</a></code> <code><a href="coe_tbl.html">coe_tbl()</a></code> </p>
-        </td>
-        <td><p>coe_tbl class</p></td>
+        <td><p>Create list of coe_single</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -489,7 +477,7 @@
       <tr>
         
         <td>
-          <p><code><a href="bot2.html">bot2</a></code> </p>
+          <p><code><a href="bot.html">bot</a></code> </p>
         </td>
         <td><p>Some bottles</p></td>
       </tr>

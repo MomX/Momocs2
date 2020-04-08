@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>coo_tbl class — coo_tbl • Momocs2</title>
+<title>Declare MomX tibble — mom_tbl • Momocs2</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="coo_tbl class — coo_tbl" />
-<meta property="og:description" content="coo_tbl class" />
+<meta property="og:title" content="Declare MomX tibble — mom_tbl" />
+<meta property="og:description" content="The main class used accros MomX ecosystem. Basically, a tibble with benefits." />
 <meta property="og:image" content="http://momx.github.io/Momocs2/logo.png" />
 
 
@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Momocs2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.9.0.0000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
       </span>
     </div>
 
@@ -109,7 +109,7 @@
       <a href="../articles/intro-to.html">Introduction to</a>
     </li>
     <li>
-      <a href="../articles/intro.html">Momocs design</a>
+      <a href="../articles/intro.html">MomX philosophy</a>
     </li>
   </ul>
 </li>
@@ -137,27 +137,29 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>coo_tbl class</h1>
+    <h1>Declare MomX tibble</h1>
     
-    <div class="hidden name"><code>coo_tbl.Rd</code></div>
+    <div class="hidden name"><code>mom_tbl.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>coo_tbl class</p>
+    <p>The main class used accros MomX ecosystem. Basically, a tibble with benefits.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>coo_tbl</span>(<span class='no'>x</span>)
+    <pre class="usage"><span class='fu'>new_mom</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>tibble</span>())
 
-<span class='fu'>is_coo_tbl</span>(<span class='no'>x</span>)
+<span class='fu'>mom</span>(<span class='no'>x</span>)
 
-<span class='fu'>is_coo_tbl1</span>(<span class='no'>x</span>)</pre>
+<span class='fu'>is_mom_tbl</span>(<span class='no'>x</span>)
+
+<span class='fu'>is_mom_tbl1</span>(<span class='no'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>anything sensible</p></td>
+      <td><p>a tibble that may contain column lists</p></td>
     </tr>
     </table>
 
@@ -165,8 +167,10 @@
 
     
 <ul>
-<li><p><code>is_coo_tbl</code>: Class tester</p></li>
-<li><p><code>is_coo_tbl1</code>: Class tester</p></li>
+<li><p><code>new_mom</code>: Constructor</p></li>
+<li><p><code>mom</code>: Helpers</p></li>
+<li><p><code>is_mom_tbl</code>: Class tester</p></li>
+<li><p><code>is_mom_tbl1</code>: Class1 tester</p></li>
 </ul>
 
   </div>
