@@ -49,7 +49,7 @@ A set of functions around PCA/LDA eigen/trace.
 }}
 
 \examples{
-p <- bot2 \%>\% efourier(6) \%>\% stat_pca()
+p <- bot \%>\% efourier(6) \%>\% stat_pca()
 p \%>\% scree()
 p \%>\% scree_min(0.99)
 p \%>\% scree_plot(prop=0.95)

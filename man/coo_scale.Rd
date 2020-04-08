@@ -3,33 +3,33 @@
 \name{coo_scale}
 \alias{coo_scale}
 \alias{coo_scale.default}
-\alias{coo_scale.list}
-\alias{coo_scale.coo_tbl}
+\alias{coo_scale.coo_list}
+\alias{coo_scale.mom_tbl}
 \title{Scale shapes}
 \usage{
 coo_scale(x, scale, ...)
 
 \method{coo_scale}{default}(x, scale, ...)
 
-\method{coo_scale}{list}(x, scale, ...)
+\method{coo_scale}{coo_list}(x, scale, ...)
 
-\method{coo_scale}{coo_tbl}(x, scale, from_col = coo, to_col = coo, ...)
+\method{coo_scale}{mom_tbl}(x, scale, from_col = coo, to_col = coo, ...)
 }
 \arguments{
-\item{x}{\link{coo_single}, \link{coo_list} or \link{coo_tbl}}
+\item{x}{\link{coo_single}, \link{coo_list} or \link{mom_tbl}}
 
 \item{scale}{\code{numeric} scaling factor (\link{get_centsize} by default).}
 
 \item{...}{useless here}
 
 \item{from_col}{colnames from where to get the \link{coo_list}
-and how to name the resulting one (only for \link{coo_tbl} method)}
+and how to name the resulting one (only for \link{mom_tbl} method)}
 
 \item{to_col}{colnames from where to get the \link{coo_list}
-and how to name the resulting one (only for \link{coo_tbl} method)}
+and how to name the resulting one (only for \link{mom_tbl} method)}
 }
 \value{
-a \link{coo_single}, \link{coo_list} or \link{coo_tbl}
+a \link{coo_single}, \link{coo_list} or \link{mom_tbl}
 }
 \description{
 Returns a scaled shape.
@@ -38,14 +38,14 @@ Returns a scaled shape.
 \itemize{
 \item \code{default}: default method
 
-\item \code{list}: list method
+\item \code{coo_list}: list method
 
-\item \code{coo_tbl}: coo_tbl method
+\item \code{mom_tbl}: mom_tbl method
 }}
 
 \examples{
 
-bot2$coo[[1]] \%>\% coo_scale
+bot$coo[[1]] \%>\% coo_scale
 
 }
 \seealso{

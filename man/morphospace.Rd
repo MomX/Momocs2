@@ -12,13 +12,13 @@ morphospace(x, xy)
 \item{xy}{a tibble with positions to calculate. Default to morphospace_range on PC1 and PC2}
 }
 \value{
-\link{coo_tbl} with raw shapes and other useful columns
+\link{mom_tbl} with raw shapes and other useful columns
 }
 \description{
 Versatile function to reconstruct shapes from statistical objects
 }
 \examples{
-x <- bot2 \%>\% efourier(6) \%>\% stat_pca()
+x <- bot \%>\% efourier(6) \%>\% stat_pca()
 pos1 <- tibble::tibble(PC1=seq(-5, 5, 1))
 pos2 <- tibble::tibble(PC1=seq(-5, 5, 1), PC2=seq(-5, 5, 1))
 m <- x \%>\% morphospace(pos1)

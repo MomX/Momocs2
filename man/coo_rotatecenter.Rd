@@ -5,7 +5,7 @@
 \alias{coo_rotatecenter.default}
 \alias{coo_rotatecenter.coo_list}
 \alias{coo_rotatecenter.list}
-\alias{coo_rotatecenter.coo_tbl}
+\alias{coo_rotatecenter.mom_tbl}
 \title{Rotate shapes and specify center}
 \usage{
 coo_rotatecenter(x, theta = 0, center = c(0, 0), ...)
@@ -16,7 +16,7 @@ coo_rotatecenter(x, theta = 0, center = c(0, 0), ...)
 
 \method{coo_rotatecenter}{list}(x, theta = 0, center = c(0, 0), ...)
 
-\method{coo_rotatecenter}{coo_tbl}(
+\method{coo_rotatecenter}{mom_tbl}(
   x,
   theta = 0,
   center = c(0, 0),
@@ -26,7 +26,7 @@ coo_rotatecenter(x, theta = 0, center = c(0, 0), ...)
 )
 }
 \arguments{
-\item{x}{\link{coo_single}, \link{coo_list} or \link{coo_tbl}}
+\item{x}{\link{coo_single}, \link{coo_list} or \link{mom_tbl}}
 
 \item{theta}{\code{numeric} angle to rotate (in radians) and in the trigonometric direction (anti-clockwise). Default to \code{0}.}
 
@@ -35,13 +35,13 @@ coo_rotatecenter(x, theta = 0, center = c(0, 0), ...)
 \item{...}{useless here}
 
 \item{from_col}{colnames from where to get the \link{coo_list}
-and how to name the resulting one (only for \link{coo_tbl} method)}
+and how to name the resulting one (only for \link{mom_tbl} method)}
 
 \item{to_col}{colnames from where to get the \link{coo_list}
-and how to name the resulting one (only for \link{coo_tbl} method)}
+and how to name the resulting one (only for \link{mom_tbl} method)}
 }
 \value{
-a \link{coo_single}, \link{coo_list} or \link{coo_tbl}
+a \link{coo_single}, \link{coo_list} or \link{mom_tbl}
 }
 \description{
 Rotates the coordinates by a \code{theta} angle (in radians) in
@@ -55,14 +55,14 @@ the trigonometric direction (anti-clockwise) and using \code{center} as coordina
 
 \item \code{list}: list method
 
-\item \code{coo_tbl}: coo_tbl method
+\item \code{mom_tbl}: mom_tbl method
 }}
 
 \examples{
-x <- bot2 \%>\% pick(5) \%>\% coo_center() \%>\% coo_scale()
+x <- bot \%>\% pick(5) \%>\% coo_center() \%>\% coo_scale()
 seq(0, pi, pi/6) \%>\%
   purrr::map(~ x \%>\% coo_rotatecenter(x, theta=.x, center=c(5, 5)) \%>\% coo_single) \%>\%
-  coo_tbl() \%>\%
+  mom_tbl() \%>\%
   pile()
 }
 \seealso{

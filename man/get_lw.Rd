@@ -13,7 +13,7 @@ get_length(x)
 get_width(x)
 }
 \arguments{
-\item{x}{\link{coo_single}, \link{coo_list} or \link{coo_tbl}}
+\item{x}{\link{coo_single}, \link{coo_list} or \link{mom_tbl}}
 }
 \value{
 \code{numeric} or additional column
@@ -24,6 +24,6 @@ Returns the length and width of a shape. The shape is first aligned using
 the range on the y-axis.
 }
 \examples{
-bot2$coo[[5]] \%>\% get_lw
+bot$coo[[5]] \%>\% get_lw
 }
 \concept{coo_ descriptors}

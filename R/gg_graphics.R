@@ -39,7 +39,7 @@
   # if no grouping in y, create it and increment to avoid id crashes
   y <- dplyr::mutate(y, group=.data$group+m)
   # bind the two tibbles
-  dplyr::bind_rows(x, y)
+  dplyr::bind_rows(x, y) %>% tibble::as_tibble()
 }
 
 
@@ -74,7 +74,7 @@ gg0.coo_single <- function(x, ...){
 
 #' @rdname gg
 #' @export
-gg0.coo_tbl <- function(x, ...){
+gg0.mom_tbl <- function(x, ...){
   x %>%
     unfold() %>%
     ggplot2::ggplot() +
@@ -109,7 +109,7 @@ gg0.tbl <- gg0.coo_single
 #'
 #' @return a `ggplot` object
 #' @examples
-#' b <- bot2 %>% pick(5)
+#' b <- bot %>% pick(5)
 #' gg(b)
 #'
 #' # Let's add some geoms to
@@ -124,7 +124,7 @@ gg0.tbl <- gg0.coo_single
 #'     ggplot2::labs(x="abscissa", y="ordinate", title="Drink responsibly")
 #'
 #' # this is a plotting factory !
-#' # gorgeous_plot %+% pick(bot2, 12)
+#' # gorgeous_plot %+% pick(bot, 12)
 #' @rdname gg
 #'
 #' @export
@@ -228,11 +228,11 @@ gg.coo_single <- function(x, first=TRUE, centroid=TRUE, axes=TRUE, ...){
 #' @return a `ggplot` object
 #' @export
 #' @examples
-#' bot2 %>% pick(1) %>% gg()
-#' bot2 %>% pick(2) %>% draw()
+#' bot %>% pick(1) %>% gg()
+#' bot %>% pick(2) %>% draw()
 #'
-#' bot2 %>% pile(alpha=0.2)
-#' bot2 %>% coo_rotate(pi/2) %>% draw(col="slateblue")
+#' bot %>% pile(alpha=0.2)
+#' bot %>% coo_rotate(pi/2) %>% draw(col="slateblue")
 #' @export
 draw <- function(x, gg, ...){
   UseMethod("draw")
@@ -260,7 +260,7 @@ draw.coo_list <- function(x, gg=ggplot2::last_plot(), ...){
 }
 
 #' @export
-draw.coo_tbl <- function(x, gg=ggplot2::last_plot(), ...){
+draw.mom_tbl <- function(x, gg=ggplot2::last_plot(), ...){
   gg %+% .bind_distanciate_rows(gg$data, unfold(x))
 }
 
@@ -275,7 +275,7 @@ draw.coo_tbl <- function(x, gg=ggplot2::last_plot(), ...){
 #' @family family_picture
 #' @examples
 #' \dontrun{
-#' bot2 %>% inspect
+#' bot %>% inspect
 #' }
 #'
 #' @export
@@ -289,7 +289,7 @@ inspect.default <- function(x, ...){
 }
 
 #' @export
-inspect.coo_tbl <- function(x, ...){
+inspect.mom_tbl <- function(x, ...){
   repeat {
     readline(prompt = "Press <Enter> to continue, <Esc> to quit...")
     x %>% pick() %>% gg() %>% print()
@@ -300,20 +300,20 @@ inspect.coo_tbl <- function(x, ...){
 
 #' Plot all shapes on the same graph
 #'
-#' @param x a coo_tbl object
+#' @param x a mom_tbl object
 #' @param f a column (`factor` or `numeric`) for colouring shapes
 #' @param ... additional parameters to feed ggplot2::geoms
 #' @note formerly named `stack`
 #' @family family_picture
 #' @examples
-#' bot2 %>% pile()
+#' bot %>% pile()
 #' # global spec
-#' bot2 %>% pile(col="gold")
+#' bot %>% pile(col="gold")
 #' # aes bounded to x columns
-#' bot2 %>% pile(type) # you can omit ggplot2:: if it's loaded
+#' bot %>% pile(type) # you can omit ggplot2:: if it's loaded
 #'
 #' # a more complex example
-#' bot2 %>% pile(type) +
+#' bot %>% pile(type) +
 #'    ggplot2::facet_grid(~type) +
 #'    ggplot2::scale_colour_manual(values=c("forestgreen", "orange"))
 #' @export
@@ -330,7 +330,7 @@ pile.default <- function(x, f, ...){
 # add first, centroid, etc. ala gg
 # manage pile.coo_out
 #' @export
-pile.coo_tbl <- function(x, f, ...){
+pile.mom_tbl <- function(x, f, ...){
   gg <- x %>% gg0() + ggplot2::theme_minimal()
   # todo handle geom decent_geom
   if (missing(f)){
@@ -356,9 +356,9 @@ pile.coo_tbl <- function(x, f, ...){
 #' @return a `ggplot` object
 #' @family family_picture
 #' @examples
-#' bot2 %>% mosaic()
-#' bot2 %>% mosaic(type, ncol=6)
-#' mosaic(bot2, type, ncol=6, ggplot2::aes(col=type))
+#' bot %>% mosaic()
+#' bot %>% mosaic(type, ncol=6)
+#' mosaic(bot, type, ncol=6, ggplot2::aes(col=type))
 #'
 #' @export
 mosaic <- function(x, f, ..., ncol, geom) {
@@ -372,7 +372,9 @@ mosaic.default <- function(x, ...) {
 }
 
 #' @export
-mosaic.coo_tbl <- function(x, f, ..., ncol, geom=geom_path) {
+mosaic.mom_tbl <- function(x, f, ..., ncol, geom=geom_path) {
+
+  # go for squarish defaults
   if (missing(ncol)){
     ncol <- ceiling(sqrt(nrow(x)))
   }
@@ -390,23 +392,23 @@ mosaic.coo_tbl <- function(x, f, ..., ncol, geom=geom_path) {
     f <- enquo(f)
     x %>%
       dplyr::group_by(!!f) %>%
-      # ni increment for each shape within each f level
+      # ni: increment for each shape within each f level
       dplyr::mutate(ni=1:dplyr::n() - 1,
-                    # deduces the column index
+                    # deduces the column index: ci
                     ci=1 + ni %% ncol) %>%
       dplyr::ungroup() %>%
-      # deduces the row index
+      # deduces the row index: ri
       dplyr::mutate(ri=cumsum(ifelse(ci==1, 1, 0))) -> df
+
+    df <- mom(df) # todo vctrs
   }
 
   # invert ri, so that it wraps downwards
   df$ri <- max(df$ri) - df$ri + 1
-  #
+
   # drop useless columns and add proper classes
   df <- df %>%
     dplyr::select(-ni) %>%
-    dplyr::mutate(coo=.append_class(coo, "coo_list")) %>%
-    .append_class("coo_tbl") %>%
     # template it with a small padding
     coo_template(size=0.95)
 
@@ -419,7 +421,7 @@ mosaic.coo_tbl <- function(x, f, ..., ncol, geom=geom_path) {
 
 #
 #
-# x <- bot2
+# x <- bot
 # ns <-
 #   nc <- ceiling(sqrt(nrow(x)))
 #
@@ -432,7 +434,7 @@ mosaic.coo_tbl <- function(x, f, ..., ncol, geom=geom_path) {
 #   dplyr::select(-ni) -> df
 #
 # df$coo <- df$coo %>% .append_class("coo_list")
-# df <- df %>% .append_class("coo_tbl")
+# df <- df %>% .append_class("mom_tbl")
 #
 # df$coo <- purrr::pmap(list(coo_scale(coo_center(df$coo)), df$ci, df$ri),
 #                       ~coo_trans(..1, x_trans=..2, y_trans=..3))

@@ -7,7 +7,7 @@
 get_nb(x)
 }
 \arguments{
-\item{x}{\link{coo_single}, \link{coo_list} or \link{coo_tbl}}
+\item{x}{\link{coo_single}, \link{coo_list} or \link{mom_tbl}}
 }
 \value{
 \code{numeric} or additional column
@@ -16,8 +16,8 @@ get_nb(x)
 Wraps around \code{nrow}
 }
 \examples{
-bot2 \%>\% pick(1) \%>\% get_nb()
-bot2 \%>\% get_nb()
+bot \%>\% pick(1) \%>\% get_nb()
+bot \%>\% get_nb()
 }
 \seealso{
 Other getters: 

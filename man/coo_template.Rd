@@ -3,33 +3,33 @@
 \name{coo_template}
 \alias{coo_template}
 \alias{coo_template.default}
-\alias{coo_template.list}
-\alias{coo_template.coo_tbl}
+\alias{coo_template.coo_list}
+\alias{coo_template.mom_tbl}
 \title{Templates shapes}
 \usage{
 coo_template(x, size, ...)
 
 \method{coo_template}{default}(x, size = 1, ...)
 
-\method{coo_template}{list}(x, size = 1, ...)
+\method{coo_template}{coo_list}(x, size = 1, ...)
 
-\method{coo_template}{coo_tbl}(x, size = 1, from_col = coo, to_col = coo, ...)
+\method{coo_template}{mom_tbl}(x, size = 1, from_col = coo, to_col = coo, ...)
 }
 \arguments{
-\item{x}{\link{coo_single}, \link{coo_list} or \link{coo_tbl}}
+\item{x}{\link{coo_single}, \link{coo_list} or \link{mom_tbl}}
 
 \item{size}{\code{numeric} the side of the square inscribing the shape}
 
 \item{...}{useless here}
 
 \item{from_col}{colnames from where to get the \link{coo_list}
-and how to name the resulting one (only for \link{coo_tbl} method)}
+and how to name the resulting one (only for \link{mom_tbl} method)}
 
 \item{to_col}{colnames from where to get the \link{coo_list}
-and how to name the resulting one (only for \link{coo_tbl} method)}
+and how to name the resulting one (only for \link{mom_tbl} method)}
 }
 \value{
-a \link{coo_single}, \link{coo_list} or \link{coo_tbl}
+a \link{coo_single}, \link{coo_list} or \link{mom_tbl}
 }
 \description{
 Centers shape and scale them so that they are inscribed in a \code{size}-side square.
@@ -38,14 +38,14 @@ Centers shape and scale them so that they are inscribed in a \code{size}-side sq
 \itemize{
 \item \code{default}: default method
 
-\item \code{list}: list method
+\item \code{coo_list}: list method
 
-\item \code{coo_tbl}: coo_tbl method
+\item \code{mom_tbl}: mom_tbl method
 }}
 
 \examples{
-bot2 \%>\% pick(1) \%>\% coo_template() \%>\% gg()
-bot2 \%>\% coo_template \%>\% pile()
+bot \%>\% pick(1) \%>\% coo_template() \%>\% gg()
+bot \%>\% coo_template \%>\% pile()
 }
 \seealso{
 Other coo_modifyers: 

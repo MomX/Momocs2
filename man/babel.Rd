@@ -37,7 +37,7 @@ Function names should be explicit
 }}
 
 \examples{
-bot2 \%>\% pick(1) \%>\% head() \%>\%
+bot \%>\% pick(1) \%>\% head() \%>\%
   cartesian_2_complex() \%T>\% print() \%>\%
   complex_2_cartesian()
 }

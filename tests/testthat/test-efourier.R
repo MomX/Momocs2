@@ -4,25 +4,25 @@ test_that("coeff_split works", {
   expect_true(is.list(xs))
   expect_identical(names(xs), c("an", "bn", "cn", "dn"))
 
-  expect_is(bot2 %>% pick(1) %>% efourier() %>% .coeff_split(), "list")
+  expect_is(bot %>% pick(1) %>% efourier() %>% .coeff_split(), "list")
 })
 
 test_that(" .check_efourier_nb_h works", {
 
   # 6 is supposed to pass; Inf is not
   # coo_single
-  expect_equal(bot2 %>% pick() %>% .check_efourier_nb_h(6), 6)
-  expect_message(x <- bot2 %>% pick() %>% .check_efourier_nb_h(Inf))
+  expect_equal(bot %>% pick() %>% .check_efourier_nb_h(6), 6)
+  expect_message(x <- bot %>% pick() %>% .check_efourier_nb_h(Inf))
   expect_is(x, "numeric")
 
   # coo_list
-  expect_equal(bot2$coo %>% pick() %>% .check_efourier_nb_h(6), 6)
-  expect_message(x <- bot2$coo %>% pick() %>% .check_efourier_nb_h(Inf))
+  expect_equal(bot$coo %>% pick() %>% .check_efourier_nb_h(6), 6)
+  expect_message(x <- bot$coo %>% pick() %>% .check_efourier_nb_h(Inf))
   expect_is(x, "numeric")
 
-  # coo_tbl
-  expect_equal(bot2 %>% pick() %>% .check_efourier_nb_h(6), 6)
-  expect_message(x <- bot2 %>% pick() %>% .check_efourier_nb_h(Inf))
+  # mom_tbl
+  expect_equal(bot %>% pick() %>% .check_efourier_nb_h(6), 6)
+  expect_message(x <- bot %>% pick() %>% .check_efourier_nb_h(Inf))
   expect_is(x, "numeric")
 })
 
@@ -45,28 +45,27 @@ test_that("efourier works", {
 
   expect_s3_class(efourier(x) %>% as_tibble, "tbl_df")
 
-  # coo_tbl now
-  expect_s3_class(bot2 %>% efourier(), "coe_tbl")
+  # mom_tbl now
+  expect_s3_class(bot %>% efourier(), "mom_tbl")
 
   # drop or not
-  kept    <- bot2 %>% efourier(keep=TRUE) %>% class()
-  dropped <- bot2 %>% efourier(keep=FALSE) %>% class()
+  kept    <- bot %>% efourier(keep=TRUE) %>% class()
+  dropped <- bot %>% efourier(keep=FALSE) %>% class()
 
-  expect_identical(kept[1:2], c("coe_tbl", "coo_tbl"))
-  expect_true(dropped[1]==c("coe_tbl"))
-  expect_false(dropped[2]==c("coo_tbl"))
+  expect_true(kept[1]=="mom_tbl")
+  expect_true(dropped[1]=="mom_tbl")
 
   # picking nb_h message
-  expect_message(x <- bot2 %>% efourier())
-  expect_is(x, "coe_tbl")
+  expect_message(x <- bot %>% efourier())
+  expect_is(x, "mom_tbl")
 
   # too ambitious nb_h
-  expect_message(x <- bot2 %>% efourier(nb_h=1e5))
-  expect_is(x, "coe_tbl")
+  expect_message(x <- bot %>% efourier(nb_h=1e5))
+  expect_is(x, "mom_tbl")
 })
 
 test_that("efourier_i works", {
-  x <- bot2 %>% pick(1) %>% efourier
+  x <- bot %>% pick(1) %>% efourier
   y <- x %>% efourier_i(nb_pts = 1e4)
   expect_is(y, "coo_single")
   expect_true(nrow(y)==1e4)
@@ -77,32 +76,31 @@ test_that("efourier_i works", {
   expect_true(nrow(z)==12)
 
   # no nb_pts, no nb_h
-  x <- bot2 %>% pick(1) %>% efourier %>% efourier_i()
+  x <- bot %>% pick(1) %>% efourier %>% efourier_i()
   expect_is(x, "coo_single")
 
   # coe_list
-  x <- bot2 %>% efourier(4) %$% coe
+  x <- bot %>% efourier(4) %$% coe
   y <- x %>% efourier_i()
   expect_is(y, "coo_list")
 
-  expect_is(bot2 %>% efourier(4) %>% efourier_i() %$% coe_i, "coo_list")
+  expect_is(bot %>% efourier(4) %>% efourier_i() %$% coe_i, "coo_list")
 })
 
 test_that("efourier_norm works",{
-  x0 <- bot2 %>% pick(5) %>% efourier(4)
+  x0 <- bot %>% pick(5) %>% efourier(4)
   x1 <- x0 %>% efourier_norm(start=T)
   expect_is(x1, "coe_single")
   expect_equivalent(abs(x1$a1), 1) # why not1 though
   expect_equivalent(abs(x1$b1), 0) # why not1 though
   expect_equivalent(abs(x1$c1), 0) # why not1 though
 
-  x <- bot2$coo %>% efourier(4) %>% efourier_norm()
+  x <- bot$coo %>% efourier(4) %>% efourier_norm()
   expect_is(x, "coe_list")
-  y <- x %>% dplyr::bind_rows()
+  y <- x %>% as.list %>% dplyr::bind_rows()
   expect_equivalent(abs(y$a1), rep(1, nrow(y)))
   expect_equivalent(abs(y$b1), rep(0, nrow(y)))
   expect_equivalent(abs(y$c1), rep(0, nrow(y)))
-
 })
 
 

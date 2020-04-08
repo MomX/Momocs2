@@ -7,7 +7,7 @@
 get_centsize(x)
 }
 \arguments{
-\item{x}{\link{coo_single}, \link{coo_list} or \link{coo_tbl}}
+\item{x}{\link{coo_single}, \link{coo_list} or \link{mom_tbl}}
 }
 \value{
 \code{numeric} or additional column
@@ -21,7 +21,7 @@ Can be used, among others, to record size before \link{coo_scale}.
 }
 \examples{
 
-bot2$coo[[1]] \%>\% get_centsize
+bot$coo[[1]] \%>\% get_centsize
 
 }
 \seealso{

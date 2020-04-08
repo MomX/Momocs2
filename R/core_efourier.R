@@ -25,7 +25,7 @@
     x <- list(x)
 
   # if tbl extract coo column
-  if (is_coo_tbl(x))
+  if (is_mom_tbl(x))
     x <- x$coo
 
   n <- min(purrr::map_dbl(x, nrow))
@@ -49,7 +49,7 @@
 # efourier ------------------------------------------------
 #' elliptical Fourier transforms
 #'
-#' @param x [coo_single], [coo_list] or [coo_tbl]
+#' @param x [coo_single], [coo_list] or [mom_tbl]
 #' @param nb_h `int` nb of harmonics. Default to `6` for `efourier`, to all of them for `efourier_i`
 #' @param nb_pts `int` nb of points for the reconstruction
 #' @param keep_coo `logical` whether to retain coo column
@@ -99,9 +99,9 @@
 #' @rdname efourier
 #'
 #' @examples
-#' bot2 %>% pick() %>% efourier(4) %>% print() %>% efourier_i()
-#' bot2$coo %>% efourier(4) %>% print() %>% efourier_i() %>% class()
-#' bot2 %>% efourier(4) %>% efourier_norm()
+#' bot %>% pick() %>% efourier(4) %>% print() %>% efourier_i()
+#' bot$coo %>% efourier(4) %>% print() %>% efourier_i() %>% class()
+#' bot %>% efourier(4) %>% efourier_norm()
 #'
 #' @export
 efourier <- function(x,  ...) {
@@ -111,7 +111,7 @@ efourier <- function(x,  ...) {
 #' @export
 #' @rdname efourier
 efourier.default <- function(x, nb_h=NA, raw=FALSE, ...){
-  .msg_warning("efourier: only defined on <coo_single> and <coo_tbl>")
+  .msg_warning("efourier: only defined on <coo_single> and <mom_tbl>")
 }
 
 #' @export
@@ -171,27 +171,27 @@ efourier.coo_list <- function (x, nb_h=NA, ...) {
 
   x %>%
     purrr::map(efourier, nb_h=nb_h, raw=FALSE) %>%
-    coe_list() %>%
-    .append_class("efourier_list")
+    new_coe_list() %>%
+    .append_class("efourier")
 }
 
 
 #' @export
 #' @rdname efourier
-efourier.coo_tbl <- function(x, nb_h=NA, keep_coo=FALSE, ...){
+efourier.mom_tbl <- function(x, nb_h=NA, keep_coo=FALSE, ...){
   nb_h <- .check_efourier_nb_h(x, nb_h=nb_h)
 
+  # !!! handles coo column
   # map efourier
   res <- x %>% dplyr::mutate(coe=.data$coo %>%
-                               purrr::map(efourier, nb_h, raw=FALSE) %>%
-                               coe_list() %>%
+                               efourier(nb_h, raw=FALSE) %>%
                                .append_class("efourier"))
 
   # drop or dont drop coo and add class labels
   if (keep_coo){
-    res <- res %>% .append_class("coe_tbl")
+    res <- res
   } else {
-    res <- res %>% dplyr::select(-.data$coo) %>% .replace_class("coo_tbl", "coe_tbl")
+    res <- res %>% coo_drop()
   }
   # return this beauty
   res
@@ -250,11 +250,11 @@ efourier_i.coe_list <- function(x, nb_h=NA, nb_pts=120){
 #todo handles columns and possibly use _at or _if
 
 #' @export
-efourier_i.coe_tbl <- function(x, nb_h=NA, nb_pts=120){
+efourier_i.mom_tbl <- function(x, nb_h=NA, nb_pts=120){
   x$coe %>%
     purrr::map(efourier_i, nb_h=nb_h, nb_pts=nb_pts) %>%
     coo_list() -> res
-  dplyr::mutate(x, coe_i=res)
+  dplyr::mutate(x, coe_i=res) %>% new_mom()
 }
 
 
@@ -334,16 +334,16 @@ efourier_norm.default <- function(x, first_point = FALSE, raw=FALSE, ...) {
 #' @rdname efourier
 efourier_norm.coe_list <- function(x, first_point = FALSE, ...){
   purrr::map(x, efourier_norm, first_point=first_point) %>%
-    coe_list() %>%
+    new_coe_list() %>%
     .append_class("efourier")
 }
 
 #' @export
 #' @rdname efourier
-efourier_norm.coe_tbl <- function(x, first_point = FALSE, ...){
+efourier_norm.mom_tbl <- function(x, first_point = FALSE, ...){
   x$coe <- x$coe %>%
     purrr::map(efourier_norm, first_point=first_point) %>%
-    coe_list() %>%
+    new_coe_list() %>%
     .append_class("efourier")
   x
 }

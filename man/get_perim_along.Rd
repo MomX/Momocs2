@@ -13,7 +13,7 @@ get_perim(x)
 get_perim_cumsum(x)
 }
 \arguments{
-\item{x}{\link{coo_single}, \link{coo_list} or \link{coo_tbl}}
+\item{x}{\link{coo_single}, \link{coo_list} or \link{mom_tbl}}
 }
 \value{
 \code{numeric} or additional column
@@ -33,7 +33,7 @@ get_perim_cumsum(x)
 }}
 
 \examples{
-bot2 \%>\% pick(1) \%>\% get_perim_along()
+bot \%>\% pick(1) \%>\% get_perim_along()
 }
 \seealso{
 Other getters: 

@@ -3,51 +3,46 @@
 \name{coo_center}
 \alias{coo_center}
 \alias{coo_centre}
-\alias{coo_center.default}
-\alias{coo_center.list}
 \alias{coo_center.coo_single}
-\alias{coo_center.coo_tbl}
+\alias{coo_center.coo_list}
+\alias{coo_center.mom_tbl}
 \title{Center shapes}
 \usage{
 coo_center(x, ...)
 
-\method{coo_center}{default}(x, ...)
-
-\method{coo_center}{list}(x, ...)
-
 \method{coo_center}{coo_single}(x, ...)
 
-\method{coo_center}{coo_tbl}(x, from_col = coo, to_col = coo, ...)
+\method{coo_center}{coo_list}(x, ...)
+
+\method{coo_center}{mom_tbl}(x, from_col = coo, to_col = coo, ...)
 }
 \arguments{
-\item{x}{\link{coo_single}, \link{coo_list} or \link{coo_tbl}}
+\item{x}{\link{coo_single}, \link{coo_list} or \link{mom_tbl}}
 
 \item{...}{useless here}
 
 \item{from_col, to_col}{colnames from where to get the \link{coo_list}
-and how to name the resulting one (only for \link{coo_tbl} method)}
+and how to name the resulting one (only for \link{mom_tbl} method)}
 }
 \value{
-a \link{coo_single}, \link{coo_list} or \link{coo_tbl}
+a \link{coo_single}, \link{coo_list} or \link{mom_tbl}
 }
 \description{
 Returns a shape centered on the origin.
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{default}: default method
-
-\item \code{list}: list method
-
 \item \code{coo_single}: coo_single method
 
-\item \code{coo_tbl}: coo_tbl method
+\item \code{coo_list}: list method
+
+\item \code{mom_tbl}: mom_tbl method
 }}
 
 \examples{
 
-bot2 \%>\% pick(1) \%>\% coo_center \%>\% gg()
-bot2 \%>\% coo_center \%>\% pile()
+bot \%>\% pick(1) \%>\% coo_center \%>\% gg()
+bot \%>\% coo_center \%>\% pile()
 
 }
 \seealso{

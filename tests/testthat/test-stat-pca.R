@@ -1,8 +1,8 @@
-p <- bot2 %>% efourier(4) %>% stat_pca()
+p <- bot %>% efourier(4) %>% stat_pca()
 
 
 test_that("stat_pca works", {
-  bf <- bot2 %>% efourier(4)
+  bf <- bot %>% efourier(4)
   expect_message(bf %>% stat_pca())
   expect_message(bf %>% stat_pca(center=T))  # hey you when you will have implemented stat_pca.defaukt
   expect_message(bf %>% stat_pca(scale=T))

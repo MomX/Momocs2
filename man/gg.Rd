@@ -4,7 +4,7 @@
 \alias{gg0}
 \alias{gg0.default}
 \alias{gg0.coo_single}
-\alias{gg0.coo_tbl}
+\alias{gg0.mom_tbl}
 \alias{gg0.tbl}
 \alias{gg}
 \alias{gg0.pca}
@@ -16,7 +16,7 @@ gg0(x, ...)
 
 \method{gg0}{coo_single}(x, ...)
 
-\method{gg0}{coo_tbl}(x, ...)
+\method{gg0}{mom_tbl}(x, ...)
 
 \method{gg0}{tbl}(x, ...)
 
@@ -56,7 +56,7 @@ Default (ggplot2) visualisations for Momocs objects.
 I call it "universal" as a reminder to provide a gg for each object.
 }
 \examples{
-b <- bot2 \%>\% pick(5)
+b <- bot \%>\% pick(5)
 gg(b)
 
 # Let's add some geoms to
@@ -71,5 +71,5 @@ gorgeous_plot <- nice_plot + ggplot2::theme_minimal() +
     ggplot2::labs(x="abscissa", y="ordinate", title="Drink responsibly")
 
 # this is a plotting factory !
-# gorgeous_plot \%+\% pick(bot2, 12)
+# gorgeous_plot \%+\% pick(bot, 12)
 }

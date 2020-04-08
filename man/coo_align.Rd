@@ -3,31 +3,31 @@
 \name{coo_align}
 \alias{coo_align}
 \alias{coo_align.default}
-\alias{coo_align.list}
-\alias{coo_align.coo_tbl}
+\alias{coo_align.coo_list}
+\alias{coo_align.mom_tbl}
 \title{Align shapes}
 \usage{
 coo_align(x, ...)
 
 \method{coo_align}{default}(x, ...)
 
-\method{coo_align}{list}(x, ...)
+\method{coo_align}{coo_list}(x, ...)
 
-\method{coo_align}{coo_tbl}(x, from_col = coo, to_col = coo, ...)
+\method{coo_align}{mom_tbl}(x, from_col = coo, to_col = coo, ...)
 }
 \arguments{
-\item{x}{\link{coo_single}, \link{coo_list} or \link{coo_tbl}}
+\item{x}{\link{coo_single}, \link{coo_list} or \link{mom_tbl}}
 
 \item{...}{useless here}
 
 \item{from_col}{colnames from where to get the \link{coo_list}
-and how to name the resulting one (only for \link{coo_tbl} method)}
+and how to name the resulting one (only for \link{mom_tbl} method)}
 
 \item{to_col}{colnames from where to get the \link{coo_list}
-and how to name the resulting one (only for \link{coo_tbl} method)}
+and how to name the resulting one (only for \link{mom_tbl} method)}
 }
 \value{
-a \link{coo_single}, \link{coo_list} or \link{coo_tbl}
+a \link{coo_single}, \link{coo_list} or \link{mom_tbl}
 }
 \description{
 Align shape along their longer axis using var-cov matrix and eigen values.
@@ -36,13 +36,13 @@ Align shape along their longer axis using var-cov matrix and eigen values.
 \itemize{
 \item \code{default}: default method
 
-\item \code{list}: list method
+\item \code{coo_list}: list method
 
-\item \code{coo_tbl}: coo_tbl method
+\item \code{mom_tbl}: mom_tbl method
 }}
 
 \examples{
-bot2$coo[[5]] \%>\% coo_align
+bot$coo[[5]] \%>\% coo_align
 }
 \seealso{
 Other coo_modifyers: 

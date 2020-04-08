@@ -3,33 +3,33 @@
 \name{coo_trans}
 \alias{coo_trans}
 \alias{coo_trans.default}
-\alias{coo_trans.list}
-\alias{coo_trans.coo_tbl}
+\alias{coo_trans.coo_list}
+\alias{coo_trans.mom_tbl}
 \title{Translate shapes}
 \usage{
 coo_trans(x, x_trans = 0, y_trans = 0, ...)
 
 \method{coo_trans}{default}(x, x_trans = 0, y_trans = 0, ...)
 
-\method{coo_trans}{list}(x, x_trans = 0, y_trans = 0, ...)
+\method{coo_trans}{coo_list}(x, x_trans = 0, y_trans = 0, ...)
 
-\method{coo_trans}{coo_tbl}(x, x_trans = 0, y_trans = 0, from_col = coo, to_col = coo, ...)
+\method{coo_trans}{mom_tbl}(x, x_trans = 0, y_trans = 0, from_col = coo, to_col = coo, ...)
 }
 \arguments{
-\item{x}{\link{coo_single}, \link{coo_list} or \link{coo_tbl}}
+\item{x}{\link{coo_single}, \link{coo_list} or \link{mom_tbl}}
 
 \item{x_trans, y_trans}{\code{numeric} how much translate on each direction}
 
 \item{...}{useless here}
 
 \item{from_col}{colnames from where to get the \link{coo_list}
-and how to name the resulting one (only for \link{coo_tbl} method)}
+and how to name the resulting one (only for \link{mom_tbl} method)}
 
 \item{to_col}{colnames from where to get the \link{coo_list}
-and how to name the resulting one (only for \link{coo_tbl} method)}
+and how to name the resulting one (only for \link{mom_tbl} method)}
 }
 \value{
-a \link{coo_single}, \link{coo_list} or \link{coo_tbl}
+a \link{coo_single}, \link{coo_list} or \link{mom_tbl}
 }
 \description{
 Returns a shape translate by \code{x} and \code{y}.
@@ -38,13 +38,13 @@ Returns a shape translate by \code{x} and \code{y}.
 \itemize{
 \item \code{default}: default method
 
-\item \code{list}: list method
+\item \code{coo_list}: list method
 
-\item \code{coo_tbl}: coo_tbl method
+\item \code{mom_tbl}: mom_tbl method
 }}
 
 \examples{
-bot2$coo[[1]] \%>\% coo_trans
+bot$coo[[1]] \%>\% coo_trans
 
 }
 \seealso{

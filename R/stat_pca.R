@@ -37,7 +37,7 @@
 #' @references [stats::prcomp]
 #'
 #' @examples
-#' (x <-  bot2 %>% efourier(4) %>% stat_pca())
+#' (x <-  bot %>% efourier(4) %>% stat_pca())
 #' attributes(x)
 #' @export
 stat_pca <- function(x, center=TRUE, scale=TRUE){
@@ -47,24 +47,21 @@ stat_pca <- function(x, center=TRUE, scale=TRUE){
     .msg_warning("describe_pca: 'scale' was missing, set to TRUE")
 
   # get coe columns and send them to prcomp
-  x %>%
-    dplyr::select_if(is_coe_list) %>%
-    # rename cols within coe_list
-    prefix_col() %>%
-    # bind_rows all coe_lists
-    purrr::map(dplyr::bind_rows) %>%
-    # unite them
-    dplyr::bind_cols() -> coeffs
+  coeffs <- press(x, keep_others = FALSE)
 
   # delegate pca to prcomp
-  pca    <- stats::prcomp(coeffs, center=center, scale.=scale)
+  pca    <- stats::prcomp(as.matrix(coeffs), center=center, scale.=scale)
 
   # join back scores
   res <- dplyr::bind_cols(
-    x,
+    # todo vctrs
+    # without as_tibble(x) Erreur : No common type for `..1` <mom_tbl<>> and `..2` <tbl_df<>>.
+    tibble::as_tibble(x),
     dplyr::as_tibble(pca$x)
   )
 
+  # todo move it to Momstats
+  # todo a function for it (Momstats)
   # save meta as attributes
   attr(res, "method")    <- "prcomp"
   attr(res, "coe_class") <- x %>% dplyr::select_if(is_coe_list) %>% purrr::map_chr(~class(.x)[1])
@@ -108,7 +105,7 @@ print.pca <- function(x, ...){
 #' defaut to 1: all axis are returned
 #' @return scree returns a data.frame, scree_min a numeric, scree_plot a ggplot.
 #' @examples
-#' p <- bot2 %>% efourier(6) %>% stat_pca()
+#' p <- bot %>% efourier(6) %>% stat_pca()
 #' p %>% scree()
 #' p %>% scree_min(0.99)
 #' p %>% scree_plot(prop=0.95)

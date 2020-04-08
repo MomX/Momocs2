@@ -22,7 +22,7 @@ object of class \code{pca}, a \link[tibble:tibble]{tibble::tibble} with attribut
 Performs a principal components analysis (delegated to \link[stats:prcomp]{stats::prcomp}).
 }
 \examples{
-(x <-  bot2 \%>\% efourier(4) \%>\% stat_pca())
+(x <-  bot \%>\% efourier(4) \%>\% stat_pca())
 attributes(x)
 }
 \references{

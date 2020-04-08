@@ -16,7 +16,7 @@ Sample one shape, plot it with \link{gg}, repeat.
 }
 \examples{
 \dontrun{
-bot2 \%>\% inspect
+bot \%>\% inspect
 }
 
 }

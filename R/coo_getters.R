@@ -9,7 +9,7 @@
 #' @return `numeric`, list or additional columns
 #' @details This function can be used to integrate size - if meaningful -
 #' @examples
-#' bot2$coo[[5]] %>% get_centpos
+#' bot$coo[[5]] %>% get_centpos
 #'
 #' @family coo_descriptors
 #' @export
@@ -23,16 +23,18 @@ get_centpos.default <- function(x) {
 }
 
 #' @export
-get_centpos.list <- function(x) {
-  x %>% purrr::map_df(get_centpos)
+get_centpos.coo_list <- function(x) {
+  x %>%
+    purrr::map_df(get_centpos) %>%
+    tibble::as_tibble() %>%
+    `colnames<-`(c("centpos_x", "centpos_y"))
 }
 
 #' @export
-get_centpos.coo_tbl <- function(x) {
-  x$coo %>%
-    purrr::map_df(get_centpos) %>%
-    `colnames<-`(c("centpos_x", "centpos_y")) %>%
-    dplyr::bind_cols(x, .)
+get_centpos.mom_tbl <- function(x) {
+  dplyr::bind_cols(tibble::as_tibble(x),
+                   get_centpos(x$coo)) %>%
+    new_mom()
 }
 
 
@@ -47,7 +49,7 @@ get_centpos.coo_tbl <- function(x) {
 #' @details Can be used, among others, to record size before [coo_scale].
 #' @examples
 #'
-#' bot2$coo[[1]] %>% get_centsize
+#' bot$coo[[1]] %>% get_centsize
 #'
 #' @family coo_descriptors
 #' @export
@@ -62,18 +64,18 @@ get_centsize.default <- function(x) {
 }
 
 #' @export
-get_centsize.list <- function(x){
-  purrr::map_dbl(x, get_centsize)
+get_centsize.coo_list <- function(x){
+  purrr::map_dbl(x, get_centsize) %>% tibble::tibble(centsize=.)
 }
 
 #' @export
-get_centsize.coo_tbl <- function(x){
+get_centsize.mom_tbl <- function(x){
   x %>% dplyr::mutate(centsize=purrr::map_dbl(x$coo, get_centsize))
 }
 
 # PERIM AND CO --------------------------------------------
 
-# get_perimpts --------------
+# get_perimpts_along --------------
 #' Calculate perimeter and variations
 #'
 #' @description
@@ -85,7 +87,7 @@ get_centsize.coo_tbl <- function(x){
 #' @family getters
 #' @family perimeter getters
 #' @examples
-#' bot2 %>% pick(1) %>% get_perim_along()
+#' bot %>% pick(1) %>% get_perim_along()
 #' @export
 get_perim_along <- function(x) {
   UseMethod("get_perim_along")
@@ -99,20 +101,21 @@ get_perim_along.coo_single <- function(x){
     dplyr::mutate(x2=dplyr::lag(.data$x, 1, default=.data$x[1]),
                   y2=dplyr::lag(.data$y, 1, default=.data$y[1])) %>%
     dplyr::transmute(d=sqrt((.data$x - .data$x2)^2 + (.data$y - .data$y2)^2)) %>%
-    tibble::as_tibble() # drops coo_tbl
+    tibble::as_tibble() # drops mom_tbl
 }
 
 #' @export
-get_perim_along.list <- function(x){
+get_perim_along.coo_list <- function(x){
   x %>% purrr::map(get_perim_along)
 }
 
 #' @export
-get_perim_along.coo_tbl <- function(x){
+get_perim_along.mom_tbl <- function(x){
   x %>%
     dplyr::mutate(perim_along=purrr::map(x$coo, get_perim_along))
 }
 
+# get_perim --------
 #' @describeIn get_perim_along Calculate total perimeter
 #' @export
 get_perim <- function(x){
@@ -125,15 +128,16 @@ get_perim.coo_single <- function(x){
 }
 
 #' @export
-get_perim.list <- function(x){
-  x %>% purrr::map_dbl(get_perim)
+get_perim.coo_list <- function(x){
+  x %>% purrr::map_dbl(get_perim) %>% tibble::as_tibble()
 }
 
 #' @export
-get_perim.coo_tbl <- function(x){
+get_perim.mom_tbl <- function(x){
   x %>% dplyr::mutate(perim=purrr::map_dbl(x$coo, get_perim))
 }
 
+# get_perim_cumsum --------
 #' @describeIn get_perim_along Calculate cumsum between successive points of a shape
 #' @export
 get_perim_cumsum <- function(x){
@@ -146,13 +150,15 @@ get_perim_cumsum.coo_single <- function(x){
 }
 
 #' @export
-get_perim_cumsum.list <- function(x){
-  x %>% purrr::map(get_perim_cumsum)
+get_perim_cumsum.coo_list <- function(x){
+  x %>% purrr::map(get_perim_cumsum) %>% tibble::tibble(perim_cumsum=.)
 }
 
 #' @export
-get_perim_cumsum.coo_tbl <- function(x){
-  x %>% dplyr::mutate(perim=purrr::map(x$coo, get_perim_cumsum))
+get_perim_cumsum.mom_tbl <- function(x){
+  dplyr::bind_cols(tibble::as_tibble(x),
+                   get_perim_cumsum(x$coo)) %>%
+    new_mom()
 }
 
 # LENGTH, WIDTH AND CO ------------------------------------
@@ -166,7 +172,7 @@ get_perim_cumsum.coo_tbl <- function(x){
 #'
 #' @return `numeric` or additional column
 #' @examples
-#' bot2$coo[[5]] %>% get_range
+#' bot$coo[[5]] %>% get_range
 #'
 #' @family coo_descriptors
 #' @export
@@ -175,23 +181,25 @@ get_range <- function(x){
 }
 
 #' @export
-get_range.default <- function(x){
+get_range.coo_single <- function(x){
   x %>%
-    coo_single() %>%
     dplyr::summarise(x_min=min(.data$x, na.rm=TRUE),
                      x_max=max(.data$x, na.rm=TRUE),
                      y_min=min(.data$y, na.rm=TRUE),
-                     y_max=max(.data$y, na.rm=TRUE))
+                     y_max=max(.data$y, na.rm=TRUE)) %>%
+    tibble::as_tibble()
 }
 
 #' @export
-get_range.list <- function(x){
+get_range.coo_list <- function(x){
   purrr::map_df(x, get_range)
 }
 
 #' @export
-get_range.coo_tbl <- function(x){
-  dplyr::bind_cols(x, purrr::map_df(x$coo, get_range))
+get_range.mom_tbl <- function(x){
+  dplyr::bind_cols(tibble::as_tibble(x),
+                   get_range(x$coo)) %>%
+    new_mom()
 }
 
 # get_diffrange -----------------------------------------------
@@ -204,8 +212,8 @@ get_range.coo_tbl <- function(x){
 #'
 #' @return `numeric` or additional columns
 #' @examples
-#' bot2 %>% pick(1) %>% get_range
-#' bot2 %>% get_diffrange()
+#' bot %>% pick(1) %>% get_range
+#' bot %>% get_diffrange()
 #'
 #' @family coo_descriptors
 #' @export
@@ -214,9 +222,8 @@ get_range <- function(x){
 }
 
 #' @export
-get_range.default <- function(x){
+get_range.coo_list <- function(x){
   x %>%
-    coo_single() %>%
     dplyr::summarise(x_min=min(.data$x, na.rm=TRUE),
                      x_max=max(.data$x, na.rm=TRUE),
                      y_min=min(.data$y, na.rm=TRUE),
@@ -224,13 +231,15 @@ get_range.default <- function(x){
 }
 
 #' @export
-get_range.list <- function(x){
+get_range.coo_list <- function(x){
   purrr::map_df(x, get_range)
 }
 
 #' @export
-get_range.coo_tbl <- function(x){
-  dplyr::bind_cols(x, purrr::map_df(x$coo, get_range))
+get_range.mom_tbl <- function(x){
+  dplyr::bind_cols(tibble::as_tibble(x),
+                   get_range(x$coo)) %>%
+    new_mom()
 }
 
 # get_diffrange -------------------------------------------
@@ -241,21 +250,22 @@ get_diffrange <- function(x){
 }
 
 #' @export
-get_diffrange.default <- function(x){
+get_diffrange.coo_single <- function(x){
   x %>%
-    coo_single() %>%
     dplyr::summarise(x_range=max(.data$x, na.rm=TRUE) - min(.data$x, na.rm=TRUE),
                      y_range=max(.data$y, na.rm=TRUE) - min(.data$y, na.rm=TRUE))
 }
 
 #' @export
-get_diffrange.list <- function(x){
-  purrr::map_df(x, get_diffrange)
+get_diffrange.coo_list <- function(x){
+  purrr::map_df(x, get_diffrange) %>% tibble::as_tibble()
 }
 
 #' @export
-get_diffrange.coo_tbl <- function(x){
-  dplyr::bind_cols(x, purrr::map_df(x$coo, get_diffrange))
+get_diffrange.mom_tbl <- function(x){
+  dplyr::bind_cols(tibble::as_tibble(x),
+                   get_diffrange(x$coo)) %>%
+    new_mom()
 }
 
 
@@ -271,15 +281,15 @@ get_diffrange.coo_tbl <- function(x){
 #' @rdname get_lw
 #' @family coo_ descriptors
 #' @examples
-#' bot2$coo[[5]] %>% get_lw
+#' bot$coo[[5]] %>% get_lw
 #' @export
 get_lw <- function(x){
   UseMethod("get_lw")
 }
 
 #' @export
-get_lw.default <- function(x) {
-  x %>% coo_single() %>%
+get_lw.coo_single <- function(x) {
+  x %>%
     coo_align() %>% get_range() %>%
     dplyr::transmute(x_range=abs(.data$x_max - .data$x_min),
                      y_range=abs(.data$y_max - .data$y_min))
@@ -287,13 +297,15 @@ get_lw.default <- function(x) {
 }
 
 #' @export
-get_lw.list <- function(x){
-  x %>% purrr::map_df(get_lw)
+get_lw.coo_list <- function(x){
+  x %>% purrr::map_df(get_lw) %>% tibble::as_tibble()
 }
 
 #' @export
-get_lw.coo_tbl <- function(x){
-  dplyr::bind_cols(x, get_lw(x$coo))
+get_lw.mom_tbl <- function(x){
+  dplyr::bind_cols(tibble::as_tibble(x),
+                   get_lw(x$coo)) %>%
+    new_mom()
 }
 
 # length --------------------------------------------------
@@ -309,12 +321,12 @@ get_length.default <- function(x) {
 }
 
 #' @export
-get_length.list <- function(x){
+get_length.coo_list <- function(x){
   purrr::map_dbl(x, get_length)
 }
 
 #' @export
-get_length.coo_tbl <- function(x){
+get_length.mom_tbl <- function(x){
   x %>% dplyr::mutate(length=purrr::map_dbl(coo, get_length))
 }
 
@@ -331,12 +343,12 @@ get_width.default <- function(x) {
 }
 
 #' @export
-get_width.list <- function(x){
+get_width.coo_list <- function(x){
   purrr::map_dbl(x, get_width)
 }
 
 #' @export
-get_width.coo_tbl <- function(x){
+get_width.mom_tbl <- function(x){
   x %>% dplyr::mutate(width=purrr::map_dbl(coo, get_width))
 }
 
@@ -349,8 +361,8 @@ get_width.coo_tbl <- function(x){
 #' @family getters
 #' @family shape getters
 #' @examples
-#' bot2 %>% pick(1) %>% get_nb()
-#' bot2 %>% get_nb()
+#' bot %>% pick(1) %>% get_nb()
+#' bot %>% get_nb()
 #' @export
 get_nb <- function(x) {
   UseMethod("get_nb")
@@ -362,12 +374,12 @@ get_nb.coo_single <- function(x){
 }
 
 #' @export
-get_nb.list <- function(x){
+get_nb.coo_list <- function(x){
   purrr::map_dbl(x, nrow)
 }
 
 #' @export
-get_nb.coo_tbl <- function(x){
+get_nb.mom_tbl <- function(x){
   x %>% dplyr::mutate(nb=purrr::map_dbl(coo, nrow))
 }
 

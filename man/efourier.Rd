@@ -5,12 +5,12 @@
 \alias{efourier.default}
 \alias{efourier.coo_single}
 \alias{efourier.coo_list}
-\alias{efourier.coo_tbl}
+\alias{efourier.mom_tbl}
 \alias{efourier_i}
 \alias{efourier_norm}
 \alias{efourier_norm.default}
 \alias{efourier_norm.coe_list}
-\alias{efourier_norm.coe_tbl}
+\alias{efourier_norm.mom_tbl}
 \title{elliptical Fourier transforms}
 \usage{
 efourier(x, ...)
@@ -21,7 +21,7 @@ efourier(x, ...)
 
 \method{efourier}{coo_list}(x, nb_h = NA, ...)
 
-\method{efourier}{coo_tbl}(x, nb_h = NA, keep_coo = FALSE, ...)
+\method{efourier}{mom_tbl}(x, nb_h = NA, keep_coo = FALSE, ...)
 
 efourier_i(x, nb_h = NA, nb_pts = 120)
 
@@ -31,10 +31,10 @@ efourier_norm(x, ...)
 
 \method{efourier_norm}{coe_list}(x, first_point = FALSE, ...)
 
-\method{efourier_norm}{coe_tbl}(x, first_point = FALSE, ...)
+\method{efourier_norm}{mom_tbl}(x, first_point = FALSE, ...)
 }
 \arguments{
-\item{x}{\link{coo_single}, \link{coo_list} or \link{coo_tbl}}
+\item{x}{\link{coo_single}, \link{coo_list} or \link{mom_tbl}}
 
 \item{...}{for generics. Useless here.}
 
@@ -93,9 +93,9 @@ I will dedicate (some day) a vignette or a paper to this problem.
 }}
 
 \examples{
-bot2 \%>\% pick() \%>\% efourier(4) \%>\% print() \%>\% efourier_i()
-bot2$coo \%>\% efourier(4) \%>\% print() \%>\% efourier_i() \%>\% class()
-bot2 \%>\% efourier(4) \%>\% efourier_norm()
+bot \%>\% pick() \%>\% efourier(4) \%>\% print() \%>\% efourier_i()
+bot$coo \%>\% efourier(4) \%>\% print() \%>\% efourier_i() \%>\% class()
+bot \%>\% efourier(4) \%>\% efourier_norm()
 
 }
 \references{

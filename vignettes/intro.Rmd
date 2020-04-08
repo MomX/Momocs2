@@ -1,5 +1,5 @@
 ---
-title: "Momocs design"
+title: "MomX philosophy"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{architecture}
@@ -13,38 +13,101 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 ```
+> __Note: Move it to MomX when it's ready__
 
-** ONLY SERVES AS NOTEBOOK FOR NOW **
+The aim of this vignette is two-fold:
 
-?usethis::use_pkgdown_travis()
-### Morphometrics from the programmer point of view
-Morphometrics is the study of shape (co)variation. It essentially consists in mapping shapes into descriptors.
+ 1. Theorize what a minimalist and universal grammar for morphometrics could be. It is strongly flavoured with programmer perspective and enamoured with [tibbles](https://adv-r.hadley.nz/vectors-chap.html#tibble) and particularly [list-columns](https://adv-r.hadley.nz/vectors-chap.html#list-columns).
+ 2. Glimpse at its implemenation in the [MomX ecosystem](https://momx.github.io/)
+ 
+## A grammar for morphometrics
+*This section is an essay on the programming side of morphometrics yet I believe it has more general merits.*
 
-Let's use the following naming conventions: 
+Morphometrics is the study of shape (co)variation. It typically consists in mapping shapes acquired from images into synthetic descriptors.
 
-* **coo**rdinates serve most often as shapes, but wider matrices such as images are also used;
-* **coe**fficients are more suitable variables than allow exploring their inner variability and testing their relations to covariates.
-* **cov**ariates, when present, allow to test their relations with coefficients.
-
-Despite different morphometrics flavour, we have:
+A universal scheme would be^[I think this is universal whatever the morphometrics flavour, but I would be happy to be wrong]:
 
 <center>
-```coo + cov -M-> coe + cov```
+```raw + cov -E-> coo + cov -M-> coe + cov```
 </center>
 
-In terms of dimensions, for a single shape we can have:  
- * `coo` arbitrary dimensions
- * `coe` can be of arbitrary dimensions
- * `cov` can be absent, or a collection of qualitative and quantitative variables.
+* **raw**, **coo**, **coe** are typically images, coordinates and coefficients, respectively
+ * **cov**ariates can be absent, but are usually carried along the pipeline to explore covariations with **coe**
+* `-E->` is the process of *acquiring* information such as landmark or outline **coo**rdinates from the **raw** object, typically captured as an image.
+* `-M->` is the process of *turning* these **coo**rdinates into more suitable variables, named **coe**fficients.
 
-### The list column nature of morphometrics implementation
+Dimensions of `raw`, `coo` and `coe` usually decreases along the pipe, they get more and more synthetic. Dimensions can be arbitrary though but let's brush some examples.
+
+Typically :
+
+* **raw** are images (`array` of RGB images, or `matrix` of grey images)
+* **coo** are coordinates  (2-columns `matrices` of homogeneous length (landmarks) or maybe not (raw outlines coordinates) length, but this could anything else the most obvious beign 3D methods)
+* **coe** are coefficients whose dimensions are usually wider with less rows but more columns (think of Fourier coefficients)
+
+## MomX implementation
+_This section gives the shared principles of this grammar implementation in MomX packages. For details, consult each package vignettes. Also you can skip Momocs history yet it contextualises the "why" before the "how"._
+
+#### A word on Momocs history
+I started what would become Momocs in 2011 and still, until spring 2020, I have never been really happy with its general architecture. It (or rather _I_) lacked a theoretical thought of what morphometrics are, on the developper-side (this section), that could also be implemented in an user-friendly way (next one).
+
+
+My attempts were numerous and some were painful. Among these attempts, two Momocs generations were available: first, the early S4 version (the one [published](https://www.jstatsoft.org/article/view/v056i13) in the _Journal of Statistical Software_); then the S3 version alos dealing with open curves and landmarks (all Momocs version >= 0.3).
+
+I was not happy with these since `coo` and `coe` were kind of free-floating and were not natively tight together and the programmatic glue was incomplete, error-prone and overall boring for both programmer-me and front-user-me (and likely front-user you too).
+
+In the meantime, the [tidyverse](https:://tidyverse.org) became real and then matured. I also realized list-columns existed since the early days, including in in gold old `data.frame`s^[try `data.frame(x=list(1, 2), y=3)`. The printing method is less nicer than with `tibble::tibble(x=list(1, 2), y=3)` but still, it would work]. And then it took me a little more time to understand how to code using them in a [tidyeval](https://tidyeval.tidyverse.org/) framework.
+
+Changes were too strong for releasing a Momocs version 2.0. I was kind of reluctant to it at first, but it became Momocs2 instead. I also seized the occasion^[and the covid19 confinment happened timely] to split the beast into smaller beauties that fed first versions of other MomX packages.
+
+### A love declaration to list-columns
+In brief, **everything is a tibble now**.
+
+Across MomX, the main object is `mom`, are tibble, slightly augmented to carry list-columns informations. Typically, one or more columns in these tibbles are lists. Lists are vectors that can carry numeric, factors, logical and nested lists. These list-columns can thus contain things with very different type and dimensions like image paths, images, shape coordinates, coefficients, statistical juice, etc.
+
+> Brush up your list skills reading this vignette (todo) 
+
+Working with such wonderful data structure, firmly tied up with other individual variables carried (or not) comes at a very special price: it's not cheap, it's not free, it's a cash machine! For you, my beloved front-user, it only bring significant pay-offs (at least compared to Momocs senior):
+
+  * All MomX objects are tidyverse-ready: you can natively use `ggplot2`, `dplyr`, `purrr`, `stringr` and friends on them;
+  * Coordinates, coefficients, etc. are tied to their covariates in their natural structure (a `data.frame` row). Before, they were kind of free-floating in `$coo`/`$coe` in one hand, and in `$fac` on the other hand. This was boring to program and use, limiting and risky. 
+  * The number of such *partitions* is no longer limited. For example, For a single shape, you can now have as many variants of their original coordinates, and as many coefficients calculated from them.
+  * Adding new morphometrics methods resumes to writing a `coo -> coe` mapping method (eg `efourier`), possibly and inverse method (`coe -> coe`) to reconstruct coordinates from coefficients.
+  * Adding new coordinates shapes, eg images rather than coordinates resumes to writing a new `*_single` method (eg `img_single` that would, overall behave like `coo_single` does)
+
+For the programmer-me, there are gazillions of smaller technical benefits. In brief, with a `tibble` nature, tidyverse comes for free. This massively simplifies code architecture and readability and makes a huge difference for maintenance and future development.
+
+### On the benefits of tidyeval
+You are already familiar with [tidyeval](https://tidyeval.tidyverse.org/): it allows the following to work:
+
+<center>
+```filter(iris, Species=="setosa")```
+</center>
+
+Try typing `Species` on the console: it does not exist; it only does in the `iris` environment. Practically it does not only means removing quotes, it overall simplify _your_ code and help you focus more on *what* you want rather than on *how* to get it.
+
+On the programming side, this behaviour is handled by [tidy evaluation](https://tidyeval.tidyverse.org/) that delays evaluation: R waits a bit to turn `Species` into what it is suppose to means, it only evaluates it when we ask it, within the `select` context in this example.
+
+### MomX package boundaries
+
+Remember that ?
+
+<center>
+```raw + cov -E-> coo + cov -M-> coe + cov```
+</center>
+
+MomX packages have a strong scope on what they handle, for instance:
+
+* [Momacs](https://momx.github.io/Momacs/) handles `-E->`
+* [Momit](https://momx.github.io/Momit) handles harvest of `raw` or turning them into `coo` for foreign formats (eg `.tps`, `.txt` or `.mom`)
+* [Momocs2](https://momx.github.io/Momocs2/) handles `-M->`, ie shape manipulation and shape morphometrics
+* [Momstat](https://momx.github.io/Momstats/) helps exploring `coe x cov` relationships. [Momecs](https://momx.github.io/Momecs/) make this exploration interactive.
+* [Momdata](https://momx.github.io/Momdata/) provide toy `raw`, `coo` and `coe`
+* etc.
+
+
+
 
 ### Momocs architecture
-
-### A word on Momocs development history
-
-
-
 
 Momocs2 is a rewrite of Momocs. The main changes are:
 
@@ -63,24 +126,3 @@ Momocs2 is a rewrite of Momocs. The main changes are:
 You can pass single shapes or list of shapes to all `coo_*` methods. You're not bound to Momocs, you can come, use it and return to your preferred environment.
 
 example here
-
-### Architecture: design and classes
-
- * Momocs handles shapes that are (or can be turned into) [tibbles](https://tibble.tidyverse.org/). So basically anything with two columns is fine. They are called **coo_single**. They can be collated into **coo_list**, which in turn can be part of a tibble, as a list column. Such tibble have a dedicated class: **coo_tbl**
- * All morphometric methods turn shapes into coefficients. `coo_single`, `coo_list` and `coo_table` are turned into `coe_single`, `coe_list` and `coe_tbl`. `coe_single` have a single row but can have many columns that are morphometrics variables.
- 
-Side effects of list columns
-
-The number of coo or coe is no longer limited
-The shape itself of coo or coe is no longer limited
-Adding new morphometric methods resumes to writing method.coo_single, method_i.coo_single
-Adding new shapes resumes to writing variations on coo_single
-
-Altogether this makes a huge difference for code readability, maintenance and for future development.
-
-
-
-
-
-
-

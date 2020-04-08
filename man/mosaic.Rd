@@ -24,9 +24,9 @@ a \code{ggplot} object
 Plot all shapes as a mosaic
 }
 \examples{
-bot2 \%>\% mosaic()
-bot2 \%>\% mosaic(type, ncol=6)
-mosaic(bot2, type, ncol=6, ggplot2::aes(col=type))
+bot \%>\% mosaic()
+bot \%>\% mosaic(type, ncol=6)
+mosaic(bot, type, ncol=6, ggplot2::aes(col=type))
 
 }
 \seealso{

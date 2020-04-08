@@ -20,9 +20,9 @@ a \code{ggplot} object
 Add shapes on top of another plot
 }
 \examples{
-bot2 \%>\% pick(1) \%>\% gg()
-bot2 \%>\% pick(2) \%>\% draw()
+bot \%>\% pick(1) \%>\% gg()
+bot \%>\% pick(2) \%>\% draw()
 
-bot2 \%>\% pile(alpha=0.2)
-bot2 \%>\% coo_rotate(pi/2) \%>\% draw(col="slateblue")
+bot \%>\% pile(alpha=0.2)
+bot \%>\% coo_rotate(pi/2) \%>\% draw(col="slateblue")
 }

@@ -7,7 +7,7 @@
 get_centpos(x)
 }
 \arguments{
-\item{x}{\link{coo_single}, \link{coo_list} or \link{coo_tbl}}
+\item{x}{\link{coo_single}, \link{coo_list} or \link{mom_tbl}}
 }
 \value{
 \code{numeric}, list or additional columns
@@ -19,7 +19,7 @@ Simply the average of \code{x} and \code{y}.
 This function can be used to integrate size - if meaningful -
 }
 \examples{
-bot2$coo[[5]] \%>\% get_centpos
+bot$coo[[5]] \%>\% get_centpos
 
 }
 \seealso{

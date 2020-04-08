@@ -7,7 +7,7 @@
 pile(x, f, ...)
 }
 \arguments{
-\item{x}{a coo_tbl object}
+\item{x}{a mom_tbl object}
 
 \item{f}{a column (\code{factor} or \code{numeric}) for colouring shapes}
 
@@ -20,14 +20,14 @@ Plot all shapes on the same graph
 formerly named \code{stack}
 }
 \examples{
-bot2 \%>\% pile()
+bot \%>\% pile()
 # global spec
-bot2 \%>\% pile(col="gold")
+bot \%>\% pile(col="gold")
 # aes bounded to x columns
-bot2 \%>\% pile(type) # you can omit ggplot2:: if it's loaded
+bot \%>\% pile(type) # you can omit ggplot2:: if it's loaded
 
 # a more complex example
-bot2 \%>\% pile(type) +
+bot \%>\% pile(type) +
    ggplot2::facet_grid(~type) +
    ggplot2::scale_colour_manual(values=c("forestgreen", "orange"))
 }

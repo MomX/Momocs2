@@ -1,6 +1,6 @@
 Package: Momocs2
 Title: What the Package Does (One Line, Title Case)
-Version: 1.9.0.0000
+Version: 0.0.0.9000
 Authors@R: c(
     person(given = "Vincent",
            family = "Bonhomme",
@@ -42,7 +42,9 @@ Imports:
     glue,
     crayon,
     tidyr,
-    methods
+    methods,
+    vctrs
 Remotes:
-    tidyverse/ggplot2
+    tidyverse/ggplot2,
+    tidyverse/dplyr
 VignetteBuilder: knitr

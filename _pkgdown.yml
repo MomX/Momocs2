@@ -54,7 +54,7 @@ reference:
     contents:
       - pick
       - unfold
-      - plint
+      - press
   - title: "Graphics"
     desc: >
       Prepare and build ggplot2 graphics
@@ -75,12 +75,11 @@ reference:
     desc: >
       Classes constructors, validators
     contents:
+      - mom
       - coo_single
       - coo_list
-      - coo_tbl
       - coe_single
       - coe_list
-      - coe_tbl
 
   - title: "Babel"
     desc: >
@@ -93,5 +92,5 @@ reference:
     desc: >
       To play with
     contents:
-      - bot2
+      - bot
 

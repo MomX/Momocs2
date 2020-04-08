@@ -10,14 +10,14 @@ coo_sample(x, n, ...)
 coo_interpolate(x, n, ...)
 }
 \arguments{
-\item{x}{\link{coo_single}, \link{coo_list} or \link{coo_tbl}}
+\item{x}{\link{coo_single}, \link{coo_list} or \link{mom_tbl}}
 
 \item{n}{\code{integer} desired number of coordinates (required)}
 
 \item{...}{useless here}
 }
 \value{
-a \link{coo_single}, \link{coo_list} or \link{coo_tbl}
+a \link{coo_single}, \link{coo_list} or \link{mom_tbl}
 }
 \description{
 Changes the number of shape coordinates.
@@ -36,14 +36,14 @@ This is typically useful for curves, hence the name.
 }}
 
 \examples{
-x <- bot2 \%>\% pick(1) \%>\% coo_sample(24)
+x <- bot \%>\% pick(1) \%>\% coo_sample(24)
 x \%>\% gg()
 x \%>\% coo_interpolate(120) \%>\% gg()
 
-bot2$coo \%>\% coo_sample(12) \%>\% purrr::map_dbl(nrow)
-bot2$coo \%>\% coo_sample(12) \%>\% coo_interpolate(24) \%>\% purrr::map_dbl(nrow)
+bot$coo \%>\% coo_sample(12) \%>\% purrr::map_dbl(nrow)
+bot$coo \%>\% coo_sample(12) \%>\% coo_interpolate(24) \%>\% purrr::map_dbl(nrow)
 
-bot2 \%>\% dplyr::slice(1:5) \%>\% coo_sample(12) -> x
+bot \%>\% dplyr::slice(1:5) \%>\% coo_sample(12) -> x
 pile(x)
 x \%>\% coo_interpolate(48) \%>\% pile()
 

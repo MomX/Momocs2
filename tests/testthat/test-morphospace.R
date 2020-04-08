@@ -16,7 +16,7 @@ test_that(".morphospace_templating_table works",{
 
 test_that("morphospace works", {
   # todo
-  x <- bot2 %>% dplyr::slice(1:5) %>% efourier %>% stat_pca
+  x <- bot %>% dplyr::slice(1:5) %>% efourier %>% stat_pca
   expect_message(y <- x %>% morphospace())
   expect_is(y, "tbl")
 
@@ -28,7 +28,7 @@ test_that("morphospace works", {
 
 
 test_that("morphospace_positionners work", {
-  xy <- bot2 %>% efourier(6) %>% stat_pca() %>% dplyr::select(PC1, PC2)
+  xy <- bot %>% efourier(6) %>% stat_pca() %>% dplyr::select(PC1, PC2)
   df <- morphospace_grid_window(xy, nr=12, nc=8)
   expect_is(df, "tbl")
   expect_equal(nrow(df), 12*8)

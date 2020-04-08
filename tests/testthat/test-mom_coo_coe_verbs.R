@@ -1,7 +1,7 @@
 
 # coe verbs ---------
 test_that("coe verbs work",{
-  x <- bot2
+  x <- bot
   x$coo2 <- x$coo
   x$coe <- x$coo %>% efourier(4)
   x$coe2 <- x$coo2 %>% efourier(6)
