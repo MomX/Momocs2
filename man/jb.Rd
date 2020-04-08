@@ -5,7 +5,7 @@
 \alias{jb}
 \title{Outline of jb bottle}
 \format{
-A \link{coo_tbl} with:
+A \link{coo_single} with:
 \describe{
 \item{x}{coordinates}
 \item{y}{coordinates}

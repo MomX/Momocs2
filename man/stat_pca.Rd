@@ -7,7 +7,7 @@
 stat_pca(x, center = TRUE, scale = TRUE)
 }
 \arguments{
-\item{x}{\link{coe_tbl}}
+\item{x}{\link{mom_tbl} with some \link{coe_list} (all by default)}
 
 \item{center}{\code{logical} whether the variables should be shifted to
 be zero centered (\code{center} in \link[stats:prcomp]{stats::prcomp})}
