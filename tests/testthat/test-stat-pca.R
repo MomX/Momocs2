@@ -25,9 +25,27 @@ test_that("scree works", {
   expect_is(scree_plot(p, 3), "gg")
   expect_is(scree_plot(p, prop=0.5), "gg")
 
+  # message that prop is forgotten
+  expect_message(scree_min(p))
+
   # test default methods
   expect_message(scree_plot("foo"))
   expect_message(scree_min("foo"))
   expect_message(scree("foo"))
+})
+
+test_that("gg0.pca works", {
+
+  test_inheritance <- function(x){
+    expect_is(x, "gg")
+    expect_is(x, "ggplot")
+  }
+
+  # vanilla
+  p %>% gg0 %>% test_inheritance()
+
+  # vanilla
+  p %>% gg0(PC1, PC2) %>% test_inheritance()
+
 })
 

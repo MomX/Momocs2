@@ -285,7 +285,7 @@ inspect <- function(x, ...) {
 
 #' @export
 inspect.default <- function(x, ...){
-  .msg_info("inspect: no inspect method for this class")
+  .msg_info("inspect: no method defined on this class")
 }
 
 #' @export

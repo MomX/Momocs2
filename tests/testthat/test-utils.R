@@ -34,3 +34,20 @@ test_that("utils work", {
   expect_true(list(a=1:5, b=5:2) %>% .seq_naming_list() %>% purrr::map_lgl(~.x %>% names %>% is.null) %>% `!` %>% all)
   expect_true(list(a=1:5, b=5:2) %>%  purrr::map_lgl(~ .x %>% names %>% is.null) %>% all())
 })
+
+
+test_that("msg work", {
+  expect_message(.msg_info("plop"), "plop")
+  expect_message(.msg_warning("plop"), "plop")
+  expect_message(.msg_success("plop"), "plop")
+  expect_message(.msg_danger("plop"), "plop")
+
+  expect_invisible(.check(2==(1+1), "rololo"))
+  expect_message(.check(2==1, "rololo"), "rololo")
+})
+
+test_that(".replace_class work", {
+  x <- new_coo_single()
+  expect_true(x %>% .replace_class("tbl", "tableau") %>% inherits("tableau"))
+})
+

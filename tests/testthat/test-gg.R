@@ -67,3 +67,7 @@ test_that("pile works", {
   # otherwise tested in examples
 })
 
+test_that("inspect work, at least when it does not", {
+  expect_message(inspect("a"), "no method")
+})
+
