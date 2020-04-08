@@ -101,10 +101,11 @@ morphospace.pca <- function(x, xy){
 #' p <- bot %>% efourier(6) %>% stat_pca()
 #' m <- p %>% morphospace()
 #' m %>% pile()
-#' m %>% morphospace_template() %>% pile()
+#' # todo
+#' #m %>% morphospace_template() %>% pile()
 #'
-#' gg <- p %>% gg0()
-#' shps <- p %>% morphospace() %>% morphospace_template()
+#' #gg <- p %>% gg0()
+#' #shps <- p %>% morphospace() %>% morphospace_template()
 #' @export
 morphospace_template <- function(x, size=NULL){
 
