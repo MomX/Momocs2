@@ -6,8 +6,6 @@
 \alias{validate_coo_single}
 \alias{is_coo_single}
 \alias{is_coo_single1}
-\alias{new_coe_single}
-\alias{coe_single}
 \title{Create single shape made of coordinates}
 \usage{
 new_coo_single(x = tibble::tibble(x = double(), y = double()))
@@ -19,10 +17,6 @@ coo_single(x)
 is_coo_single(x)
 
 is_coo_single1(x)
-
-new_coe_single(x = tibble::tibble())
-
-coe_single(x = new_coe_single())
 }
 \arguments{
 \item{x}{anything that can be turned a tibble by \code{tibble::tibble()} should work}
@@ -48,10 +42,6 @@ You should use the helper \code{coo_single}, \code{new_coo_single} and \code{val
 \item \code{is_coo_single}: Class tester
 
 \item \code{is_coo_single1}: Class1 tester
-
-\item \code{new_coe_single}: Constructor
-
-\item \code{coe_single}: Helper
 }}
 
 \examples{

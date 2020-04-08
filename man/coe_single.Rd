@@ -2,10 +2,15 @@
 % Please edit documentation in R/mom_coo_coe_classes.R
 \name{coe_single}
 \alias{coe_single}
+\alias{new_coe_single}
 \alias{is_coe_single}
 \alias{is_coe_single1}
 \title{Create single coefficients}
 \usage{
+new_coe_single(x = tibble::tibble())
+
+coe_single(x = new_coe_single())
+
 is_coe_single(x)
 
 is_coe_single1(x)
@@ -23,6 +28,10 @@ It is not really intended to be used directly but is useful if you want to exten
 }
 \section{Functions}{
 \itemize{
+\item \code{new_coe_single}: Constructor
+
+\item \code{coe_single}: Helper
+
 \item \code{is_coe_single}: Class tester
 
 \item \code{is_coe_single1}: Class1 tester

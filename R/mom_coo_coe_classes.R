@@ -310,7 +310,7 @@ NULL
 
 # creator -----
 #' @export
-#' @describeIn coo_single Constructor
+#' @describeIn coe_single Constructor
 # constructor
 new_coe_single <- function(x=tibble::tibble()){
   # vec_assert(x, tibble())
@@ -345,7 +345,7 @@ new_coe_single <- function(x=tibble::tibble()){
 
 # workers -----
 #' @export
-#' @describeIn coo_single Helper
+#' @describeIn coe_single Helper
 coe_single <- function(x=new_coe_single()) {
   x %>%
     # cast to tibble
