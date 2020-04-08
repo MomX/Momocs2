@@ -28,6 +28,11 @@ mom <- function(x){
 }
 
 #' @export
+mom.default <- function(x){
+  .msg_info("mom: no method defined on this class")
+}
+
+#' @export
 mom.coo_single <- function(x){
   x %>% coo_single() %>% coo_list() %>% tibble::tibble(coo=.) %>% new_mom()
 }

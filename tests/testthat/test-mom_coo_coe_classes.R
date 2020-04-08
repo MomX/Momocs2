@@ -3,7 +3,7 @@
 
 test_that("coo_single constructor works", {
   # anything that can be coerced by tibble should work
-list(
+  list(
     matrix(1:2, ncol=2),
     matrix(1:4, ncol=2),
     list(x=1:5, y=5:1),
@@ -46,28 +46,54 @@ test_that("coo_list works", {
 
 #
 #
-# # mom_tbl --------
-# test_that("mom_tbl works", {
-#   # who are you
-#   expect_message(mom_tbl("a"))
-#
-#   # print method
-#   expect_output(print(bot))
-#
-#   # old Coo
-#   old_Coo <- list(coo=bot$coo,
-#                   fac=bot %>% dplyr::select(-coo),
-#                   ldk=replicate(nrow(bot), sample(1:10, 3), simplify = FALSE)) %>%
-#     .append_class("Coo") %>% .append_class("Out")
-#   x <- old_Coo %>% mom_tbl()
-#   expect_is(x, "mom_tbl")
-#   expect_true(all(c("coo", "ldk", "type") %in% colnames(x)))
-#
-#   # list
-#   expect_is(bot$coo %>% mom_tbl(), "mom_tbl")
-#
-#   expect_is(bot %>% pick(1) %>% mom_tbl(), "mom_tbl")
-# })
+# mom_tbl --------
+test_that("mom_tbl works", {
+  # testing class inheritance ---
+  x <- new_mom()
+  test_inheritance <- function(x){
+    expect_true(inherits(x, "mom_tbl"))
+    expect_true(inherits(x, "tbl"))
+    expect_true(inherits(x, "data.frame"))
+  }
+  # testing workers ---
+  # not defined
+  expect_message(mom_tbl("a"))
+  # coo_single
+  new_coo_single() %>% mom() %>% test_inheritance()
+  # data.frame
+  iris %>% mom() %>% test_inheritance()
+  # tbl
+  iris %>% tibble::as_tibble() %>% mom() %>% test_inheritance()
+  # coo_list
+  new_coo_list() %>% mom() %>% test_inheritance()
+  # coe_list
+  new_coe_list() %>% mom() %>% test_inheritance()
+
+  # recreating a Coo
+  list(coo=replicate(3, matrix(runif(6), ncol=2), simplify=FALSE),
+       fac=iris[1:3, ],
+       ldk=list(1, 2, 3)) %>%
+    .append_class("Ldk") %>% .append_class("Coo") %>%
+    mom() -> foo_Coo
+
+  # check ldk export
+  x <- foo_Coo %>% mom()
+  expect_true(all(c("coo", "ldk") %in% colnames(x)))
+  # and more generally
+  foo_Coo %>% mom() %>% test_inheritance()
+  # also test the alias
+  foo_Coo %>% mom_tbl() %>% test_inheritance()
+
+  # print method
+  expect_output(print(bot), "mom_tbl")
+  expect_output(print(bot), "coo_list")
+  expect_output(bot %>% efourier(4) %>% print(), "coe_list")
+
+  # test what used to fail befor vctrs
+  x <- bot %>% dplyr::slice(1:2)
+  x %>% test_inheritance()
+  expect_is(x$coo, "coo_list")
+})
 #
 # # COE -----------
 # # coe_single ----
