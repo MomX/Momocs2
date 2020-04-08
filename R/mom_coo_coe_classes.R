@@ -349,18 +349,51 @@ new_coe_single <- function(x=tibble::tibble()){
 # }
 
 # workers -----
-#' @export
+
+
 #' @describeIn coe_single Helper
-coe_single <- function(x=new_coe_single()) {
-  x %>%
-    # cast to tibble
-    tibble::as_tibble() %>%
-    # `colnames<-`(c("x", "y")) %>%
-    # construct
-    new_coe_single #%>%
-    # validate
-    #validate_coo_single()
+#' @export
+coe_single <- function(x){
+  UseMethod("coe_single")
 }
+
+#' @export
+coe_single.default <- function(x){
+  .msg_info("coe_single: no method defined on this class")
+}
+
+#' @export
+coe_single.tbl <- function(x) {
+  x %>% new_coe_single
+}
+
+#' @export
+coe_single.data.frame <- function(x) {
+  x %>% new_coe_single
+}
+
+# dont pass tests (likely for a good reason)
+# #' @export
+# coe_single.list <- function(x) {
+#   if (is.null(names(x)))
+#     names(x) <- paste0("var", "_", seq_along(x))
+#   x %>% new_coe_single
+# }
+
+#' @export
+coe_single.matrix <- function(x) {
+  x %>% as.data.frame() %>% tibble::as_tibble() %>% new_coe_single()
+}
+
+#' @export
+coe_single.numeric <- function(x){
+  if (is.null(names(x)))
+    names(x) <- paste0("var", "_", seq_along(x))
+  # may be an easier way
+  x %>% as.matrix() %>% t() %>% tibble::as_tibble() %>% new_coe_single()
+}
+
+
 
 # printers -----
 #' @export
@@ -419,13 +452,18 @@ coe_list <- function(x){
 }
 
 #' @export
+coe_list.default <- function(x){
+  .msg_info("coe_list: not defined on this class")
+}
+
+#' @export
 coe_list.coe_single <- function(x){
   x %>% coe_single %>% list %>% new_coe_list()
 }
 
 #' @export
 coe_list.list <- function(x){
-  x %>% new_coe_list()
+  x %>% purrr::map(coe_single) %>% new_coe_list()
 }
 
 #' @export
