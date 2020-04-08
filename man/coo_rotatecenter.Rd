@@ -60,10 +60,6 @@ the trigonometric direction (anti-clockwise) and using \code{center} as coordina
 
 \examples{
 x <- bot \%>\% pick(5) \%>\% coo_center() \%>\% coo_scale()
-seq(0, pi, pi/6) \%>\%
-  purrr::map(~ x \%>\% coo_rotatecenter(x, theta=.x, center=c(5, 5)) \%>\% coo_single) \%>\%
-  mom() \%>\%
-  pile()
 }
 \seealso{
 Other coo_modifyers: 
