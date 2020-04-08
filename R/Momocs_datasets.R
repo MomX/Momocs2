@@ -15,7 +15,7 @@
 #'
 #' A [coo_single] obtained with `pick(bot, "jb")`
 #'
-#' @format A [coo_tbl] with:
+#' @format A [coo_single] with:
 #' \describe{
 #'   \item{x}{coordinates}
 #'   \item{y}{coordinates}

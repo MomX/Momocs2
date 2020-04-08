@@ -69,6 +69,9 @@ mom.Coo <- function(x){
   res %>% new_mom()
 }
 
+#' @export
+mom_tbl <- mom
+
 # printers -----
 #' @export
 print.mom_tbl <- function(x, ...){

@@ -27,7 +27,7 @@
 #'
 #' Performs a principal components analysis (delegated to [stats::prcomp]).
 #'
-#' @param x [coe_tbl]
+#' @param x [mom_tbl] with some [coe_list] (all by default)
 #' @param center `logical` whether the variables should be shifted to
 #' be zero centered (`center` in [stats::prcomp])
 #' @param scale `logical` whether the variables should be scaled to

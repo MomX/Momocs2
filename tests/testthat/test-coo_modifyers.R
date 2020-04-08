@@ -32,7 +32,6 @@ test_equivalence <- function(fun, ...){
   expect_equivalent(x1, z1) # not exactly require but still...
 }
 
-
 # coo_center ---------
 test_that("coo_center, coo_trans works", {
   test_classes(coo_center)
