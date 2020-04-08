@@ -24,6 +24,7 @@ multiviews adjustment (based on \code{x$name}).
 p <- bot \%>\% efourier(6) \%>\% stat_pca()
 m <- p \%>\% morphospace()
 m \%>\% pile()
+# todo
 #m \%>\% morphospace_template() \%>\% pile()
 
 #gg <- p \%>\% gg0()

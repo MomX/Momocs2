@@ -9,7 +9,7 @@
 \usage{
 new_coe_single(x = tibble::tibble())
 
-coe_single(x = new_coe_single())
+coe_single(x)
 
 is_coe_single(x)
 
