@@ -40,12 +40,9 @@ x <- bot \%>\% pick(1) \%>\% coo_sample(24)
 x \%>\% gg()
 x \%>\% coo_interpolate(120) \%>\% gg()
 
-bot$coo \%>\% coo_sample(12) \%>\% purrr::map_dbl(nrow)
-bot$coo \%>\% coo_sample(12) \%>\% coo_interpolate(24) \%>\% purrr::map_dbl(nrow)
+bot$coo[1:2] \%>\% coo_sample(12) \%>\% purrr::map_dbl(nrow)
+bot$coo[1:2] \%>\% coo_sample(12) \%>\% coo_interpolate(24) \%>\% purrr::map_dbl(nrow)
 
-bot \%>\% dplyr::slice(1:5) \%>\% coo_sample(12) -> x
-pile(x)
-x \%>\% coo_interpolate(48) \%>\% pile()
 
 }
 \seealso{
