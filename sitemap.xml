@@ -28,7 +28,13 @@
     <loc>http://momx.github.io/Momocs2/reference/coo_close.html</loc>
   </url>
   <url>
+    <loc>http://momx.github.io/Momocs2/reference/coo_flip.html</loc>
+  </url>
+  <url>
     <loc>http://momx.github.io/Momocs2/reference/coo_list.html</loc>
+  </url>
+  <url>
+    <loc>http://momx.github.io/Momocs2/reference/coo_rev.html</loc>
   </url>
   <url>
     <loc>http://momx.github.io/Momocs2/reference/coo_rotate.html</loc>
@@ -59,6 +65,9 @@
   </url>
   <url>
     <loc>http://momx.github.io/Momocs2/reference/coo_trans.html</loc>
+  </url>
+  <url>
+    <loc>http://momx.github.io/Momocs2/reference/coo_trim.html</loc>
   </url>
   <url>
     <loc>http://momx.github.io/Momocs2/reference/coo_up.html</loc>

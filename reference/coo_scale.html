@@ -146,22 +146,7 @@
     <p>Returns a scaled shape.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>coo_scale</span>(<span class='no'>x</span>, <span class='no'>scale</span>, <span class='no'>from_col</span>, <span class='no'>to_col</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for default</span>
-<span class='fu'>coo_scale</span>(<span class='no'>x</span>, <span class='no'>scale</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for coo_list</span>
-<span class='fu'>coo_scale</span>(<span class='no'>x</span>, <span class='no'>scale</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for mom_tbl</span>
-<span class='fu'>coo_scale</span>(
-  <span class='no'>x</span>,
-  <span class='no'>scale</span>,
-  <span class='kw'>from_col</span> <span class='kw'>=</span> <span class='no'>coo</span>,
-  <span class='kw'>to_col</span> <span class='kw'>=</span> {     {         <span class='no'>from_col</span>     } },
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>coo_scale</span>(<span class='no'>x</span>, <span class='no'>scale</span>, <span class='no'>from_col</span>, <span class='no'>to_col</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -193,32 +178,27 @@ and how to name the resulting one (only for mom_tbl method)</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a coo_single, coo_list or mom_tbl</p>
-    <h2 class="hasAnchor" id="methods-by-class-"><a class="anchor" href="#methods-by-class-"></a>Methods (by class)</h2>
-
-    
-<ul>
-<li><p><code>default</code>: default method</p></li>
-<li><p><code>coo_list</code>: list method</p></li>
-<li><p><code>mom_tbl</code>: mom_tbl method</p></li>
-</ul>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other coo_modifyers: 
 <code>coo_align()</code>,
 <code>coo_center()</code>,
+<code>coo_flip</code>,
+<code>coo_rev()</code>,
 <code>coo_rotatecenter()</code>,
 <code>coo_rotate()</code>,
 <code>coo_sample_rr()</code>,
 <code>coo_sample()</code>,
 <code>coo_template()</code>,
 <code>coo_trans()</code>,
+<code>coo_trim()</code>,
 <code>coo_up()</code></p>
 <p>Other scalings: 
 <code>coo_template()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='no'>bot</span>$<span class='no'>coo</span><span class='kw'>[[</span><span class='fl'>1</span>]] <span class='kw'>%&gt;%</span> <span class='no'>coo_scale</span></div><div class='output co'>#&gt; # A tibble: 138 x 2
+<span class='no'>bot</span> <span class='kw'>%&gt;%</span> <span class='fu'>pick</span>(<span class='fl'>1</span>) <span class='kw'>%&gt;%</span> <span class='fu'>coo_scale</span>()</div><div class='output co'>#&gt; # A tibble: 138 x 2
 #&gt;        x     y
 #&gt;    &lt;dbl&gt; &lt;dbl&gt;
 #&gt;  1  175.  544.

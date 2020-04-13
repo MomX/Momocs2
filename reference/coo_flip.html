@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Rotate shapes and specify center — coo_rotatecenter • Momocs2</title>
+<title>Flip shapes — coo_flip • Momocs2</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,8 @@
 
 
 
-<meta property="og:title" content="Rotate shapes and specify center — coo_rotatecenter" />
-<meta property="og:description" content="Rotates the coordinates by a theta angle (in radians) in
-the trigonometric direction (anti-clockwise) and using center as coordinates." />
+<meta property="og:title" content="Flip shapes — coo_flip" />
+<meta property="og:description" content="Flips shapes about the x- or the y- axis" />
 <meta property="og:image" content="http://momx.github.io/Momocs2/logo.png" />
 
 
@@ -138,43 +137,18 @@ the trigonometric direction (anti-clockwise) and using center as coordinates." /
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Rotate shapes and specify center</h1>
+    <h1>Flip shapes</h1>
     
-    <div class="hidden name"><code>coo_rotatecenter.Rd</code></div>
+    <div class="hidden name"><code>coo_flip.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Rotates the coordinates by a <code>theta</code> angle (in radians) in
-the trigonometric direction (anti-clockwise) and using <code>center</code> as coordinates.</p>
+    <p>Flips shapes about the x- or the y- axis</p>
     </div>
 
-    <pre class="usage"><span class='fu'>coo_rotatecenter</span>(
-  <span class='no'>x</span>,
-  <span class='kw'>theta</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>center</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>),
-  <span class='kw'>from_col</span> <span class='kw'>=</span> <span class='no'>coo</span>,
-  <span class='kw'>to_col</span> <span class='kw'>=</span> <span class='no'>coo</span>,
-  <span class='no'>...</span>
-)
+    <pre class="usage"><span class='fu'>coo_flip_x</span>(<span class='no'>x</span>, <span class='no'>from_col</span>, <span class='no'>to_col</span>, <span class='no'>...</span>)
 
-<span class='co'># S3 method for default</span>
-<span class='fu'>coo_rotatecenter</span>(<span class='no'>x</span>, <span class='kw'>theta</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>center</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>), <span class='no'>...</span>)
-
-<span class='co'># S3 method for coo_list</span>
-<span class='fu'>coo_rotatecenter</span>(<span class='no'>x</span>, <span class='kw'>theta</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>center</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>), <span class='no'>...</span>)
-
-<span class='co'># S3 method for list</span>
-<span class='fu'>coo_rotatecenter</span>(<span class='no'>x</span>, <span class='kw'>theta</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>center</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>), <span class='no'>...</span>)
-
-<span class='co'># S3 method for mom_tbl</span>
-<span class='fu'>coo_rotatecenter</span>(
-  <span class='no'>x</span>,
-  <span class='kw'>theta</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>center</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>),
-  <span class='kw'>from_col</span> <span class='kw'>=</span> <span class='no'>coo</span>,
-  <span class='kw'>to_col</span> <span class='kw'>=</span> {     {         <span class='no'>from_col</span>     } },
-  <span class='no'>...</span>
-)</pre>
+<span class='fu'>coo_flip_y</span>(<span class='no'>x</span>, <span class='no'>from_col</span>, <span class='no'>to_col</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -182,14 +156,6 @@ the trigonometric direction (anti-clockwise) and using <code>center</code> as co
     <tr>
       <th>x</th>
       <td><p>coo_single, coo_list or mom_tbl</p></td>
-    </tr>
-    <tr>
-      <th>theta</th>
-      <td><p><code>numeric</code> angle to rotate (in radians) and in the trigonometric direction (anti-clockwise). Default to <code>0</code>.</p></td>
-    </tr>
-    <tr>
-      <th>center</th>
-      <td><p><code>numeric</code> of length 2, sepcifying the <code>(x; y)</code> coordinates of the rotation center. Default to <code><a href='https://rdrr.io/r/base/c.html'>c(0, 0)</a></code></p></td>
     </tr>
     <tr>
       <th>from_col</th>
@@ -210,22 +176,20 @@ and how to name the resulting one (only for mom_tbl method)</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a coo_single, coo_list or mom_tbl</p>
-    <h2 class="hasAnchor" id="methods-by-class-"><a class="anchor" href="#methods-by-class-"></a>Methods (by class)</h2>
+    <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
 
     
 <ul>
-<li><p><code>default</code>: default method</p></li>
-<li><p><code>coo_list</code>: coo_list method</p></li>
-<li><p><code>list</code>: list method</p></li>
-<li><p><code>mom_tbl</code>: mom_tbl method</p></li>
+<li><p><code>coo_flip_x</code>: Flips about the x-axis</p></li>
+<li><p><code>coo_flip_y</code>: Flips about the y-axis</p></li>
 </ul>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other coo_modifyers: 
 <code>coo_align()</code>,
 <code>coo_center()</code>,
-<code>coo_flip</code>,
 <code>coo_rev()</code>,
+<code>coo_rotatecenter()</code>,
 <code>coo_rotate()</code>,
 <code>coo_sample_rr()</code>,
 <code>coo_sample()</code>,
@@ -233,13 +197,11 @@ and how to name the resulting one (only for mom_tbl method)</p></td>
 <code>coo_template()</code>,
 <code>coo_trans()</code>,
 <code>coo_trim()</code>,
-<code>coo_up()</code></p>
-<p>Other rotations: 
-<code>coo_align()</code>,
-<code>coo_rotate()</code></p></div>
+<code>coo_up()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>bot</span> <span class='kw'>%&gt;%</span> <span class='fu'>pick</span>(<span class='fl'>5</span>) <span class='kw'>%&gt;%</span> <span class='fu'>coo_center</span>() <span class='kw'>%&gt;%</span> <span class='fu'>coo_scale</span>()</div></pre>
+    <pre class="examples"><div class='input'>
+<span class='no'>bot</span> <span class='kw'>%&gt;%</span> <span class='fu'>pick</span>(<span class='fl'>1</span>) <span class='kw'>%&gt;%</span> <span class='fu'>coo_flip_x</span>() <span class='kw'>%&gt;%</span> <span class='fu'>gg</span>()</div><div class='img'><img src='coo_flip-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>bot</span> <span class='kw'>%&gt;%</span> <span class='fu'>pick</span>(<span class='fl'>1</span>) <span class='kw'>%&gt;%</span> <span class='fu'>coo_flip_y</span>() <span class='kw'>%&gt;%</span> <span class='fu'>gg</span>()</div><div class='img'><img src='coo_flip-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

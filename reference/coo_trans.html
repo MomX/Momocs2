@@ -47,7 +47,7 @@
 
 
 <meta property="og:title" content="Translate shapes — coo_trans" />
-<meta property="og:description" content="Returns a shape translate by x and y." />
+<meta property="og:description" content="Returns a shape translated by x_trans and y_trans." />
 <meta property="og:image" content="http://momx.github.io/Momocs2/logo.png" />
 
 
@@ -143,26 +143,10 @@
     </div>
 
     <div class="ref-description">
-    <p>Returns a shape translate by <code>x</code> and <code>y</code>.</p>
+    <p>Returns a shape translated by <code>x_trans</code> and <code>y_trans</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>coo_trans</span>(<span class='no'>x</span>, <span class='kw'>x_trans</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>y_trans</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='no'>from_col</span>, <span class='no'>to_col</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for default</span>
-<span class='fu'>coo_trans</span>(<span class='no'>x</span>, <span class='kw'>x_trans</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>y_trans</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for coo_list</span>
-<span class='fu'>coo_trans</span>(<span class='no'>x</span>, <span class='kw'>x_trans</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>y_trans</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for mom_tbl</span>
-<span class='fu'>coo_trans</span>(
-  <span class='no'>x</span>,
-  <span class='kw'>x_trans</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>y_trans</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>from_col</span> <span class='kw'>=</span> <span class='no'>coo</span>,
-  <span class='kw'>to_col</span> <span class='kw'>=</span> {     {         <span class='no'>from_col</span>     } },
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>coo_trans</span>(<span class='no'>x</span>, <span class='kw'>x_trans</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>y_trans</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='no'>from_col</span>, <span class='no'>to_col</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -194,45 +178,27 @@ and how to name the resulting one (only for mom_tbl method)</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a coo_single, coo_list or mom_tbl</p>
-    <h2 class="hasAnchor" id="methods-by-class-"><a class="anchor" href="#methods-by-class-"></a>Methods (by class)</h2>
-
-    
-<ul>
-<li><p><code>default</code>: default method</p></li>
-<li><p><code>coo_list</code>: list method</p></li>
-<li><p><code>mom_tbl</code>: mom_tbl method</p></li>
-</ul>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other coo_modifyers: 
 <code>coo_align()</code>,
 <code>coo_center()</code>,
+<code>coo_flip</code>,
+<code>coo_rev()</code>,
 <code>coo_rotatecenter()</code>,
 <code>coo_rotate()</code>,
 <code>coo_sample_rr()</code>,
 <code>coo_sample()</code>,
 <code>coo_scale()</code>,
 <code>coo_template()</code>,
+<code>coo_trim()</code>,
 <code>coo_up()</code></p>
 <p>Other translations: 
 <code>coo_center()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>bot</span>$<span class='no'>coo</span><span class='kw'>[[</span><span class='fl'>1</span>]] <span class='kw'>%&gt;%</span> <span class='no'>coo_trans</span></div><div class='output co'>#&gt; # A tibble: 138 x 2
-#&gt;        x     y
-#&gt;    &lt;dbl&gt; &lt;dbl&gt;
-#&gt;  1    37   561
-#&gt;  2    40   540
-#&gt;  3    40   529
-#&gt;  4    43   508
-#&gt;  5    46   487
-#&gt;  6    48   477
-#&gt;  7    52   456
-#&gt;  8    54   435
-#&gt;  9    57   414
-#&gt; 10    59   403
-#&gt; # … with 128 more rows
-#&gt; ❯coo_single with 138 coordinates</div><div class='input'>
+    <pre class="examples"><div class='input'>
+<span class='no'>bot</span> <span class='kw'>%&gt;%</span> <span class='fu'>pick</span>() <span class='kw'>%&gt;%</span> <span class='fu'>coo_center</span>() <span class='kw'>%&gt;%</span> <span class='fu'>coo_trans</span>(<span class='fl'>5</span>, <span class='fl'>5</span>) <span class='kw'>%&gt;%</span> <span class='fu'>gg</span>()</div><div class='img'><img src='coo_trans-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
