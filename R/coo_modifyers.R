@@ -618,7 +618,66 @@ coo_smooth.mom_tbl <- function(x, n, from_col=coo, to_col={{from_col}}, ...) {
                         coo_smooth(n=n))
 }
 
+# coo_smooth_curve ----------------------------------------------
+#' Smooth shapes but preserve tips
+#'
+#' [coo_smooth] variant that preserves coordinates of first and alst points.
+#' Typically useful for curves
+#'
+#'
+#' @inherit coo_center params return
+#' @param n `integer` smoothing iterations
+#' @family coo_modifyers smooth
+#' @examples
+#'
+#' bot %>% pick(1) #todo
+#'
+#'
+#' @export
+coo_smooth_curve <- function(x, n, from_col, to_col, ...) {
+  UseMethod("coo_smooth_curve")
+}
 
+#' @export
+coo_smooth_curve.default <- function(x, ...){
+.msg_info("coo_smooth_curve: not defined on this class")
+}
+
+#' @export
+coo_smooth_curve.coo_single <- function(x, n, ...) {
+  if (missing(n)){
+    .msg_info("coo_smooth: 'n' must be provided")
+    stop()
+  }
+
+  p <- nrow(x)
+  a <- 0
+  while (a < n) {
+    a <- a + 1
+    for (i in 2:(p - 1)) {
+      x[i, ] <- (x[i - 1, ] * 0.25 + x[i, ] * 0.5 + x[i + 1, ] * 0.25)
+    }
+  }
+
+  # return this beauty
+  x %>% coo_single()
+}
+
+#' @export
+coo_smooth_curve.coo_list <- function(x, n, ...) {
+  x %>% purrr::map(coo_smooth_curve, n=n) %>% coo_list()
+}
+
+#' @export
+coo_smooth_curve.mom_tbl <- function(x, n, from_col=coo, to_col={{from_col}}, ...) {
+  # tidyeval
+  c(from_col, to_col) %<-% tidyeval_coo_modifyers(from_col={{from_col}}, to_col={{to_col}})
+
+  # operate
+  x %>% dplyr::mutate(!!to_col := x %>%
+                        dplyr::pull(!!from_col) %>%
+                        coo_smooth_curve(n=n))
+}
 
 
 

@@ -204,10 +204,14 @@ test_that("coo_interpolate works", {
 # coo_smooth -------
 
 # coo_center ---------
-test_that("coo_smooth works", {
-  test_classes(coo_smooth, 5)
-  test_cols_tidyeval(coo_smooth, 5)
-  test_equivalence(coo_smooth, 5)
+test_that("coo_smooth, coo_smooth_curve work", {
+  test_classes(coo_smooth, 2)
+  test_cols_tidyeval(coo_smooth, 2)
+  test_equivalence(coo_smooth, 2)
+
+  test_classes(coo_smooth_curve, 2)
+  test_cols_tidyeval(coo_smooth_curve, 2)
+  test_equivalence(coo_smooth_curve, 2)
 })
 
 bot %>% pick(1) %>% coo_smooth(5)
