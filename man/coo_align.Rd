@@ -2,22 +2,12 @@
 % Please edit documentation in R/coo_modifyers.R
 \name{coo_align}
 \alias{coo_align}
-\alias{coo_align.default}
-\alias{coo_align.coo_list}
-\alias{coo_align.mom_tbl}
+\alias{coo_align_xax}
 \title{Align shapes}
 \usage{
 coo_align(x, from_col = coo, to_col = coo, ...)
 
-\method{coo_align}{default}(x, ...)
-
-\method{coo_align}{coo_list}(x, ...)
-
-\method{coo_align}{mom_tbl}(x, from_col = coo, to_col = {
-    {
-        from_col
-    }
-}, ...)
+coo_align_xax(x, from_col, to_col, ...)
 }
 \arguments{
 \item{x}{\link{coo_single}, \link{coo_list} or \link{mom_tbl}}
@@ -36,17 +26,20 @@ a \link{coo_single}, \link{coo_list} or \link{mom_tbl}
 \description{
 Align shape along their longer axis using var-cov matrix and eigen values.
 }
-\section{Methods (by class)}{
+\details{
+(todo) For \code{coo_align_xax}: ff some shapes are upside-down
+(or mirror of each others), try redefining a new starting point (eg with coo_slidedirection) before
+the alignment step. This may solve your problem because coo_calliper orders the `$arr.ind`` used by
+coo_aligncalliper.
+}
+\section{Functions}{
 \itemize{
-\item \code{default}: default method
-
-\item \code{coo_list}: list method
-
-\item \code{mom_tbl}: mom_tbl method
+\item \code{coo_align_xax}: align the longest axis of the shape along the x-axis
 }}
 
 \examples{
-bot$coo[[5]] \%>\% coo_align
+bot \%>\% pick(1) \%>\% coo_align
+bot \%>\% pick(1) \%>\% coo_align_xax
 }
 \seealso{
 Other coo_modifyers: 

@@ -67,34 +67,44 @@ coo_center.mom_tbl <- function(x, from_col=coo, to_col={{from_col}}, ...) {
 
 #' Translate shapes
 #'
-#' Returns a shape translate by `x` and `y`.
+#' Returns a shape translated by `x_trans` and `y_trans`.
 #'
 #' @inherit coo_center params return
 #' @param x_trans,y_trans `numeric` how much translate on each direction
 #' @family coo_modifyers
 #' @family translations
 #' @examples
-#' bot$coo[[1]] %>% coo_trans
+#'
+#' bot %>% pick() %>% coo_center() %>% coo_trans(5, 5) %>% gg()
 #'
 #' @export
 coo_trans <- function(x, x_trans=0, y_trans=0, from_col, to_col, ...) {
   UseMethod("coo_trans")
 }
 
-#' @describeIn coo_trans default method
 #' @export
-coo_trans.default <- function(x, x_trans=0, y_trans=0, ...) {
-  x %>% coo_single() %>%
-    dplyr::mutate(x = .data$x + x_trans, y = .data$y + y_trans)
+coo_trans.default <- function(x,  ...) {
+  .msg_info("coo_trans: no method defined for this class")
 }
 
-#' @describeIn coo_trans list method
+#' @export
+coo_trans.coo_single <- function(x, x_trans=0, y_trans=0, ...) {
+  x %>%
+    dplyr::mutate(x = .data$x + x_trans,
+                  y = .data$y + y_trans) %>%
+    coo_single()
+}
+
+
 #' @export
 coo_trans.coo_list <- function(x, x_trans=0, y_trans=0, ...){
-  x %>% purrr::map(coo_trans, x_trans=x_trans, y_trans=y_trans) %>% coo_list()
+  x %>%
+    purrr::map(coo_trans,
+               x_trans=x_trans,
+               y_trans=y_trans) %>%
+    coo_list()
 }
 
-#' @describeIn coo_trans mom_tbl method
 #' @export
 coo_trans.mom_tbl <- function(x, x_trans=0, y_trans=0, from_col=coo, to_col={{from_col}}, ...) {
 
@@ -121,39 +131,41 @@ coo_trans.mom_tbl <- function(x, x_trans=0, y_trans=0, from_col=coo, to_col={{fr
 #' @examples
 #'
 #' @examples
-#' bot$coo[[1]] %>% coo_scale
+#' bot %>% pick(1) %>% coo_scale()
 #'
 #' @export
 coo_scale <- function(x, scale, from_col, to_col, ...) {
   UseMethod("coo_scale")
 }
 
-#' @describeIn coo_scale default method
 #' @export
-coo_scale.default <- function(x, scale, ...) {
+coo_scale.default <- function(x, ...){
+  .msg_info("coo_scale: no method defined on this class")
+}
+
+#' @export
+coo_scale.coo_single <- function(x, scale, ...) {
   # use centroid size by default
   if (missing(scale))
     scale <- get_centsize(x)
   # record centroid position to reposition after scaling
   cent <- get_centpos(x)
-  x %>%
-    # center and scale
-    coo_center() %>% `/`(scale) %>%
+  # center and scale
+  (coo_center(x)/scale) %>%  # keep braces !
+    coo_single() %>%         # because stripped by `/` (!)
     # move back to original centroid
     coo_trans(x_trans=cent$x, y_trans=cent$y) %>%
     coo_single()
 }
 
-#' @describeIn coo_scale list method
 #' @export
 coo_scale.coo_list <- function(x, scale, ...){
-  x <- purrr::map(x, coo_single)
   if (missing(scale))
     scale <- purrr::map_dbl(x, get_centsize)
-  purrr::map2(x, scale, coo_scale) %>% coo_list()
+  purrr::map2(x, scale, ~coo_scale(.x, scale=.y)) %>%
+    coo_list()
 }
 
-#' @describeIn coo_scale mom_tbl method
 #' @export
 coo_scale.mom_tbl <- function(x, scale, from_col=coo, to_col={{from_col}}, ...) {
   # tidyeval
@@ -252,26 +264,30 @@ coo_template.mom_tbl <- function(x, size=1, from_col=coo, to_col={{from_col}}, .
 #' @inherit coo_center params return
 #' @family coo_modifyers
 #' @family rotations
+#'
+#' @details (todo) For `coo_align_xax`: ff some shapes are upside-down
+#' (or mirror of each others), try redefining a new starting point (eg with coo_slidedirection) before
+#' the alignment step. This may solve your problem because coo_calliper orders the `$arr.ind`` used by
+#' coo_aligncalliper.
+#'
 #' @examples
-#' bot$coo[[5]] %>% coo_align
+#' bot %>% pick(1) %>% coo_align
+#' bot %>% pick(1) %>% coo_align_xax
 #' @export
 coo_align <- function(x, from_col=coo, to_col=coo, ...) {
   UseMethod("coo_align")
 }
 
-#' @describeIn coo_align default method
 #' @export
 coo_align.default <- function(x, ...){
   (as.matrix(x) %*% (svd(stats::var(as.matrix(x)))$u)) %>% coo_single()
 }
 
-#' @describeIn coo_align list method
 #' @export
 coo_align.coo_list <- function(x, ...){
   x %>% purrr::map(coo_align) %>% coo_list()
 }
 
-#' @describeIn coo_align mom_tbl method
 #' @export
 coo_align.mom_tbl <- function(x, from_col=coo, to_col={{from_col}}, ...){
   # tidyeval
@@ -283,7 +299,44 @@ coo_align.mom_tbl <- function(x, from_col=coo, to_col={{from_col}}, ...){
                         coo_align())
 }
 
+# coo_align_xax ----------------------------------------------
 
+#' @describeIn coo_align align the longest axis of the shape along the x-axis
+#' @export
+coo_align_xax <- function(x, from_col, to_col, ...) {
+  UseMethod("coo_align_xax")
+}
+
+#' @export
+coo_align_xax.default <- function(x, ...){
+  .msg_info("coo_align_xax: not defined on this class")
+}
+
+#' @export
+coo_align_xax.coo_single <- function(x, ...) {
+  # first align
+  x <- coo_align(x)
+  # then remove diff from x-axis to y centroid position
+  y_cp <- get_centpos(x)$y
+  # return this beauty
+  x %>% coo_trans(x_trans = 0, y_trans = -y_cp) %>% coo_single()
+}
+
+#' @export
+coo_align_xax.coo_list <- function(x, ...) {
+  x %>% purrr::map(coo_align_xax) %>% coo_list()
+}
+
+#' @export
+coo_align_xax.mom_tbl <- function(x, from_col=coo, to_col={{from_col}}, ...) {
+  # tidyeval
+  c(from_col, to_col) %<-% tidyeval_coo_modifyers(from_col={{from_col}}, to_col={{to_col}})
+
+  # operate
+  x %>% dplyr::mutate(!!to_col := x %>%
+                        dplyr::pull(!!from_col) %>%
+                        coo_align_xax())
+}
 
 # coo_rotate ----------------------------------------------
 #' Rotate shapes
@@ -392,6 +445,90 @@ coo_rotatecenter.mom_tbl <- function(x, theta=0, center = c(0, 0), from_col=coo,
                         coo_rotatecenter(theta=theta, center=center) %>%
                         coo_list())
 }
+# FLIPPING ------------------------------------------------
+# coo_flip_x ----------------------------------------------
+#' Flip shapes
+#'
+#' Flips shapes about the x- or the y- axis
+#'
+#'
+#' @inherit coo_center params return
+#' @family coo_modifyers
+#' @examples
+#'
+#' bot %>% pick(1) %>% coo_flip_x() %>% gg()
+#' bot %>% pick(1) %>% coo_flip_y() %>% gg()
+#' @rdname coo_flip
+NULL
+
+#' @describeIn coo_flip Flips about the x-axis
+#' @export
+coo_flip_x <- function(x, from_col, to_col, ...) {
+  UseMethod("coo_flip_x")
+}
+
+#' @export
+coo_flip_x.default <- function(x, ...){
+.msg_info("coo_flip_x: not defined on this class")
+}
+
+#' @export
+coo_flip_x.coo_single <- function(x, ...) {
+  m <- matrix(c(1, 0, 0, -1), nrow = 2)
+  (as.matrix(x) %*% m) %>% coo_single()
+}
+
+#' @export
+coo_flip_x.coo_list <- function(x, n, ...) {
+  x %>% purrr::map(coo_flip_x) %>% coo_list()
+}
+
+#' @export
+coo_flip_x.mom_tbl <- function(x, n, from_col=coo, to_col={{from_col}}, ...) {
+  # tidyeval
+  c(from_col, to_col) %<-% tidyeval_coo_modifyers(from_col={{from_col}}, to_col={{to_col}})
+
+  # operate
+  x %>% dplyr::mutate(!!to_col := x %>%
+                        dplyr::pull(!!from_col) %>%
+                        coo_flip_x())
+}
+
+#' @describeIn coo_flip Flips about the y-axis
+#' @export
+coo_flip_y <- function(x, from_col, to_col, ...) {
+  UseMethod("coo_flip_y")
+}
+
+#' @export
+coo_flip_y.default <- function(x, ...){
+  .msg_info("coo_flip_y: not defined on this class")
+}
+
+#' @export
+coo_flip_y.coo_single <- function(x, ...) {
+  m <- matrix(c(-1, 0, 0, 1), nrow = 2)
+  (as.matrix(x) %*% m) %>% coo_single()
+}
+
+#' @export
+coo_flip_y.coo_list <- function(x, n, ...) {
+  x %>% purrr::map(coo_flip_y) %>% coo_list()
+}
+
+#' @export
+coo_flip_y.mom_tbl <- function(x, n, from_col=coo, to_col={{from_col}}, ...) {
+  # tidyeval
+  c(from_col, to_col) %<-% tidyeval_coo_modifyers(from_col={{from_col}}, to_col={{to_col}})
+
+  # operate
+  x %>% dplyr::mutate(!!to_col := x %>%
+                        dplyr::pull(!!from_col) %>%
+                        coo_flip_y())
+}
+
+
+
 
 # SAMPLING AND CO -----------------------------------------
 # coo_sample ----------
@@ -575,7 +712,7 @@ coo_sample_rr <- function(x, n ,from_col, to_col, ...) {
 
 #' @export
 coo_sample_rr.default <- function(x, ...){
-.msg_info("coo_sample_rr: not defined on this class")
+  .msg_info("coo_sample_rr: not defined on this class")
 }
 
 #' @export
@@ -705,7 +842,7 @@ coo_smooth_curve <- function(x, n, from_col, to_col, ...) {
 
 #' @export
 coo_smooth_curve.default <- function(x, ...){
-.msg_info("coo_smooth_curve: not defined on this class")
+  .msg_info("coo_smooth_curve: not defined on this class")
 }
 
 #' @export
@@ -744,7 +881,7 @@ coo_smooth_curve.mom_tbl <- function(x, n, from_col=coo, to_col={{from_col}}, ..
                         coo_smooth_curve(n=n))
 }
 
-# CLOSING -------------------------------------------------
+# CLOSING AND OPENING -------------------------------------
 
 # coo_close ----------------------------------------------
 
@@ -794,6 +931,7 @@ coo_close.mom_tbl <- function(x, from_col=coo, to_col={{from_col}}, ...) {
                         coo_close())
 }
 
+# coo_unclose ---------------------------------------------
 #' @describeIn coo_close Unclose shapes
 #' @export
 coo_unclose <- function(x, from_col, to_col, ...) {
@@ -830,6 +968,7 @@ coo_unclose.mom_tbl <- function(x, from_col=coo, to_col={{from_col}}, ...) {
                         coo_unclose())
 }
 
+# testers -------------------------------------------------
 #' @describeIn coo_close Tests if a coo_single (only) is closed
 #' @export
 is_closed <- function(x){
@@ -842,8 +981,6 @@ is_closed <- function(x){
 is_unclosed <- function(x){
   !is_closed(x)
 }
-
-# coo_up and friends --------------------------------------
 
 # coo_up ----------------------------------------------
 #' Retains coordinates based on their x/y sign
@@ -872,7 +1009,7 @@ coo_up <- function(x, from_col, to_col, ...) {
 
 #' @export
 coo_up.default <- function(x, ...){
-.msg_info("coo_up: not defined on this class")
+  .msg_info("coo_up: not defined on this class")
 }
 
 #' @export
@@ -896,6 +1033,7 @@ coo_up.mom_tbl <- function(x, from_col=coo, to_col={{from_col}}, ...) {
                         coo_up())
 }
 
+# coo_down ------------------------------------------------
 #' @describeIn coo_up filter lower part of a shape
 #' @export
 coo_down <- function(x, from_col, to_col, ...) {
@@ -904,7 +1042,7 @@ coo_down <- function(x, from_col, to_col, ...) {
 
 #' @export
 coo_down.default <- function(x, ...){
-.msg_info("coo_down: not defined on this class")
+  .msg_info("coo_down: not defined on this class")
 }
 
 #' @export
@@ -928,6 +1066,7 @@ coo_down.mom_tbl <- function(x, from_col=coo, to_col={{from_col}}, ...) {
                         coo_down())
 }
 
+# coo_left ------------------------------------------------
 #' @describeIn coo_up filter left part of a shape
 #' @export
 coo_left <- function(x, from_col, to_col, ...) {
@@ -936,7 +1075,7 @@ coo_left <- function(x, from_col, to_col, ...) {
 
 #' @export
 coo_left.default <- function(x, ...){
-.msg_info("coo_left: not defined on this class")
+  .msg_info("coo_left: not defined on this class")
 }
 
 #' @export
@@ -960,6 +1099,7 @@ coo_left.mom_tbl <- function(x,from_col=coo, to_col={{from_col}}, ...) {
                         coo_left())
 }
 
+# coo_right ------------------------------------------------
 #' @describeIn coo_up filter right part of a shape
 #' @export
 coo_right <- function(x, from_col, to_col, ...) {
@@ -968,7 +1108,7 @@ coo_right <- function(x, from_col, to_col, ...) {
 
 #' @export
 coo_right.default <- function(x, ...){
-.msg_info("coo_right: not defined on this class")
+  .msg_info("coo_right: not defined on this class")
 }
 
 #' @export

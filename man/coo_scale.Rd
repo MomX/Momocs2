@@ -2,24 +2,9 @@
 % Please edit documentation in R/coo_modifyers.R
 \name{coo_scale}
 \alias{coo_scale}
-\alias{coo_scale.default}
-\alias{coo_scale.coo_list}
-\alias{coo_scale.mom_tbl}
 \title{Scale shapes}
 \usage{
 coo_scale(x, scale, from_col, to_col, ...)
-
-\method{coo_scale}{default}(x, scale, ...)
-
-\method{coo_scale}{coo_list}(x, scale, ...)
-
-\method{coo_scale}{mom_tbl}(
-  x,
-  scale,
-  from_col = coo,
-  to_col = {     {         from_col     } },
-  ...
-)
 }
 \arguments{
 \item{x}{\link{coo_single}, \link{coo_list} or \link{mom_tbl}}
@@ -40,18 +25,9 @@ a \link{coo_single}, \link{coo_list} or \link{mom_tbl}
 \description{
 Returns a scaled shape.
 }
-\section{Methods (by class)}{
-\itemize{
-\item \code{default}: default method
-
-\item \code{coo_list}: list method
-
-\item \code{mom_tbl}: mom_tbl method
-}}
-
 \examples{
 
-bot$coo[[1]] \%>\% coo_scale
+bot \%>\% pick(1) \%>\% coo_scale()
 
 }
 \seealso{

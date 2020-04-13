@@ -2,25 +2,9 @@
 % Please edit documentation in R/coo_modifyers.R
 \name{coo_trans}
 \alias{coo_trans}
-\alias{coo_trans.default}
-\alias{coo_trans.coo_list}
-\alias{coo_trans.mom_tbl}
 \title{Translate shapes}
 \usage{
 coo_trans(x, x_trans = 0, y_trans = 0, from_col, to_col, ...)
-
-\method{coo_trans}{default}(x, x_trans = 0, y_trans = 0, ...)
-
-\method{coo_trans}{coo_list}(x, x_trans = 0, y_trans = 0, ...)
-
-\method{coo_trans}{mom_tbl}(
-  x,
-  x_trans = 0,
-  y_trans = 0,
-  from_col = coo,
-  to_col = {     {         from_col     } },
-  ...
-)
 }
 \arguments{
 \item{x}{\link{coo_single}, \link{coo_list} or \link{mom_tbl}}
@@ -39,19 +23,11 @@ and how to name the resulting one (only for \link{mom_tbl} method)}
 a \link{coo_single}, \link{coo_list} or \link{mom_tbl}
 }
 \description{
-Returns a shape translate by \code{x} and \code{y}.
+Returns a shape translated by \code{x_trans} and \code{y_trans}.
 }
-\section{Methods (by class)}{
-\itemize{
-\item \code{default}: default method
-
-\item \code{coo_list}: list method
-
-\item \code{mom_tbl}: mom_tbl method
-}}
-
 \examples{
-bot$coo[[1]] \%>\% coo_trans
+
+bot \%>\% pick() \%>\% coo_center() \%>\% coo_trans(5, 5) \%>\% gg()
 
 }
 \seealso{

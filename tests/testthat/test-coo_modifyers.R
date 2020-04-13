@@ -74,12 +74,6 @@ test_that("coo_scale works", {
   expect_equivalent(tibble(x=c(0, 2*sqrt(2)), y=c(0, -2*sqrt(2))) %>% get_centsize(),
                     expected = 2, tolerance=1e-10)
   expect_equivalent(bot$coo[[1]] %>% coo_scale %>% get_centsize(), 1, tol=1e-10)
-  x <- bot$coo %>% coo_scale()
-  expect_is(x, "coo_list")
-  expect_equivalent(x %>% purrr::map_dbl(get_centsize), rep(1, length(x)), tol=1e-10)
-
-  expect_is(bot %>% coo_scale, "mom_tbl")
-
 })
 
 
@@ -116,19 +110,19 @@ test_that("coo_rotate works", {
   expect_equal(x %>% degrees_to_radians() %>% radians_to_degrees(), x)
   y <- -pi/56
   expect_equal(y %>% radians_to_degrees() %>% degrees_to_radians(), y)
+})
 
-  expect_is(bot %>% pick(1) %>% coo_align, "coo_single")
-  expect_is(bot$coo %>% coo_align, "coo_list")
-  expect_is(bot %>% coo_align, "mom_tbl")
+# coo_align and align_xax--------
+test_that("coo_align and coo_align_xax work", {
+  # coo_align_xax
+  # todo I copy paste this here, above is possibly obsolete now
+  test_classes(coo_align)
+  test_cols_tidyeval(coo_align)
+  test_equivalence(coo_align)
 
-  expect_is(bot %>% pick(1) %>% coo_rotate, "coo_single")
-  expect_is(bot$coo %>% coo_rotate, "coo_list")
-  expect_is(bot %>% coo_rotate, "mom_tbl")
-
-  expect_is(bot %>% pick(1) %>% coo_rotatecenter, "coo_single")
-  expect_is(bot$coo %>% coo_rotatecenter, "coo_list")
-  expect_is(bot %>% coo_rotatecenter, "mom_tbl")
-
+  test_classes(coo_align_xax)
+  test_cols_tidyeval(coo_align_xax)
+  test_equivalence(coo_align_xax)
 })
 
 # coo_sample -----
@@ -240,3 +234,23 @@ test_that("coo_close, coo_unclose and testers work", {
 
 })
 
+# coo_up
+test_that("coo_up and friends work fine", {
+  test_classes(coo_up)
+  test_cols_tidyeval(coo_up)
+  test_equivalence(coo_up)
+
+  test_classes(coo_down)
+  test_cols_tidyeval(coo_down)
+  test_equivalence(coo_down)
+
+  test_classes(coo_left)
+  test_cols_tidyeval(coo_left)
+  test_equivalence(coo_left)
+
+  test_classes(coo_right)
+  test_cols_tidyeval(coo_right)
+  test_equivalence(coo_right)
+
+
+})
