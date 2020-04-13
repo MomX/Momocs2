@@ -146,7 +146,7 @@
     <p>Returns a scaled shape.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>coo_scale</span>(<span class='no'>x</span>, <span class='no'>scale</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>coo_scale</span>(<span class='no'>x</span>, <span class='no'>scale</span>, <span class='no'>from_col</span>, <span class='no'>to_col</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for default</span>
 <span class='fu'>coo_scale</span>(<span class='no'>x</span>, <span class='no'>scale</span>, <span class='no'>...</span>)
@@ -155,7 +155,13 @@
 <span class='fu'>coo_scale</span>(<span class='no'>x</span>, <span class='no'>scale</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for mom_tbl</span>
-<span class='fu'>coo_scale</span>(<span class='no'>x</span>, <span class='no'>scale</span>, <span class='kw'>from_col</span> <span class='kw'>=</span> <span class='no'>coo</span>, <span class='kw'>to_col</span> <span class='kw'>=</span> <span class='no'>coo</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>coo_scale</span>(
+  <span class='no'>x</span>,
+  <span class='no'>scale</span>,
+  <span class='kw'>from_col</span> <span class='kw'>=</span> <span class='no'>coo</span>,
+  <span class='kw'>to_col</span> <span class='kw'>=</span> {     {         <span class='no'>from_col</span>     } },
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -169,10 +175,6 @@
       <td><p><code>numeric</code> scaling factor (get_centsize by default).</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>useless here</p></td>
-    </tr>
-    <tr>
       <th>from_col</th>
       <td><p>colnames from where to get the coo_list
 and how to name the resulting one (only for mom_tbl method)</p></td>
@@ -181,6 +183,10 @@ and how to name the resulting one (only for mom_tbl method)</p></td>
       <th>to_col</th>
       <td><p>colnames from where to get the coo_list
 and how to name the resulting one (only for mom_tbl method)</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>useless here</p></td>
     </tr>
     </table>
 

@@ -148,9 +148,9 @@
 
     <pre class="usage"><span class='fu'>coo_sample</span>(<span class='no'>x</span>, <span class='no'>n</span>, <span class='no'>from_col</span>, <span class='no'>to_col</span>, <span class='no'>...</span>)
 
-<span class='fu'>coo_sample_prop</span>(<span class='no'>x</span>, <span class='no'>prop</span>, <span class='no'>...</span>)
+<span class='fu'>coo_sample_prop</span>(<span class='no'>x</span>, <span class='no'>prop</span>, <span class='kw'>from_col</span> <span class='kw'>=</span> <span class='no'>coo</span>, <span class='kw'>to_col</span> <span class='kw'>=</span> <span class='no'>coo</span>, <span class='no'>...</span>)
 
-<span class='fu'>coo_interpolate</span>(<span class='no'>x</span>, <span class='no'>n</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>coo_interpolate</span>(<span class='no'>x</span>, <span class='no'>n</span>, <span class='no'>from_col</span>, <span class='no'>to_col</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -164,8 +164,14 @@
       <td><p><code>integer</code> desired number of coordinates (required)</p></td>
     </tr>
     <tr>
-      <th>from_col, to_col</th>
-      <td><p>column names</p></td>
+      <th>from_col</th>
+      <td><p>colnames from where to get the coo_list
+and how to name the resulting one (only for mom_tbl method)</p></td>
+    </tr>
+    <tr>
+      <th>to_col</th>
+      <td><p>colnames from where to get the coo_list
+and how to name the resulting one (only for mom_tbl method)</p></td>
     </tr>
     <tr>
       <th>...</th>

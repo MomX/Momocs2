@@ -148,7 +148,14 @@ the trigonometric direction (anti-clockwise) and using center as coordinates." /
 the trigonometric direction (anti-clockwise) and using <code>center</code> as coordinates.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>coo_rotatecenter</span>(<span class='no'>x</span>, <span class='kw'>theta</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>center</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>), <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>coo_rotatecenter</span>(
+  <span class='no'>x</span>,
+  <span class='kw'>theta</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>center</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>),
+  <span class='kw'>from_col</span> <span class='kw'>=</span> <span class='no'>coo</span>,
+  <span class='kw'>to_col</span> <span class='kw'>=</span> <span class='no'>coo</span>,
+  <span class='no'>...</span>
+)
 
 <span class='co'># S3 method for default</span>
 <span class='fu'>coo_rotatecenter</span>(<span class='no'>x</span>, <span class='kw'>theta</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>center</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>), <span class='no'>...</span>)
@@ -165,7 +172,7 @@ the trigonometric direction (anti-clockwise) and using <code>center</code> as co
   <span class='kw'>theta</span> <span class='kw'>=</span> <span class='fl'>0</span>,
   <span class='kw'>center</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>),
   <span class='kw'>from_col</span> <span class='kw'>=</span> <span class='no'>coo</span>,
-  <span class='kw'>to_col</span> <span class='kw'>=</span> <span class='no'>coo</span>,
+  <span class='kw'>to_col</span> <span class='kw'>=</span> {     {         <span class='no'>from_col</span>     } },
   <span class='no'>...</span>
 )</pre>
 
@@ -185,10 +192,6 @@ the trigonometric direction (anti-clockwise) and using <code>center</code> as co
       <td><p><code>numeric</code> of length 2, sepcifying the <code>(x; y)</code> coordinates of the rotation center. Default to <code><a href='https://rdrr.io/r/base/c.html'>c(0, 0)</a></code></p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>useless here</p></td>
-    </tr>
-    <tr>
       <th>from_col</th>
       <td><p>colnames from where to get the coo_list
 and how to name the resulting one (only for mom_tbl method)</p></td>
@@ -197,6 +200,10 @@ and how to name the resulting one (only for mom_tbl method)</p></td>
       <th>to_col</th>
       <td><p>colnames from where to get the coo_list
 and how to name the resulting one (only for mom_tbl method)</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>useless here</p></td>
     </tr>
     </table>
 
