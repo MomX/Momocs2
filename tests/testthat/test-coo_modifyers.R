@@ -213,17 +213,30 @@ test_that("coo_interpolate works", {
 
 # coo_smooth -------
 
-# coo_center ---------
-test_that("coo_smooth, coo_smooth_curve work", {
-  test_classes(coo_smooth, 2)
-  test_cols_tidyeval(coo_smooth, 2)
-  test_equivalence(coo_smooth, 2)
+# coo_close ---------
+test_that("coo_close, coo_unclose and testers work", {
+  test_classes(coo_close)
+  test_cols_tidyeval(coo_close)
+  test_equivalence(coo_close)
 
-  test_classes(coo_smooth_curve, 2)
-  test_cols_tidyeval(coo_smooth_curve, 2)
-  test_equivalence(coo_smooth_curve, 2)
+  test_classes(coo_unclose)
+  test_cols_tidyeval(coo_unclose)
+  test_equivalence(coo_unclose)
+
+
+  x <- bot %>% pick(1)
+  # test helpers
+  expect_true(x %>% coo_close %>% is_closed)
+  expect_true(x %>% coo_unclose %>% is_unclosed)
+
+  # test composition
+  expect_equal(x %>% coo_close %>% coo_unclose, x)
+
+  # test that once it's closed, it's closed
+  expect_identical(x %>% coo_close, x %>% coo_close %>% coo_close)
+
+  # same for open
+  expect_identical(x %>% coo_unclose, x %>% coo_unclose %>% coo_unclose)
+
 })
 
-bot %>% pick(1) %>% coo_smooth(5)
-
-bot$coo %>% coo_smooth(5)

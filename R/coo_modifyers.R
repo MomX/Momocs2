@@ -567,7 +567,7 @@ coo_interpolate.mom_tbl <- function(x, n, from_col=coo, to_col={{from_col}}, ...
 #' @param n `integer` desired number of coordinates (required)
 #' @family coo_modifyers
 #' @examples
-#'
+#' bot %>% pick(1)  # todo
 #' @export
 coo_sample_rr <- function(x, n ,from_col, to_col, ...) {
   UseMethod("coo_sample_rr")
@@ -744,7 +744,104 @@ coo_smooth_curve.mom_tbl <- function(x, n, from_col=coo, to_col={{from_col}}, ..
                         coo_smooth_curve(n=n))
 }
 
+# CLOSING -------------------------------------------------
 
+# coo_close ----------------------------------------------
+
+#' Close and unclose shapes
+#'
+#' A closed shape is a shape with the same first and last coordinates.
+#'
+#'
+#' @inherit coo_center params return
+#' @family coo_modifyers close
+#' @examples
+#'
+#' bot %>% pick(1)  # todo
+#' @rdname coo_close
+#' @export
+coo_close <- function(x, from_col, to_col, ...) {
+  UseMethod("coo_close")
+}
+
+#' @export
+coo_close.default <- function(x, ...){
+  .msg_info("coo_close: not defined on this class")
+}
+
+#' @export
+coo_close.coo_single <- function(x, ...) {
+  # if already closed, just forward
+  if (is_closed(x))
+    x
+  else
+    dplyr::bind_rows(x, x[1, ]) %>% coo_single()
+}
+
+#' @export
+coo_close.coo_list <- function(x, ...) {
+  x %>% purrr::map(coo_close) %>% coo_list()
+}
+
+#' @export
+coo_close.mom_tbl <- function(x, from_col=coo, to_col={{from_col}}, ...) {
+  # tidyeval
+  c(from_col, to_col) %<-% tidyeval_coo_modifyers(from_col={{from_col}}, to_col={{to_col}})
+
+  # operate
+  x %>% dplyr::mutate(!!to_col := x %>%
+                        dplyr::pull(!!from_col) %>%
+                        coo_close())
+}
+
+#' @describeIn coo_close Unclose shapes
+#' @export
+coo_unclose <- function(x, from_col, to_col, ...) {
+  UseMethod("coo_unclose")
+}
+
+#' @export
+coo_unclose.default <- function(x, ...){
+  .msg_info("coo_unclose: not defined on this class")
+}
+
+#' @export
+coo_unclose.coo_single <- function(x, ...) {
+  # if already unclosed, just forward
+  if (is_unclosed(x))
+    x
+  else
+    x[-nrow(x), ] %>% coo_single()
+}
+
+#' @export
+coo_unclose.coo_list <- function(x, ...) {
+  x %>% purrr::map(coo_unclose) %>% coo_list()
+}
+
+#' @export
+coo_unclose.mom_tbl <- function(x, from_col=coo, to_col={{from_col}}, ...) {
+  # tidyeval
+  c(from_col, to_col) %<-% tidyeval_coo_modifyers(from_col={{from_col}}, to_col={{to_col}})
+
+  # operate
+  x %>% dplyr::mutate(!!to_col := x %>%
+                        dplyr::pull(!!from_col) %>%
+                        coo_unclose())
+}
+
+#' @describeIn coo_close Tests if a coo_single (only) is closed
+#' @export
+is_closed <- function(x){
+  identical(x[1, ], x[nrow(x), ])
+}
+
+
+#' @describeIn coo_close Tests if a coo_single (only) is unclosed
+#' @export
+is_unclosed <- function(x){
+  !is_closed(x)
+}
 
 
 
