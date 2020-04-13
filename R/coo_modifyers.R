@@ -512,7 +512,7 @@ coo_interpolate.coo_single <- function(x, n, ...) {
   # early forward if more coordinates than asked
   if (nrow(x) > n){
     .msg_info("coo_interpolate: n was lower than the number of coordinates, coo_sample instead")
-   x %>% coo_sample(n) %>% return()
+    x %>% coo_sample(n) %>% return()
   }
   # early return when unchanged must be returned
   if (nrow(x)==n){
@@ -556,4 +556,74 @@ coo_interpolate.mom_tbl <- function(x, n, from_col=coo, to_col={{from_col}}, ...
   # operate
   x %>% dplyr::mutate(!!to_col := x %>% dplyr::pull(!!from_col) %>% coo_interpolate(n=n))
 }
+
+
+# SMOOTHING -----------------------------------------------
+
+# coo_smooth ----------------------------------------------
+#' Smooth shapes
+#'
+#' Smooth shape coordinates using a moving average
+#'
+#'
+#' @inherit coo_center params return
+#' @param n `integer` smoothing iterations
+#' @family coo_modifyers smooth
+#' @examples
+#'
+#' bot %>% pick(1) %>% coo_smooth(5) %>% gg()
+#'
+#' @export
+coo_smooth <- function(x, n, from_col, to_col, ...) {
+  UseMethod("coo_smooth")
+}
+
+#' @export
+coo_smooth.default <- function(x, ...){
+  .msg_info("coo_smooth: not defined on this class")
+}
+
+#' @export
+coo_smooth.coo_single <- function(x, n, ...) {
+  if (missing(n)){
+    .msg_info("coo_smooth: 'n' must be provided")
+    stop()
+  }
+  p <- nrow(x)
+  a <- 0
+  while (a < n) {
+    a <- a + 1
+    x_i <- rbind(x[-1, ], x[1, ])
+    x_s <- rbind(x[p, ], x[-p, ])
+    x <- x/2 + x_i/4 + x_s/4
+  }
+
+  # return this beauty
+  x %>% coo_single()
+}
+
+#' @export
+coo_smooth.coo_list <- function(x, n, ...) {
+  x %>% purrr::map(coo_smooth, n=n) %>% coo_list()
+}
+
+#' @export
+coo_smooth.mom_tbl <- function(x, n, from_col=coo, to_col={{from_col}}, ...) {
+  # tidyeval
+  c(from_col, to_col) %<-% tidyeval_coo_modifyers(from_col={{from_col}}, to_col={{to_col}})
+
+  # operate
+  x %>% dplyr::mutate(!!to_col := x %>%
+                        dplyr::pull(!!from_col) %>%
+                        coo_smooth(n=n))
+}
+
+
+
+
+
+
+
+
+
 

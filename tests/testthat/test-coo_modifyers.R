@@ -200,3 +200,16 @@ test_that("coo_interpolate works", {
                rep(24, 2))
 })
 
+
+# coo_smooth -------
+
+# coo_center ---------
+test_that("coo_smooth works", {
+  test_classes(coo_smooth, 5)
+  test_cols_tidyeval(coo_smooth, 5)
+  test_equivalence(coo_smooth, 5)
+})
+
+bot %>% pick(1) %>% coo_smooth(5)
+
+bot$coo %>% coo_smooth(5)
