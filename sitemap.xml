@@ -4,6 +4,9 @@
     <loc>http://momx.github.io/Momocs2/index.html</loc>
   </url>
   <url>
+    <loc>http://momx.github.io/Momocs2/reference/Momocs2-package.html</loc>
+  </url>
+  <url>
     <loc>http://momx.github.io/Momocs2/reference/babel.html</loc>
   </url>
   <url>
@@ -97,6 +100,9 @@
     <loc>http://momx.github.io/Momocs2/reference/mosaic.html</loc>
   </url>
   <url>
+    <loc>http://momx.github.io/Momocs2/reference/multi-assign.html</loc>
+  </url>
+  <url>
     <loc>http://momx.github.io/Momocs2/reference/pick.html</loc>
   </url>
   <url>
@@ -115,10 +121,16 @@
     <loc>http://momx.github.io/Momocs2/reference/scree.html</loc>
   </url>
   <url>
+    <loc>http://momx.github.io/Momocs2/reference/slive.html</loc>
+  </url>
+  <url>
     <loc>http://momx.github.io/Momocs2/reference/stat_pca.html</loc>
   </url>
   <url>
     <loc>http://momx.github.io/Momocs2/reference/tidyeval.html</loc>
+  </url>
+  <url>
+    <loc>http://momx.github.io/Momocs2/reference/tidyeval_coo_modifyers.html</loc>
   </url>
   <url>
     <loc>http://momx.github.io/Momocs2/reference/unfold.html</loc>

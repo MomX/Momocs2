@@ -146,7 +146,9 @@
     <p>Changes the number of shape coordinates.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>coo_sample</span>(<span class='no'>x</span>, <span class='no'>n</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>coo_sample</span>(<span class='no'>x</span>, <span class='no'>n</span>, <span class='no'>from_col</span>, <span class='no'>to_col</span>, <span class='no'>...</span>)
+
+<span class='fu'>coo_sample_prop</span>(<span class='no'>x</span>, <span class='no'>prop</span>, <span class='no'>...</span>)
 
 <span class='fu'>coo_interpolate</span>(<span class='no'>x</span>, <span class='no'>n</span>, <span class='no'>...</span>)</pre>
 
@@ -162,8 +164,17 @@
       <td><p><code>integer</code> desired number of coordinates (required)</p></td>
     </tr>
     <tr>
+      <th>from_col, to_col</th>
+      <td><p>column names</p></td>
+    </tr>
+    <tr>
       <th>...</th>
       <td><p>useless here</p></td>
+    </tr>
+    <tr>
+      <th>prop</th>
+      <td><p><code>numeric</code> desired poportion of sampled coordinates (required).
+Below 1 will sample, above 1 will interpolate.</p></td>
     </tr>
     </table>
 
@@ -177,11 +188,13 @@ The last point will be dropped so that the distance (new last - first) roughly e
 all other distances between consecutive points. This is typically useful for outlines.
 coo_sample_curve (todo link) will preserve the first and last points.
 This is typically useful for curves, hence the name.
-coo_interpolate will upsample the number of points.</p>
+coo_interpolate will upsample the number of points.
+All functions have a <code>_prop</code> ally, where <code>n</code> is deduced from the proportion you want to retain.</p>
     <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
 
     
 <ul>
+<li><p><code>coo_sample_prop</code>: Sample a proportion of coordinates</p></li>
 <li><p><code>coo_interpolate</code>: Interpolates shape coordinates</p></li>
 </ul>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -218,7 +231,7 @@ coo_interpolate will upsample the number of points.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

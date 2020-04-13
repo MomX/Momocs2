@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Objects exported from other packages — reexports • Momocs2</title>
+<title>Tidyeval helpers — tidyeval_coo_modifyers • Momocs2</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,13 +46,8 @@
 
 
 
-<meta property="og:title" content="Objects exported from other packages — reexports" />
-<meta property="og:description" content="These objects are imported from other packages. Follow the links
-below to see their documentation.
-
-  magrittr%$%
-
-" />
+<meta property="og:title" content="Tidyeval helpers — tidyeval_coo_modifyers" />
+<meta property="og:description" content="Functions that pack repeated tidyeval behaviour" />
 <meta property="og:image" content="http://momx.github.io/Momocs2/logo.png" />
 
 
@@ -142,23 +137,84 @@ below to see their documentation.
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Objects exported from other packages</h1>
+    <h1>Tidyeval helpers</h1>
     
-    <div class="hidden name"><code>reexports.Rd</code></div>
+    <div class="hidden name"><code>tidyeval_coo_modifyers.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>These objects are imported from other packages. Follow the links
-below to see their documentation.</p>
-<dl'>
-  <dt>magrittr</dt><dd><p><code><a href='https://rdrr.io/pkg/magrittr/man/exposition.html'>%$%</a></code></p></dd>
-
-</dl>
+    <p>Functions that pack repeated tidyeval behaviour</p>
     </div>
 
+    <pre class="usage"><span class='fu'>tidyeval_coo_modifyers</span>(<span class='kw'>from_col</span> <span class='kw'>=</span> <span class='no'>coo</span>, <span class='kw'>to_col</span> <span class='kw'>=</span> <span class='no'>coo</span>)</pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>from_col</th>
+      <td><p>column name</p></td>
+    </tr>
+    <tr>
+      <th>to_col</th>
+      <td><p>column name</p></td>
+    </tr>
+    </table>
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p><a href='https://rdrr.io/r/base/function.html'>closure</a>, for delayer evaluation</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    
+<ul>
+<li><p>tidyeval_coo_modifyers: used in <code>coo_*</code> modifyers.</p><ul>
+<li><p>Default to <code>coo</code> for both <code>from_col</code> and <code>to_col</code>.</p></li>
+<li><p>If <code>from_col</code> is passed but not <code>to_col</code>, the latter also uses  <code>from_col</code>.
+This is where the <em>modifying</em> behaviour is reflected.</p></li>
+</ul></li>
+</ul>
 
 
-
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class='fu'>tidyeval_coo_modifyers</span>()</div><div class='output co'>#&gt; $from_col
+#&gt; &lt;quosure&gt;
+#&gt; expr: ^coo
+#&gt; env:  0x8c40a68
+#&gt; 
+#&gt; $to_col
+#&gt; &lt;quosure&gt;
+#&gt; expr: ^coo
+#&gt; env:  0x8c40a68
+#&gt; </div><div class='input'><span class='fu'>tidyeval_coo_modifyers</span>(<span class='no'>plip</span>)</div><div class='output co'>#&gt; $from_col
+#&gt; &lt;quosure&gt;
+#&gt; expr: ^plip
+#&gt; env:  0x8b0d310
+#&gt; 
+#&gt; $to_col
+#&gt; &lt;quosure&gt;
+#&gt; expr: ^plip
+#&gt; env:  0x8b0d310
+#&gt; </div><div class='input'><span class='fu'>tidyeval_coo_modifyers</span>(<span class='kw'>to_col</span><span class='kw'>=</span><span class='no'>plop</span>)</div><div class='output co'>#&gt; $from_col
+#&gt; &lt;quosure&gt;
+#&gt; expr: ^coo
+#&gt; env:  0x79ec668
+#&gt; 
+#&gt; $to_col
+#&gt; &lt;quosure&gt;
+#&gt; expr: ^plop
+#&gt; env:  0x8b0d310
+#&gt; </div><div class='input'><span class='fu'>tidyeval_coo_modifyers</span>(<span class='no'>plip</span>, <span class='no'>plop</span>)</div><div class='output co'>#&gt; $from_col
+#&gt; &lt;quosure&gt;
+#&gt; expr: ^plip
+#&gt; env:  0x8b0d310
+#&gt; 
+#&gt; $to_col
+#&gt; &lt;quosure&gt;
+#&gt; expr: ^plop
+#&gt; env:  0x8b0d310
+#&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
