@@ -25,6 +25,9 @@
     <loc>http://momx.github.io/Momocs2/reference/coo_center.html</loc>
   </url>
   <url>
+    <loc>http://momx.github.io/Momocs2/reference/coo_close.html</loc>
+  </url>
+  <url>
     <loc>http://momx.github.io/Momocs2/reference/coo_list.html</loc>
   </url>
   <url>
@@ -37,10 +40,19 @@
     <loc>http://momx.github.io/Momocs2/reference/coo_sample.html</loc>
   </url>
   <url>
+    <loc>http://momx.github.io/Momocs2/reference/coo_sample_rr.html</loc>
+  </url>
+  <url>
     <loc>http://momx.github.io/Momocs2/reference/coo_scale.html</loc>
   </url>
   <url>
     <loc>http://momx.github.io/Momocs2/reference/coo_single.html</loc>
+  </url>
+  <url>
+    <loc>http://momx.github.io/Momocs2/reference/coo_smooth.html</loc>
+  </url>
+  <url>
+    <loc>http://momx.github.io/Momocs2/reference/coo_smooth_curve.html</loc>
   </url>
   <url>
     <loc>http://momx.github.io/Momocs2/reference/coo_template.html</loc>
