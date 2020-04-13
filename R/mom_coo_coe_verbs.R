@@ -6,6 +6,7 @@
 #' @return a coo_df
 #' @note Used to be `[[` in Momocs < 2.0 (eg `bot[[1]]` is replace with `bot %>% pick(1)`)
 #' @family mom verbs
+#' @seealso [slive]
 #' @examples
 #' bot %>% pick(1) %>% gg()
 #' bot$coo %>% pick(2)
@@ -40,6 +41,41 @@ pick.coo_list <- function(x, i){
     i <- sample(length(x), 1)
   x[[i]]
 }
+
+
+# slive ----------------------------------------------------
+
+# pick a single row from a tibble
+# https://english.stackexchange.com/questions/20948/single-word-for-thin-slice
+
+#' Pick a single row from a tbl
+#'
+#' Just a wrapper around `[` (so a raw [dplyr::slice] that also add the random aspect.
+#'
+#' @param x a `mom_tbl` (or a [tibble::tibble] or a [data.frame])
+#' @param i `int` which to extract. If not provided, pick one randomly.
+#' @return a [mom_tbl] (or a [tibble::tibble] or a [data.frame])
+#' @family mom verbs
+#' @seealso [pick]
+#' @examples
+#' bot %>% slive(1)
+#' @export
+slive <- function(x, i){
+  UseMethod("slive")
+}
+
+#' @export
+slice.default <- function(x, i){
+  .msg_info("slive: not method defined for this class")
+}
+
+#' @export
+slive.data.frame <- function(x, i){
+  if (missing(i))
+    i <- sample(nrow(x), 1)
+  dplyr::slice(x, i)
+}
+
 
 # plint ---------------------------------------------------
 # todo good idea that waits for more graphs

@@ -12,6 +12,24 @@ test_that("pick works", {
   expect_is(bot$coo %>% pick(), "coo_single")
 })
 
+test_that("slice works", {
+  b1 <- bot[1, ]
+  b2 <- bot %>% slive(1)
+
+  expect_identical(b1, b2)
+
+  # no i passed, random
+  expect_is(bot %>% slive(), "mom_tbl")
+  # not defined
+  expect_message(pick("a"))
+
+  # classes
+  expect_is(bot %>% slive(1), "mom_tbl")
+  expect_is(iris %>% slive, "data.frame")
+  expect_is(iris %>% tibble::as_tibble() %>% slive(), "tbl")
+
+})
+
 # test_that("plint works", {
 #   x <- matrix(1:12, ncol=2) %>% coo_single()
 #   # with no rhs

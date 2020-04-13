@@ -33,6 +33,7 @@ x \%>\% press(keep_others=FALSE) # eg for PCA
 
 Other mom verbs: 
 \code{\link{pick}()},
+\code{\link{slive}()},
 \code{\link{unfold}()}
 }
 \concept{mom verbs}

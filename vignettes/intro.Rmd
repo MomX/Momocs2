@@ -126,3 +126,6 @@ Momocs2 is a rewrite of Momocs. The main changes are:
 You can pass single shapes or list of shapes to all `coo_*` methods. You're not bound to Momocs, you can come, use it and return to your preferred environment.
 
 example here
+
+#
+

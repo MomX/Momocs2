@@ -29,6 +29,7 @@ bot \%>\% unfold
 
 Other mom verbs: 
 \code{\link{pick}()},
-\code{\link{press}()}
+\code{\link{press}()},
+\code{\link{slive}()}
 }
 \concept{mom verbs}

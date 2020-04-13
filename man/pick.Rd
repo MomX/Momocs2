@@ -25,8 +25,11 @@ bot \%>\% pick(1) \%>\% gg()
 bot$coo \%>\% pick(2)
 }
 \seealso{
+\link{slive}
+
 Other mom verbs: 
 \code{\link{press}()},
+\code{\link{slive}()},
 \code{\link{unfold}()}
 }
 \concept{mom verbs}
