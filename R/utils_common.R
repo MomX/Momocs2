@@ -9,3 +9,9 @@
   if (!cond_to_pass)
     .msg_danger(mess_if_not)
 }
+
+# standardizes message when no method
+not_defined <- function(fun=""){
+  paste0(fun, ": no method defined on this class") %>%
+    .msg_info()
+}

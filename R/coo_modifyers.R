@@ -1,5 +1,6 @@
 #todo: all .list methods should return 'coo_list"
 
+
 # TRANSLATION AND CO --------------------------------------
 # coo_center ----------------------------------------------
 
@@ -30,7 +31,7 @@ coo_center <- function(x, from_col=coo, to_col=coo, ...) {
 
 #' @export
 coo_center.default <- function(x, ...){
-  .msg_info("coo_center: not defined on this class")
+  not_defined("coo_center")
 }
 
 #' @describeIn coo_center coo_single method
@@ -84,7 +85,7 @@ coo_trans <- function(x, x_trans=0, y_trans=0, from_col, to_col, ...) {
 
 #' @export
 coo_trans.default <- function(x,  ...) {
-  .msg_info("coo_trans: no method defined for this class")
+  not_defined("coo_trans")
 }
 
 #' @export
@@ -140,7 +141,7 @@ coo_scale <- function(x, scale, from_col, to_col, ...) {
 
 #' @export
 coo_scale.default <- function(x, ...){
-  .msg_info("coo_scale: no method defined on this class")
+  not_defined("coo_scale")
 }
 
 #' @export
@@ -195,15 +196,20 @@ coo_template <- function(x, size=1, from_col, to_col, ...) {
   UseMethod("coo_template")
 }
 
-#' @describeIn coo_template default method
 #' @export
-coo_template.default <- function(x, size=1, ...) {
+coo_template.default <- function(x, ...){
+  not_defined("coo_template")
+}
+
+#' @export
+coo_template.coo_single <- function(x, size=1, ...) {
   # get the rescaling ratio
   k <- min(size/get_diffrange(x))
   # center and apply it
   x %>%
     coo_center %>%
-    dplyr::mutate(x=.data$x*k, y=.data$y*k)
+    dplyr::mutate(x=.data$x*k, y=.data$y*k) %>%
+    coo_single()
 }
 
 #' @describeIn coo_template list method
@@ -280,6 +286,11 @@ coo_align <- function(x, from_col=coo, to_col=coo, ...) {
 
 #' @export
 coo_align.default <- function(x, ...){
+  not_defined("coo_align")
+}
+
+#' @export
+coo_align.coo_single <- function(x, ...){
   (as.matrix(x) %*% (svd(stats::var(as.matrix(x)))$u)) %>% coo_single()
 }
 
@@ -309,7 +320,7 @@ coo_align_xax <- function(x, from_col, to_col, ...) {
 
 #' @export
 coo_align_xax.default <- function(x, ...){
-  .msg_info("coo_align_xax: not defined on this class")
+  not_defined("coo_align_xax")
 }
 
 #' @export
@@ -361,21 +372,23 @@ coo_rotate <- function(x, theta = 0, from_col=coo, to_col=coo, ...) {
   UseMethod("coo_rotate")
 }
 
-#' @describeIn coo_rotate default method
 #' @export
-coo_rotate.default <- function(x, theta = 0, ...) {
+coo_rotate.default <- function(x, ...){
+  not_defined("coo_rotate")
+}
+
+#' @export
+coo_rotate.coo_single <- function(x, theta = 0, ...) {
   mat <- matrix(c(cos(-theta), sin(-theta), -sin(-theta), cos(-theta)), nrow = 2)
   x %>% as.matrix() %*% mat %>% coo_single()
 }
 
-#' @describeIn coo_rotate coo_list method
 #' @export
 coo_rotate.coo_list <- function(x, theta = 0, ...) {
   mat <- matrix(c(cos(-theta), sin(-theta), -sin(-theta), cos(-theta)), nrow = 2)
   x %>% purrr::map(~.x %>% as.matrix() %*% mat %>% coo_single()) %>% coo_list()
 }
 
-#' @describeIn coo_rotate default method
 #' @export
 coo_rotate.list <- coo_rotate.coo_list
 
@@ -408,28 +421,27 @@ coo_rotatecenter <- function(x, theta=0, center = c(0, 0), from_col=coo, to_col=
   UseMethod("coo_rotatecenter")
 }
 
-#' @describeIn coo_rotatecenter default method
 #' @export
-coo_rotatecenter.default <- function(x, theta=0, center = c(0, 0), ...){
+coo_rotatecenter.default <- function(x, ...){
+  not_defined("coo_rotatecenter")
+}
+
+#' @export
+coo_rotatecenter.coo_single <- function(x, theta=0, center = c(0, 0), ...){
   center <- unlist(center) # if passed as data.frame like
   x %>%
     # probably a more direct option
     coo_trans(x_trans = -center[1], y_trans = -center[2]) %>%
     coo_rotate(theta) %>%
-    coo_trans(x_trans = center[1], y_trans = center[2])
+    coo_trans(x_trans = center[1], y_trans = center[2]) %>%
+    coo_single()
 }
 
-#' @describeIn coo_rotatecenter coo_list method
 #' @export
 coo_rotatecenter.coo_list <- function(x, theta=0, center = c(0, 0), ...) {
   x %>% purrr::map(coo_rotatecenter, center=center) %>% coo_list()
 }
 
-#' @describeIn coo_rotatecenter list method
-#' @export
-coo_rotatecenter.list <- coo_rotatecenter.coo_list
-
-#' @describeIn coo_rotatecenter mom_tbl method
 #' @export
 coo_rotatecenter.mom_tbl <- function(x, theta=0, center = c(0, 0), from_col=coo, to_col={{from_col}}, ...) {
   # tidyeval
@@ -469,7 +481,7 @@ coo_flip_x <- function(x, from_col, to_col, ...) {
 
 #' @export
 coo_flip_x.default <- function(x, ...){
-  .msg_info("coo_flip_x: not defined on this class")
+  not_defined("coo_flip_x")
 }
 
 #' @export
@@ -502,7 +514,7 @@ coo_flip_y <- function(x, from_col, to_col, ...) {
 
 #' @export
 coo_flip_y.default <- function(x, ...){
-  .msg_info("coo_flip_y: not defined on this class")
+  not_defined("coo_flip_y")
 }
 
 #' @export
@@ -562,6 +574,11 @@ coo_sample <- function(x, n, from_col, to_col, ...) {
 }
 
 #' @export
+coo_sample.default <- function(x,  ...) {
+  not_defined("coo_sample")
+}
+
+#' @export
 coo_sample.coo_single <- function(x, n, ...) {
   # early stop if n is missing
   if (missing(n)){
@@ -607,7 +624,7 @@ coo_sample_prop <- function(x, prop, from_col=coo, to_col=coo, ...){
 
 #' @export
 coo_sample_prop.default <- function(x, prop, ...){
-  .msg_info("coo_sample_prop: not defined on this class")
+  not_defined("coo_sample_prop")
 }
 
 #' @export
@@ -639,6 +656,11 @@ coo_sample_prop.mom_tbl <- function(x, prop, from_col=coo, to_col={{from_col}}, 
 #' @export
 coo_interpolate <- function(x, n, from_col, to_col, ...) {
   UseMethod("coo_interpolate")
+}
+
+#' @export
+coo_interpolate.default <- function(x, ...){
+  not_defined("coo_interpolate")
 }
 
 #' @export
@@ -709,7 +731,7 @@ coo_sample_rr <- function(x, n ,from_col, to_col, ...) {
 
 #' @export
 coo_sample_rr.default <- function(x, ...){
-  .msg_info("coo_sample_rr: not defined on this class")
+  not_defined("coo_sample_rr")
 }
 
 #' @export
@@ -779,7 +801,7 @@ coo_smooth <- function(x, n, from_col, to_col, ...) {
 
 #' @export
 coo_smooth.default <- function(x, ...){
-  .msg_info("coo_smooth: not defined on this class")
+  not_defined("coo_smooth")
 }
 
 #' @export
@@ -839,7 +861,7 @@ coo_smooth_curve <- function(x, n, from_col, to_col, ...) {
 
 #' @export
 coo_smooth_curve.default <- function(x, ...){
-  .msg_info("coo_smooth_curve: not defined on this class")
+  not_defined("coo_smooth_curve")
 }
 
 #' @export
@@ -900,7 +922,7 @@ coo_close <- function(x, from_col, to_col, ...) {
 
 #' @export
 coo_close.default <- function(x, ...){
-  .msg_info("coo_close: not defined on this class")
+  not_defined("coo_close")
 }
 
 #' @export
@@ -937,7 +959,7 @@ coo_unclose <- function(x, from_col, to_col, ...) {
 
 #' @export
 coo_unclose.default <- function(x, ...){
-  .msg_info("coo_unclose: not defined on this class")
+  not_defined("coo_unclose")
 }
 
 #' @export
@@ -1006,7 +1028,7 @@ coo_up <- function(x, from_col, to_col, ...) {
 
 #' @export
 coo_up.default <- function(x, ...){
-  .msg_info("coo_up: not defined on this class")
+  not_defined("coo_up")
 }
 
 #' @export
@@ -1039,7 +1061,7 @@ coo_down <- function(x, from_col, to_col, ...) {
 
 #' @export
 coo_down.default <- function(x, ...){
-  .msg_info("coo_down: not defined on this class")
+  not_defined("coo_down")
 }
 
 #' @export
@@ -1072,7 +1094,7 @@ coo_left <- function(x, from_col, to_col, ...) {
 
 #' @export
 coo_left.default <- function(x, ...){
-  .msg_info("coo_left: not defined on this class")
+  not_defined("coo_left")
 }
 
 #' @export
@@ -1105,7 +1127,7 @@ coo_right <- function(x, from_col, to_col, ...) {
 
 #' @export
 coo_right.default <- function(x, ...){
-  .msg_info("coo_right: not defined on this class")
+  not_defined("coo_right")
 }
 
 #' @export
@@ -1148,7 +1170,7 @@ coo_rev <- function(x, from_col, to_col, ...) {
 
 #' @export
 coo_rev.default <- function(x, ...){
-  .msg_info("coo_rev: not defined on this class")
+  not_defined("coo_rev")
 }
 
 #' @export
@@ -1197,7 +1219,7 @@ coo_trim <- function(x, n, from_col, to_col, ...) {
 
 #' @export
 coo_trim.default <- function(x, ...){
-  .msg_info("coo_trim: not defined on this class")
+  not_defined("coo_trim")
 }
 
 #' @export
@@ -1233,7 +1255,7 @@ coo_trim_head <- function(x, n, from_col, to_col, ...) {
 
 #' @export
 coo_trim_head.default <- function(x, ...){
-  .msg_info("coo_trim_head: not defined on this class")
+  not_defined("coo_trim_head")
 }
 
 #' @export
@@ -1269,7 +1291,7 @@ coo_trim_tail <- function(x, n, from_col, to_col, ...) {
 
 #' @export
 coo_trim_tail.default <- function(x, ...){
-  .msg_info("coo_trim_tail: not defined on this class")
+  not_defined("coo_trim_tail")
 }
 
 #' @export

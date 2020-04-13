@@ -2,14 +2,11 @@
 % Please edit documentation in R/coo_modifyers.R
 \name{coo_template}
 \alias{coo_template}
-\alias{coo_template.default}
 \alias{coo_template.coo_list}
 \alias{coo_template.mom_tbl}
 \title{Templates shapes}
 \usage{
 coo_template(x, size = 1, from_col, to_col, ...)
-
-\method{coo_template}{default}(x, size = 1, ...)
 
 \method{coo_template}{coo_list}(x, size = 1, ...)
 
@@ -42,8 +39,6 @@ Centers shape and scale them so that they are inscribed in a \code{size}-side sq
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{default}: default method
-
 \item \code{coo_list}: list method
 
 \item \code{mom_tbl}: mom_tbl method

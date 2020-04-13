@@ -2,10 +2,6 @@
 % Please edit documentation in R/coo_modifyers.R
 \name{coo_rotatecenter}
 \alias{coo_rotatecenter}
-\alias{coo_rotatecenter.default}
-\alias{coo_rotatecenter.coo_list}
-\alias{coo_rotatecenter.list}
-\alias{coo_rotatecenter.mom_tbl}
 \title{Rotate shapes and specify center}
 \usage{
 coo_rotatecenter(
@@ -14,21 +10,6 @@ coo_rotatecenter(
   center = c(0, 0),
   from_col = coo,
   to_col = coo,
-  ...
-)
-
-\method{coo_rotatecenter}{default}(x, theta = 0, center = c(0, 0), ...)
-
-\method{coo_rotatecenter}{coo_list}(x, theta = 0, center = c(0, 0), ...)
-
-\method{coo_rotatecenter}{list}(x, theta = 0, center = c(0, 0), ...)
-
-\method{coo_rotatecenter}{mom_tbl}(
-  x,
-  theta = 0,
-  center = c(0, 0),
-  from_col = coo,
-  to_col = {     {         from_col     } },
   ...
 )
 }
@@ -54,17 +35,6 @@ a \link{coo_single}, \link{coo_list} or \link{mom_tbl}
 Rotates the coordinates by a \code{theta} angle (in radians) in
 the trigonometric direction (anti-clockwise) and using \code{center} as coordinates.
 }
-\section{Methods (by class)}{
-\itemize{
-\item \code{default}: default method
-
-\item \code{coo_list}: coo_list method
-
-\item \code{list}: list method
-
-\item \code{mom_tbl}: mom_tbl method
-}}
-
 \examples{
 x <- bot \%>\% pick(5) \%>\% coo_center() \%>\% coo_scale()
 }

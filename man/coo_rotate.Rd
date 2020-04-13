@@ -2,19 +2,10 @@
 % Please edit documentation in R/coo_modifyers.R
 \name{coo_rotate}
 \alias{coo_rotate}
-\alias{coo_rotate.default}
-\alias{coo_rotate.coo_list}
-\alias{coo_rotate.list}
 \alias{coo_rotate.mom_tbl}
 \title{Rotate shapes}
 \usage{
 coo_rotate(x, theta = 0, from_col = coo, to_col = coo, ...)
-
-\method{coo_rotate}{default}(x, theta = 0, ...)
-
-\method{coo_rotate}{coo_list}(x, theta = 0, ...)
-
-\method{coo_rotate}{list}(x, theta = 0, ...)
 
 \method{coo_rotate}{mom_tbl}(
   x,
@@ -46,12 +37,6 @@ the trigonometric direction (anti-clockwise).
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{default}: default method
-
-\item \code{coo_list}: coo_list method
-
-\item \code{list}: default method
-
 \item \code{mom_tbl}: mom_tbl method
 }}
 

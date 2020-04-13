@@ -14,6 +14,9 @@ test_cols_tidyeval <- function(fun, ...){
 # eg test_cols_tidyeval
 
 test_classes <- function(fun, ...){
+  # no method defined
+  expect_message(fun("a"), "no method")
+
   x <- dplyr::slice(bot, 1:3) # for the sake of speed
   expect_is(x %>% fun(...),     "mom_tbl")
   expect_is(x$coo %>% fun(...), "coo_list")
@@ -38,6 +41,7 @@ test_that("coo_center, coo_trans works", {
   test_classes(coo_center)
   test_cols_tidyeval(coo_center)
   test_equivalence(coo_center)
+
 
   xy <- bot$coo[[1]] %>% coo_center %>% get_centpos() %>% unlist
   expect_equivalent(xy[1], expected=0, tolerance=1e-10)
