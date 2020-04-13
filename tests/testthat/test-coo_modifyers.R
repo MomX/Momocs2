@@ -264,6 +264,10 @@ test_that("coo_up and friends work fine", {
   test_classes(coo_right)
   test_cols_tidyeval(coo_right)
   test_equivalence(coo_right)
+})
 
-
+test_that("coo_rev works", {
+  test_classes(coo_rev)
+  test_cols_tidyeval(coo_rev)
+  test_equivalence(coo_rev)
 })

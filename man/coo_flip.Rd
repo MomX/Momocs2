@@ -43,6 +43,7 @@ bot \%>\% pick(1) \%>\% coo_flip_y() \%>\% gg()
 Other coo_modifyers: 
 \code{\link{coo_align}()},
 \code{\link{coo_center}()},
+\code{\link{coo_rev}()},
 \code{\link{coo_rotatecenter}()},
 \code{\link{coo_rotate}()},
 \code{\link{coo_sample_rr}()},

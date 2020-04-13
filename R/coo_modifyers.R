@@ -1132,3 +1132,46 @@ coo_right.mom_tbl <- function(x, from_col=coo, to_col={{from_col}}, ...) {
                         coo_right())
 }
 
+# coo_rev ----------------------------------------------
+#' Reverse coordinates
+#'
+#' XXX coordinates.
+#'
+#'
+#' @inherit coo_center params return
+#' @family coo_modifyers
+#' @examples
+#'
+#' bot %>% coo_sample(12) %>% gg()
+#' bot %>% coo_sample(12) %>% coo_rev() %>% gg()
+#' @export
+coo_rev <- function(x, from_col, to_col, ...) {
+  UseMethod("coo_rev")
+}
+
+#' @export
+coo_rev.default <- function(x, ...){
+.msg_info("coo_rev: not defined on this class")
+}
+
+#' @export
+coo_rev.coo_single <- function(x, ...) {
+  x[nrow(x):1, ] %>% coo_single()
+}
+
+#' @export
+coo_rev.coo_list <- function(x, ...) {
+  x %>% purrr::map(coo_rev) %>% coo_list()
+}
+
+#' @export
+coo_rev.mom_tbl <- function(x, from_col=coo, to_col={{from_col}}, ...) {
+  # tidyeval
+  c(from_col, to_col) %<-% tidyeval_coo_modifyers(from_col={{from_col}}, to_col={{to_col}})
+
+  # operate
+  x %>% dplyr::mutate(!!to_col := x %>%
+                        dplyr::pull(!!from_col) %>%
+                        coo_rev())
+}
+
