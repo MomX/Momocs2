@@ -95,7 +95,7 @@ test_that("coo_template works", {
 
   y <- bot %>% coo_template() %>% get_diffrange()
   expect_equivalent(apply(dplyr::select(y, x_range, y_range), 1, max),
-                          expected=rep(1, nrow(bot)), tol=1e-10)
+                    expected=rep(1, nrow(bot)), tol=1e-10)
   expect_is(y, "mom_tbl")
 
 })
@@ -167,8 +167,18 @@ test_that("coo_sample works", {
 
 })
 
-# coo_sample_prop -----
+# coo_sample_rr
+test_that("coo_sample_rr works", {
+  test_classes(coo_sample_rr, 5)
+  test_cols_tidyeval(coo_sample_rr, 5)
+  test_equivalence(coo_sample_rr, 5)
+  # missing case
+  expect_error(bot %>% pick(1) %>% coo_sample_rr, "n")
+  #too ambitious case
+  expect_error(bot %>% pick(1) %>% coo_sample_rr(1e5), "coo_interpolate")
+})
 
+# coo_sample_prop -----
 test_that("coo_sample_prop works", {
   test_classes(coo_sample_prop, 0.5)
   test_cols_tidyeval(coo_sample_prop, 0.5)
@@ -197,7 +207,7 @@ test_that("coo_interpolate works", {
 
   # mom_tbl
   expect_equivalent(y %>% coo_sample(12) %>% coo_interpolate(24) %$% coo %>% purrr::map_dbl(nrow),
-               rep(24, 2))
+                    rep(24, 2))
 })
 
 

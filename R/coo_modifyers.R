@@ -557,6 +557,71 @@ coo_interpolate.mom_tbl <- function(x, n, from_col=coo, to_col={{from_col}}, ...
   x %>% dplyr::mutate(!!to_col := x %>% dplyr::pull(!!from_col) %>% coo_interpolate(n=n))
 }
 
+# coo_sample_rr ----------------------------------------------
+#' Sample shapes using the regular radius method
+#'
+#' Sample coordinates with regular angles
+#'
+#'
+#' @inherit coo_center params return
+#' @param n `integer` desired number of coordinates (required)
+#' @family coo_modifyers
+#' @examples
+#'
+#' @export
+coo_sample_rr <- function(x, n ,from_col, to_col, ...) {
+  UseMethod("coo_sample_rr")
+}
+
+#' @export
+coo_sample_rr.default <- function(x, ...){
+.msg_info("coo_sample_rr: not defined on this class")
+}
+
+#' @export
+coo_sample_rr.coo_single <- function(x, n, ...) {
+
+  # missing, abort
+  if (missing(n))
+    stop("coo_sample_rr: 'n' must be provided")
+
+  # too ambitious abort
+  if (nrow(x) < n)
+    stop("coo_sample: less coordinates than `n`, use coo_interpolate first")
+
+  # to make it work
+  # todo: directly versed from old Momocs and Juju, optimize
+  x <- as.matrix(x)
+  Rx <- x[, 1]
+  Ry <- x[, 2]
+  le <- length(Rx)
+  M <- matrix(c(Rx, Ry), le, 2)
+  M1 <- matrix(c(Rx - mean(Rx), Ry - mean(Ry)), le, 2)
+  V1 <- complex(real = M1[, 1], imaginary = M1[, 2])
+  M2 <- matrix(c(Arg(V1), Mod(V1)), le, 2)
+  V2 <- NA
+  for (i in 0:(n - 1)) {
+    V2[i + 1] <- which.max((cos(M2[, 1] - 2 * i * pi/n)))
+  }
+  V2 <- sort(V2)
+  M1[V2, ] %>% coo_single() %>% return()
+}
+
+#' @export
+coo_sample_rr.coo_list <- function(x, n, ...) {
+  x %>% purrr::map(coo_sample_rr, n=n) %>% coo_list()
+}
+
+#' @export
+coo_sample_rr.mom_tbl <- function(x, n, from_col=coo, to_col={{from_col}}, ...) {
+  # tidyeval
+  c(from_col, to_col) %<-% tidyeval_coo_modifyers(from_col={{from_col}}, to_col={{to_col}})
+
+  # operate
+  x %>% dplyr::mutate(!!to_col := x %>%
+                        dplyr::pull(!!from_col) %>%
+                        coo_sample_rr(n=n))
+}
 
 # SMOOTHING -----------------------------------------------
 
