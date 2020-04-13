@@ -7,26 +7,32 @@
 \alias{coo_scale.mom_tbl}
 \title{Scale shapes}
 \usage{
-coo_scale(x, scale, ...)
+coo_scale(x, scale, from_col, to_col, ...)
 
 \method{coo_scale}{default}(x, scale, ...)
 
 \method{coo_scale}{coo_list}(x, scale, ...)
 
-\method{coo_scale}{mom_tbl}(x, scale, from_col = coo, to_col = coo, ...)
+\method{coo_scale}{mom_tbl}(
+  x,
+  scale,
+  from_col = coo,
+  to_col = {     {         from_col     } },
+  ...
+)
 }
 \arguments{
 \item{x}{\link{coo_single}, \link{coo_list} or \link{mom_tbl}}
 
 \item{scale}{\code{numeric} scaling factor (\link{get_centsize} by default).}
 
-\item{...}{useless here}
-
 \item{from_col}{colnames from where to get the \link{coo_list}
 and how to name the resulting one (only for \link{mom_tbl} method)}
 
 \item{to_col}{colnames from where to get the \link{coo_list}
 and how to name the resulting one (only for \link{mom_tbl} method)}
+
+\item{...}{useless here}
 }
 \value{
 a \link{coo_single}, \link{coo_list} or \link{mom_tbl}

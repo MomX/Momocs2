@@ -4,7 +4,7 @@
 \alias{tidyeval_coo_modifyers}
 \title{Tidyeval helpers}
 \usage{
-tidyeval_coo_modifyers(from_col = coo, to_col = coo)
+tidyeval_coo_modifyers(from_col, to_col)
 }
 \arguments{
 \item{from_col}{column name}
@@ -28,9 +28,8 @@ This is where the \emph{modifying} behaviour is reflected.
 }
 }
 \examples{
-
-tidyeval_coo_modifyers()
-tidyeval_coo_modifyers(plip)
-tidyeval_coo_modifyers(to_col=plop)
-tidyeval_coo_modifyers(plip, plop)
+#tidyeval_coo_modifyers()
+#tidyeval_coo_modifyers(plip)
+#tidyeval_coo_modifyers(to_col=plop)
+#tidyeval_coo_modifyers(plip, plop)
 }

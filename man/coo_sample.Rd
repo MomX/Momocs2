@@ -8,16 +8,20 @@
 \usage{
 coo_sample(x, n, from_col, to_col, ...)
 
-coo_sample_prop(x, prop, ...)
+coo_sample_prop(x, prop, from_col = coo, to_col = coo, ...)
 
-coo_interpolate(x, n, ...)
+coo_interpolate(x, n, from_col, to_col, ...)
 }
 \arguments{
 \item{x}{\link{coo_single}, \link{coo_list} or \link{mom_tbl}}
 
 \item{n}{\code{integer} desired number of coordinates (required)}
 
-\item{from_col, to_col}{column names}
+\item{from_col}{colnames from where to get the \link{coo_list}
+and how to name the resulting one (only for \link{mom_tbl} method)}
+
+\item{to_col}{colnames from where to get the \link{coo_list}
+and how to name the resulting one (only for \link{mom_tbl} method)}
 
 \item{...}{useless here}
 

@@ -14,13 +14,12 @@
 #'    This is where the _modifying_ behaviour is reflected.
 #'
 #' @examples
-#'
-#' tidyeval_coo_modifyers()
-#' tidyeval_coo_modifyers(plip)
-#' tidyeval_coo_modifyers(to_col=plop)
-#' tidyeval_coo_modifyers(plip, plop)
+#' #tidyeval_coo_modifyers()
+#' #tidyeval_coo_modifyers(plip)
+#' #tidyeval_coo_modifyers(to_col=plop)
+#' #tidyeval_coo_modifyers(plip, plop)
 #' @export
-tidyeval_coo_modifyers <- function(from_col=coo, to_col=coo){
+tidyeval_coo_modifyers <- function(from_col, to_col){
 
   # missing or not, enquote from_col
   from_col <- enquo(from_col)

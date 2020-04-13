@@ -24,8 +24,13 @@
 #' bot %>% coo_center %>% pile()
 #'
 #' @export
-coo_center <- function(x, ...) {
+coo_center <- function(x, from_col=coo, to_col=coo, ...) {
   UseMethod("coo_center")
+}
+
+#' @export
+coo_center.default <- function(x, ...){
+  .msg_info("coo_center: not defined on this class")
 }
 
 #' @describeIn coo_center coo_single method
@@ -42,14 +47,10 @@ coo_center.coo_list <- function(x, ...){
 
 #' @describeIn coo_center mom_tbl method
 #' @export
-coo_center.mom_tbl <- function(x, from_col=coo, to_col=coo, ...) {
+coo_center.mom_tbl <- function(x, from_col=coo, to_col={{from_col}}, ...) {
   # tidyeval
-  from_col <- enquo(from_col)
-  # here, ensures that if to_col is not provided, it is from_coo too
-  if (missing(to_col))
-    to_col   <- enquo(from_col)
-  else
-    to_col <- enquo(to_col)
+  c(from_col, to_col) %<-% tidyeval_coo_modifyers(from_col={{from_col}}, to_col={{to_col}})
+
   # operate
   x %>% dplyr::mutate(!!to_col := x %>%
                         dplyr::pull(!!from_col) %>%
@@ -76,7 +77,7 @@ coo_center.mom_tbl <- function(x, from_col=coo, to_col=coo, ...) {
 #' bot$coo[[1]] %>% coo_trans
 #'
 #' @export
-coo_trans <- function(x, x_trans=0, y_trans=0, ...) {
+coo_trans <- function(x, x_trans=0, y_trans=0, from_col, to_col, ...) {
   UseMethod("coo_trans")
 }
 
@@ -95,15 +96,11 @@ coo_trans.coo_list <- function(x, x_trans=0, y_trans=0, ...){
 
 #' @describeIn coo_trans mom_tbl method
 #' @export
-coo_trans.mom_tbl <- function(x, x_trans=0, y_trans=0, from_col=coo, to_col=coo, ...) {
+coo_trans.mom_tbl <- function(x, x_trans=0, y_trans=0, from_col=coo, to_col={{from_col}}, ...) {
 
   # tidyeval
-  from_col <- enquo(from_col)
-  # here, ensures that if to_col is not provided, it is from_coo too
-  if (missing(to_col))
-    to_col   <- enquo(from_col)
-  else
-    to_col <- enquo(to_col)
+  c(from_col, to_col) %<-% tidyeval_coo_modifyers(from_col={{from_col}}, to_col={{to_col}})
+
   # operate
   x %>% dplyr::mutate(!!to_col := x %>%
                         dplyr::pull(!!from_col) %>%
@@ -127,7 +124,7 @@ coo_trans.mom_tbl <- function(x, x_trans=0, y_trans=0, from_col=coo, to_col=coo,
 #' bot$coo[[1]] %>% coo_scale
 #'
 #' @export
-coo_scale <- function(x, scale, ...) {
+coo_scale <- function(x, scale, from_col, to_col, ...) {
   UseMethod("coo_scale")
 }
 
@@ -158,14 +155,10 @@ coo_scale.coo_list <- function(x, scale, ...){
 
 #' @describeIn coo_scale mom_tbl method
 #' @export
-coo_scale.mom_tbl <- function(x, scale, from_col=coo, to_col=coo, ...) {
+coo_scale.mom_tbl <- function(x, scale, from_col=coo, to_col={{from_col}}, ...) {
   # tidyeval
-  from_col <- enquo(from_col)
-  # here, ensures that if to_col is not provided, it is from_coo too
-  if (missing(to_col))
-    to_col   <- enquo(from_col)
-  else
-    to_col <- enquo(to_col)
+  c(from_col, to_col) %<-% tidyeval_coo_modifyers(from_col={{from_col}}, to_col={{to_col}})
+
   # operate
   x %>% dplyr::mutate(!!to_col := x %>%
                         dplyr::pull(!!from_col) %>%
@@ -186,7 +179,7 @@ coo_scale.mom_tbl <- function(x, scale, from_col=coo, to_col=coo, ...) {
 #' bot %>% pick(1) %>% coo_template() %>% gg()
 #' bot %>% coo_template %>% pile()
 #' @export
-coo_template <- function(x, size, ...) {
+coo_template <- function(x, size=1, from_col, to_col, ...) {
   UseMethod("coo_template")
 }
 
@@ -210,14 +203,10 @@ coo_template.coo_list <- function(x, size=1, ...){
 
 #' @describeIn coo_template mom_tbl method
 #' @export
-coo_template.mom_tbl <- function(x, size=1, from_col=coo, to_col=coo, ...) {
+coo_template.mom_tbl <- function(x, size=1, from_col=coo, to_col={{from_col}}, ...) {
   # tidyeval
-  from_col <- enquo(from_col)
-  # here, ensures that if to_col is not provided, it is from_coo too
-  if (missing(to_col))
-    to_col   <- enquo(from_col)
-  else
-    to_col <- enquo(to_col)
+  c(from_col, to_col) %<-% tidyeval_coo_modifyers(from_col={{from_col}}, to_col={{to_col}})
+
   # operate
   dplyr::mutate(x,
                 !!to_col := x %>%
@@ -266,7 +255,7 @@ coo_template.mom_tbl <- function(x, size=1, from_col=coo, to_col=coo, ...) {
 #' @examples
 #' bot$coo[[5]] %>% coo_align
 #' @export
-coo_align <- function(x, ...) {
+coo_align <- function(x, from_col=coo, to_col=coo, ...) {
   UseMethod("coo_align")
 }
 
@@ -284,14 +273,10 @@ coo_align.coo_list <- function(x, ...){
 
 #' @describeIn coo_align mom_tbl method
 #' @export
-coo_align.mom_tbl <- function(x, from_col=coo, to_col=coo, ...){
+coo_align.mom_tbl <- function(x, from_col=coo, to_col={{from_col}}, ...){
   # tidyeval
-  from_col <- enquo(from_col)
-  # here, ensures that if to_col is not provided, it is from_coo too
-  if (missing(to_col))
-    to_col   <- enquo(from_col)
-  else
-    to_col <- enquo(to_col)
+  c(from_col, to_col) %<-% tidyeval_coo_modifyers(from_col={{from_col}}, to_col={{to_col}})
+
   # operate
   x %>% dplyr::mutate(!!to_col := x %>%
                         dplyr::pull(!!from_col) %>%
@@ -319,7 +304,7 @@ coo_align.mom_tbl <- function(x, from_col=coo, to_col=coo, ...){
 #' bot %>% coo_rotate(pi) %>% pile()
 #'
 #' @export
-coo_rotate <- function(x, theta = 0, ...) {
+coo_rotate <- function(x, theta = 0, from_col=coo, to_col=coo, ...) {
   UseMethod("coo_rotate")
 }
 
@@ -343,14 +328,10 @@ coo_rotate.list <- coo_rotate.coo_list
 
 #' @describeIn coo_rotate mom_tbl method
 #' @export
-coo_rotate.mom_tbl<- function(x, theta = 0, from_col=coo, to_col=coo, ...) {
+coo_rotate.mom_tbl<- function(x, theta = 0, from_col=coo, to_col={{from_col}}, ...) {
   # tidyeval
-  from_col <- enquo(from_col)
-  # here, ensures that if to_col is not provided, it is from_coo too
-  if (missing(to_col))
-    to_col   <- enquo(from_col)
-  else
-    to_col <- enquo(to_col)
+  c(from_col, to_col) %<-% tidyeval_coo_modifyers(from_col={{from_col}}, to_col={{to_col}})
+
   # operate
   x %>% dplyr::mutate(!!to_col := x %>%
                         dplyr::pull(!!from_col) %>%
@@ -370,7 +351,7 @@ coo_rotate.mom_tbl<- function(x, theta = 0, from_col=coo, to_col=coo, ...) {
 #' @examples
 #' x <- bot %>% pick(5) %>% coo_center() %>% coo_scale()
 #' @export
-coo_rotatecenter <- function(x, theta=0, center = c(0, 0), ...) {
+coo_rotatecenter <- function(x, theta=0, center = c(0, 0), from_col=coo, to_col=coo, ...) {
   UseMethod("coo_rotatecenter")
 }
 
@@ -397,7 +378,7 @@ coo_rotatecenter.list <- coo_rotatecenter.coo_list
 
 #' @describeIn coo_rotatecenter mom_tbl method
 #' @export
-coo_rotatecenter.mom_tbl <- function(x, theta=0, center = c(0, 0), from_col=coo, to_col=coo, ...) {
+coo_rotatecenter.mom_tbl <- function(x, theta=0, center = c(0, 0), from_col=coo, to_col={{from_col}}, ...) {
   # tidyeval
   from_col <- enquo(from_col)
   # here, ensures that if to_col is not provided, it is from_coo too
@@ -430,8 +411,6 @@ coo_rotatecenter.mom_tbl <- function(x, theta=0, center = c(0, 0), from_col=coo,
 #' @param n `integer` desired number of coordinates (required)
 #' @param prop `numeric` desired poportion of sampled coordinates (required).
 #' Below 1 will sample, above 1 will interpolate.
-#' @param from_col,to_col column names
-#' @param ... useless here
 #' @family coo_modifyers
 #' @family samplers
 #' @examples
@@ -474,14 +453,10 @@ coo_sample.coo_list <- function(x, n, ...) {
 }
 
 #' @export
-coo_sample.mom_tbl <- function(x, n, from_col=coo, to_col=coo, ...) {
+coo_sample.mom_tbl <- function(x, n, from_col=coo, to_col={{from_col}}, ...) {
   # tidyeval
-  from_col <- enquo(from_col)
-  # here, ensures that if to_col is not provided, it is from_coo too
-  if (missing(to_col))
-    to_col   <- enquo(from_col)
-  else
-    to_col <- enquo(to_col)
+  c(from_col, to_col) %<-% tidyeval_coo_modifyers(from_col={{from_col}}, to_col={{to_col}})
+
   # operate
   x %>% dplyr::mutate(!!to_col := x %>%
                         dplyr::pull(!!from_col) %>%
@@ -492,7 +467,7 @@ coo_sample.mom_tbl <- function(x, n, from_col=coo, to_col=coo, ...) {
 # coo_sample_prop -----------------------------------------
 #' @describeIn coo_sample Sample a proportion of coordinates
 #' @export
-coo_sample_prop <- function(x, prop, ...){
+coo_sample_prop <- function(x, prop, from_col=coo, to_col=coo, ...){
   UseMethod("coo_sample_prop")
 }
 
@@ -528,7 +503,7 @@ coo_sample_prop.mom_tbl <- function(x, prop, from_col=coo, to_col={{from_col}}, 
 # coo_interpolate -----------------------------------------
 #' @describeIn coo_sample Interpolates shape coordinates
 #' @export
-coo_interpolate <- function(x, n, ...) {
+coo_interpolate <- function(x, n, from_col, to_col, ...) {
   UseMethod("coo_interpolate")
 }
 
@@ -573,15 +548,11 @@ coo_interpolate.coo_list <- function(x, n, ...){
 }
 
 #' @export
-coo_interpolate.mom_tbl <- function(x, n, from_col=coo, to_col=coo, ...){
+coo_interpolate.mom_tbl <- function(x, n, from_col=coo, to_col={{from_col}}, ...){
 
   # tidyeval
-  from_col <- enquo(from_col)
-  # here, ensures that if to_col is not provided, it is from_coo too
-  if (missing(to_col))
-    to_col   <- enquo(from_col)
-  else
-    to_col <- enquo(to_col)
+  c(from_col, to_col) %<-% tidyeval_coo_modifyers(from_col={{from_col}}, to_col={{to_col}})
+
   # operate
   x %>% dplyr::mutate(!!to_col := x %>% dplyr::pull(!!from_col) %>% coo_interpolate(n=n))
 }

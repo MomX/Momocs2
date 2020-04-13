@@ -8,21 +8,25 @@
 \alias{coo_center.mom_tbl}
 \title{Center shapes}
 \usage{
-coo_center(x, ...)
+coo_center(x, from_col = coo, to_col = coo, ...)
 
 \method{coo_center}{coo_single}(x, ...)
 
 \method{coo_center}{coo_list}(x, ...)
 
-\method{coo_center}{mom_tbl}(x, from_col = coo, to_col = coo, ...)
+\method{coo_center}{mom_tbl}(x, from_col = coo, to_col = {
+    {
+        from_col
+    }
+}, ...)
 }
 \arguments{
 \item{x}{\link{coo_single}, \link{coo_list} or \link{mom_tbl}}
 
-\item{...}{useless here}
-
 \item{from_col, to_col}{colnames from where to get the \link{coo_list}
 and how to name the resulting one (only for \link{mom_tbl} method)}
+
+\item{...}{useless here}
 }
 \value{
 a \link{coo_single}, \link{coo_list} or \link{mom_tbl}

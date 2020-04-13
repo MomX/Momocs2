@@ -6,6 +6,7 @@ test_cols_tidyeval <- function(fun, ...){
   y <- w %>% dplyr::rename(coo2=coo) %>% fun(from_col=coo2, ...) %>% dplyr::pull(coo2)
   # from and col specified
   z <- w %>% dplyr::rename(coo2=coo) %>% fun(from_col=coo2, to_col=coo3, ...) %>% dplyr::pull(coo3)
+  # list(x, y, z) %>% return()
   expect_identical(x, y)
   expect_identical(y, z)
   expect_identical(x, z)

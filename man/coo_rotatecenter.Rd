@@ -8,7 +8,14 @@
 \alias{coo_rotatecenter.mom_tbl}
 \title{Rotate shapes and specify center}
 \usage{
-coo_rotatecenter(x, theta = 0, center = c(0, 0), ...)
+coo_rotatecenter(
+  x,
+  theta = 0,
+  center = c(0, 0),
+  from_col = coo,
+  to_col = coo,
+  ...
+)
 
 \method{coo_rotatecenter}{default}(x, theta = 0, center = c(0, 0), ...)
 
@@ -21,7 +28,7 @@ coo_rotatecenter(x, theta = 0, center = c(0, 0), ...)
   theta = 0,
   center = c(0, 0),
   from_col = coo,
-  to_col = coo,
+  to_col = {     {         from_col     } },
   ...
 )
 }
@@ -32,13 +39,13 @@ coo_rotatecenter(x, theta = 0, center = c(0, 0), ...)
 
 \item{center}{\code{numeric} of length 2, sepcifying the \verb{(x; y)} coordinates of the rotation center. Default to \code{c(0, 0)}}
 
-\item{...}{useless here}
-
 \item{from_col}{colnames from where to get the \link{coo_list}
 and how to name the resulting one (only for \link{mom_tbl} method)}
 
 \item{to_col}{colnames from where to get the \link{coo_list}
 and how to name the resulting one (only for \link{mom_tbl} method)}
+
+\item{...}{useless here}
 }
 \value{
 a \link{coo_single}, \link{coo_list} or \link{mom_tbl}

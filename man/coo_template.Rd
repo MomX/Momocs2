@@ -7,26 +7,32 @@
 \alias{coo_template.mom_tbl}
 \title{Templates shapes}
 \usage{
-coo_template(x, size, ...)
+coo_template(x, size = 1, from_col, to_col, ...)
 
 \method{coo_template}{default}(x, size = 1, ...)
 
 \method{coo_template}{coo_list}(x, size = 1, ...)
 
-\method{coo_template}{mom_tbl}(x, size = 1, from_col = coo, to_col = coo, ...)
+\method{coo_template}{mom_tbl}(
+  x,
+  size = 1,
+  from_col = coo,
+  to_col = {     {         from_col     } },
+  ...
+)
 }
 \arguments{
 \item{x}{\link{coo_single}, \link{coo_list} or \link{mom_tbl}}
 
 \item{size}{\code{numeric} the side of the square inscribing the shape}
 
-\item{...}{useless here}
-
 \item{from_col}{colnames from where to get the \link{coo_list}
 and how to name the resulting one (only for \link{mom_tbl} method)}
 
 \item{to_col}{colnames from where to get the \link{coo_list}
 and how to name the resulting one (only for \link{mom_tbl} method)}
+
+\item{...}{useless here}
 }
 \value{
 a \link{coo_single}, \link{coo_list} or \link{mom_tbl}
