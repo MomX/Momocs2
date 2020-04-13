@@ -469,7 +469,7 @@ coo_flip_x <- function(x, from_col, to_col, ...) {
 
 #' @export
 coo_flip_x.default <- function(x, ...){
-.msg_info("coo_flip_x: not defined on this class")
+  .msg_info("coo_flip_x: not defined on this class")
 }
 
 #' @export
@@ -479,12 +479,12 @@ coo_flip_x.coo_single <- function(x, ...) {
 }
 
 #' @export
-coo_flip_x.coo_list <- function(x, n, ...) {
+coo_flip_x.coo_list <- function(x, ...) {
   x %>% purrr::map(coo_flip_x) %>% coo_list()
 }
 
 #' @export
-coo_flip_x.mom_tbl <- function(x, n, from_col=coo, to_col={{from_col}}, ...) {
+coo_flip_x.mom_tbl <- function(x, from_col=coo, to_col={{from_col}}, ...) {
   # tidyeval
   c(from_col, to_col) %<-% tidyeval_coo_modifyers(from_col={{from_col}}, to_col={{to_col}})
 
@@ -512,12 +512,12 @@ coo_flip_y.coo_single <- function(x, ...) {
 }
 
 #' @export
-coo_flip_y.coo_list <- function(x, n, ...) {
+coo_flip_y.coo_list <- function(x, ...) {
   x %>% purrr::map(coo_flip_y) %>% coo_list()
 }
 
 #' @export
-coo_flip_y.mom_tbl <- function(x, n, from_col=coo, to_col={{from_col}}, ...) {
+coo_flip_y.mom_tbl <- function(x, from_col=coo, to_col={{from_col}}, ...) {
   # tidyeval
   c(from_col, to_col) %<-% tidyeval_coo_modifyers(from_col={{from_col}}, to_col={{to_col}})
 
@@ -526,9 +526,6 @@ coo_flip_y.mom_tbl <- function(x, n, from_col=coo, to_col={{from_col}}, ...) {
                         dplyr::pull(!!from_col) %>%
                         coo_flip_y())
 }
-
-
-
 
 # SAMPLING AND CO -----------------------------------------
 # coo_sample ----------
@@ -1151,7 +1148,7 @@ coo_rev <- function(x, from_col, to_col, ...) {
 
 #' @export
 coo_rev.default <- function(x, ...){
-.msg_info("coo_rev: not defined on this class")
+  .msg_info("coo_rev: not defined on this class")
 }
 
 #' @export
@@ -1173,5 +1170,129 @@ coo_rev.mom_tbl <- function(x, from_col=coo, to_col={{from_col}}, ...) {
   x %>% dplyr::mutate(!!to_col := x %>%
                         dplyr::pull(!!from_col) %>%
                         coo_rev())
+}
+
+# coo_trim ----------------------------------------------
+#' Trim coordinates from shape
+#'
+#' [coo_trim_head] removes the first `n` coordinates from shape,
+#' [coo_trim_tail] removes the last `n` coordinates,
+#' [coo_trim] does both.
+#'
+#'
+#' @inherit coo_center params return
+#' @param n `integer` how many coordinates shall we trim
+#' @family coo_modifyers
+#' @examples
+#'
+#' x <- bot %>% pick(1) %>% coo_sample(12)
+#'
+#' coo_trim(x, 5)
+#' coo_trim_head(x, 5)
+#' coo_trim_tail(x, 5)
+#' @export
+coo_trim <- function(x, n, from_col, to_col, ...) {
+  UseMethod("coo_trim")
+}
+
+#' @export
+coo_trim.default <- function(x, ...){
+  .msg_info("coo_trim: not defined on this class")
+}
+
+#' @export
+coo_trim.coo_single <- function(x, n, ...) {
+  if (missing(n))
+    stop("coo_trim: `n` is missing")
+
+  x[(n+1):(nrow(x)-n), ] %>% coo_single()
+}
+
+#' @export
+coo_trim.coo_list <- function(x, n, ...) {
+  x %>% purrr::map(coo_trim, n) %>% coo_list()
+}
+
+#' @export
+coo_trim.mom_tbl <- function(x, n, from_col=coo, to_col={{from_col}}, ...) {
+  # tidyeval
+  c(from_col, to_col) %<-% tidyeval_coo_modifyers(from_col={{from_col}}, to_col={{to_col}})
+
+  # operate
+  x %>% dplyr::mutate(!!to_col := x %>%
+                        dplyr::pull(!!from_col) %>%
+                        coo_trim(n))
+}
+
+# coo_trim_head -------------
+#' @describeIn coo_trim Trims head of shape
+#' @export
+coo_trim_head <- function(x, n, from_col, to_col, ...) {
+  UseMethod("coo_trim_head")
+}
+
+#' @export
+coo_trim_head.default <- function(x, ...){
+  .msg_info("coo_trim_head: not defined on this class")
+}
+
+#' @export
+coo_trim_head.coo_single <- function(x, n, ...) {
+  if (missing(n))
+    stop("coo_trim_head: `n` is missing")
+
+  x[(n+1):nrow(x), ] %>% coo_single()
+}
+
+#' @export
+coo_trim_head.coo_list <- function(x, n, ...) {
+  x %>% purrr::map(coo_trim_head, n) %>% coo_list()
+}
+
+#' @export
+coo_trim_head.mom_tbl <- function(x, n, from_col=coo, to_col={{from_col}}, ...) {
+  # tidyeval
+  c(from_col, to_col) %<-% tidyeval_coo_modifyers(from_col={{from_col}}, to_col={{to_col}})
+
+  # operate
+  x %>% dplyr::mutate(!!to_col := x %>%
+                        dplyr::pull(!!from_col) %>%
+                        coo_trim_head(n))
+}
+
+# coo_trim_tail -------------
+#' @describeIn coo_trim Trims tail of shape
+#' @export
+coo_trim_tail <- function(x, n, from_col, to_col, ...) {
+  UseMethod("coo_trim_tail")
+}
+
+#' @export
+coo_trim_tail.default <- function(x, ...){
+  .msg_info("coo_trim_tail: not defined on this class")
+}
+
+#' @export
+coo_trim_tail.coo_single <- function(x, n, ...) {
+  if (missing(n))
+    stop("coo_trim_tail: `n` is missing")
+
+  x[(n+1):nrow(x), ] %>% coo_single()
+}
+
+#' @export
+coo_trim_tail.coo_list <- function(x, n, ...) {
+  x %>% purrr::map(coo_trim_tail, n) %>% coo_list()
+}
+
+#' @export
+coo_trim_tail.mom_tbl <- function(x, n, from_col=coo, to_col={{from_col}}, ...) {
+  # tidyeval
+  c(from_col, to_col) %<-% tidyeval_coo_modifyers(from_col={{from_col}}, to_col={{to_col}})
+
+  # operate
+  x %>% dplyr::mutate(!!to_col := x %>%
+                        dplyr::pull(!!from_col) %>%
+                        coo_trim_tail(n))
 }
 

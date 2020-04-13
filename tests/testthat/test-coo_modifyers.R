@@ -271,3 +271,29 @@ test_that("coo_rev works", {
   test_cols_tidyeval(coo_rev)
   test_equivalence(coo_rev)
 })
+
+test_that("coo_trim and friends work", {
+  test_classes(coo_trim, 2)
+  test_cols_tidyeval(coo_trim, 2)
+  test_equivalence(coo_trim, 2)
+
+  test_classes(coo_trim_head, 2)
+  test_cols_tidyeval(coo_trim_head, 2)
+  test_equivalence(coo_trim_head, 2)
+
+  test_classes(coo_trim_tail, 2)
+  test_cols_tidyeval(coo_trim_tail, 2)
+  test_equivalence(coo_trim_tail, 2)
+
+  # turn into a function (todo)
+  expect_message(coo_trim("a"))
+  expect_message(coo_trim_head("a"))
+  expect_message(coo_trim_tail("a"))
+
+  # no n passed
+  x <- bot %>% pick(5)
+  expect_error(coo_trim(x), "missing")
+  expect_error(coo_trim_head(x), "missing")
+  expect_error(coo_trim_tail(x), "missing")
+
+})

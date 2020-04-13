@@ -72,6 +72,7 @@ Other coo_modifyers:
 \code{\link{coo_scale}()},
 \code{\link{coo_template}()},
 \code{\link{coo_trans}()},
+\code{\link{coo_trim}()},
 \code{\link{coo_up}()}
 }
 \concept{coo_modifyers}
