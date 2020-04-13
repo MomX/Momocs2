@@ -65,7 +65,7 @@ slive <- function(x, i){
 }
 
 #' @export
-slice.default <- function(x, i){
+slive.default <- function(x, i){
   .msg_info("slive: not method defined for this class")
 }
 

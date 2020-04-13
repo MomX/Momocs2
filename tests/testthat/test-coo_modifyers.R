@@ -132,6 +132,10 @@ test_that("coo_rotate works", {
 
 # coo_sample -----
 test_that("coo_sample works", {
+  # if not provided stop and message
+
+  expect_error(coo_sample(pick(bot)), "n")
+
   test_classes(coo_sample, 12)
   test_cols_tidyeval(coo_sample, 6)
   test_equivalence(coo_sample, 5)
@@ -162,6 +166,17 @@ test_that("coo_sample works", {
 
 })
 
+# coo_sample_prop -----
+
+test_that("coo_sample_prop works", {
+  test_classes(coo_sample_prop, 0.5)
+  test_cols_tidyeval(coo_sample_prop, 0.5)
+  test_equivalence(coo_sample_prop, 0.5)
+
+  # bot$coo %>% coo_sample_prop(0.1) %>% purrr::map_dbl(nrow)
+
+})
+
 # coo_interpolate ------
 test_that("coo_interpolate works", {
   test_classes(coo_interpolate, 12)
@@ -182,7 +197,5 @@ test_that("coo_interpolate works", {
   # mom_tbl
   expect_equivalent(y %>% coo_sample(12) %>% coo_interpolate(24) %$% coo %>% purrr::map_dbl(nrow),
                rep(24, 2))
-
-
 })
 

@@ -424,9 +424,14 @@ coo_rotatecenter.mom_tbl <- function(x, theta=0, center = c(0, 0), from_col=coo,
 #' coo_sample_curve (todo link) will preserve the first and last points.
 #' This is typically useful for curves, hence the name.
 #' [coo_interpolate] will upsample the number of points.
+#' All functions have a `_prop` ally, where `n` is deduced from the proportion you want to retain.
 #'
 #' @inherit coo_center params return
 #' @param n `integer` desired number of coordinates (required)
+#' @param prop `numeric` desired poportion of sampled coordinates (required).
+#' Below 1 will sample, above 1 will interpolate.
+#' @param from_col,to_col column names
+#' @param ... useless here
 #' @family coo_modifyers
 #' @family samplers
 #' @examples
@@ -439,12 +444,16 @@ coo_rotatecenter.mom_tbl <- function(x, theta=0, center = c(0, 0), from_col=coo,
 #'
 #'
 #' @export
-coo_sample <- function(x, n, ...) {
+coo_sample <- function(x, n, from_col, to_col, ...) {
   UseMethod("coo_sample")
 }
 
 #' @export
 coo_sample.coo_single <- function(x, n, ...) {
+  # early stop if n is missing
+  if (missing(n)){
+    stop("coo_sample: n must be provided")
+  }
   # early return when unchanged must be returned
   if (nrow(x) == n){
     return(x)
@@ -477,6 +486,43 @@ coo_sample.mom_tbl <- function(x, n, from_col=coo, to_col=coo, ...) {
   x %>% dplyr::mutate(!!to_col := x %>%
                         dplyr::pull(!!from_col) %>%
                         coo_sample(n=n))
+}
+
+
+# coo_sample_prop -----------------------------------------
+#' @describeIn coo_sample Sample a proportion of coordinates
+#' @export
+coo_sample_prop <- function(x, prop, ...){
+  UseMethod("coo_sample_prop")
+}
+
+#' @export
+coo_sample_prop.default <- function(x, prop, ...){
+  .msg_info("coo_sample_prop: not defined on this class")
+}
+
+#' @export
+coo_sample_prop.coo_single <- function(x, prop, ...){
+  n <- ceiling(nrow(x)*prop)
+  coo_sample(x, n) %>% coo_single()
+}
+
+#' @export
+coo_sample_prop.coo_list <- function(x, prop, ...){
+  n <- ceiling(purrr::map_dbl(x, nrow)*prop)
+  purrr::map2(x, n, ~coo_sample(.x, .y)) %>% coo_list()
+}
+
+#' @export
+coo_sample_prop.mom_tbl <- function(x, prop, from_col=coo, to_col={{from_col}}, ...){
+
+  # tidyeval
+  c(from_col, to_col) %<-% tidyeval_coo_modifyers(from_col={{from_col}}, to_col={{to_col}})
+
+  # operate
+  x %>% dplyr::mutate(!!to_col := x %>%
+                        dplyr::pull(!!from_col) %>%
+                        coo_sample_prop(prop=prop))
 }
 
 # coo_interpolate -----------------------------------------

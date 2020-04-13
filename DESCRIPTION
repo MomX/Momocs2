@@ -43,7 +43,8 @@ Imports:
     crayon,
     tidyr,
     methods,
-    vctrs
+    vctrs,
+    zeallot
 Remotes:
     tidyverse/ggplot2,
     tidyverse/dplyr

@@ -2,10 +2,13 @@
 % Please edit documentation in R/coo_modifyers.R
 \name{coo_sample}
 \alias{coo_sample}
+\alias{coo_sample_prop}
 \alias{coo_interpolate}
 \title{Sample shapes}
 \usage{
-coo_sample(x, n, ...)
+coo_sample(x, n, from_col, to_col, ...)
+
+coo_sample_prop(x, prop, ...)
 
 coo_interpolate(x, n, ...)
 }
@@ -14,7 +17,12 @@ coo_interpolate(x, n, ...)
 
 \item{n}{\code{integer} desired number of coordinates (required)}
 
+\item{from_col, to_col}{column names}
+
 \item{...}{useless here}
+
+\item{prop}{\code{numeric} desired poportion of sampled coordinates (required).
+Below 1 will sample, above 1 will interpolate.}
 }
 \value{
 a \link{coo_single}, \link{coo_list} or \link{mom_tbl}
@@ -29,9 +37,12 @@ all other distances between consecutive points. This is typically useful for out
 coo_sample_curve (todo link) will preserve the first and last points.
 This is typically useful for curves, hence the name.
 \link{coo_interpolate} will upsample the number of points.
+All functions have a \verb{_prop} ally, where \code{n} is deduced from the proportion you want to retain.
 }
 \section{Functions}{
 \itemize{
+\item \code{coo_sample_prop}: Sample a proportion of coordinates
+
 \item \code{coo_interpolate}: Interpolates shape coordinates
 }}
 
