@@ -843,8 +843,152 @@ is_unclosed <- function(x){
   !is_closed(x)
 }
 
+# coo_up and friends --------------------------------------
 
+# coo_up ----------------------------------------------
+#' Retains coordinates based on their x/y sign
+#'
+#' Useful for centered or aligned shapes.
+#'
+#' * [coo_up] retains only coordinates with `y >= 0`
+#' * [coo_down] retains only coordinates with `y <= 0`
+#' * [coo_left] retains only coordinates with `x <= 0`
+#' * [coo_right] retains only coordinates with `x >= 0`
+#'
+#' @inherit coo_center params return
+#' @family coo_modifyers
+#' @examples
+#'
+#' bot %>% pick(1) %>% coo_center() %>% coo_left() %>% gg()
+#'
+#' @name coo_up
+NULL
 
+#' @describeIn coo_up filter upper part of a shape
+#' @export
+coo_up <- function(x, from_col, to_col, ...) {
+  UseMethod("coo_up")
+}
 
+#' @export
+coo_up.default <- function(x, ...){
+.msg_info("coo_up: not defined on this class")
+}
 
+#' @export
+coo_up.coo_single <- function(x, ...) {
+  x %>% dplyr::filter(.data$y>=0) %>% coo_single()
+}
+
+#' @export
+coo_up.coo_list <- function(x, ...) {
+  x %>% purrr::map(coo_up) %>% coo_list()
+}
+
+#' @export
+coo_up.mom_tbl <- function(x, from_col=coo, to_col={{from_col}}, ...) {
+  # tidyeval
+  c(from_col, to_col) %<-% tidyeval_coo_modifyers(from_col={{from_col}}, to_col={{to_col}})
+
+  # operate
+  x %>% dplyr::mutate(!!to_col := x %>%
+                        dplyr::pull(!!from_col) %>%
+                        coo_up())
+}
+
+#' @describeIn coo_up filter lower part of a shape
+#' @export
+coo_down <- function(x, from_col, to_col, ...) {
+  UseMethod("coo_down")
+}
+
+#' @export
+coo_down.default <- function(x, ...){
+.msg_info("coo_down: not defined on this class")
+}
+
+#' @export
+coo_down.coo_single <- function(x, ...) {
+  x %>% dplyr::filter(.data$y<=0) %>% coo_single()
+}
+
+#' @export
+coo_down.coo_list <- function(x,  ...) {
+  x %>% purrr::map(coo_down) %>% coo_list()
+}
+
+#' @export
+coo_down.mom_tbl <- function(x, from_col=coo, to_col={{from_col}}, ...) {
+  # tidyeval
+  c(from_col, to_col) %<-% tidyeval_coo_modifyers(from_col={{from_col}}, to_col={{to_col}})
+
+  # operate
+  x %>% dplyr::mutate(!!to_col := x %>%
+                        dplyr::pull(!!from_col) %>%
+                        coo_down())
+}
+
+#' @describeIn coo_up filter left part of a shape
+#' @export
+coo_left <- function(x, from_col, to_col, ...) {
+  UseMethod("coo_left")
+}
+
+#' @export
+coo_left.default <- function(x, ...){
+.msg_info("coo_left: not defined on this class")
+}
+
+#' @export
+coo_left.coo_single <- function(x, ...) {
+  x %>% dplyr::filter(.data$x<=0) %>% coo_single()
+}
+
+#' @export
+coo_left.coo_list <- function(x,  ...) {
+  x %>% purrr::map(coo_left) %>% coo_list()
+}
+
+#' @export
+coo_left.mom_tbl <- function(x,from_col=coo, to_col={{from_col}}, ...) {
+  # tidyeval
+  c(from_col, to_col) %<-% tidyeval_coo_modifyers(from_col={{from_col}}, to_col={{to_col}})
+
+  # operate
+  x %>% dplyr::mutate(!!to_col := x %>%
+                        dplyr::pull(!!from_col) %>%
+                        coo_left())
+}
+
+#' @describeIn coo_up filter right part of a shape
+#' @export
+coo_right <- function(x, from_col, to_col, ...) {
+  UseMethod("coo_right")
+}
+
+#' @export
+coo_right.default <- function(x, ...){
+.msg_info("coo_right: not defined on this class")
+}
+
+#' @export
+coo_right.coo_single <- function(x, ...) {
+  x %>% dplyr::filter(.data$x<=0) %>% coo_single()
+}
+
+#' @export
+coo_right.coo_list <- function(x, ...) {
+  x %>% purrr::map(coo_right) %>% coo_list()
+}
+
+#' @export
+coo_right.mom_tbl <- function(x, from_col=coo, to_col={{from_col}}, ...) {
+  # tidyeval
+  c(from_col, to_col) %<-% tidyeval_coo_modifyers(from_col={{from_col}}, to_col={{to_col}})
+
+  # operate
+  x %>% dplyr::mutate(!!to_col := x %>%
+                        dplyr::pull(!!from_col) %>%
+                        coo_right())
+}
 
