@@ -94,6 +94,19 @@ test_that("coo_template works", {
 
 })
 
+# coo_flip ---------
+test_that("coo_flipx and y work", {
+  test_classes(coo_flip_x)
+  test_cols_tidyeval(coo_flip_x)
+  test_equivalence(coo_flip_x)
+
+  test_classes(coo_flip_y)
+  test_cols_tidyeval(coo_flip_y)
+  test_equivalence(coo_flip_y)
+
+})
+
+
 # coo_rotate(center) ------
 test_that("coo_rotate works", {
   test_classes(coo_rotate)

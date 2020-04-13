@@ -458,7 +458,7 @@ coo_rotatecenter.mom_tbl <- function(x, theta=0, center = c(0, 0), from_col=coo,
 #'
 #' bot %>% pick(1) %>% coo_flip_x() %>% gg()
 #' bot %>% pick(1) %>% coo_flip_y() %>% gg()
-#' @rdname coo_flip
+#' @name coo_flip
 NULL
 
 #' @describeIn coo_flip Flips about the x-axis
