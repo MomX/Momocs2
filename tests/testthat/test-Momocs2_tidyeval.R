@@ -32,4 +32,10 @@ test_that("tidyeval_coo_modifyers works", {
   expect_true(x$to_col %>% rlang::is_quosure())
   expect_true(rlang::quo_get_expr(x$from_col) == "coo")
   expect_true(rlang::quo_get_expr(x$to_col)   == "plip")
+
+  x <- tidyeval_coo_modifyers(yop)
+  expect_true(x$from_col %>% rlang::is_quosure())
+  expect_true(x$to_col %>% rlang::is_quosure())
+  expect_true(rlang::quo_get_expr(x$from_col) == "yop")
+  expect_true(rlang::quo_get_expr(x$to_col)   == "yop")
 })
