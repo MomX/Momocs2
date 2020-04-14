@@ -19,6 +19,6 @@ todo
 bot
 }
 \description{
-A dataset containing bottles outlines
+A dataset containing 40 bottles outlines
 }
 \keyword{datasets}
