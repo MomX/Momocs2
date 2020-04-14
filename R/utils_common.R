@@ -10,8 +10,14 @@
     .msg_danger(mess_if_not)
 }
 
+# todo proper stop (?abort)
+# here
+
 # standardizes message when no method
 not_defined <- function(fun=""){
   paste0(fun, ": no method defined on this class") %>%
     .msg_info()
 }
+
+# negate missing
+provided <- function(x) !missing(x)
