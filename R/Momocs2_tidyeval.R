@@ -1,9 +1,11 @@
 #' Tidyeval helpers
 #'
-#' Functions that pack repeated tidyeval behaviour
+#' Pack repeated tidyeval behaviour.
+#' Expose to ease development (todo extending vignettes)
 #'
 #' @param from_col column name
 #' @param to_col column name
+#' @param ldk_col column name
 #'
 #' @return [closure], for delayer evaluation
 #'
@@ -18,9 +20,13 @@
 #' #tidyeval_coo_modifyers(plip)
 #' #tidyeval_coo_modifyers(to_col=plop)
 #' #tidyeval_coo_modifyers(plip, plop)
+#'
+#' @name tidyeval_helpers
+NULL
+
+#' @describeIn tidyeval_helpers coo_ helpers
 #' @export
 tidyeval_coo_modifyers <- function(from_col, to_col){
-
   # missing or not, enquote from_col
   from_col <- enquo(from_col)
 
@@ -33,4 +39,12 @@ tidyeval_coo_modifyers <- function(from_col, to_col){
 
   # return these (promised) beauties
   list(from_col=from_col, to_col=to_col)
+}
+
+#' @describeIn tidyeval_helpers ldk helpers
+#' @export
+tidyeval_coo_and_ldk <- function(from_col, ldk_col){
+  # missing or not, enquote both
+  # and return these (promised) beauties
+  list(from_col=enquo(from_col), ldk_col=enquo(ldk_col))
 }
