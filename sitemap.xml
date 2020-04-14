@@ -88,6 +88,9 @@
     <loc>http://momx.github.io/Momocs2/reference/get_centsize.html</loc>
   </url>
   <url>
+    <loc>http://momx.github.io/Momocs2/reference/get_ldk.html</loc>
+  </url>
+  <url>
     <loc>http://momx.github.io/Momocs2/reference/get_lw.html</loc>
   </url>
   <url>
@@ -157,7 +160,7 @@
     <loc>http://momx.github.io/Momocs2/reference/tidyeval.html</loc>
   </url>
   <url>
-    <loc>http://momx.github.io/Momocs2/reference/tidyeval_coo_modifyers.html</loc>
+    <loc>http://momx.github.io/Momocs2/reference/tidyeval_helpers.html</loc>
   </url>
   <url>
     <loc>http://momx.github.io/Momocs2/reference/unfold.html</loc>

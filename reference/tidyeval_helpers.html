@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Tidyeval helpers — tidyeval_coo_modifyers • Momocs2</title>
+<title>Tidyeval helpers — tidyeval_helpers • Momocs2</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,9 @@
 
 
 
-<meta property="og:title" content="Tidyeval helpers — tidyeval_coo_modifyers" />
-<meta property="og:description" content="Functions that pack repeated tidyeval behaviour" />
+<meta property="og:title" content="Tidyeval helpers — tidyeval_helpers" />
+<meta property="og:description" content="Pack repeated tidyeval behaviour.
+Expose to ease development (todo extending vignettes)" />
 <meta property="og:image" content="http://momx.github.io/Momocs2/logo.png" />
 
 
@@ -139,14 +140,17 @@
     <div class="page-header">
     <h1>Tidyeval helpers</h1>
     
-    <div class="hidden name"><code>tidyeval_coo_modifyers.Rd</code></div>
+    <div class="hidden name"><code>tidyeval_helpers.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Functions that pack repeated tidyeval behaviour</p>
+    <p>Pack repeated tidyeval behaviour.
+Expose to ease development (todo extending vignettes)</p>
     </div>
 
-    <pre class="usage"><span class='fu'>tidyeval_coo_modifyers</span>(<span class='no'>from_col</span>, <span class='no'>to_col</span>)</pre>
+    <pre class="usage"><span class='fu'>tidyeval_coo_modifyers</span>(<span class='no'>from_col</span>, <span class='no'>to_col</span>)
+
+<span class='fu'>tidyeval_coo_and_ldk</span>(<span class='no'>from_col</span>, <span class='no'>ldk_col</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -157,6 +161,10 @@
     </tr>
     <tr>
       <th>to_col</th>
+      <td><p>column name</p></td>
+    </tr>
+    <tr>
+      <th>ldk_col</th>
       <td><p>column name</p></td>
     </tr>
     </table>
@@ -175,12 +183,20 @@ This is where the <em>modifying</em> behaviour is reflected.</p></li>
 </ul></li>
 </ul>
 
+    <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
+
+    
+<ul>
+<li><p><code>tidyeval_coo_modifyers</code>: coo_ helpers</p></li>
+<li><p><code>tidyeval_coo_and_ldk</code>: ldk helpers</p></li>
+</ul>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>#tidyeval_coo_modifyers()
 #tidyeval_coo_modifyers(plip)
 #tidyeval_coo_modifyers(to_col=plop)
 #tidyeval_coo_modifyers(plip, plop)
+
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
