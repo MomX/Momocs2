@@ -1,7 +1,7 @@
 #' Tidyeval helpers
 #'
 #' Pack repeated tidyeval behaviour.
-#' Expose to ease development (todo extending vignettes)
+#' Expose to ease development (todo extending vignettes, todo everything here)
 #'
 #' @param from_col column name
 #' @param to_col column name
