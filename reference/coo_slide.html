@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Reverse coordinates — coo_rev • Momocs2</title>
+<title>Slide coordinates — coo_slide • Momocs2</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,9 @@
 
 
 
-<meta property="og:title" content="Reverse coordinates — coo_rev" />
-<meta property="og:description" content="XXX coordinates." />
+<meta property="og:title" content="Slide coordinates — coo_slide" />
+<meta property="og:description" content="Slides the coordinates so that the id-th coordinate,
+or a particular landmark, become the first one." />
 <meta property="og:image" content="http://momx.github.io/Momocs2/logo.png" />
 
 
@@ -137,16 +138,25 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Reverse coordinates</h1>
+    <h1>Slide coordinates</h1>
     
-    <div class="hidden name"><code>coo_rev.Rd</code></div>
+    <div class="hidden name"><code>coo_slide.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>XXX coordinates.</p>
+    <p>Slides the coordinates so that the id-th coordinate,
+or a particular landmark, become the first one.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>coo_rev</span>(<span class='no'>x</span>, <span class='no'>from_col</span>, <span class='no'>to_col</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>coo_slide</span>(
+  <span class='no'>x</span>,
+  <span class='no'>id</span>,
+  <span class='no'>ldk</span>,
+  <span class='kw'>from_col</span> <span class='kw'>=</span> <span class='no'>coo</span>,
+  <span class='kw'>ldk_col</span> <span class='kw'>=</span> <span class='no'>ldk</span>,
+  <span class='kw'>to_col</span> <span class='kw'>=</span> {     {         <span class='no'>from_col</span>     } },
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -156,13 +166,20 @@
       <td><p>coo_single, coo_list or mom_tbl</p></td>
     </tr>
     <tr>
-      <th>from_col</th>
-      <td><p>colnames from where to get the coo_list
-and how to name the resulting one (only for mom_tbl method)</p></td>
+      <th>id</th>
+      <td><p><code>integer</code> which is (column row) should be used as the first point</p></td>
+    </tr>
+    <tr>
+      <th>ldk</th>
+      <td><p><code>integer</code> which landkmark should be used as the first point</p></td>
+    </tr>
+    <tr>
+      <th>from_col, ldk_col</th>
+      <td><p>colnames from where to get the coo_list</p></td>
     </tr>
     <tr>
       <th>to_col</th>
-      <td><p>colnames from where to get the coo_list
+      <td><p>colname where to set the result (default to <code>from_col</code>)
 and how to name the resulting one (only for mom_tbl method)</p></td>
     </tr>
     <tr>
@@ -174,26 +191,39 @@ and how to name the resulting one (only for mom_tbl method)</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a coo_single, coo_list or mom_tbl</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>For mom_tbl objects, three different flavours exist:</p><ul>
+<li><p>no ldk passed and a single id is passed: all id-th points
+within the shapes will become the first points.</p></li>
+<li><p>no ldk passed and a vector of ids of <code><a href='https://rdrr.io/r/base/nrow.html'>nrow(x)</a></code>: for every shape,
+the id-th point will be used as the id-th point.</p></li>
+<li><p>a single ldk is passed: the ldk-th ldk will be used to slide every shape.
+If an id is (also) passed, it is ignored with a message.
+See examples.</p></li>
+</ul>
+
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other coo_modifyers: 
 <code>coo_align()</code>,
 <code>coo_center()</code>,
 <code>coo_flip</code>,
+<code>coo_rev()</code>,
 <code>coo_rotatecenter()</code>,
 <code>coo_rotate()</code>,
 <code>coo_sample_rr()</code>,
 <code>coo_sample()</code>,
 <code>coo_scale()</code>,
-<code>coo_slide()</code>,
 <code>coo_template()</code>,
 <code>coo_trans()</code>,
 <code>coo_trim()</code>,
 <code>coo_up()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='no'>bot</span> <span class='kw'>%&gt;%</span> <span class='fu'>coo_sample</span>(<span class='fl'>12</span>) <span class='kw'>%&gt;%</span> <span class='fu'>gg</span>()</div><div class='output co'>#&gt; <span class='message'>ℹ gg: no gg method for this class</span></div><div class='input'><span class='no'>bot</span> <span class='kw'>%&gt;%</span> <span class='fu'>coo_sample</span>(<span class='fl'>12</span>) <span class='kw'>%&gt;%</span> <span class='fu'>coo_rev</span>() <span class='kw'>%&gt;%</span> <span class='fu'>gg</span>()</div><div class='output co'>#&gt; <span class='message'>ℹ gg: no gg method for this class</span></div></pre>
+    <pre class="examples"><div class='input'><span class='no'>h</span> <span class='kw'>&lt;-</span> <span class='no'>hearts</span> <span class='kw'>%&gt;%</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span>(<span class='fl'>1</span>:<span class='fl'>5</span>) <span class='co'># for speed sake</span>
+<span class='fu'>pile</span>(<span class='no'>h</span>)</div><div class='img'><img src='coo_slide-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>h</span> <span class='kw'>%&gt;%</span> <span class='fu'>coo_slide</span>(<span class='kw'>ldk</span><span class='kw'>=</span><span class='fl'>1</span>) <span class='kw'>%&gt;%</span> <span class='fu'>pile</span>()</div><div class='output co'>#&gt; <span class='message'>ℹ coo_slide: id not provided, working on ldk</span></div><div class='img'><img src='coo_slide-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
