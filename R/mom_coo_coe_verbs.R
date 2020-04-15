@@ -263,9 +263,45 @@ unfold.mom_tbl <- function(x, ...){
 #' List columns verbs
 #'
 #' @param x [mom_tbl]
+#' @param coo,coe column names to test for existence
+#' @param col column names to test for existence
 #' @param ... additional parameters, just like in `dplyr::select`
 #' @name list_columns
+#' @examples
+#'
+#' bot %>% coo_nb()
+#' bot %>% coo_names()
+#' bot %>% coo_present(coo)
+#' bot %>% coo_present(foo)  # non existing column
+#' bot %>% coo_only()
+#' bot %>% coo_drop()
+#' bot$coo2 <- bot$coo
+#' bot %>% coo_select(coo2)
+#'
+#' hearts %>% col_present(ldk)
+#'
+#' # and works the same for coe columns
 NULL
+
+# *_exist
+#' @export
+#' @describeIn list_columns test coo columns existence
+col_present <- function(x, col){
+  as_name(enquo(col)) %in% names(x)
+}
+
+#' @export
+#' @describeIn list_columns test coo columns existence
+coo_present <- function(x, coo){
+  as_name(enquo(coo)) %in% coo_names(x)
+}
+
+#' @export
+#' @describeIn list_columns test coe columns existence
+coe_present <- function(x, coe){
+  as_name(enquo(coe)) %in% coe_names(x)
+}
+
 
 # *_nb -------
 #' @export

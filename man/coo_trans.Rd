@@ -41,6 +41,7 @@ Other coo_modifyers:
 \code{\link{coo_sample_rr}()},
 \code{\link{coo_sample}()},
 \code{\link{coo_scale}()},
+\code{\link{coo_slide}()},
 \code{\link{coo_template}()},
 \code{\link{coo_trim}()},
 \code{\link{coo_up}()}

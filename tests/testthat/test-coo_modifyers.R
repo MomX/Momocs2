@@ -1,5 +1,5 @@
-test_cols_tidyeval <- function(fun, ...){
-  w <- bot %>% dplyr::slice(1:3) # for the sake fo speed
+test_cols_tidyeval <- function(fun,  ..., data=bot){
+  w <- data %>% dplyr::slice(1:3) # for the sake fo speed
   # default
   x <- w %>% fun(...) %>% dplyr::pull(coo)
   # another from used but still default target (ie from_col too)
@@ -13,19 +13,19 @@ test_cols_tidyeval <- function(fun, ...){
 }
 # eg test_cols_tidyeval
 
-test_classes <- function(fun, ...){
+test_classes <- function(fun, ...,  data=bot){
   # no method defined
   expect_message(fun("a"), "no method")
 
-  x <- dplyr::slice(bot, 1:3) # for the sake of speed
+  x <- dplyr::slice(data, 1:3) # for the sake of speed
   expect_is(x %>% fun(...),     "mom_tbl")
   expect_is(x$coo %>% fun(...), "coo_list")
   expect_is(x$coo[[1]] %>% fun(...), "coo_single")
 }
 # eg test_classes(coo_center)
 
-test_equivalence <- function(fun, ...){
-  x <- dplyr::slice(bot, 1:3) %>% coo_sample(20) # for the sake of speed
+test_equivalence <- function(fun,  ..., data=bot){
+  x <- dplyr::slice(data, 1:3) %>% coo_sample(20) # for the sake of speed
   x1 <- x %>% fun(...) %>% dplyr::pull(coo)
   y1 <- x$coo %>% fun(...)
   z1 <- new_coo_list(list(x$coo[[1]] %>% fun(...),
@@ -301,3 +301,26 @@ test_that("coo_trim and friends work", {
   expect_error(coo_trim_tail(x), "missing")
 
 })
+
+# coo_slide -----------------------------------------------
+test_that("coo_slide works", {
+  test_classes(coo_slide, data=hearts, 2)
+  test_cols_tidyeval(coo_slide, data=hearts, 2)
+  test_equivalence(coo_slide, data=hearts, 2)
+
+  expect_is(hearts %>% coo_slide(id=15), "mom_tbl")
+  expect_is(hearts %>% coo_slide(ldk=1), "mom_tbl")
+
+  expect_message((x <- hearts %>% coo_slide(ldk=1)), "ldk")
+  y <- hearts %>% coo_slide(id=5, ldk=1)
+  expect_identical(x, y)
+})
+
+
+
+
+
+
+
+
+

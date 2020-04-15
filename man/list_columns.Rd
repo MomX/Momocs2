@@ -2,6 +2,9 @@
 % Please edit documentation in R/mom_coo_coe_verbs.R
 \name{list_columns}
 \alias{list_columns}
+\alias{col_present}
+\alias{coo_present}
+\alias{coe_present}
 \alias{coo_nb}
 \alias{coe_nb}
 \alias{coo_only}
@@ -14,6 +17,12 @@
 \alias{coe_names}
 \title{List columns verbs}
 \usage{
+col_present(x, col)
+
+coo_present(x, coo)
+
+coe_present(x, coe)
+
 coo_nb(x)
 
 coe_nb(x)
@@ -37,6 +46,10 @@ coe_names(x)
 \arguments{
 \item{x}{\link{mom_tbl}}
 
+\item{col}{column names to test for existence}
+
+\item{coo, coe}{column names to test for existence}
+
 \item{...}{additional parameters, just like in \code{dplyr::select}}
 }
 \description{
@@ -44,6 +57,12 @@ List columns verbs
 }
 \section{Functions}{
 \itemize{
+\item \code{col_present}: test coo columns existence
+
+\item \code{coo_present}: test coo columns existence
+
+\item \code{coe_present}: test coe columns existence
+
 \item \code{coo_nb}: count the number of coo columns
 
 \item \code{coe_nb}: count the number of coe columns
@@ -65,3 +84,18 @@ List columns verbs
 \item \code{coe_names}: return names of coe columns
 }}
 
+\examples{
+
+bot \%>\% coo_nb()
+bot \%>\% coo_names()
+bot \%>\% coo_present(coo)
+bot \%>\% coo_present(foo)  # non existing column
+bot \%>\% coo_only()
+bot \%>\% coo_drop()
+bot$coo2 <- bot$coo
+bot \%>\% coo_select(coo2)
+
+hearts \%>\% col_present(ldk)
+
+# and works the same for coe columns
+}

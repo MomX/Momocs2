@@ -1318,3 +1318,118 @@ coo_trim_tail.mom_tbl <- function(x, n, from_col=coo, to_col={{from_col}}, ...) 
                         coo_trim_tail(n))
 }
 
+# THOSE USING LDK -----------------------------------------
+
+# coo_slide -----------------------------------------------
+#' Slide coordinates
+#'
+#' Slides the coordinates so that the id-th coordinate,
+#' or a particular landmark, become the first one.
+
+#' @inherit coo_center return
+#'
+#' @param x [coo_single], [coo_list] or [mom_tbl]
+#' @param id `integer` which is (column row) should be used as the first point
+#' @param ldk `integer` which landkmark should be used as the first point
+#' @param from_col,ldk_col colnames from where to get the [coo_list]
+#' @param to_col colname where to set the result (default to `from_col`)
+#' and how to name the resulting one (only for [mom_tbl] method)
+#' @param ... useless here
+#'
+#' @details
+#'
+#' For [mom_tbl] objects, three different flavours exist:
+#'
+#' * no ldk passed and a single id is passed: all id-th points
+#' within the shapes will become the first points.
+#' * no ldk passed and a vector of ids of `nrow(x)`: for every shape,
+#' the id-th point will be used as the id-th point.
+#' * a single ldk is passed: the ldk-th ldk will be used to slide every shape.
+#' If an id is (also) passed, it is ignored with a message.
+#' See examples.
+#'
+#' @examples
+#' h <- hearts %>% dplyr::slice(1:5) # for speed sake
+#' pile(h)
+#'
+#' h %>% coo_slide(ldk=1) %>% pile()
+#' @family coo_modifyers
+#' @family sliders
+#' @export
+coo_slide <- function(x, id, ldk, from_col=coo, ldk_col=ldk, to_col={{from_col}}, ...) {
+  UseMethod("coo_slide")
+}
+
+#' @export
+coo_slide.default <- function(x, ...) {
+  not_defined("coo_slide")
+}
+
+#' @export
+coo_slide.coo_single <- function(x, id, ...){
+  if (missing(id))
+    stop("coo_slide: id must be provided")
+
+  if (length(id)>1)
+    .msg_warning("coo_slide: id must be of length 1. Retaining first ({id[1]})")
+
+  n <- nrow(x)
+  if (id > n){
+    .msg_warning("coo_slide: id must be <= nrow. Using n")
+    id <- n
+  }
+
+  slided_ids <- c(id:n, 1:(id - 1))
+  return(x[slided_ids, ])
+}
+
+#' @export
+coo_slide.coo_list <- function(x, id, ...){
+  if (missing(id))
+    stop("coo_slide: id must be provided")
+
+  # recycle common if not already
+  l <- length(x)
+
+  # single id passed
+  if (length(id)==1){
+    .msg_info("coo_slide: id was recycled to length {l}")
+    id <- rep(id, l)
+  }
+  # check that if no single id, correct lenfth
+  if (length(id) != l)
+    stop("coo_slide: id must be of length {l} or 1")
+
+  purrr::map2(x, id, ~ coo_slide(.x, id=.y)) %>% coo_list()
+}
+
+
+#' @export
+coo_slide.mom_tbl <- function(x, id, ldk, from_col=coo, ldk_col=ldk, to_col={{from_col}},...){
+  # tidyeval
+  c(from_col, ldk_col) %<-% tidyeval_coo_and_ldk({{from_col}}, {{ldk_col}})
+  to_col <- enquo(to_col)
+
+  # ldk case, handles ldk_col
+  if (provided(id) && provided(ldk))
+    .msg_info("coo_slide: id and ldk provided. Only ldk is used")
+  # when id is provided, id is just id
+  if (missing(id) | provided(ldk)){
+    if (missing(ldk) & !col_present(x, ldk)){
+      .msg_info("coo_slide: id not provided, and {as_name(ldk_col)} not present")
+      stop()
+    } else {
+      # ldk_col present, extract ldk-th for each
+      .msg_info("coo_slide: id not provided, working on {as_name(ldk_col)}")
+      id <- x %>% dplyr::pull(!!ldk_col) %>% purrr::map_dbl(~.x[ldk])
+    }
+  }
+
+
+  # operate
+  dplyr::mutate(x, {{to_col}} := x %>%
+                  dplyr::pull(!!from_col) %>%
+                  coo_slide(id=id))
+}
+
+

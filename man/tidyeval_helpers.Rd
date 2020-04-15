@@ -22,7 +22,7 @@ tidyeval_coo_and_ldk(from_col, ldk_col)
 }
 \description{
 Pack repeated tidyeval behaviour.
-Expose to ease development (todo extending vignettes)
+Expose to ease development (todo extending vignettes, todo everything here)
 }
 \details{
 \itemize{
