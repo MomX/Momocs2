@@ -1400,7 +1400,7 @@ coo_slide.coo_list <- function(x, id, ...){
 
   # single id passed
   if (length(id)==1){
-    .msg_info("coo_slide: id was recycled to length {l}")
+    # .msg_info("coo_slide: id was recycled to length {l}") # just annoying I guess
     id <- rep(id, l)
   }
   # check that if no single id, correct lenfth
@@ -1444,17 +1444,44 @@ coo_slide.mom_tbl <- function(x, id, ldk, from_col=coo, ldk_col=ldk, to_col={{fr
 #' Take a shape with `n` coordinates. For each `id` or `ldk` passed,
 #' the shape will be splitted on the corresponding coordinates
 #' and (`length(id/ldk)+1`) fragments returned.
-#' @inherit coo_slide params return
 #'
-#' # #' @seealso Have a look to [coo_slidegap] if you have problems with gaps
+#'
+#' @inherit coo_slide params return
+#' @param share `logical`  whether to share the slicing coordinate between successive fragments.
+#'
+#' @details
+#'
+#' If `share=TRUE`, then each slicing coordinates will be shared between consecutive fragments,
+#' that is the last coordinates of the `n-th` fragment will also be
+#' the first of the `n+1-th` fragment. That is usually what you want, and thus default to `TRUE`.
+#'
+#' `ldk` handling is only supported on `mom_tbl` objects.
+#'
+#' @note
+#' `ldk` happens to be present for `coo_single` and `coo_list` methods (unlike `coo_slide` for instance),
+#' only to please R CMD CHECK S3 consistency _and_
+#' maintain a sensible order for arguments, with `share` after `coo` and `ldk`.
+#' For these classes, it is ignored with a message.
+#'
+#' @seealso
+#' Have a look to coo_slidegap (todo link when ready) if you have problems with gaps
 #' after slicing around landmarks and/or starting points.
 #'
 #' @family coo_modifyers
 #' @family split
 #' @examples
 #'
+#' x <- bot %>% pick(1) %>% coo_sample(12)
+#' x %>% coo_split(id=c(4, 8))
+#' x %>% coo_split(id=c(4, 8), share=FALSE)
+#'
+#' hearts %>%
+#'   dplyr::slice(1:2) %>% # for the sake of speed
+#'   coo_split(ldk=2:3)
+#'
+#' # then dplyr::rename or Momocs2::coo_select if you want to rename/select columns
 #' @export
-coo_split <- function(x, id, ldk, from_col=coo, ldk_col=ldk, to_col={{from_col}}, ...) {
+coo_split <- function(x, id, ldk, share, from_col=coo, ldk_col=ldk, to_col={{from_col}}, ...) {
   UseMethod("coo_split")
 }
 
@@ -1464,30 +1491,75 @@ coo_split.default <- function(x, ...) {
 }
 
 #' @export
-coo_split.coo_single <- function(x, id, ...){
-  if (missing(id))
+coo_split.coo_single <- function(x, id, ldk, share=TRUE, ...){
+  # ldk would be avoided for this method
+  # but R CMD CHECK is not happy with the idea (S3 consistency)
+  if (provided(ldk))
+    .msg_info("coo_split.coo_list: ignores ldk")
+
+  # mandatory checking
+  if (missing(id)){
     stop("coo_split: id must be provided")
-
-  if (length(id)>1)
-    .msg_warning("coo_split: id must be of length 1. Retaining first ({id[1]})")
-
-  n <- nrow(x)
-  if (id > n){
-    .msg_warning("coo_split: id must be <= nrow(x). Using n")
-    id <- n
   }
 
-  slided_ids <- c(id:n, 1:(id - 1))
-  return(x[slided_ids, ])
+  n <- nrow(x)
+  if (any(id>n)){
+    .msg_info("coo_split: {sum(id > n)} id were > nrow(x). Using remaining ids")
+    id <- id[id <= n]
+  }
+
+  # test if some remain
+  if (length(id)==0){
+    stop("coo_split: at least one id is expected")
+  }
+
+  # here we go: we prepare a table
+  split_tbl <- dplyr::transmute(x, x=NA_integer_)
+
+  # fill ending partitions
+  split_tbl[id, ] <- seq_along(id)
+  # and their beginning
+  split_tbl[id+1, ] <- seq_along(id)+1
+  # tidyr::fill will finish the job
+  split_tbl %>%
+    tidyr::fill(x, .direction="updown") %>%
+    dplyr::slice(1:n) %>%
+    # pull this beauty
+    dplyr::pull() %>%
+    # split x with it
+    split(x, .) -> res
+
+  # sew back last point
+  if (share & length(res)>1){
+    # from the second (n) fragment, paste back the last coordinates of (n-1)
+    purrr::map(2:length(res),
+               ~dplyr::bind_rows(
+                 dplyr::slice(res[[.x-1]], dplyr::n()),
+                 res[[.x]]
+               )
+    ) %>% c(res[1], .) -> res # and dont forget the 'untouched) first fragment
+  }
+  # miniminally name fragments and return this beauty
+  res %>% purrr::set_names(seq_along(res))
 }
 
 #' @export
-coo_split.coo_list <- function(x, id, ...){
+coo_split.coo_list <- function(x, id, ldk, share=TRUE, ...){
+  # ldk would be avoided for this method
+  # but R CMD CHECK is not happy with the idea (S3 consistency)
+if (provided(ldk))
+  .msg_info("coo_split.coo_list: ignores ldk")
+
   if (missing(id))
     stop("coo_split: id must be provided")
 
   # recycle common if not already
   l <- length(x)
+
+  # since id length can be > 1, turn to list
+  # so that we can peacefully map2 and also recycle coo_slide code
+  if (!is.list(id))
+    id <- list(id)
 
   # single id passed
   if (length(id)==1){
@@ -1498,12 +1570,13 @@ coo_split.coo_list <- function(x, id, ...){
   if (length(id) != l)
     stop("coo_split: id must be of length {l} or 1")
 
-  purrr::map2(x, id, ~ coo_split(.x, id=.y)) %>% coo_list()
+  # return these beauties
+  purrr::map2(x, id, ~ coo_split(.x, id=unlist(.y), share=share))
 }
 
 
 #' @export
-coo_split.mom_tbl <- function(x, id, ldk, from_col=coo, ldk_col=ldk, to_col={{from_col}},...){
+coo_split.mom_tbl <- function(x, id, ldk, share=TRUE, from_col=coo, ldk_col=ldk, to_col={{from_col}},...){
   # tidyeval
   c(from_col, ldk_col) %<-% tidyeval_coo_and_ldk({{from_col}}, {{ldk_col}})
   to_col <- enquo(to_col)
@@ -1519,15 +1592,29 @@ coo_split.mom_tbl <- function(x, id, ldk, from_col=coo, ldk_col=ldk, to_col={{fr
     } else {
       # ldk_col present, extract ldk-th for each
       .msg_info("coo_split: id not provided, working on {as_name(ldk_col)}")
-      id <- x %>% dplyr::pull(!!ldk_col) %>% purrr::map_dbl(~.x[ldk])
+      id <- x %>% dplyr::pull(!!ldk_col) %>% purrr::map(~.x[ldk])
     }
   }
 
-  # operate
-  dplyr::mutate(x, {{to_col}} := x %>%
-                  dplyr::pull(!!from_col) %>%
-                  coo_split(id=id))
+  # operate, in more steps
+
+  # we first call coo_split.coo_list on the concerned list
+  res <- x %>% dplyr::pull(!!from_col) %>% coo_split(id=id, share=share)
+
+  # then
+  # ~ 3.5 times faster to declare coo_list and mom afterwards
+  res <- res %>%
+    purrr::map(~ .x %>%
+                 purrr::map(list) %>%
+                 # and make a mom from each
+                 tibble::as_tibble()) %>%
+    dplyr::bind_rows() %>%
+    purrr::modify(coo_list) %>%
+    mom()
+
+  # then we define explicit colnames
+  colnames(res) <- paste0(as_name(to_col), "_", seq_along(res))
+
+  # finally, bind these beauties back to x and return
+  dplyr::bind_cols(x, res)
 }
-
-
-

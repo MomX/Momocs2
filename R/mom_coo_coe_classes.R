@@ -279,7 +279,7 @@ coo_list.coo_list <- function(x){
 vec_ptype_full.coo_list <- function(x) "coo_list"
 #' @rdname coo_list
 #' @export
-vec_ptype_abbr.coo_list <- function(x) "coo_list"
+vec_ptype_abbr.coo_list <- function(x) "coo"
 
 #' @importFrom pillar is_vector_s3
 #' @export
@@ -508,7 +508,7 @@ coe_list.coe_list <- function(x){
 vec_ptype_full.coe_list <- function(x) "coe_list"
 #' @rdname coe_list
 #' @export
-vec_ptype_abbr.coe_list <- function(x) "coe_list"
+vec_ptype_abbr.coe_list <- function(x) "coe"
 
 #' @importFrom pillar is_vector_s3
 #' @export

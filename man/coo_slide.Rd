@@ -46,6 +46,8 @@ the id-th point will be used as the id-th point.
 If an id is (also) passed, it is ignored with a message.
 See examples.
 }
+
+\code{ldk} handling is only supported on \code{mom_tbl} objects.
 }
 \examples{
 h <- hearts \%>\% dplyr::slice(1:5) # for speed sake
@@ -64,10 +66,11 @@ Other coo_modifyers:
 \code{\link{coo_sample_rr}()},
 \code{\link{coo_sample}()},
 \code{\link{coo_scale}()},
+\code{\link{coo_split}()},
 \code{\link{coo_template}()},
 \code{\link{coo_trans}()},
 \code{\link{coo_trim}()},
 \code{\link{coo_up}()}
 }
 \concept{coo_modifyers}
-\concept{sliders}
+\concept{slide}

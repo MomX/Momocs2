@@ -60,6 +60,7 @@ Other coo_modifyers:
 \code{\link{coo_sample}()},
 \code{\link{coo_scale}()},
 \code{\link{coo_slide}()},
+\code{\link{coo_split}()},
 \code{\link{coo_trans}()},
 \code{\link{coo_trim}()},
 \code{\link{coo_up}()}
