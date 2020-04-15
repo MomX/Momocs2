@@ -1348,13 +1348,15 @@ coo_trim_tail.mom_tbl <- function(x, n, from_col=coo, to_col={{from_col}}, ...) 
 #' If an id is (also) passed, it is ignored with a message.
 #' See examples.
 #'
+#' `ldk` handling is only supported on `mom_tbl` objects.
+#'
 #' @examples
 #' h <- hearts %>% dplyr::slice(1:5) # for speed sake
 #' pile(h)
 #'
 #' h %>% coo_slide(ldk=1) %>% pile()
 #' @family coo_modifyers
-#' @family sliders
+#' @family slide
 #' @export
 coo_slide <- function(x, id, ldk, from_col=coo, ldk_col=ldk, to_col={{from_col}}, ...) {
   UseMethod("coo_slide")
@@ -1370,15 +1372,20 @@ coo_slide.coo_single <- function(x, id, ...){
   if (missing(id))
     stop("coo_slide: id must be provided")
 
-  if (length(id)>1)
+  # id should be of length 1
+  if (length(id)>1){
     .msg_warning("coo_slide: id must be of length 1. Retaining first ({id[1]})")
+    id <- id[1]
+  }
 
+  # check too ambitious id
   n <- nrow(x)
   if (id > n){
-    .msg_warning("coo_slide: id must be <= nrow. Using n")
+    .msg_warning("coo_slide: id must be <= nrow(x). Using n")
     id <- n
   }
 
+  # here we go
   slided_ids <- c(id:n, 1:(id - 1))
   return(x[slided_ids, ])
 }
@@ -1425,11 +1432,102 @@ coo_slide.mom_tbl <- function(x, id, ldk, from_col=coo, ldk_col=ldk, to_col={{fr
     }
   }
 
-
   # operate
   dplyr::mutate(x, {{to_col}} := x %>%
                   dplyr::pull(!!from_col) %>%
                   coo_slide(id=id))
 }
+
+# coo_split -----------------------------------------------
+#' Split shapes on speficied coordinates
+#'
+#' Take a shape with `n` coordinates. For each `id` or `ldk` passed,
+#' the shape will be splitted on the corresponding coordinates
+#' and (`length(id/ldk)+1`) fragments returned.
+#' @inherit coo_slide params return
+#'
+#' # #' @seealso Have a look to [coo_slidegap] if you have problems with gaps
+#' after slicing around landmarks and/or starting points.
+#'
+#' @family coo_modifyers
+#' @family split
+#' @examples
+#'
+#' @export
+coo_split <- function(x, id, ldk, from_col=coo, ldk_col=ldk, to_col={{from_col}}, ...) {
+  UseMethod("coo_split")
+}
+
+#' @export
+coo_split.default <- function(x, ...) {
+  not_defined("coo_split")
+}
+
+#' @export
+coo_split.coo_single <- function(x, id, ...){
+  if (missing(id))
+    stop("coo_split: id must be provided")
+
+  if (length(id)>1)
+    .msg_warning("coo_split: id must be of length 1. Retaining first ({id[1]})")
+
+  n <- nrow(x)
+  if (id > n){
+    .msg_warning("coo_split: id must be <= nrow(x). Using n")
+    id <- n
+  }
+
+  slided_ids <- c(id:n, 1:(id - 1))
+  return(x[slided_ids, ])
+}
+
+#' @export
+coo_split.coo_list <- function(x, id, ...){
+  if (missing(id))
+    stop("coo_split: id must be provided")
+
+  # recycle common if not already
+  l <- length(x)
+
+  # single id passed
+  if (length(id)==1){
+    .msg_info("coo_split: id was recycled to length {l}")
+    id <- rep(id, l)
+  }
+  # check that if no single id, correct lenfth
+  if (length(id) != l)
+    stop("coo_split: id must be of length {l} or 1")
+
+  purrr::map2(x, id, ~ coo_split(.x, id=.y)) %>% coo_list()
+}
+
+
+#' @export
+coo_split.mom_tbl <- function(x, id, ldk, from_col=coo, ldk_col=ldk, to_col={{from_col}},...){
+  # tidyeval
+  c(from_col, ldk_col) %<-% tidyeval_coo_and_ldk({{from_col}}, {{ldk_col}})
+  to_col <- enquo(to_col)
+
+  # ldk case, handles ldk_col
+  if (provided(id) && provided(ldk))
+    .msg_info("coo_split: id and ldk provided. Only ldk is used")
+  # when id is provided, id is just id
+  if (missing(id) | provided(ldk)){
+    if (missing(ldk) & !col_present(x, ldk)){
+      .msg_info("coo_split: id not provided, and {as_name(ldk_col)} not present")
+      stop()
+    } else {
+      # ldk_col present, extract ldk-th for each
+      .msg_info("coo_split: id not provided, working on {as_name(ldk_col)}")
+      id <- x %>% dplyr::pull(!!ldk_col) %>% purrr::map_dbl(~.x[ldk])
+    }
+  }
+
+  # operate
+  dplyr::mutate(x, {{to_col}} := x %>%
+                  dplyr::pull(!!from_col) %>%
+                  coo_split(id=id))
+}
+
 
 

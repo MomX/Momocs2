@@ -311,13 +311,17 @@ test_that("coo_slide works", {
   expect_is(hearts %>% coo_slide(id=15), "mom_tbl")
   expect_is(hearts %>% coo_slide(ldk=1), "mom_tbl")
 
+  # coo_single
+
+  expect_error(hearts %>% pick() %>% coo_slide(), "provided")
+  expect_message(hearts %>% pick() %>% coo_slide(id=5:1), "length 1")
+  expect_message(hearts %>% pick() %>% coo_slide(id=1e5), "<= nrow")
+
+
   expect_message((x <- hearts %>% coo_slide(ldk=1)), "ldk")
   y <- hearts %>% coo_slide(id=5, ldk=1)
   expect_identical(x, y)
 })
-
-
-
 
 
 
