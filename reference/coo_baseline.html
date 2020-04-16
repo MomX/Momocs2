@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>XXX shapes — coo_baseline • Momocs2</title>
+<title>Baseline shapes — coo_baseline • Momocs2</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,9 @@
 
 
 
-<meta property="og:title" content="XXX shapes — coo_baseline" />
-<meta property="og:description" content="XXX coordinates." />
+<meta property="og:title" content="Baseline shapes — coo_baseline" />
+<meta property="og:description" content="Register shapes on new baseline, that is defines certain points,
+to be on certain target points, that is homogeneizes for scale, rotation and position." />
 <meta property="og:image" content="http://momx.github.io/Momocs2/logo.png" />
 
 
@@ -137,16 +138,29 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>XXX shapes</h1>
+    <h1>Baseline shapes</h1>
     
     <div class="hidden name"><code>coo_baseline.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>XXX coordinates.</p>
+    <p>Register shapes on new baseline, that is defines certain points,
+to be on certain target points, that is homogeneizes for scale, rotation and position.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>coo_baseline</span>(<span class='no'>x</span>, <span class='no'>target1</span>, <span class='no'>target2</span>, <span class='no'>id1</span>, <span class='no'>id2</span>, <span class='no'>ldk1</span>, <span class='no'>ldk2</span>, <span class='no'>from_col</span>, <span class='no'>to_col</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>coo_baseline</span>(
+  <span class='no'>x</span>,
+  <span class='no'>target1</span>,
+  <span class='no'>target2</span>,
+  <span class='no'>id1</span>,
+  <span class='no'>id2</span>,
+  <span class='no'>ldk1</span>,
+  <span class='no'>ldk2</span>,
+  <span class='no'>from_col</span>,
+  <span class='no'>ldk_col</span>,
+  <span class='no'>to_col</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -173,6 +187,10 @@
 and how to name the resulting one (only for mom_tbl method)</p></td>
     </tr>
     <tr>
+      <th>ldk_col</th>
+      <td><p>column name to use for landmakrs</p></td>
+    </tr>
+    <tr>
       <th>to_col</th>
       <td><p>colnames from where to get the coo_list
 and how to name the resulting one (only for mom_tbl method)</p></td>
@@ -186,6 +204,9 @@ and how to name the resulting one (only for mom_tbl method)</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a coo_single, coo_list or mom_tbl</p>
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p>todo review</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other coo_modifyers: 
@@ -211,7 +232,15 @@ and how to name the resulting one (only for mom_tbl method)</p></td>
 <span class='co'># are Bookstein coordinates</span>
 <span class='no'>bot</span> <span class='kw'>%&gt;%</span> <span class='fu'>pick</span>(<span class='fl'>1</span>) <span class='kw'>%&gt;%</span>
   <span class='no'>coo_center</span> <span class='kw'>%&gt;%</span> <span class='no'>coo_align</span> <span class='kw'>%&gt;%</span> <span class='fu'>coo_up</span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'>coo_baseline</span>() <span class='kw'>%&gt;%</span> <span class='fu'>gg</span>()</div><div class='img'><img src='coo_baseline-1.png' alt='' width='700' height='433' /></div></pre>
+  <span class='fu'>coo_baseline</span>() <span class='kw'>%&gt;%</span> <span class='fu'>gg</span>()</div><div class='img'><img src='coo_baseline-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>hearts</span> <span class='kw'>%&gt;%</span>
+<span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span>(<span class='fl'>1</span>:<span class='fl'>5</span>) <span class='kw'>%&gt;%</span>
+  <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span>(<span class='kw'>foo</span><span class='kw'>=</span><span class='no'>ldk</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>coo_baseline</span>(<span class='kw'>ldk1</span><span class='kw'>=</span><span class='fl'>2</span>, <span class='kw'>ldk2</span><span class='kw'>=</span><span class='fl'>4</span>,
+    <span class='kw'>target1</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>10</span>, <span class='fl'>0</span>), <span class='kw'>target2</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>20</span>, <span class='fl'>0</span>),
+    <span class='kw'>ldk_col</span><span class='kw'>=</span><span class='no'>foo</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'>coo_slide</span>(<span class='kw'>ldk</span><span class='kw'>=</span><span class='fl'>4</span>, <span class='kw'>ldk_col</span><span class='kw'>=</span><span class='no'>foo</span>) <span class='kw'>%&gt;%</span>
+ <span class='fu'>pile</span>(<span class='kw'>alpha</span><span class='kw'>=</span><span class='fl'>0.1</span>)</div><div class='output co'>#&gt; <span class='message'>ℹ coo_baseline: id1/2 not provided, working on foo</span></div><div class='output co'>#&gt; <span class='message'>ℹ coo_slide: id not provided, working on foo</span></div><div class='img'><img src='coo_baseline-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
