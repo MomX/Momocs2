@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Flip shapes — coo_flip • Momocs2</title>
+<title>Reflect shapes — coo_reflect • Momocs2</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Flip shapes — coo_flip" />
-<meta property="og:description" content="Flips shapes about the x- or the y- axis" />
+<meta property="og:title" content="Reflect shapes — coo_reflect" />
+<meta property="og:description" content="Reflects shapes about the x- or the y- axis" />
 <meta property="og:image" content="http://momx.github.io/Momocs2/logo.png" />
 
 
@@ -137,18 +137,18 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Flip shapes</h1>
+    <h1>Reflect shapes</h1>
     
-    <div class="hidden name"><code>coo_flip.Rd</code></div>
+    <div class="hidden name"><code>coo_reflect.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Flips shapes about the x- or the y- axis</p>
+    <p>Reflects shapes about the x- or the y- axis</p>
     </div>
 
-    <pre class="usage"><span class='fu'>coo_flip_x</span>(<span class='no'>x</span>, <span class='no'>from_col</span>, <span class='no'>to_col</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>coo_reflect_x</span>(<span class='no'>x</span>, <span class='no'>from_col</span>, <span class='no'>to_col</span>, <span class='no'>...</span>)
 
-<span class='fu'>coo_flip_y</span>(<span class='no'>x</span>, <span class='no'>from_col</span>, <span class='no'>to_col</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>coo_reflect_y</span>(<span class='no'>x</span>, <span class='no'>from_col</span>, <span class='no'>to_col</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -180,8 +180,8 @@ and how to name the resulting one (only for mom_tbl method)</p></td>
 
     
 <ul>
-<li><p><code>coo_flip_x</code>: Flips about the x-axis</p></li>
-<li><p><code>coo_flip_y</code>: Flips about the y-axis</p></li>
+<li><p><code>coo_reflect_x</code>: reflects about the x-axis</p></li>
+<li><p><code>coo_reflect_y</code>: reflects about the y-axis</p></li>
 </ul>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -204,7 +204,7 @@ and how to name the resulting one (only for mom_tbl method)</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='no'>bot</span> <span class='kw'>%&gt;%</span> <span class='fu'>pick</span>(<span class='fl'>1</span>) <span class='kw'>%&gt;%</span> <span class='fu'>coo_flip_x</span>() <span class='kw'>%&gt;%</span> <span class='fu'>gg</span>()</div><div class='img'><img src='coo_flip-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>bot</span> <span class='kw'>%&gt;%</span> <span class='fu'>pick</span>(<span class='fl'>1</span>) <span class='kw'>%&gt;%</span> <span class='fu'>coo_flip_y</span>() <span class='kw'>%&gt;%</span> <span class='fu'>gg</span>()</div><div class='img'><img src='coo_flip-2.png' alt='' width='700' height='433' /></div></pre>
+<span class='no'>bot</span> <span class='kw'>%&gt;%</span> <span class='fu'>pick</span>(<span class='fl'>1</span>) <span class='kw'>%&gt;%</span> <span class='fu'>coo_reflect_x</span>() <span class='kw'>%&gt;%</span> <span class='fu'>gg</span>()</div><div class='img'><img src='coo_reflect-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>bot</span> <span class='kw'>%&gt;%</span> <span class='fu'>pick</span>(<span class='fl'>1</span>) <span class='kw'>%&gt;%</span> <span class='fu'>coo_reflect_y</span>() <span class='kw'>%&gt;%</span> <span class='fu'>gg</span>()</div><div class='img'><img src='coo_reflect-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
