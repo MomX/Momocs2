@@ -132,8 +132,11 @@ coo_trans.mom_tbl <- function(x, x_trans=0, y_trans=0, from_col=coo, to_col={{fr
 #' @examples
 #'
 #' @examples
-#' bot %>% pick(1) %>% coo_scale()
-#'
+#' x <- bot %>% pick(1)
+#' x %>% gg()
+#' x %>% coo_scale() %>% gg()
+#' x %>% coo_scale_x(5) %>% gg()
+#' x %>% coo_scale_y(5) %>% gg()
 #' @export
 coo_scale <- function(x, scale, from_col, to_col, ...) {
   UseMethod("coo_scale")
@@ -176,6 +179,93 @@ coo_scale.mom_tbl <- function(x, scale, from_col=coo, to_col={{from_col}}, ...) 
   x %>% dplyr::mutate(!!to_col := x %>%
                         dplyr::pull(!!from_col) %>%
                         coo_scale())
+}
+
+
+# coo_scale_x ----------------------------------------------
+
+#' @describeIn coo_scale scale along x-axis
+#' @export
+coo_scale_x <- function(x, scale, from_col, to_col, ...) {
+  UseMethod("coo_scale_x")
+}
+
+#' @export
+coo_scale_x.default <- function(x, ...){
+  not_defined("coo_scale_x")
+}
+
+#' @export
+coo_scale_x.coo_single <- function(x, scale, ...) {
+  if (missing(scale))
+    stop("coo_scale_x: scale is missing")
+  # prepare affine transformation matrix
+  smat <- matrix(c(scale, 0,
+                   0, 1), nrow = 2)
+  (as.matrix(x) %*% smat) %>% coo_single()
+}
+
+#' @export
+coo_scale_x.coo_list <- function(x, scale, ...) {
+  if (missing(scale))
+    stop("coo_scale_x: scale is missing")
+  x %>% purrr::map(coo_scale_x, scale=scale) %>% coo_list()
+}
+
+#' @export
+coo_scale_x.mom_tbl <- function(x, scale, from_col=coo, to_col={{from_col}}, ...) {
+  if (missing(scale))
+    stop("coo_scale_x: scale is missing")
+  # tidyeval
+  c(from_col, to_col) %<-% tidyeval_coo_modifyers(from_col={{from_col}}, to_col={{to_col}})
+
+  # operate
+  x %>% dplyr::mutate(!!to_col := x %>%
+                        dplyr::pull(!!from_col) %>%
+                        coo_scale_x(scale=scale))
+}
+
+# coo_scale_y ----------------------------------------------
+
+#' @describeIn coo_scale scale along y-axis
+#' @export
+coo_scale_y <- function(x, scale, from_col, to_col, ...) {
+  UseMethod("coo_scale_y")
+}
+
+#' @export
+coo_scale_y.default <- function(x, ...){
+  not_defined("coo_scale_y")
+}
+
+#' @export
+coo_scale_y.coo_single <- function(x, scale, ...) {
+  if (missing(scale))
+    stop("coo_scale_y: scale is missing")
+  # prepare affine transformation matrix
+  smat <- matrix(c(1, 0,
+                   0, scale), nrow = 2)
+  (as.matrix(x) %*% smat) %>% coo_single()
+}
+
+#' @export
+coo_scale_y.coo_list <- function(x, scale, ...) {
+  if (missing(scale))
+    stop("coo_scale_y: scale is missing")
+  x %>% purrr::map(coo_scale_y, scale=scale) %>% coo_list()
+}
+
+#' @export
+coo_scale_y.mom_tbl <- function(x, scale, from_col=coo, to_col={{from_col}}, ...) {
+  if (missing(scale))
+    stop("coo_scale_y: scale is missing")
+  # tidyeval
+  c(from_col, to_col) %<-% tidyeval_coo_modifyers(from_col={{from_col}}, to_col={{to_col}})
+
+  # operate
+  x %>% dplyr::mutate(!!to_col := x %>%
+                        dplyr::pull(!!from_col) %>%
+                        coo_scale_y(scale=scale))
 }
 
 # coo_template ----------------------------------------------
@@ -260,6 +350,63 @@ coo_template.mom_tbl <- function(x, size=1, from_col=coo, to_col={{from_col}}, .
 # coo_template_relatively.mom_tbl <- function(x) {
 #   x %>% mutate(coo=map(coo, coo_template_relatively))
 # }
+
+# SHEARING ------------------------------------------------
+# coo_shear ----------------------------------------------
+
+#' Shear shapes
+#'
+#' Returns a sheared shape.
+#'
+#' @inherit coo_center params return
+#' @param x_k,y_k `numeric` shearing factor over x and y axes
+#' (default to 0, ie no shearing)
+#' @family coo_modifyers
+#' @family shearings
+#' @examples
+#'
+#' @examples
+#' x <- bot %>% pick(1) %>% coo_center()
+#' x %>% gg()
+#' x %>% coo_shear(x_k =  0.25) %>% gg()
+#' x %>% coo_shear(y_k = -0.5) %>% gg()
+#' x %>% coo_shear(x_k = 0.25, y_k = -0.5) %>% gg()
+#' @export
+coo_shear <- function(x, x_k, y_k, from_col, to_col, ...) {
+  UseMethod("coo_shear")
+}
+
+#' @export
+coo_shear.default <- function(x, x_k, y_k,...){
+  not_defined("coo_shear")
+}
+
+#' @export
+coo_shear.coo_single <- function(x, x_k=0, y_k=0, ...) {
+  # prepare affine transformation matrix
+  smat <- matrix(c(1, y_k,
+                   x_k, 1), nrow = 2)
+  (as.matrix(x) %*% smat) %>% coo_single()
+}
+
+#' @export
+coo_shear.coo_list <- function(x, x_k=0, y_k=0,  ...){
+  x %>%
+    purrr::map(coo_shear, x_k=x_k, y_k=y_k) %>%
+    coo_list()
+}
+
+#' @export
+coo_shear.mom_tbl <- function(x, x_k=0, y_k=0, from_col=coo, to_col={{from_col}}, ...) {
+  # tidyeval
+  c(from_col, to_col) %<-% tidyeval_coo_modifyers(from_col={{from_col}}, to_col={{to_col}})
+
+  # operate
+  x %>% dplyr::mutate(!!to_col := x %>%
+                        dplyr::pull(!!from_col) %>%
+                        coo_shear(x_k=x_k, y_k=y_k))
+}
+
 
 # ROTATION AND CO -----------------------------------------
 # coo_align ----------
@@ -1547,8 +1694,8 @@ coo_split.coo_single <- function(x, id, ldk, share=TRUE, ...){
 coo_split.coo_list <- function(x, id, ldk, share=TRUE, ...){
   # ldk would be avoided for this method
   # but R CMD CHECK is not happy with the idea (S3 consistency)
-if (provided(ldk))
-  .msg_info("coo_split.coo_list: ignores ldk")
+  if (provided(ldk))
+    .msg_info("coo_split.coo_list: ignores ldk")
 
   if (missing(id))
     stop("coo_split: id must be provided")

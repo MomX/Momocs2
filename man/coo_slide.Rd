@@ -66,6 +66,7 @@ Other coo_modifyers:
 \code{\link{coo_sample_rr}()},
 \code{\link{coo_sample}()},
 \code{\link{coo_scale}()},
+\code{\link{coo_shear}()},
 \code{\link{coo_split}()},
 \code{\link{coo_template}()},
 \code{\link{coo_trans}()},

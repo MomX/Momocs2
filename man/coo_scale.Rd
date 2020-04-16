@@ -2,9 +2,17 @@
 % Please edit documentation in R/coo_modifyers.R
 \name{coo_scale}
 \alias{coo_scale}
+\alias{coo_scale_x}
+\alias{coo_scale_y}
 \title{Scale shapes}
 \usage{
 coo_scale(x, scale, from_col, to_col, ...)
+
+coo_scale_x(x, scale, from_col, to_col, ...)
+
+coo_scale_y(x, scale, from_col, to_col, ...)
+
+coo_scale_x(x, scale, from_col, to_col, ...)
 }
 \arguments{
 \item{x}{\link{coo_single}, \link{coo_list} or \link{mom_tbl}}
@@ -25,10 +33,22 @@ a \link{coo_single}, \link{coo_list} or \link{mom_tbl}
 \description{
 Returns a scaled shape.
 }
+\section{Functions}{
+\itemize{
+\item \code{coo_scale_x}: scale along x-axis
+
+\item \code{coo_scale_y}: scale along y-axis
+
+\item \code{coo_scale_x}: scale along x-axis
+}}
+
 \examples{
 
-bot \%>\% pick(1) \%>\% coo_scale()
-
+x <- bot \%>\% pick(1)
+x \%>\% gg()
+x \%>\% coo_scale() \%>\% gg()
+x \%>\% coo_scale_x(5) \%>\% gg()
+x \%>\% coo_scale_y(5) \%>\% gg()
 }
 \seealso{
 Other coo_modifyers: 
@@ -40,6 +60,7 @@ Other coo_modifyers:
 \code{\link{coo_rotate}()},
 \code{\link{coo_sample_rr}()},
 \code{\link{coo_sample}()},
+\code{\link{coo_shear}()},
 \code{\link{coo_slide}()},
 \code{\link{coo_split}()},
 \code{\link{coo_template}()},

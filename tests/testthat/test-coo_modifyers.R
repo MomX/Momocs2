@@ -15,7 +15,7 @@ test_cols_tidyeval <- function(fun,  ..., data=bot){
 
 test_classes <- function(fun, ...,  data=bot){
   # no method defined
-  expect_message(fun("a"), "no method")
+  expect_message(fun("a", ...), "no method")
 
   x <- dplyr::slice(data, 1:3) # for the sake of speed
   expect_is(x %>% fun(...),     "mom_tbl")
@@ -78,8 +78,39 @@ test_that("coo_scale works", {
   expect_equivalent(tibble(x=c(0, 2*sqrt(2)), y=c(0, -2*sqrt(2))) %>% get_centsize(),
                     expected = 2, tolerance=1e-10)
   expect_equivalent(bot$coo[[1]] %>% coo_scale %>% get_centsize(), 1, tol=1e-10)
+
 })
 
+# coo_scale_x
+test_that("coo_scale_x and _y work", {
+  # coo_scale_x
+  test_classes(coo_scale_x, scale=2)
+  test_cols_tidyeval(coo_scale_x, scale=2)
+  test_equivalence(coo_scale_x, scale=2)
+
+  # missing scale
+  expect_error(coo_scale_x(bot %>% pick), "missing")
+  expect_error(coo_scale_x(bot$coo), "missing")
+  expect_error(coo_scale_x(bot), "missing")
+
+  test_classes(coo_scale_y, scale=2)
+  test_cols_tidyeval(coo_scale_y, scale=2)
+  test_equivalence(coo_scale_y, scale=2)
+
+  # missing scale
+  expect_error(coo_scale_y(bot %>% pick), "missing")
+  expect_error(coo_scale_y(bot$coo), "missing")
+  expect_error(coo_scale_y(bot), "missing")
+
+})
+
+# coo_shear
+test_that("coo_shear works", {
+  test_classes(coo_shear, x_k=1, y_k=0.5)
+  test_cols_tidyeval(coo_shear, x_k=1, y_k=0.5)
+  test_equivalence(coo_shear, x_k=1, y_k=0.5)
+
+})
 
 # coo_template ---------
 test_that("coo_template works", {
