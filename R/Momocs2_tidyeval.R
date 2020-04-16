@@ -46,5 +46,6 @@ tidyeval_coo_modifyers <- function(from_col, to_col){
 tidyeval_coo_and_ldk <- function(from_col, ldk_col){
   # missing or not, enquote both
   # and return these (promised) beauties
-  list(from_col=enquo(from_col), ldk_col=enquo(ldk_col))
+  list(from_col = enquo(from_col),
+       ldk_col  = enquo(ldk_col))
 }
