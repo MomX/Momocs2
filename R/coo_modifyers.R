@@ -604,86 +604,86 @@ coo_rotatecenter.mom_tbl <- function(x, theta=0, center = c(0, 0), from_col=coo,
                         coo_rotatecenter(theta=theta, center=center) %>%
                         coo_list())
 }
-# FLIPPING ------------------------------------------------
-# coo_flip_x ----------------------------------------------
-#' Flip shapes
+# REFLECTING ------------------------------------------------
+# coo_reflect_x ----------------------------------------------
+#' Reflect shapes
 #'
-#' Flips shapes about the x- or the y- axis
+#' Reflects shapes about the x- or the y- axis
 #'
 #'
 #' @inherit coo_center params return
 #' @family coo_modifyers
 #' @examples
 #'
-#' bot %>% pick(1) %>% coo_flip_x() %>% gg()
-#' bot %>% pick(1) %>% coo_flip_y() %>% gg()
-#' @name coo_flip
+#' bot %>% pick(1) %>% coo_reflect_x() %>% gg()
+#' bot %>% pick(1) %>% coo_reflect_y() %>% gg()
+#' @name coo_reflect
 NULL
 
-#' @describeIn coo_flip Flips about the x-axis
+#' @describeIn coo_reflect reflects about the x-axis
 #' @export
-coo_flip_x <- function(x, from_col, to_col, ...) {
-  UseMethod("coo_flip_x")
+coo_reflect_x <- function(x, from_col, to_col, ...) {
+  UseMethod("coo_reflect_x")
 }
 
 #' @export
-coo_flip_x.default <- function(x, ...){
-  not_defined("coo_flip_x")
+coo_reflect_x.default <- function(x, ...){
+  not_defined("coo_reflect_x")
 }
 
 #' @export
-coo_flip_x.coo_single <- function(x, ...) {
+coo_reflect_x.coo_single <- function(x, ...) {
   m <- matrix(c(1, 0, 0, -1), nrow = 2)
   (as.matrix(x) %*% m) %>% coo_single()
 }
 
 #' @export
-coo_flip_x.coo_list <- function(x, ...) {
-  x %>% purrr::map(coo_flip_x) %>% coo_list()
+coo_reflect_x.coo_list <- function(x, ...) {
+  x %>% purrr::map(coo_reflect_x) %>% coo_list()
 }
 
 #' @export
-coo_flip_x.mom_tbl <- function(x, from_col=coo, to_col={{from_col}}, ...) {
+coo_reflect_x.mom_tbl <- function(x, from_col=coo, to_col={{from_col}}, ...) {
   # tidyeval
   c(from_col, to_col) %<-% tidyeval_coo_modifyers(from_col={{from_col}}, to_col={{to_col}})
 
   # operate
   x %>% dplyr::mutate(!!to_col := x %>%
                         dplyr::pull(!!from_col) %>%
-                        coo_flip_x())
+                        coo_reflect_x())
 }
 
-#' @describeIn coo_flip Flips about the y-axis
+#' @describeIn coo_reflect reflects about the y-axis
 #' @export
-coo_flip_y <- function(x, from_col, to_col, ...) {
-  UseMethod("coo_flip_y")
-}
-
-#' @export
-coo_flip_y.default <- function(x, ...){
-  not_defined("coo_flip_y")
+coo_reflect_y <- function(x, from_col, to_col, ...) {
+  UseMethod("coo_reflect_y")
 }
 
 #' @export
-coo_flip_y.coo_single <- function(x, ...) {
+coo_reflect_y.default <- function(x, ...){
+  not_defined("coo_reflect_y")
+}
+
+#' @export
+coo_reflect_y.coo_single <- function(x, ...) {
   m <- matrix(c(-1, 0, 0, 1), nrow = 2)
   (as.matrix(x) %*% m) %>% coo_single()
 }
 
 #' @export
-coo_flip_y.coo_list <- function(x, ...) {
-  x %>% purrr::map(coo_flip_y) %>% coo_list()
+coo_reflect_y.coo_list <- function(x, ...) {
+  x %>% purrr::map(coo_reflect_y) %>% coo_list()
 }
 
 #' @export
-coo_flip_y.mom_tbl <- function(x, from_col=coo, to_col={{from_col}}, ...) {
+coo_reflect_y.mom_tbl <- function(x, from_col=coo, to_col={{from_col}}, ...) {
   # tidyeval
   c(from_col, to_col) %<-% tidyeval_coo_modifyers(from_col={{from_col}}, to_col={{to_col}})
 
   # operate
   x %>% dplyr::mutate(!!to_col := x %>%
                         dplyr::pull(!!from_col) %>%
-                        coo_flip_y())
+                        coo_reflect_y())
 }
 
 # SAMPLING AND CO -----------------------------------------

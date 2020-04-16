@@ -52,7 +52,7 @@ bot \%>\% coo_template \%>\% pile()
 Other coo_modifyers: 
 \code{\link{coo_align}()},
 \code{\link{coo_center}()},
-\code{\link{coo_flip}},
+\code{\link{coo_reflect}},
 \code{\link{coo_rev}()},
 \code{\link{coo_rotatecenter}()},
 \code{\link{coo_rotate}()},

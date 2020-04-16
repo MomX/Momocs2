@@ -11,8 +11,6 @@ coo_scale(x, scale, from_col, to_col, ...)
 coo_scale_x(x, scale, from_col, to_col, ...)
 
 coo_scale_y(x, scale, from_col, to_col, ...)
-
-coo_scale_x(x, scale, from_col, to_col, ...)
 }
 \arguments{
 \item{x}{\link{coo_single}, \link{coo_list} or \link{mom_tbl}}
@@ -38,8 +36,6 @@ Returns a scaled shape.
 \item \code{coo_scale_x}: scale along x-axis
 
 \item \code{coo_scale_y}: scale along y-axis
-
-\item \code{coo_scale_x}: scale along x-axis
 }}
 
 \examples{
@@ -54,7 +50,7 @@ x \%>\% coo_scale_y(5) \%>\% gg()
 Other coo_modifyers: 
 \code{\link{coo_align}()},
 \code{\link{coo_center}()},
-\code{\link{coo_flip}},
+\code{\link{coo_reflect}},
 \code{\link{coo_rev}()},
 \code{\link{coo_rotatecenter}()},
 \code{\link{coo_rotate}()},

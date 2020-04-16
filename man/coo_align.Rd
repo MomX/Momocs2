@@ -44,7 +44,7 @@ bot \%>\% pick(1) \%>\% coo_align_xax
 \seealso{
 Other coo_modifyers: 
 \code{\link{coo_center}()},
-\code{\link{coo_flip}},
+\code{\link{coo_reflect}},
 \code{\link{coo_rev}()},
 \code{\link{coo_rotatecenter}()},
 \code{\link{coo_rotate}()},

@@ -129,15 +129,15 @@ test_that("coo_template works", {
 
 })
 
-# coo_flip ---------
-test_that("coo_flipx and y work", {
-  test_classes(coo_flip_x)
-  test_cols_tidyeval(coo_flip_x)
-  test_equivalence(coo_flip_x)
+# coo_reflect ---------
+test_that("coo_reflectx and y work", {
+  test_classes(coo_reflect_x)
+  test_cols_tidyeval(coo_reflect_x)
+  test_equivalence(coo_reflect_x)
 
-  test_classes(coo_flip_y)
-  test_cols_tidyeval(coo_flip_y)
-  test_equivalence(coo_flip_y)
+  test_classes(coo_reflect_y)
+  test_cols_tidyeval(coo_reflect_y)
+  test_equivalence(coo_reflect_y)
 
 })
 
