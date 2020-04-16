@@ -9,5 +9,4 @@ test_that("get_ldk works", {
 
   expect_equivalent(purrr::map2(h$coo, h$ldk, ~.x[.y, ]),
                     ldks1$coo_ldk)
-
 })
