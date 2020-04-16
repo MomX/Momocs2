@@ -1,3 +1,113 @@
+# ed ------------------------------------------------------
+#' Euclidean distance helpers
+#'
+#' A little tribe to help with euclidean distances calculations
+#'
+#' @param x,y [coo_single], matrices or vectors of length 2 (when sensible)
+#' @param r `numeric` how much of the distance `d(x -> y)` should we travel?
+#'
+#' @name euclidean
+#' @family geometry
+#'
+#' @examples
+#' x <- c(0, 0)
+#' y <- c(1, 1)
+#'
+#' ed(x, y) # sqrt(2)
+#' edi(x, y, 0.25) # c(0.25, 0.25)
+#'
+#' bot %>% dplyr::slice(1:2) %>% coo_sample(12)  %>% dplyr::pull(coo) -> b
+#' ed_pw(b[[1]], b[[2]])
+#' # checking
+#' purrr::map_dbl(1:12, ~ed(b[[1]][.x, ], b[[2]][.x, ]))
+#'
+#' bot %>% pick(1) %>% ed_nearest(c(0, 0))
+#'
+#' # nearest and furthest points
+#'
+#' set.seed(2329) # for the sake of reproducibility when building the pkg
+#' foo <- tibble::tibble(x=runif(5), y=runif(5))
+#' z <- c(0.5, 0.5)
+#' plot(foo, pch="")
+#' text(foo, labels=1:5)
+#' points(z[1], z[2], col="red", pch=20)
+#'
+#' (nearest <- ed_nearest(foo, z))
+#' segments(z[1], z[2],
+#'          as.numeric(foo[nearest$id, 1]), as.numeric(foo[nearest$id, 2]), col="blue")
+#'
+#' (furthest <- ed_furthest(foo, z))
+#' segments(z[1], z[2],
+#'          as.numeric(foo[furthest$id, 1]), as.numeric(foo[furthest$id, 2]), col="red")
+#'
+#'
+#' (calli <- ed_calliper(foo))
+#' segments(as.numeric(foo[calli$ids[1], 1]), as.numeric(foo[calli$ids[1], 2]),
+#'          as.numeric(foo[calli$ids[2], 1]), as.numeric(foo[calli$ids[2], 2]), col="green")
+#'
+#'
+NULL
+
+#' @describeIn euclidean calculates **e**uclidean **d**istance between two points
+#' @export
+ed <- function(x, y){
+  # to pass coo_single
+  x <- unlist(x)
+  y <- unlist(y)
+  # Pythagoras' theorem
+  sqrt((x[1] - y[1])^2 + (x[2] - y[2])^2) %>% unlist()
+}
+
+#' @describeIn euclidean calculates **i**ntermediate position between two points
+#' @export
+edi <- function(x, y, r = 0.5) {
+  x + r * (y - x)
+}
+
+#' @describeIn euclidean calculates **p**air**w**ise distances between two shapes
+#' @export
+ed_pw <- function(x, y) {
+  sqrt(apply((x - y)^2, 1, sum)) %>% unlist()
+}
+
+#' @describeIn euclidean calculates **closest** point to y from x
+#' @export
+ed_nearest <- function(x, y){
+  y <- unlist(y)
+  d <- sqrt((x[, 1] - y[1])^2 + (x[, 2] - y[2])^2) %>% unlist()
+
+  list(d   = min(d),
+       ids = which.min(d))
+}
+
+#' @describeIn euclidean calculates **furthest** point to y from x
+#' @export
+ed_furthest <- function(x, y){
+  y <- unlist(y)
+  d <- sqrt((x[, 1] - y[1])^2 + (x[, 2] - y[2])^2) %>% unlist()
+
+  list(d   = max(d),
+       ids = which.max(d))
+}
+
+#' @describeIn euclidean find **calliper** (max pairwise ed) length
+#' @export
+ed_calliper <- function(x){
+  d <- stats::dist(x, method = "euclidean") %>% as.matrix()
+  d[upper.tri(d)] <- 0 # saves a na.rm
+
+  list(d   = max(d),
+       ids = which(d == max(d), arr.ind = TRUE) %>% sort())
+}
+
+#' @describeIn euclidean find **min**imal **rad**ius (min dist to centroid)
+#' @export
+ed_minrad <- function(x){
+  ed_nearest(x, get_centpos(x))
+}
+
+# geometry ------------------------------------------------
+
 #' Geometry helpers ------
 #'
 #'
@@ -7,6 +117,7 @@
 #' @source Joseph O'Rourke :
 #' [compilation of graphics algorithm](http://www.gamers.org/dEngine/rsc/usenet/comp.graphics.algorithms.faq)
 #' @name geometry
+#' @family geometry
 NULL
 
 #' @describeIn geometry calculate intersection between two segments
@@ -101,4 +212,3 @@ geometry_diff_two_segments <- function(seg1, seg2){
   vec2 <- seg2[2, ] - seg2[1, ]
   geometry_diff_two_vectors(vec1[1], vec1[2], vec2[1], vec2[2])
 }
-

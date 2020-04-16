@@ -1,16 +1,3 @@
-#' Distance helpers
-#'
-#' A small tribe to help with euclidean distances calculations
-#'
-#' @param x,y [coo_single]
-#' @param r `numeric` how much of the distance `d(x -> y)` should we travel?
-#'
-#' @export
-edi <- function(x, y, r = 0.5) {
-  x + r * (y - x)
-}
-
-
 
 # manipulating attributes ---------------------------------
 # given an object, add y to attribute "history"

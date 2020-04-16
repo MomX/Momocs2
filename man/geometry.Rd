@@ -36,3 +36,8 @@ Geometry helpers ------
 \item \code{geometry_diff_two_segments}: calculate scale and rotation differences between two segments
 }}
 
+\seealso{
+Other geometry: 
+\code{\link{euclidean}}
+}
+\concept{geometry}
