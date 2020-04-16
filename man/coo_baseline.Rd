@@ -2,9 +2,21 @@
 % Please edit documentation in R/coo_modifyers.R
 \name{coo_baseline}
 \alias{coo_baseline}
-\title{XXX shapes}
+\title{Baseline shapes}
 \usage{
-coo_baseline(x, target1, target2, id1, id2, ldk1, ldk2, from_col, to_col, ...)
+coo_baseline(
+  x,
+  target1,
+  target2,
+  id1,
+  id2,
+  ldk1,
+  ldk2,
+  from_col,
+  ldk_col,
+  to_col,
+  ...
+)
 }
 \arguments{
 \item{x}{\link{coo_single}, \link{coo_list} or \link{mom_tbl}}
@@ -18,6 +30,8 @@ coo_baseline(x, target1, target2, id1, id2, ldk1, ldk2, from_col, to_col, ...)
 \item{from_col}{colnames from where to get the \link{coo_list}
 and how to name the resulting one (only for \link{mom_tbl} method)}
 
+\item{ldk_col}{column name to use for landmakrs}
+
 \item{to_col}{colnames from where to get the \link{coo_list}
 and how to name the resulting one (only for \link{mom_tbl} method)}
 
@@ -27,7 +41,11 @@ and how to name the resulting one (only for \link{mom_tbl} method)}
 a \link{coo_single}, \link{coo_list} or \link{mom_tbl}
 }
 \description{
-XXX coordinates.
+Register shapes on new baseline, that is defines certain points,
+to be on certain target points, that is homogeneizes for scale, rotation and position.
+}
+\note{
+todo review
 }
 \examples{
 # default target1 and target2
@@ -35,6 +53,15 @@ XXX coordinates.
 bot \%>\% pick(1) \%>\%
   coo_center \%>\% coo_align \%>\% coo_up() \%>\%
   coo_baseline() \%>\% gg()
+
+hearts \%>\%
+dplyr::slice(1:5) \%>\%
+  dplyr::rename(foo=ldk) \%>\%
+  coo_baseline(ldk1=2, ldk2=4,
+    target1=c(-10, 0), target2=c(20, 0),
+    ldk_col=foo) \%>\%
+    coo_slide(ldk=4, ldk_col=foo) \%>\%
+ pile(alpha=0.1)
 }
 \seealso{
 Other coo_modifyers: 

@@ -1569,7 +1569,7 @@ coo_slide.mom_tbl <- function(x, id, ldk, from_col=coo, ldk_col=ldk, to_col={{fr
     .msg_info("coo_slide: id and ldk provided. Only ldk is used")
   # when id is provided, id is just id
   if (missing(id) | provided(ldk)){
-    if (missing(ldk) & !col_present(x, ldk)){
+    if (missing(ldk) & !col_present(x, !!ldk_col)){
       .msg_info("coo_slide: id not provided, and {as_name(ldk_col)} not present")
       stop()
     } else {
@@ -1733,7 +1733,7 @@ coo_split.mom_tbl <- function(x, id, ldk, share=TRUE, from_col=coo, ldk_col=ldk,
     .msg_info("coo_split: id and ldk provided. Only ldk is used")
   # when id is provided, id is just id
   if (missing(id) | provided(ldk)){
-    if (missing(ldk) & !col_present(x, ldk)){
+    if (missing(ldk) & !col_present(x, !!ldk_col)){
       .msg_info("coo_split: id not provided, and {as_name(ldk_col)} not present")
       stop()
     } else {
@@ -1766,43 +1766,52 @@ coo_split.mom_tbl <- function(x, id, ldk, share=TRUE, from_col=coo, ldk_col=ldk,
   dplyr::bind_cols(x, res)
 }
 
-# coo_baseline -----
-
 # coo_baseline ----------------------------------------------
-#' XXX shapes
+#' Baseline shapes
 #'
-#' XXX coordinates.
+#' Register shapes on new baseline, that is defines certain points,
+#' to be on certain target points, that is homogeneizes for scale, rotation and position.
 #'
 #'
 #' @inherit coo_center params return
 #' @param target1,target2 `numeric` xy coordinates of target baseline
 #' @param id1,id2 `integer` which rows to use as points being registered
 #' @param ldk1,ldk2 `integer` which ldk represent the points being registered
+#' @param ldk_col column name to use for landmakrs
 #' @family coo_modifyers
+#' @note todo review
 #' @examples
 #' # default target1 and target2
 #' # are Bookstein coordinates
 #' bot %>% pick(1) %>%
 #'   coo_center %>% coo_align %>% coo_up() %>%
 #'   coo_baseline() %>% gg()
+#'
+#' hearts %>%
+#' dplyr::slice(1:5) %>%
+#'   dplyr::rename(foo=ldk) %>%
+#'   coo_baseline(ldk1=2, ldk2=4,
+#'     target1=c(-10, 0), target2=c(20, 0),
+#'     ldk_col=foo) %>%
+#'     coo_slide(ldk=4, ldk_col=foo) %>%
+#'  pile(alpha=0.1)
 #' @export
 coo_baseline <- function(x,
                          target1, target2,
                          id1, id2, ldk1, ldk2,
-                         from_col, to_col, ...) {
+                         from_col, ldk_col, to_col, ...) {
   UseMethod("coo_baseline")
 }
 
 #' @export
 coo_baseline.default <- function(x, ...){
-.msg_info("coo_baseline: not defined on this class")
+  .msg_info("coo_baseline: not defined on this class")
 }
 
 #' @export
 coo_baseline.coo_single <- function(x,
                                     target1=c(-0.5, 0), target2=c(0.5, 0),
                                     id1=1, id2=nrow(x), ...) {
-
 
   # degenerate for the sake of speed
   x <- as.matrix(x)
@@ -1819,14 +1828,35 @@ coo_baseline.coo_single <- function(x,
   # translate and return this beauty
   cbind(res[, 1] + trans[1], res[, 2] + trans[2]) %>%
     coo_single()
-
 }
 
 #' @export
 coo_baseline.coo_list <- function(x,
                                   target1=c(-0.5, 0), target2=c(0.5, 0),
                                   id1, id2, ...) {
-  x %>% purrr::map(coo_baseline, target1=target1, target2=target2, id1=id1, id2=id2) %>% coo_list()
+
+  # print(x)
+  # check and recycle
+  if (missing(id1)){
+    id1 <- rep(1, length(x))
+    .msg_info("coo_baseline: id1 missing, using first coordinate")
+  }
+  if (length(id1)==1)
+    id1 <- rep(id1, length(x))
+
+  if (missing(id2)){
+    id2 <- purrr::map_dbl(x, nrow)
+    .msg_info("coo_baseline: id2 missing, using last coordinate")
+  }
+  if (length(id2)==1)
+    id2 <- rep(id2, length(x))
+
+  # purrr::map(x, coo_baseline) %>% return()
+  purrr::pmap(list(.x=x, .id1=id1, .id2=id2),
+              function(.x, .id1, .id2) {
+                coo_baseline(.x, target1=target1, target2=target2, id1=.id1, id2=.id2)
+                }) %>%
+  coo_list()
 }
 
 #' @export
@@ -1835,13 +1865,44 @@ coo_baseline.mom_tbl <- function(x,
                                  target2=c(0.5, 0),
                                  id1, id2,
                                  ldk1, ldk2,
-                                 from_col=coo, to_col={{from_col}}, ...) {
+                                 from_col=coo, ldk_col=ldk, to_col={{from_col}}, ...) {
   # tidyeval
-  c(from_col, to_col) %<-% tidyeval_coo_modifyers(from_col={{from_col}}, to_col={{to_col}})
+  c(from_col, ldk_col) %<-% tidyeval_coo_and_ldk({{from_col}}, {{ldk_col}})
+  to_col <- enquo(to_col)
 
-  # operate
-  x %>% dplyr::mutate(!!to_col := x %>%
-                        dplyr::pull(!!from_col) %>%
-                        coo_baseline())
+  # ldk provided but also id; ignore id with message
+  if ((provided(id1)|provided(id2)) && (provided(ldk1)&provided(ldk2)))
+    .msg_info("coo_baseline: id1/2 and ldk1/2 provided. Only ldk is used")
+
+  # ldk provided
+  if ((missing(id1) & missing(id2)) | provided(ldk1)&provided(ldk2)){
+    if (missing(ldk1) & !col_present(x, !!ldk_col)){
+      .msg_info("coo_baseline: id1/2 or ldk1/2 not provided, and {as_name(ldk_col)} not present")
+      stop()
+    } else {
+      # ldk_col present, extract ldk-th for each
+      .msg_info("coo_baseline: id1/2 not provided, working on {as_name(ldk_col)}")
+      id1 <- x %>% dplyr::pull(!!ldk_col) %>% purrr::map(~.x[ldk1])
+      id2 <- x %>% dplyr::pull(!!ldk_col) %>% purrr::map(~.x[ldk2])
+    }
+  } else {
+    # id1 and id2 passed
+    if (length(id1)==1)
+      id1 <- rep(id1, nrow(x))
+    if (length(id2)==1)
+      id2 <- rep(id2, nrow(x))
+    }
+
+  # operate, in more steps
+
+  # we first call coo_split.coo_list on the concerned list
+  purrr::pmap(list(.x=dplyr::pull(x, !!from_col), .id1=id1, .id2=id2),
+              function(.x, .id1, .id2) {
+                # print(.x); print(.id1); print(.id2)
+                coo_baseline(.x, target1=target1, target2=target2, id1=.id1, id2=.id2)
+              }) %>%
+    coo_list() -> res
+  # add this beauty
+  dplyr::mutate(x, {{to_col}} := res)
 }
 

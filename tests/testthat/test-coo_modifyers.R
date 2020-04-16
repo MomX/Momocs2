@@ -354,8 +354,17 @@ test_that("coo_slide works", {
   expect_identical(x, y)
 })
 
+# coo_split -------
+test_that("coo_split works", {
+  # todo test more
+expect_is(hearts %>% dplyr::slice(1:3) %>% coo_split(id=c(2:3)), "mom_tbl")
+})
 
 
+#test_that("coo_baseline works", {
+#  # todo
+#})
 
+# test ed also.
 
 
