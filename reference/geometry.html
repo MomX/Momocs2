@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Rotate shapes — coo_rotate • Momocs2</title>
+<title>Geometry helpers ------ — geometry • Momocs2</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,8 @@
 
 
 
-<meta property="og:title" content="Rotate shapes — coo_rotate" />
-<meta property="og:description" content="Rotates the coordinates by a theta angle (in radians) in
-the trigonometric direction (anti-clockwise)." />
+<meta property="og:title" content="Geometry helpers ------ — geometry" />
+<meta property="og:description" content="Geometry helpers ------" />
 <meta property="og:image" content="http://momx.github.io/Momocs2/logo.png" />
 
 
@@ -138,92 +137,51 @@ the trigonometric direction (anti-clockwise)." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Rotate shapes</h1>
+    <h1>Geometry helpers ------</h1>
     
-    <div class="hidden name"><code>coo_rotate.Rd</code></div>
+    <div class="hidden name"><code>geometry.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Rotates the coordinates by a <code>theta</code> angle (in radians) in
-the trigonometric direction (anti-clockwise).</p>
+    <p>Geometry helpers ------</p>
     </div>
 
-    <pre class="usage"><span class='fu'>coo_rotate</span>(<span class='no'>x</span>, <span class='kw'>theta</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>from_col</span> <span class='kw'>=</span> <span class='no'>coo</span>, <span class='kw'>to_col</span> <span class='kw'>=</span> <span class='no'>coo</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>geometry_intersection_two_segments</span>(<span class='no'>seg1</span>, <span class='no'>seg2</span>)
 
-<span class='co'># S3 method for mom_tbl</span>
-<span class='fu'>coo_rotate</span>(
-  <span class='no'>x</span>,
-  <span class='kw'>theta</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>from_col</span> <span class='kw'>=</span> <span class='no'>coo</span>,
-  <span class='kw'>to_col</span> <span class='kw'>=</span> {     {         <span class='no'>from_col</span>     } },
-  <span class='no'>...</span>
-)</pre>
+<span class='fu'>geometry_diff_two_vectors</span>(<span class='no'>x1</span>, <span class='no'>y1</span>, <span class='no'>x2</span>, <span class='no'>y2</span>)
+
+<span class='fu'>geometry_diff_two_segments</span>(<span class='no'>seg1</span>, <span class='no'>seg2</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>coo_single, coo_list or mom_tbl</p></td>
+      <th>seg1, seg2</th>
+      <td><p>segment definitions as 2 rows (start, end) x 2 cols</p></td>
     </tr>
     <tr>
-      <th>theta</th>
-      <td><p><code>numeric</code> angle to rotate (in radians) and in the trigonometric direction (anti-clockwise). Default to <code>0</code>.</p></td>
+      <th>x1, y1</th>
+      <td><p>parameters (x and y diff) of vector 1</p></td>
     </tr>
     <tr>
-      <th>from_col</th>
-      <td><p>colnames from where to get the coo_list
-and how to name the resulting one (only for mom_tbl method)</p></td>
-    </tr>
-    <tr>
-      <th>to_col</th>
-      <td><p>colnames from where to get the coo_list
-and how to name the resulting one (only for mom_tbl method)</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>useless here</p></td>
+      <th>x2, y2</th>
+      <td><p>parameters (x and y diff) of vector 2</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
 
-    <p>a coo_single, coo_list or mom_tbl</p>
-    <h2 class="hasAnchor" id="methods-by-class-"><a class="anchor" href="#methods-by-class-"></a>Methods (by class)</h2>
+    <p>Joseph O'Rourke :
+<a href='http://www.gamers.org/dEngine/rsc/usenet/comp.graphics.algorithms.faq'>compilation of graphics algorithm</a></p>
+    <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
 
     
 <ul>
-<li><p><code>mom_tbl</code>: mom_tbl method</p></li>
+<li><p><code>geometry_intersection_two_segments</code>: calculate intersection between two segments</p></li>
+<li><p><code>geometry_diff_two_vectors</code>: calculate scale and rotation differences between two vectors</p></li>
+<li><p><code>geometry_diff_two_segments</code>: calculate scale and rotation differences between two segments</p></li>
 </ul>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other coo_modifyers: 
-<code>coo_align()</code>,
-<code>coo_baseline()</code>,
-<code>coo_center()</code>,
-<code>coo_reflect</code>,
-<code>coo_rev()</code>,
-<code>coo_rotatecenter()</code>,
-<code>coo_sample_rr()</code>,
-<code>coo_sample()</code>,
-<code>coo_scale()</code>,
-<code>coo_shear()</code>,
-<code>coo_slide()</code>,
-<code>coo_split()</code>,
-<code>coo_template()</code>,
-<code>coo_trans()</code>,
-<code>coo_trim()</code>,
-<code>coo_up()</code></p>
-<p>Other rotations: 
-<code>coo_align()</code>,
-<code>coo_rotatecenter()</code></p></div>
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>bot</span> <span class='kw'>%&gt;%</span> <span class='fu'>pick</span>(<span class='fl'>1</span>)
-<span class='fu'>gg</span>(<span class='no'>x</span>)</div><div class='img'><img src='coo_rotate-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='no'>x</span> <span class='kw'>%&gt;%</span> <span class='fu'>coo_rotate</span>(<span class='no'>pi</span>/<span class='fl'>2</span>) <span class='kw'>%&gt;%</span> <span class='fu'>draw</span>(<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"red"</span>)</div><div class='img'><img src='coo_rotate-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>x</span> <span class='kw'>%&gt;%</span> <span class='fu'>coo_rotate</span>(<span class='fu'>degrees_to_radians</span>(-<span class='fl'>45</span>)) <span class='kw'>%&gt;%</span> <span class='fu'>draw</span>(<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"blue"</span>)</div><div class='img'><img src='coo_rotate-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='no'>bot</span> <span class='kw'>%&gt;%</span> <span class='fu'>coo_rotate</span>(<span class='no'>pi</span>) <span class='kw'>%&gt;%</span> <span class='fu'>pile</span>()</div><div class='img'><img src='coo_rotate-4.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

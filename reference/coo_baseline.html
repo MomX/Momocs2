@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Split shapes on speficied coordinates — coo_split • Momocs2</title>
+<title>XXX shapes — coo_baseline • Momocs2</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,10 +46,8 @@
 
 
 
-<meta property="og:title" content="Split shapes on speficied coordinates — coo_split" />
-<meta property="og:description" content="Take a shape with n coordinates. For each id or ldk passed,
-the shape will be splitted on the corresponding coordinates
-and (length(id/ldk)+1) fragments returned." />
+<meta property="og:title" content="XXX shapes — coo_baseline" />
+<meta property="og:description" content="XXX coordinates." />
 <meta property="og:image" content="http://momx.github.io/Momocs2/logo.png" />
 
 
@@ -139,27 +137,16 @@ and (length(id/ldk)+1) fragments returned." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Split shapes on speficied coordinates</h1>
+    <h1>XXX shapes</h1>
     
-    <div class="hidden name"><code>coo_split.Rd</code></div>
+    <div class="hidden name"><code>coo_baseline.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Take a shape with <code>n</code> coordinates. For each <code>id</code> or <code>ldk</code> passed,
-the shape will be splitted on the corresponding coordinates
-and (<code>length(id/ldk)+1</code>) fragments returned.</p>
+    <p>XXX coordinates.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>coo_split</span>(
-  <span class='no'>x</span>,
-  <span class='no'>id</span>,
-  <span class='no'>ldk</span>,
-  <span class='no'>share</span>,
-  <span class='kw'>from_col</span> <span class='kw'>=</span> <span class='no'>coo</span>,
-  <span class='kw'>ldk_col</span> <span class='kw'>=</span> <span class='no'>ldk</span>,
-  <span class='kw'>to_col</span> <span class='kw'>=</span> {     {         <span class='no'>from_col</span>     } },
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>coo_baseline</span>(<span class='no'>x</span>, <span class='no'>target1</span>, <span class='no'>target2</span>, <span class='no'>id1</span>, <span class='no'>id2</span>, <span class='no'>ldk1</span>, <span class='no'>ldk2</span>, <span class='no'>from_col</span>, <span class='no'>to_col</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -169,28 +156,25 @@ and (<code>length(id/ldk)+1</code>) fragments returned.</p>
       <td><p>coo_single, coo_list or mom_tbl</p></td>
     </tr>
     <tr>
-      <th>id</th>
-      <td><p><code>integer</code> which is (column row) should be used as the first point</p></td>
+      <th>target1, target2</th>
+      <td><p><code>numeric</code> xy coordinates of target baseline</p></td>
     </tr>
     <tr>
-      <th>ldk</th>
-      <td><p><code>integer</code> which landkmark should be used as the first point</p></td>
+      <th>id1, id2</th>
+      <td><p><code>integer</code> which rows to use as points being registered</p></td>
     </tr>
     <tr>
-      <th>share</th>
-      <td><p><code>logical</code>  whether to share the slicing coordinate between successive fragments.</p></td>
+      <th>ldk1, ldk2</th>
+      <td><p><code>integer</code> which ldk represent the points being registered</p></td>
     </tr>
     <tr>
       <th>from_col</th>
-      <td><p>colnames from where to get the coo_list</p></td>
-    </tr>
-    <tr>
-      <th>ldk_col</th>
-      <td><p>colnames from where to get the coo_list</p></td>
+      <td><p>colnames from where to get the coo_list
+and how to name the resulting one (only for mom_tbl method)</p></td>
     </tr>
     <tr>
       <th>to_col</th>
-      <td><p>colname where to set the result (default to <code>from_col</code>)
+      <td><p>colnames from where to get the coo_list
 and how to name the resulting one (only for mom_tbl method)</p></td>
     </tr>
     <tr>
@@ -202,25 +186,10 @@ and how to name the resulting one (only for mom_tbl method)</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a coo_single, coo_list or mom_tbl</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>If <code>share=TRUE</code>, then each slicing coordinates will be shared between consecutive fragments,
-that is the last coordinates of the <code>n-th</code> fragment will also be
-the first of the <code>n+1-th</code> fragment. That is usually what you want, and thus default to <code>TRUE</code>.</p>
-<p><code>ldk</code> handling is only supported on <code>mom_tbl</code> objects.</p>
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
-
-    <p><code>ldk</code> happens to be present for <code>coo_single</code> and <code>coo_list</code> methods (unlike <code>coo_slide</code> for instance),
-only to please R CMD CHECK S3 consistency <em>and</em>
-maintain a sensible order for arguments, with <code>share</code> after <code>coo</code> and <code>ldk</code>.
-For these classes, it is ignored with a message.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Have a look to coo_slidegap (todo link when ready) if you have problems with gaps
-after slicing around landmarks and/or starting points.</p>
-<p>Other coo_modifyers: 
+    <div class='dont-index'><p>Other coo_modifyers: 
 <code>coo_align()</code>,
-<code>coo_baseline()</code>,
 <code>coo_center()</code>,
 <code>coo_reflect</code>,
 <code>coo_rev()</code>,
@@ -231,89 +200,18 @@ after slicing around landmarks and/or starting points.</p>
 <code>coo_scale()</code>,
 <code>coo_shear()</code>,
 <code>coo_slide()</code>,
+<code>coo_split()</code>,
 <code>coo_template()</code>,
 <code>coo_trans()</code>,
 <code>coo_trim()</code>,
 <code>coo_up()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>bot</span> <span class='kw'>%&gt;%</span> <span class='fu'>pick</span>(<span class='fl'>1</span>) <span class='kw'>%&gt;%</span> <span class='fu'>coo_sample</span>(<span class='fl'>12</span>)
-<span class='no'>x</span> <span class='kw'>%&gt;%</span> <span class='fu'>coo_split</span>(<span class='kw'>id</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>, <span class='fl'>8</span>))</div><div class='output co'>#&gt; $`1`
-#&gt; # A tibble: 4 x 2
-#&gt;       x     y
-#&gt;   &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1    37   561
-#&gt; 2    63   361
-#&gt; 3    42   150
-#&gt; 4   143    15
-#&gt; ❯coo_single with 4 coordinates
-#&gt; 
-#&gt; $`2`
-#&gt; # A tibble: 5 x 2
-#&gt;       x     y
-#&gt; * &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1   143    15
-#&gt; 2   316   113
-#&gt; 3   305   302
-#&gt; 4   295   523
-#&gt; 5   296   713
-#&gt; ❯coo_single with 5 coordinates
-#&gt; 
-#&gt; $`3`
-#&gt; # A tibble: 5 x 2
-#&gt;       x     y
-#&gt; * &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1   296   713
-#&gt; 2   240   912
-#&gt; 3   205  1101
-#&gt; 4   110  1002
-#&gt; 5    82   781
-#&gt; ❯coo_single with 5 coordinates
-#&gt; </div><div class='input'><span class='no'>x</span> <span class='kw'>%&gt;%</span> <span class='fu'>coo_split</span>(<span class='kw'>id</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>, <span class='fl'>8</span>), <span class='kw'>share</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; $`1`
-#&gt; # A tibble: 4 x 2
-#&gt;       x     y
-#&gt;   &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1    37   561
-#&gt; 2    63   361
-#&gt; 3    42   150
-#&gt; 4   143    15
-#&gt; ❯coo_single with 4 coordinates
-#&gt; 
-#&gt; $`2`
-#&gt; # A tibble: 4 x 2
-#&gt;       x     y
-#&gt;   &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1   316   113
-#&gt; 2   305   302
-#&gt; 3   295   523
-#&gt; 4   296   713
-#&gt; ❯coo_single with 4 coordinates
-#&gt; 
-#&gt; $`3`
-#&gt; # A tibble: 4 x 2
-#&gt;       x     y
-#&gt;   &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1   240   912
-#&gt; 2   205  1101
-#&gt; 3   110  1002
-#&gt; 4    82   781
-#&gt; ❯coo_single with 4 coordinates
-#&gt; </div><div class='input'>
-<span class='no'>hearts</span> <span class='kw'>%&gt;%</span>
-  <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span>(<span class='fl'>1</span>:<span class='fl'>2</span>) <span class='kw'>%&gt;%</span> <span class='co'># for the sake of speed</span>
-  <span class='fu'>coo_split</span>(<span class='kw'>ldk</span><span class='kw'>=</span><span class='fl'>2</span>:<span class='fl'>3</span>)</div><div class='output co'>#&gt; <span class='message'>ℹ coo_split: id not provided, working on ldk</span></div><div class='output co'>#&gt; # A tibble: 2 x 6
-#&gt;   coo              ldk       aut   coo_1          coo_2           coo_3         
-#&gt; * &lt;coo&gt;            &lt;list&gt;    &lt;fct&gt; &lt;coo&gt;          &lt;coo&gt;           &lt;coo&gt;         
-#&gt; 1 &lt;tibble [80 × 2… &lt;dbl [4]&gt; ced   &lt;tibble [5 × … &lt;tibble [75 × … &lt;tibble [2 × …
-#&gt; 2 &lt;tibble [80 × 2… &lt;dbl [4]&gt; ced   &lt;tibble [7 × … &lt;tibble [73 × … &lt;tibble [2 × …
-#&gt; ❯mom_tbl
-#&gt; ❯coo_list: coo
-#&gt; ❯coo_list: coo_1
-#&gt; ❯coo_list: coo_2
-#&gt; ❯coo_list: coo_3</div><div class='input'>
-# then dplyr::rename or Momocs2::coo_select if you want to rename/select columns
-</div></pre>
+    <pre class="examples"><div class='input'><span class='co'># default target1 and target2</span>
+<span class='co'># are Bookstein coordinates</span>
+<span class='no'>bot</span> <span class='kw'>%&gt;%</span> <span class='fu'>pick</span>(<span class='fl'>1</span>) <span class='kw'>%&gt;%</span>
+  <span class='no'>coo_center</span> <span class='kw'>%&gt;%</span> <span class='no'>coo_align</span> <span class='kw'>%&gt;%</span> <span class='fu'>coo_up</span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'>coo_baseline</span>() <span class='kw'>%&gt;%</span> <span class='fu'>gg</span>()</div><div class='img'><img src='coo_baseline-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
