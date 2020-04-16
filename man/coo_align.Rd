@@ -43,6 +43,7 @@ bot \%>\% pick(1) \%>\% coo_align_xax
 }
 \seealso{
 Other coo_modifyers: 
+\code{\link{coo_baseline}()},
 \code{\link{coo_center}()},
 \code{\link{coo_reflect}},
 \code{\link{coo_rev}()},

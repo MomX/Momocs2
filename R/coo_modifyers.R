@@ -1765,3 +1765,83 @@ coo_split.mom_tbl <- function(x, id, ldk, share=TRUE, from_col=coo, ldk_col=ldk,
   # finally, bind these beauties back to x and return
   dplyr::bind_cols(x, res)
 }
+
+# coo_baseline -----
+
+# coo_baseline ----------------------------------------------
+#' XXX shapes
+#'
+#' XXX coordinates.
+#'
+#'
+#' @inherit coo_center params return
+#' @param target1,target2 `numeric` xy coordinates of target baseline
+#' @param id1,id2 `integer` which rows to use as points being registered
+#' @param ldk1,ldk2 `integer` which ldk represent the points being registered
+#' @family coo_modifyers
+#' @examples
+#' # default target1 and target2
+#' # are Bookstein coordinates
+#' bot %>% pick(1) %>%
+#'   coo_center %>% coo_align %>% coo_up() %>%
+#'   coo_baseline() %>% gg()
+#' @export
+coo_baseline <- function(x,
+                         target1, target2,
+                         id1, id2, ldk1, ldk2,
+                         from_col, to_col, ...) {
+  UseMethod("coo_baseline")
+}
+
+#' @export
+coo_baseline.default <- function(x, ...){
+.msg_info("coo_baseline: not defined on this class")
+}
+
+#' @export
+coo_baseline.coo_single <- function(x,
+                                    target1=c(-0.5, 0), target2=c(0.5, 0),
+                                    id1=1, id2=nrow(x), ...) {
+
+
+  # degenerate for the sake of speed
+  x <- as.matrix(x)
+
+  # get segments diff
+  p <- geometry_diff_two_segments(x[c(id1, id2), ], rbind(target1, target2))
+
+  # prepare affine rotation matrix
+  rmat <- matrix(c(cos(-p$theta), sin(-p$theta), -sin(-p$theta), cos(-p$theta)), nrow = 2)
+  # rough rotate and scaling
+  res <- (x %*% rmat)/p$scale
+  # translate values
+  trans <- target1 - res[1, ]
+  # translate and return this beauty
+  cbind(res[, 1] + trans[1], res[, 2] + trans[2]) %>%
+    coo_single()
+
+}
+
+#' @export
+coo_baseline.coo_list <- function(x,
+                                  target1=c(-0.5, 0), target2=c(0.5, 0),
+                                  id1, id2, ...) {
+  x %>% purrr::map(coo_baseline, target1=target1, target2=target2, id1=id1, id2=id2) %>% coo_list()
+}
+
+#' @export
+coo_baseline.mom_tbl <- function(x,
+                                 target1=c(-0.5, 0),
+                                 target2=c(0.5, 0),
+                                 id1, id2,
+                                 ldk1, ldk2,
+                                 from_col=coo, to_col={{from_col}}, ...) {
+  # tidyeval
+  c(from_col, to_col) %<-% tidyeval_coo_modifyers(from_col={{from_col}}, to_col={{to_col}})
+
+  # operate
+  x %>% dplyr::mutate(!!to_col := x %>%
+                        dplyr::pull(!!from_col) %>%
+                        coo_baseline())
+}
+

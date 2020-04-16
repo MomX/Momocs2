@@ -63,6 +63,7 @@ bot$coo[1:2] \%>\% coo_sample(12) \%>\% coo_interpolate(24) \%>\% purrr::map_dbl
 \seealso{
 Other coo_modifyers: 
 \code{\link{coo_align}()},
+\code{\link{coo_baseline}()},
 \code{\link{coo_center}()},
 \code{\link{coo_reflect}},
 \code{\link{coo_rev}()},

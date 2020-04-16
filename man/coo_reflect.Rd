@@ -42,6 +42,7 @@ bot \%>\% pick(1) \%>\% coo_reflect_y() \%>\% gg()
 \seealso{
 Other coo_modifyers: 
 \code{\link{coo_align}()},
+\code{\link{coo_baseline}()},
 \code{\link{coo_center}()},
 \code{\link{coo_rev}()},
 \code{\link{coo_rotatecenter}()},

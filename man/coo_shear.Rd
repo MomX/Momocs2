@@ -37,6 +37,7 @@ x \%>\% coo_shear(x_k = 0.25, y_k = -0.5) \%>\% gg()
 \seealso{
 Other coo_modifyers: 
 \code{\link{coo_align}()},
+\code{\link{coo_baseline}()},
 \code{\link{coo_center}()},
 \code{\link{coo_reflect}},
 \code{\link{coo_rev}()},

@@ -7,7 +7,10 @@ NULL
 #' @import ggplot2
 NULL
 
-utils::globalVariables(c(".", "coo", "ldk", "ni", "ci", "shp", "mapping", "PC1", "PC2"))
+# r and s are in geometry helpers
+utils::globalVariables(c(".", "coo", "ldk", "ni", "ci", "shp", "mapping",
+                         "PC1", "PC2",
+                         "r", "s"))
 
 #' Assign values to names
 #'

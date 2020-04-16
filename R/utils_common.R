@@ -21,3 +21,13 @@ not_defined <- function(fun=""){
 
 # negate missing
 provided <- function(x) !missing(x)
+
+# hep with this boring task
+deprecated <- function(old, new){
+  paste0(old, " is deprecated. Please use ",
+         new, " (and see ?",  new, ")") %>%
+    .msg_warning()
+}
+#.deprecated("plop", "plip")
+
+
