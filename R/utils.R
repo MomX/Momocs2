@@ -11,6 +11,7 @@ edi <- function(x, y, r = 0.5) {
 }
 
 
+
 # manipulating attributes ---------------------------------
 # given an object, add y to attribute "history"
 # which creates it if does not exist yet
