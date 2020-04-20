@@ -47,7 +47,7 @@ y <- npoly_i(x, 60)
 expect_is(y, "coo_single")
 expect_true(nrow(y)==60)
 
-x <- olea$coo[1:5] npoly()
+x <- olea$coo[1:5] %>% npoly()
 y <- npoly_i(x, 60)
 expect_is(y, "coo_list")
 
