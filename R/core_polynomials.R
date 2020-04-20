@@ -46,6 +46,7 @@ set_names_poly <- function(x){
 #' @param nb_pts number of points to sample and on which to calculate polynomials
 #' @param drop_coo `logical` whether to drop coo column (default to TRUE)
 #' @param from_coo,to_coe column names
+#' @param from_coe column name for inverse method
 #' @param ... for generics. Useless here.
 #' @return a list with components when applied on a single shape:
 #' \itemize{
@@ -70,6 +71,9 @@ set_names_poly <- function(x){
 #' op %>% class
 #'
 #' op %>% npoly_i() %>% draw()
+#'
+#' olea %>% dplyr::slice(1:3) %>%
+#'   npoly(drop=FALSE) %>% npoly_i
 #' @export
 npoly <- function(x, degree, raw, drop_coo, from_coo=coo, to_coe={{coe}}, ...){
   UseMethod("npoly")
@@ -170,19 +174,21 @@ npoly.mom_tbl <- function(x, degree, raw, drop_coo=TRUE, from_coo=coo, to_coe=co
     res
 }
 
+# npoly_i -------------------------------------------------
 #' @describeIn npoly inverse npoly method
 #' @export
-npoly_i <- function(x, nb_pts, ...){
+npoly_i <- function(x, nb_pts){
   UseMethod("npoly_i")
 }
 
 #' @export
-npoly_i.default <- function(x, ...){
+npoly_i.default <- function(x, nb_pts){
   not_defined("npoly_i")
 }
 
+# see efourier_i for the .default here
 #' @export
-npoly_i.npoly_single <- function(x, nb_pts=120, ...){
+npoly_i.default <- function(x, nb_pts=120, ...){
   intercept <- x[[1]]
   coeffs    <- x[-1]
   # deduce the degree
@@ -201,10 +207,19 @@ npoly_i.npoly_single <- function(x, nb_pts=120, ...){
   tibble::tibble(x=x_pred, y=y_pred) %>% coo_single()
 }
 
-npoly_i.coo_single <- function(){}
-# npoly_i
-# opoly
-# poly_i
+#' @export
+npoly_i.coe_list <- function(x, nb_pts=120, ...){
+  purrr::map(x, npoly_i, nb_pts=nb_pts) %>% coo_list()
+}
+
+#' @export
+npoly_i.mom_tbl <- function(x, nb_pts=120, from_coe=coe, ...){
+  from_coe <- enquo(from_coe)
+  dplyr::mutate(x,
+                "{{from_coe}}_i" := x %>%
+                  dplyr::pull(!!from_coe) %>%
+                  npoly_i(nb_pts=nb_pts))
+}
 
 # calibrate -----------------------------------------------
 calibrate_npoly_r2 <- function(x, degree_range){

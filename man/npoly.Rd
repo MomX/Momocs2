@@ -15,7 +15,7 @@ npoly(
   ...
 )
 
-npoly_i(x, nb_pts, ...)
+npoly_i(x, nb_pts)
 }
 \arguments{
 \item{x}{a matrix (or a list) of (x; y) coordinates}
@@ -31,6 +31,8 @@ npoly_i(x, nb_pts, ...)
 \item{...}{for generics. Useless here.}
 
 \item{nb_pts}{number of points to sample and on which to calculate polynomials}
+
+\item{from_coe}{column name for inverse method}
 }
 \value{
 a list with components when applied on a single shape:
@@ -79,6 +81,9 @@ op
 op \%>\% class
 
 op \%>\% npoly_i() \%>\% draw()
+
+olea \%>\% dplyr::slice(1:3) \%>\%
+  npoly(drop=FALSE) \%>\% npoly_i
 }
 \seealso{
 Other efourier: 

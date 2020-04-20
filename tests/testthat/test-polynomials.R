@@ -40,3 +40,19 @@ test_that("npoly works", {
   expect_is(y$coe, "npoly")
 })
 
+
+test_that("npoly_i works", {
+x <- olea %>% pick() %>% npoly()
+y <- npoly_i(x, 60)
+expect_is(y, "coo_single")
+expect_true(nrow(y)==60)
+
+x <- olea$coo[1:5] npoly()
+y <- npoly_i(x, 60)
+expect_is(y, "coo_list")
+
+x <- olea %>% dplyr::slice(1:5) %>% npoly()  %>% npoly_i()
+expect_is(x, "mom_tbl")
+expect_is(x$coe_i, "coo_list")
+})
+
