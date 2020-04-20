@@ -44,7 +44,7 @@ set_names_poly <- function(x){
 #' @param degree polynomial degree for the fit (`degree+1`) coefficients are returned, see Details)
 #' @param raw `logical` whether to return raw and full results
 #' @param nb_pts number of points to sample and on which to calculate polynomials
-#' @param keep_coo `logical` whether to retain coo column
+#' @param drop_coo `logical` whether to drop coo column (default to TRUE)
 #' @param from_coo,to_coe column names
 #' @param ... for generics. Useless here.
 #' @return a list with components when applied on a single shape:
@@ -71,7 +71,7 @@ set_names_poly <- function(x){
 #'
 #' op %>% npoly_i() %>% draw()
 #' @export
-npoly <- function(x, degree, raw, keep_coo, from_coo=coo, to_coe={{coe}}, ...){
+npoly <- function(x, degree, raw, drop_coo, from_coo=coo, to_coe={{coe}}, ...){
   UseMethod("npoly")
 }
 
@@ -125,19 +125,49 @@ npoly.coo_single <- function(x, degree, raw=TRUE, ...){
 
 #' @export
 npoly.coo_list <- function(x, degree, ...){
-  if (!likely_bookstein(x)){
+  # check that all are booksteined
+  if (any(purrr::map_lgl(x, purrr::negate(likely_bookstein)))){
     stop("npoly: your shapes are (likely) not registered on bookstein coordinates. Use coo_bookstein().")
   }
 
+  # check for missing degree here
+  if (missing(degree)){
+    degree <- 5
+    .msg_warning("npoly: 'degree' not provided and set to {degree}")
+  }
+  # run and return that beauty
   purrr::map(x, npoly, degre=degree) %>%
-    coo_list() %>%
+    coe_list() %>%
     .append_class("npoly")
 }
 
 #' @export
-npoly.mom_tbl <- function(x, degree, raw, keep_coo=FALSE, from_coo=coo, to_coe=coe, ...){
+npoly.mom_tbl <- function(x, degree, raw, drop_coo=TRUE, from_coo=coo, to_coe=coe, ...){
+  # prelim ---
+  # stupid but S3 arguments order rule, rules...
   if (provided(raw))
     .msg_info("npoly: `raw` provided but useless here")
+  # check for missing degree here
+  if (missing(degree)){
+    degree <- 5
+    .msg_warning("npoly: 'degree' not provided and set to {degree}")
+  }
+
+  # tidyeval ---
+  from_coo <- enquo(from_coo)
+  to_coe   <- enquo(to_coe)
+
+  res <- x %>%
+    dplyr::pull(!!from_coo) %>%
+    npoly(degree=degree) %>%
+    .append_class("npoly")
+  res <- dplyr::mutate(x, !!to_coe := res)
+
+  # drop_coo if required and return this beauty
+  if (drop_coo)
+    dplyr::select(res, -!!from_coo)
+  else
+    res
 }
 
 #' @describeIn npoly inverse npoly method
@@ -203,8 +233,8 @@ calibrate_npoly_r2.coo_list <- function(x, degree_range){
   res <- x %>%
     # calibrate
     purrr::map(calibrate_npoly_r2, degree_range=degree_range) %>%
-  # turn into a data.frame
-  do.call("rbind", .) %>%
+    # turn into a data.frame
+    do.call("rbind", .) %>%
     # rename cols before tibble
     `colnames<-`(paste0("degree", degree_range)) %>%
     tibble::as_tibble() %>%

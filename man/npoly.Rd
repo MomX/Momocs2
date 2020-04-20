@@ -9,7 +9,7 @@ npoly(
   x,
   degree,
   raw,
-  keep_coo,
+  drop_coo,
   from_coo = coo,
   to_coe = {     {         coe     } },
   ...
@@ -24,7 +24,7 @@ npoly_i(x, nb_pts, ...)
 
 \item{raw}{\code{logical} whether to return raw and full results}
 
-\item{keep_coo}{\code{logical} whether to retain coo column}
+\item{drop_coo}{\code{logical} whether to drop coo column (default to TRUE)}
 
 \item{from_coo, to_coe}{column names}
 
