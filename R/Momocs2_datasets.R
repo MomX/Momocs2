@@ -21,14 +21,6 @@
 #' and downsampled to 80 coordinates per outline.
 "hearts"
 
-#' @format A [coo_single] with:
-#' \describe{
-#'   \item{x}{coordinates}
-#'   \item{y}{coordinates}
-#' }
-#' @source todo
-"jb"
-
 #' Outline of jb bottle
 #'
 #' A [coo_single] obtained with `pick(bot, "jb")`
@@ -40,3 +32,21 @@
 #' }
 #' @source todo
 "jb"
+
+#' Outlines of olea stones
+#'
+#' @format A [mom_tbl] with:
+#' \describe{
+#'   \item{coo}{curve coordinates}
+#'   \item{var}{olive taxa}
+#'   \item{domes}{domestication status}
+#'   \item{view}{picture view}
+#'   \item{ind}{individual number}
+#' }
+#' @source todo
+"olea"
+# dplyr::bind_cols(
+#   tibble::tibble(coo=x$coo %>% purrr::map(coo_single) %>% coo_list()),
+#   x$fac
+# ) %>% mom() -> olea
+# usethis::use_data(olea)
