@@ -44,7 +44,8 @@ Imports:
     tidyr,
     methods,
     vctrs,
-    zeallot
+    zeallot,
+    tidyselect
 Remotes:
     tidyverse/ggplot2,
     tidyverse/dplyr

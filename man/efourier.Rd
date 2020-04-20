@@ -11,7 +11,7 @@
 \alias{efourier_norm.default}
 \alias{efourier_norm.coe_list}
 \alias{efourier_norm.mom_tbl}
-\title{elliptical Fourier transforms}
+\title{Elliptical Fourier transforms}
 \usage{
 efourier(x, ...)
 
@@ -49,7 +49,7 @@ efourier_norm(x, ...)
 \item{first_point}{\code{logical} whether to normalize for the first point using \link{efourier_norm}}
 }
 \description{
-elliptical Fourier transforms
+Elliptical Fourier transforms
 }
 \details{
 For the maths behind see the paper in JSS.
@@ -104,4 +104,12 @@ Springer 316 pp.
 Ferson S, Rohlf FJ, Koehn RK. 1985. Measuring shape variation of
 two-dimensional outlines. \strong{Systematic Biology} \strong{34}: 59-68.
 }
+\seealso{
+Other efourier: 
+\code{\link{npoly}()}
+
+Other morphometrics: 
+\code{\link{npoly}()}
+}
 \concept{efourier}
+\concept{morphometrics}

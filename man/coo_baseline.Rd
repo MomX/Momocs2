@@ -2,6 +2,7 @@
 % Please edit documentation in R/coo_modifyers.R
 \name{coo_baseline}
 \alias{coo_baseline}
+\alias{coo_bookstein}
 \title{Baseline shapes}
 \usage{
 coo_baseline(
@@ -17,6 +18,8 @@ coo_baseline(
   to_col,
   ...
 )
+
+coo_bookstein(x, id1, id2, ldk1, ldk2, from_col, ldk_col, to_col, ...)
 }
 \arguments{
 \item{x}{\link{coo_single}, \link{coo_list} or \link{mom_tbl}}
@@ -44,6 +47,15 @@ a \link{coo_single}, \link{coo_list} or \link{mom_tbl}
 Register shapes on new baseline, that is defines certain points,
 to be on certain target points, that is homogeneizes for scale, rotation and position.
 }
+\details{
+\link{coo_bookstein} is just a \link{coo_baseline} with \code{target1=c(-0.5, 0)} and \code{target2=c(0.5, 0)}.
+Given \link{coo_baseline} defaults, if the two \code{target}s are not modified, the two methods are equivalent.
+}
+\section{Functions}{
+\itemize{
+\item \code{coo_bookstein}: special case of Bookstein coordinates
+}}
+
 \note{
 todo review
 }

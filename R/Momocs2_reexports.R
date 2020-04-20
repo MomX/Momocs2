@@ -8,7 +8,7 @@ NULL
 NULL
 
 # r and s are in geometry helpers
-utils::globalVariables(c(".", "coo", "ldk", "ni", "ci", "shp", "mapping",
+utils::globalVariables(c(".", "coo", "ldk", "coe", "ni", "ci", "shp", "mapping",
                          "PC1", "PC2",
                          "r", "s"))
 

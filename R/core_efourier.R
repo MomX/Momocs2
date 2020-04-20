@@ -47,7 +47,7 @@
 }
 
 # efourier ------------------------------------------------
-#' elliptical Fourier transforms
+#' Elliptical Fourier transforms
 #'
 #' @param x [coo_single], [coo_list] or [mom_tbl]
 #' @param nb_h `int` nb of harmonics. Default to `6` for `efourier`, to all of them for `efourier_i`
@@ -96,7 +96,7 @@
 #' two-dimensional outlines. __Systematic Biology__ **34**: 59-68.
 #'
 #' @family efourier
-#' @rdname efourier
+#' @family morphometrics
 #'
 #' @examples
 #' bot %>% pick() %>% efourier(4) %>% print() %>% efourier_i()
@@ -204,6 +204,7 @@ efourier_i <- function(x, nb_h=NA, nb_pts = 120){
   UseMethod("efourier_i")
 }
 
+# may have been .coo_single but suceptible to arrive as numeric
 #' @export
 efourier_i.default <- function (x, nb_h=NA, nb_pts = 120) { # efourier_i.efourier_single ?
   if (is.data.frame(x))
