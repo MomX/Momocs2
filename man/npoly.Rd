@@ -15,7 +15,7 @@ npoly(
   ...
 )
 
-npoly_i(x, nb_pts)
+npoly_i(x, nb_pts, from_coe, ...)
 }
 \arguments{
 \item{x}{a matrix (or a list) of (x; y) coordinates}

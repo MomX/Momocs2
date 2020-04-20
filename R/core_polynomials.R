@@ -177,12 +177,12 @@ npoly.mom_tbl <- function(x, degree, raw, drop_coo=TRUE, from_coo=coo, to_coe=co
 # npoly_i -------------------------------------------------
 #' @describeIn npoly inverse npoly method
 #' @export
-npoly_i <- function(x, nb_pts){
+npoly_i <- function(x, nb_pts, from_coe, ...){
   UseMethod("npoly_i")
 }
 
 #' @export
-npoly_i.default <- function(x, nb_pts){
+npoly_i.default <- function(x, nb_pts, ...){
   not_defined("npoly_i")
 }
 
