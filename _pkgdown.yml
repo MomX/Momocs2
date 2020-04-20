@@ -36,9 +36,20 @@ reference:
       Functions that turn coordinates into coefficients
     contents:
       - efourier
+      - npoly
+
+  - title: "Momocs verbs"
+    desc: >
+      Ease handling of Momocs2 objects
+    contents:
+      - pick
+      - slive
+      - unfold
+      - press
+
   - title: "coo/e lists verbs"
     desc: >
-      Mostly to ease manipulation of list columns
+      Ease manipulation of list columns
     contents:
       - coo_nb
       - coe_nb
@@ -48,13 +59,7 @@ reference:
       - coe_drop
       - coo_select
       - coe_select
-  - title: "Momocs verbs"
-    desc: >
-      Mostly to ease manipulation of list columns
-    contents:
-      - pick
-      - unfold
-      - press
+
   - title: "Graphics"
     desc: >
       Prepare and build ggplot2 graphics
@@ -64,12 +69,6 @@ reference:
       - inspect
       - mosaic
       - pile
-  - title: "Morphospaces"
-    desc: >
-      Prepare and build morphospaces
-    contents:
-      - morphospace
-      - morphospace_templace
 
   - title: "Classes"
     desc: >
@@ -81,16 +80,30 @@ reference:
       - coe_single
       - coe_list
 
-  - title: "Babel"
+  - title: "Lower level helpers"
     desc: >
       Helpers to convert from/to different formats
     contents:
-      - complex_2_cartesian()
-      - degrees_to_radians()
+      - complex_2_cartesian
+      - degrees_to_radians
+      - euclidean
+      - geometry
+      - tidyeval_helpers
 
   - title: "Datasets"
     desc: >
       To play with
     contents:
       - bot
+      - jb
+      - hearts
+      - olea
 
+  - title: "PCA"
+    desc: >
+      Will move to Momstats
+    contents:
+      - stat_pca
+      - scree
+      - morphospace
+      - morphospace_template
