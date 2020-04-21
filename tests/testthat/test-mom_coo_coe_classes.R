@@ -38,8 +38,6 @@ test_that("mom_tbl works", {
 
   # print method
   expect_output(print(bot), "mom_tbl")
-  expect_output(print(bot), "coo_list")
-  expect_output(bot %>% efourier(4) %>% print(), "coe_list")
 
   # test what used to fail befor vctrs
   x <- bot %>% dplyr::slice(1:2)
@@ -121,7 +119,7 @@ test_that("coo_list works", {
 
   # printers and pillars ---
   expect_output(new_coo_list() %>% print, "coo_list") # vec_ptype_full.coo_list
-  expect_output(bot %>% print, "coo_list") # vec_ptype_abbr.coo_list
+  expect_output(bot %>% print, "mom_tbl") # vec_ptype_abbr.coo_list
   expect_true(new_coo_list() %>% pillar::is_vector_s3())
 })
 
@@ -202,6 +200,6 @@ test_that("coe_list works", {
 
   # printers and pillars ---
   expect_output(new_coe_list() %>% print, "coe_list") # vec_ptype_full.coo_list
-  expect_output(x %>% print, "coe_list") # vec_ptype_abbr.coo_list
+  expect_output(x %>% print, "mom") # vec_ptype_abbr.coo_list
   expect_true(new_coe_list() %>% pillar::is_vector_s3())
 })
