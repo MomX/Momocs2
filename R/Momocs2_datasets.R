@@ -45,6 +45,7 @@
 #' }
 #' @source todo
 "olea"
+
 # dplyr::bind_cols(
 #   tibble::tibble(coo=x$coo %>% purrr::map(coo_single) %>% coo_list()),
 #   x$fac
