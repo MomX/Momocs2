@@ -85,17 +85,17 @@ print.mom_tbl <- function(x, ...){
              crayon::bgGreen("mom_tbl")) %>%
     cli::cat_line()
 
-  if (coo_nb(x)>0)
-    glue::glue(cli::symbol$pointer,
-               crayon::bgBlue("coo_list:"), " ",
-               "{coo_names(x)}") %>%
-    cli::cat_line()
-
-  if (coe_nb(x)>0)
-    glue::glue(cli::symbol$pointer,
-               crayon::bgBlue("coe_list:"), " ",
-               "{coe_names(x)}") %>%
-    cli::cat_line()
+  # if (coo_nb(x)>0)
+  #   glue::glue(cli::symbol$pointer,
+  #              crayon::bgBlue("coo_list:"), " ",
+  #              "{coo_names(x)}") %>%
+  #   cli::cat_line()
+  #
+  # if (coe_nb(x)>0)
+  #   glue::glue(cli::symbol$pointer,
+  #              crayon::bgBlue("coe_list:"), " ",
+  #              "{coe_names(x)}") %>%
+  #   cli::cat_line()
 
 }
 
@@ -279,7 +279,7 @@ coo_list.coo_list <- function(x){
 vec_ptype_full.coo_list <- function(x) "coo_list"
 #' @rdname coo_list
 #' @export
-vec_ptype_abbr.coo_list <- function(x) "coo"
+vec_ptype_abbr.coo_list <- function(x) crayon::bgBlue("coo")
 
 #' @importFrom pillar is_vector_s3
 #' @export
@@ -508,7 +508,7 @@ coe_list.coe_list <- function(x){
 vec_ptype_full.coe_list <- function(x) "coe_list"
 #' @rdname coe_list
 #' @export
-vec_ptype_abbr.coe_list <- function(x) "coe"
+vec_ptype_abbr.coe_list <- function(x) crayon::bgMagenta("coe")
 
 #' @importFrom pillar is_vector_s3
 #' @export
