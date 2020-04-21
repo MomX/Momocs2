@@ -3,9 +3,6 @@
 language: r
 cache: packages
 
-before_install:
-  - tlmgr install index
-
 after_success:
   - Rscript -e 'covr::codecov()'
   - Rscript -e 'pkgdown::build_site()'
