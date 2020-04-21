@@ -198,7 +198,7 @@ test_that("coe_list works", {
   expect_true(x$coe %>% is_coe_list)
   expect_true(x %>% dplyr::mutate(coe2=coe) %>% dplyr::pull(coe2) %>% is_coe_list())
 
-  # printers and pillars ---
+  # printers and pillars --
   expect_output(new_coe_list() %>% print, "coe_list") # vec_ptype_full.coo_list
   expect_output(x %>% print, "mom") # vec_ptype_abbr.coo_list
   expect_true(new_coe_list() %>% pillar::is_vector_s3())
