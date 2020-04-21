@@ -48,6 +48,5 @@ Imports:
     tidyselect
 Remotes:
     tidyverse/ggplot2,
-    tidyverse/dplyr,
-    r-lib/vctrs
+    tidyverse/dplyr
 VignetteBuilder: knitr
