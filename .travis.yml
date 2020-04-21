@@ -22,7 +22,7 @@ notifications:
 
 deploy:
   provider: pages
-  skip_cleanup: true
+  cleanup: true
   github_token: $GITHUB_PAT
   keep_history: true
   local_dir: docs
