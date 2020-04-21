@@ -94,8 +94,8 @@ I will dedicate (some day) a vignette or a paper to this problem.
 
 \examples{
 bot \%>\% pick() \%>\% efourier(4) \%>\% print() \%>\% efourier_i()
-bot$coo \%>\% efourier(4) \%>\% print() \%>\% efourier_i() \%>\% class()
-bot \%>\% efourier(4) \%>\% efourier_norm()
+bot$coo[1:2] \%>\% efourier(4) \%>\% print() \%>\% efourier_i() \%>\% class()
+bot[1:3, ] \%>\% efourier(4) \%>\% efourier_norm()
 
 }
 \references{
