@@ -21,18 +21,6 @@
 #' and downsampled to 80 coordinates per outline.
 "hearts"
 
-#' Outline of jb bottle
-#'
-#' A [coo_single] obtained with `pick(bot, "jb")`
-#'
-#' @format A [coo_single] with:
-#' \describe{
-#'   \item{x}{coordinates}
-#'   \item{y}{coordinates}
-#' }
-#' @source todo
-"jb"
-
 #' Outlines of olea stones
 #'
 #' @format A [mom_tbl] with:
