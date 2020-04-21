@@ -2,8 +2,9 @@
 
 language: r
 cache: packages
-os: linux
-dist: xenial
+
+before_install:
+  - tlmgr install index
 
 after_success:
   - Rscript -e 'covr::codecov()'
