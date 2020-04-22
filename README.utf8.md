@@ -4,14 +4,7 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "man/figures/README-",
-  out.width = "100%"
-)
-```
+
 
 ## Momocs 2.0 <a href='http://momx.github.io/Momocs2'><img src='man/figures/logo.png' align="right" height="139" /></a>
 
