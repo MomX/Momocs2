@@ -1,5 +1,5 @@
 Package: Momocs2
-Title: What the Package Does (One Line, Title Case)
+Title: Modern Morphometrics and Shape Manipulation
 Version: 0.1.0.9000
 Authors@R: c(
     person(given = "Vincent",
@@ -12,7 +12,14 @@ Authors@R: c(
            role = c("aut"),
            comment = "core functions in base R"))
 Maintainer: Vincent Bonhomme <bonhomme.vincent@gmail.com>
-Description: What the package does (one paragraph).
+Description: The goal of Momocs2 is to provide a complete, convenient, 
+       reproducible and open-source toolkit for 2D morphometrics.
+       It includes many shape geometric operations and descriptors and 
+       define classes around tibbles for collection of shapes.
+       Shapes can be outlines, curves, landmarks or measurements. 
+       The common 2D morphometrics approaches are available and allow 
+       reproducible, complex morphometrics analyses. Other morphometrics approaches 
+       should be easy to plug in, or develop from, on top of this canvas. 
 Depends: R (>= 3.0)
 License: GPL-3
 Encoding: UTF-8
