@@ -1,4 +1,5 @@
 # R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
+#   - Rscript -e 'pkgdown::build_site()'
 
 language: r
 cache: packages
@@ -10,7 +11,7 @@ r:
 
 after_success:
   - Rscript -e 'covr::codecov()'
-  - Rscript -e 'pkgdown::build_site()'
+
 
 after_failure:
  - ./travis-tool.sh dump_logs
