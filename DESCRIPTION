@@ -47,7 +47,5 @@ Imports:
     zeallot,
     tidyselect
 Remotes:
-    tidyverse/ggplot2,
-    tidyverse/dplyr,
-    tidyverse/tidyr
+    tidyverse/dplyr
 VignetteBuilder: knitr
