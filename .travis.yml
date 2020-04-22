@@ -5,16 +5,10 @@ language: r
 cache: packages
 
 r:
-  - oldrel
   - release
-  - devel
 
 after_success:
   - Rscript -e 'covr::codecov()'
-
-
-after_failure:
- - ./travis-tool.sh dump_logs
 
 notifications:
   email:
