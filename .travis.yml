@@ -17,11 +17,13 @@ notifications:
     on_success: change
     on_failure: change
 
+
 deploy:
   provider: pages
-  cleanup: true
-  github_token: $GITHUB_PAT
-  keep_history: true
-  local_dir: docs
+  skip-cleanup: true
+  github-token: $GITHUB_PAT
+  keep-history: true
+  local-dir: docs
   on:
     branch: master
+
