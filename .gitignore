@@ -6,7 +6,6 @@ inst/doc
 __sticker.R
 __sticker.R
 tests/.DS_Store
-docs/
 tests/testthat/Rplots.pdf
 sandbox/
 R/.DS_Store
