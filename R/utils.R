@@ -1,10 +1,3 @@
-# decent
-.decent_decimals   <- function(x){}
-.decent_linesize   <- function(x){}
-.decent_pointsize  <- function(x){}
-.decent_textsize   <- function(x){}
-
-
 
 # manipulating attributes ---------------------------------
 # given an object, add y to attribute "history"

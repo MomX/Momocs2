@@ -295,6 +295,26 @@ inspect.mom_tbl <- function(x, ...){
     x %>% pick() %>% gg() %>% print()
   }
 }
+#
+# # gg Utils
+# # decent
+# .decent_decimals   <- function(x){}
+# #
+# # max 1
+# # min 0.01
+#
+#
+# .decent_linesize   <- function(x){}
+# .decent_pointsize  <- function(x){}
+# .decent_textsize   <- function(x){}
+# .decent_geom       <- function(x){
+#   ifelse(x>32, ggplot2::geom_path, ggplot2::geom_point)
+# }
+
+
+# pile(obj, colour, geom=g )
+
+
 
 # pile ----------------------------------------------------
 
