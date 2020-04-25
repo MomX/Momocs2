@@ -4,7 +4,7 @@
 \name{Momocs2-package}
 \alias{Momocs2}
 \alias{Momocs2-package}
-\title{Momocs2: What the Package Does (One Line, Title Case)}
+\title{Momocs2: Modern Morphometrics and Shape Manipulation}
 \description{
 To learn more about Momocs2, start with the vignettes:
 \code{browseVignettes(package = "Momocs2")}
