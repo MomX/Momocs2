@@ -106,6 +106,9 @@
       <a href="../articles/coo.html">coo_ modify shapes</a>
     </li>
     <li>
+      <a href="../articles/graphics.html">Momocs2 graphics</a>
+    </li>
+    <li>
       <a href="../articles/intro-to.html">Introduction to</a>
     </li>
     <li>
@@ -146,7 +149,7 @@
     <p>Unfold list columns such as coo_list and coe_list, repeat lines if required.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>unfold</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>unfold</span>(<span class='no'>x</span>, <span class='no'>from_col</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -154,6 +157,10 @@
     <tr>
       <th>x</th>
       <td><p>a Momocs object</p></td>
+    </tr>
+    <tr>
+      <th>from_col</th>
+      <td><p>column name</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -189,7 +196,7 @@ Also <code>unpack</code> was already take by <code>tidyr</code>. <code>unfold.li
 #&gt;  9    57   414     1
 #&gt; 10    59   403     1
 #&gt; # … with 6,459 more rows</div><div class='input'>
-<span class='no'>bot</span> <span class='kw'>%&gt;%</span> <span class='no'>unfold</span></div><div class='output co'>#&gt; # A tibble: 6,469 x 5
+<span class='no'>bot</span> <span class='kw'>%&gt;%</span> <span class='no'>unfold</span></div><div class='output co'>#&gt; <span class='message'>ℹ unfold.mom_tbl: can only handle a single coo_list, using coo column</span></div><div class='output co'>#&gt; # A tibble: 6,469 x 5
 #&gt;        x     y group type   fake 
 #&gt;  * &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;fct&gt;  &lt;fct&gt;
 #&gt;  1    37   561     1 whisky a    

@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Introduction to • Momocs2</title>
+<title>Momocs2 graphics • Momocs2</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -17,7 +17,7 @@
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Introduction to">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Momocs2 graphics">
 <meta property="og:description" content="Momocs2">
 <meta property="og:image" content="http://momx.github.io/Momocs2/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -98,22 +98,78 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Introduction to</h1>
+      <h1 data-toc-skip>Momocs2 graphics</h1>
             
       
       
-      <div class="hidden name"><code>intro-to.Rmd</code></div>
+      <div class="hidden name"><code>graphics.Rmd</code></div>
 
     </div>
 
     
     
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">Momocs2</span>)</pre></body></html></div>
+<p>Momocs2 (now only) deals with shape manipulation and morphometrics. Its graphics fall in three categories: plotting shape(s), plotting coefficient(s), visualizing steps in between like reconstruction or calibration, detailed below.</p>
+<p>Momocs2 graphics all use <code>ggplot2</code> graphics (todo Mombook) and, when sensible, use tidyevaluation (todo Mombook).</p>
+<p>Momocs2 graphical methods try hard to use minimal but sensible default. I do not want to have functions with 50 arguments, that would anyway be redundant due to their <code>ggplot2</code> nature. If you want to change something, just start from a recipe here, or do it yourself using <code>ggplot2</code> methods.</p>
+<p>Each object have a default method, that can be obtained with the good old <code>plot</code>. I realize that is really heretic to use <code><a href="https://rdrr.io/r/graphics/plot.html">plot()</a></code> to obtain <code>ggplot2</code>, but I think it’s simple and useful.</p>
+<div id="plotting-shapes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#plotting-shapes" class="anchor"></a>Plotting shapes</h2>
+<div id="pile" class="section level3">
+<h3 class="hasAnchor">
+<a href="#pile" class="anchor"></a>pile</h3>
+<p>pile is the default method for shape(s):</p>
+<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="no">bot</span> <span class="kw">%&gt;%</span> <span class="fu">pick</span>(<span class="fl">1</span>) <span class="kw">%&gt;%</span> <span class="fu">pile</span>()</pre></body></html></div>
+<p><img src="graphics_files/figure-html/unnamed-chunk-1-1.png" width="700"></p>
+<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">bot</span>$<span class="no">coo</span> <span class="kw">%&gt;%</span> <span class="fu">pile</span>()</pre></body></html></div>
+<p><img src="graphics_files/figure-html/unnamed-chunk-1-2.png" width="700"></p>
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">bot</span> <span class="kw">%&gt;%</span> <span class="fu">pile</span>()</pre></body></html></div>
+<p><img src="graphics_files/figure-html/unnamed-chunk-1-3.png" width="700"></p>
+</div>
+<div id="mosaic" class="section level3">
+<h3 class="hasAnchor">
+<a href="#mosaic" class="anchor"></a>mosaic</h3>
+</div>
+<div id="inspect" class="section level3">
+<h3 class="hasAnchor">
+<a href="#inspect" class="anchor"></a>inspect</h3>
+</div>
+</div>
+<div id="plotting-coefficients" class="section level2">
+<h2 class="hasAnchor">
+<a href="#plotting-coefficients" class="anchor"></a>Plotting coefficients</h2>
+</div>
+<div id="other-graphics" class="section level2">
+<h2 class="hasAnchor">
+<a href="#other-graphics" class="anchor"></a>Other graphics</h2>
+</div>
+<div id="technical-aspects" class="section level2">
+<h2 class="hasAnchor">
+<a href="#technical-aspects" class="anchor"></a>Technical aspects</h2>
+<div id="all-graphics-are-ggplot2-graphics" class="section level3">
+<h3 class="hasAnchor">
+<a href="#all-graphics-are-ggplot2-graphics" class="anchor"></a>All graphics are <code>ggplot2</code> graphics</h3>
+<p>All MomX, and thus Momocs2, graphics rely on <a href="https://ggplot2.tidyverse.org/">ggplot2</a>. If you do not know it at all, or do not master it yet, there is nothing to be afraid of, really. An by the way, you do not need extensive <code>ggplot2</code>, recipes below are likely to cover your needs.</p>
+<p>I do not want to enter the infinite and slippery discussion of “why ggplot2”: just like anything else, <code>ggplot2</code> has its detractors and evagelists. I obviously fall more in the second category for several reasons:</p>
+<ul>
+<li>Its graphics are beautiful and if yours suck, it is likely not <code>ggplot2</code> fault.</li>
+<li>It is “smart” because of the grammar it relies on. If there is somewhere I really want a grammar it is graphics. Did you really like <code><a href="https://rdrr.io/r/graphics/legend.html">legend()</a></code>?</li>
+<li>Its learning curve is steep, mostly the, say, first 20 hours. But these first moments will be fulled of “wow” moments.</li>
+<li>Time invested will be funded back quickly and forever.</li>
+<li>Do not think there are things you cannot do with <code>ggplot2</code> just because it want a <code>tibble</code> to start with.</li>
+<li>There are many extensions</li>
+<li>The user community is huge, so it is very likely that your problem has already been adressed, eg on StackOverflow</li>
+</ul>
+<p>Overall, I think using <code>ggplot2</code> as the main graphics engine in MomX is a good choice and if you do not agree, it is likely because you think you can do better from scratch, so do not chew the cud and go ahead ;-)</p>
+</div>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-      </div>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
+</div>
 
 </div>
 
