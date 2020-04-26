@@ -4,10 +4,12 @@
 \alias{unfold}
 \title{Unfold list columns}
 \usage{
-unfold(x, ...)
+unfold(x, from_col, ...)
 }
 \arguments{
 \item{x}{a Momocs object}
+
+\item{from_col}{column name}
 
 \item{...}{useless}
 }

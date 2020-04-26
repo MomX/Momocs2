@@ -31,7 +31,6 @@ mosaic(bot, type, ncol=6, ggplot2::aes(col=type))
 }
 \seealso{
 Other family_picture: 
-\code{\link{inspect}()},
-\code{\link{pile}()}
+\code{\link{inspect}()}
 }
 \concept{family_picture}

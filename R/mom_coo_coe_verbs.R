@@ -173,6 +173,7 @@ press.mom_tbl <- function(x, keep_others=TRUE){
 #' Unfold list columns such as [coo_list] and [coe_list], repeat lines if required.
 #'
 #' @param x a Momocs object
+#' @param from_col column name
 #' @param ... useless
 #' @note Differs from `tidyr::unnest`, in that it adds a "shp" column.
 #' Also `unpack` was already take by `tidyr`. `unfold.list` is just `dplyr::bind_rows`.
@@ -184,7 +185,7 @@ press.mom_tbl <- function(x, keep_others=TRUE){
 #'
 #' bot %>% unfold
 #' @export
-unfold <- function(x, ...){
+unfold <- function(x, from_col, ...){
   UseMethod("unfold")
 }
 
@@ -210,35 +211,41 @@ unfold.tbl <- function(x, ...){
 unfold.coo_list <- function(x, ...){
   # dplyr::bind_rows(x, .id="group") wouldnt work since we want numeric
   reps <- get_nb(x)
+
+  coords <- x %>% as.list() %>% dplyr::bind_rows() %>% tibble::as_tibble()
+  group  <- tibble::tibble(group=purrr::map2(seq_along(reps), reps, ~rep(.x, .y)) %>% unlist())
   dplyr::bind_cols(
-    x %>% as.list() %>% dplyr::bind_rows() %>% tibble::as_tibble(), # todo vctrs, we should not need as.list here !!!
-    tibble::tibble(group=purrr::map2(seq_along(reps), reps, ~rep(.x, .y)) %>% unlist())
-  ) %>% tibble::as_tibble()
+    coords,
+    group) %>%
+    tibble::as_tibble()
 }
 
 # should be unfold_coo
 # and unfold_coe
 # was coo below
 #' @export
-unfold.mom_tbl <- function(x, ...){
+unfold.mom_tbl <- function(x, from_col, ...){
   # check a bit for coo_list columns
   if (coo_nb(x) == 0)
     stop("unfold.mom_tbl: no coo_list column")
-  if (coo_nb(x) > 1)
-    paste0("unfold.mom_tbl: can only handle a single coo_list, picking ",
-           coo_names(x)[1], "column") %>%
-    .msg_info()
 
-  # there is probably a more elegan wayt
-  coo_col  <- coo_names(x)[1] # which coo column is concerned
+
+  if (missing(from_col)){
+    from_col <- coo_names(x)[1]
+    .msg_info("unfold.mom_tbl: can only handle a single coo_list, using {from_col} column")
+  }
+  from_col <- enquo(from_col)
+
+  # there is probably a more elegant way..
   # times we have to repeat each line
-  reps_n   <- x %>% dplyr::pull(coo_col) %>% get_nb()
+  reps_n   <- x %>% dplyr::pull(!!from_col) %>% get_nb()
   # same as a vector
   group    <- purrr::map2(seq_along(reps_n), reps_n, ~rep(.x, .y)) %>% unlist()
 
-  # unfold coo, bind cols with others
+
+  # unfold from_col, bind cols with others
   dplyr::bind_cols(
-    x %>% dplyr::pull(coo_col) %>% unfold,
+    x %>% dplyr::pull(!!from_col) %>% unfold,
     x %>% coo_drop() %>% dplyr::slice(group) %>% tibble::as_tibble()
   )
 }

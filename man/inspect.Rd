@@ -22,7 +22,6 @@ bot \%>\% inspect
 }
 \seealso{
 Other family_picture: 
-\code{\link{mosaic}()},
-\code{\link{pile}()}
+\code{\link{mosaic}()}
 }
 \concept{family_picture}

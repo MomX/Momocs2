@@ -2,38 +2,42 @@
 % Please edit documentation in R/gg_graphics.R
 \name{pile}
 \alias{pile}
+\alias{pile0}
 \title{Plot all shapes on the same graph}
 \usage{
-pile(x, f, ...)
+pile0(x)
+
+pile(x, ..., from_col, geom, size, alpha)
 }
 \arguments{
 \item{x}{a mom_tbl object}
 
-\item{f}{a column (\code{factor} or \code{numeric}) for colouring shapes}
+\item{...}{additional parameters to pass to main geom}
 
-\item{...}{additional parameters to feed ggplot2::geoms}
+\item{from_col}{column name to use for plotting (only for \code{mom_tbl} where it defaults to \code{coo})}
+
+\item{geom}{ggplot2 geom to use, typically \code{geom_path} or \code{geom_point}}
+
+\item{size, alpha}{to feed geom}
 }
 \description{
 Plot all shapes on the same graph
 }
+\section{Functions}{
+\itemize{
+\item \code{pile0}: prepare
+
+\item \code{pile}: plotter
+}}
+
 \note{
-formerly named \code{stack}
+formerly named \code{stack} in retired Momocs.
+\code{stack} was quite a fine name but a \code{stack} is not something more fundamental in informatics.
+Also, \code{pile} is shorter.
 }
 \examples{
-bot \%>\% pile()
-# global spec
-bot \%>\% pile(col="gold")
-# aes bounded to x columns
-bot \%>\% pile(type) # you can omit ggplot2:: if it's loaded
-
-# a more complex example
-bot \%>\% pile(type) +
-   ggplot2::facet_grid(~type) +
-   ggplot2::scale_colour_manual(values=c("forestgreen", "orange"))
+bot \%>\% pick(1) \%>\% pile()
+pile(bot$coo)
+bot \%>\% dplyr::rename(coo2=coo) \%>\% pile(bot, from_col=coo2)
 }
-\seealso{
-Other family_picture: 
-\code{\link{inspect}()},
-\code{\link{mosaic}()}
-}
-\concept{family_picture}
+\concept{coo_graphics}

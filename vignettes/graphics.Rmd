@@ -1,0 +1,61 @@
+---
+title: "Momocs2 graphics"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{graphics}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+```{r setup, echo=FALSE}
+library(Momocs2)
+```
+
+Momocs2 (now only) deals with shape manipulation and morphometrics. Its graphics fall in three categories: plotting shape(s), plotting coefficient(s), visualizing steps in between like reconstruction or calibration, detailed below.
+
+Momocs2 graphics all use `ggplot2` graphics (todo Mombook) and, when sensible, use tidyevaluation (todo Mombook).
+
+Momocs2 graphical methods try hard to use minimal but sensible default. I do not want to have functions with 50 arguments, that would anyway be redundant due to their `ggplot2` nature. If you want to change something, just start from a recipe here, or do it yourself using `ggplot2` methods.
+
+Each object have a default method, that can be obtained with the good old `plot`. I realize that is really heretic to use `plot()` to obtain `ggplot2`, but I think it's simple and useful.
+
+## Plotting shapes
+
+### pile
+pile is the default method for shape(s):
+
+```{r}
+bot %>% pick(1) %>% pile()
+bot$coo %>% pile()
+bot %>% pile()
+```
+
+
+### mosaic
+### inspect
+
+
+## Plotting coefficients
+
+## Other graphics
+
+## Technical aspects
+
+### All graphics are `ggplot2` graphics
+
+All MomX, and thus Momocs2, graphics rely on [ggplot2](https://ggplot2.tidyverse.org/). If you do not know it at all, or do not master it yet, there is nothing to be afraid of, really. An by the way, you do not need extensive `ggplot2`, recipes below are likely to cover your needs.
+
+I do not want to enter the infinite and slippery discussion of "why ggplot2": just like anything else, `ggplot2` has its detractors and evagelists. I obviously fall more in the second category for several reasons:
+
+* Its graphics are beautiful and if yours suck, it is likely not `ggplot2` fault.
+* It is "smart" because of the grammar it relies on. If there is somewhere I really want a grammar it is graphics. Did you really like `legend()`?
+* Its learning curve is steep, mostly the, say, first 20 hours. But these first moments will be fulled of "wow" moments.
+* Time invested will be funded back quickly and forever. 
+* Do not think there are things you cannot do with `ggplot2` just because it want a `tibble` to start with.
+* There are many extensions
+* The user community is huge, so it is very likely that your problem has already been adressed, eg on StackOverflow
+
+Overall, I think using `ggplot2` as the main graphics engine in MomX is a good choice and if you do not agree, it is likely because you think you can do better from scratch, so do not chew the cud and go ahead ;-)
+
+
+
+

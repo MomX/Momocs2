@@ -62,8 +62,8 @@ test_that("mosaic works", {
 })
 
 test_that("pile works", {
+  expect_message(pile("a"), "no method")
   expect_is(bot %>% pile, "ggplot")
-  expect_is(bot %>% pile(type), "ggplot")
   # otherwise tested in examples
 })
 

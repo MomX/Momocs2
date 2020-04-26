@@ -76,7 +76,7 @@ gg0.coo_single <- function(x, ...){
 #' @export
 gg0.mom_tbl <- function(x, ...){
   x %>%
-    unfold() %>%
+    # unfold() %>%
     ggplot2::ggplot() +
     ggplot2::aes(x=.data$x, y=.data$y, group=.data$group) +
     ggplot2::coord_equal() +
@@ -295,73 +295,154 @@ inspect.mom_tbl <- function(x, ...){
     x %>% pick() %>% gg() %>% print()
   }
 }
-#
-# # gg Utils
-# # decent
-# .decent_decimals   <- function(x){}
-# #
-# # max 1
-# # min 0.01
-#
-#
-# .decent_linesize   <- function(x){}
-# .decent_pointsize  <- function(x){}
-# .decent_textsize   <- function(x){}
-# .decent_geom       <- function(x){
-#   ifelse(x>32, ggplot2::geom_path, ggplot2::geom_point)
-# }
 
 
-# pile(obj, colour, geom=g )
+# decent --------------------------------------------------
+#' Decent default values
+#'
+#' Aims at finding sesisble default values when not specified.
+#'
+#' Sizes are expressed in typographic points.
+#' Mostly used internally, but can be overriden.
+#' Will possibly be turned into options at some point.
+#'
+#' @param x `integer` a number on which to find a sensible value
+#'
+#' @examples
+#' tibble::tibble(x=10^(1:5)) %>%
+#'     dplyr::mutate_all(.funs=list(
+#'         decimals   = decent_decimals,
+#'         alpha      = decent_alpha,
+#'         #geom       = decent_geom,
+#'         size_path  = decent_size_path,
+#'         size_point = decent_size_point,
+#'         size_text  = decent_size_text
+#'         ))
+#' @name decent
+NULL
+
+#' @describeIn decent decimals
+#' @export
+decent_decimals  <- function(x)
+  floor(log10(x))
+
+#' @describeIn decent geom
+#' @export
+decent_geom      <- function(x)
+  ifelse(x>60, ggplot2::geom_path, ggplot2::geom_point)
+
+#' @describeIn decent alpha
+#' @export
+decent_alpha     <- function(x)
+  c(1, 0.5, 0.25, 0.1, 0.05)[cut(x, breaks=c(-Inf, 10, 100, 1000, 10000, Inf))]
+
+#' @describeIn decent size_geom
+#' @export
+decent_size <- function(x)
+  c(1/.pt, 0.5/.pt, 0.25/.pt, 0.1/.pt, 0.05/.pt)[cut(x, breaks=c(-Inf, 10, 100, 1000, 10000, Inf))]
+
+#' @describeIn decent size_path
+#' @export
+decent_size_path <- function(x)
+  c(1/.pt, 0.5/.pt, 0.25/.pt, 0.1/.pt, 0.05/.pt)[cut(x, breaks=c(-Inf, 10, 100, 1000, 10000, Inf))]
+
+#' @describeIn decent size_point
+#' @export
+decent_size_point <- function(x)
+  c(1/.pt, 0.5/.pt, 0.25/.pt, 0.1/.pt, 0.05/.pt)[cut(x, breaks=c(-Inf, 10, 100, 1000, 10000, Inf))]
 
 
+#' @describeIn decent size_text
+#' @export
+decent_size_text <- function(x)
+  c(12/.pt, 10/.pt, 8/.pt, 6/.pt, 4/.pt)[cut(x, breaks=c(-Inf, 10, 100, 1000, 10000, Inf))]
 
 # pile ----------------------------------------------------
 
 #' Plot all shapes on the same graph
 #'
 #' @param x a mom_tbl object
-#' @param f a column (`factor` or `numeric`) for colouring shapes
-#' @param ... additional parameters to feed ggplot2::geoms
-#' @note formerly named `stack`
-#' @family family_picture
-#' @examples
-#' bot %>% pile()
-#' # global spec
-#' bot %>% pile(col="gold")
-#' # aes bounded to x columns
-#' bot %>% pile(type) # you can omit ggplot2:: if it's loaded
+#' @param ... additional parameters to pass to main geom
+#' @param from_col column name to use for plotting (only for `mom_tbl` where it defaults to `coo`)
+#' @param geom ggplot2 geom to use, typically `geom_path` or `geom_point`
+#' @param size,alpha to feed geom
 #'
-#' # a more complex example
-#' bot %>% pile(type) +
-#'    ggplot2::facet_grid(~type) +
-#'    ggplot2::scale_colour_manual(values=c("forestgreen", "orange"))
+#' @note formerly named `stack` in retired Momocs.
+#' `stack` was quite a fine name but a `stack` is not something more fundamental in informatics.
+#' Also, `pile` is shorter.
+#' @family coo_graphics
+#' @examples
+#' bot %>% pick(1) %>% pile()
+#' pile(bot$coo)
+#' bot %>% dplyr::rename(coo2=coo) %>% pile(bot, from_col=coo2)
+#' @name pile
+NULL
+
+#' @describeIn pile prepare
+#' @export pile
+pile0 <- function(x){
+  ggplot2::ggplot(x) +
+    ggplot2::aes(x=.data$x, y=.data$y, group=.data$group) +
+    ggplot2::coord_equal() +
+    ggplot2::theme_minimal() +
+    ggplot2::theme(panel.grid = element_blank(),
+                   axis.title = element_blank(),
+                   axis.text = element_text(size=8, colour = "grey40"),
+                   axis.ticks = element_line(size = 0.2, colour = "grey40")) +
+    scale_x_continuous(n.breaks = 2) +
+    scale_y_continuous(n.breaks = 2)
+}
+
+
+#' @describeIn pile plotter
 #' @export
-pile <- function(x, f, ...) {
+pile <- function(x, ..., from_col, geom, size, alpha){
   UseMethod("pile")
 }
 
+
+# #' @describeIn pile plop_method
 #' @export
-pile.default <- function(x, f, ...){
-  .msg_info("pile: no pile method for this class")
+pile.default <- function(x, ...){
+  not_defined("pile")
 }
 
-#todo: decent_alpha
-# add first, centroid, etc. ala gg
-# manage pile.coo_out
+# #' @describeIn pile coo_single_method
 #' @export
-pile.mom_tbl <- function(x, f, ...){
-  gg <- x %>% gg0() + ggplot2::theme_minimal()
-  # todo handle geom decent_geom
-  if (missing(f)){
-    gg <- gg + ggplot2::geom_path(...)
-  } else {
-    f <- enquo(f)
-    gg <- gg + ggplot2::aes(colour=!!f) + ggplot2::geom_path(...)
-  }
-  # return this beauty
-  gg
+pile.coo_single <- function(x, ..., from_col, geom, size=0.5, alpha=1){
+  # find sensible values if missing
+  if (missing(geom))  geom  <- decent_geom(nrow(x))
+
+  # cook and return this beauty
+  x %>% unfold %>% pile0() + geom(..., size=size, alpha=alpha)
 }
+
+#' @export
+pile.coo_list <- function(x, ..., from_col, geom, size, alpha){
+  # find decent values if not provided
+  if (missing(geom))  geom  <- decent_geom(nrow(x[[1]]))
+  # do we need sep for path and poitns here?
+  if (missing(size))  size  <- decent_size_path(length(x))
+  if (missing(alpha)) alpha <- decent_alpha(length(x))
+
+  # cook and return this beauty
+  x %>% unfold %>% pile0() + geom(..., size=size, alpha=alpha)
+
+}
+
+#' @export
+pile.mom_tbl <- function(x, ..., from_col=coo, geom, size, alpha){
+
+  # if missing, try to find sensible values
+  n <- nrow(x)
+  if (missing(geom))  geom  <- decent_geom(dplyr::pull(x, !!enquo(from_col))[[1]] %>% nrow())
+  if (missing(size))  size  <- decent_size(n)
+  if (missing(alpha)) alpha <- decent_alpha(n)
+
+  # cook and return this beauty
+  x %>% unfold({{from_col}}) %>% pile0() + geom(..., size=size, alpha=alpha)
+}
+
 
 # mosaic ----------------------------------------------
 
