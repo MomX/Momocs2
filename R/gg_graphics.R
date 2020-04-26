@@ -46,6 +46,67 @@
 # theme should come here ----------------------------------
 # todo
 
+# decent --------------------------------------------------
+#' Decent default values
+#'
+#' Aims at finding sesisble default values when not specified.
+#'
+#' Sizes are expressed in typographic points.
+#' Mostly used internally, but can be overriden.
+#' Will possibly be turned into options at some point.
+#'
+#' @param x `integer` a number on which to find a sensible value
+#'
+#' @examples
+#' tibble::tibble(x=10^(1:5)) %>%
+#'     dplyr::mutate_all(.funs=list(
+#'         decimals   = decent_decimals,
+#'         alpha      = decent_alpha,
+#'         #geom       = decent_geom,
+#'         size_path  = decent_size_path,
+#'         size_point = decent_size_point,
+#'         size_text  = decent_size_text
+#'         ))
+#' @name decent
+NULL
+
+#' @describeIn decent decimals
+#' @export
+decent_decimals  <- function(x)
+  floor(log10(x))
+
+#' @describeIn decent geom
+#' @export
+decent_geom      <- function(x)
+  ifelse(x>60, ggplot2::geom_path, ggplot2::geom_point)
+
+#' @describeIn decent alpha
+#' @export
+decent_alpha     <- function(x)
+  c(1, 0.5, 0.25, 0.1, 0.05)[cut(x, breaks=c(-Inf, 10, 100, 1000, 10000, Inf))]
+
+#' @describeIn decent size_geom
+#' @export
+decent_size <- function(x)
+  c(1/.pt, 0.5/.pt, 0.25/.pt, 0.1/.pt, 0.05/.pt)[cut(x, breaks=c(-Inf, 10, 100, 1000, 10000, Inf))]
+
+#' @describeIn decent size_path
+#' @export
+decent_size_path <- function(x)
+  c(1/.pt, 0.5/.pt, 0.25/.pt, 0.1/.pt, 0.05/.pt)[cut(x, breaks=c(-Inf, 10, 100, 1000, 10000, Inf))]
+
+#' @describeIn decent size_point
+#' @export
+decent_size_point <- function(x)
+  c(1/.pt, 0.5/.pt, 0.25/.pt, 0.1/.pt, 0.05/.pt)[cut(x, breaks=c(-Inf, 10, 100, 1000, 10000, Inf))]
+
+
+#' @describeIn decent size_text
+#' @export
+decent_size_text <- function(x)
+  c(12/.pt, 10/.pt, 8/.pt, 6/.pt, 4/.pt)[cut(x, breaks=c(-Inf, 10, 100, 1000, 10000, Inf))]
+
+
 # gg0 -----------------------------------------------------
 # empty gg plots
 # simply returns a gg from shape, but nothing drawn yet
@@ -295,8 +356,6 @@ inspect.mom_tbl <- function(x, ...){
     x %>% pick() %>% gg() %>% print()
   }
 }
-
-
 # decent --------------------------------------------------
 #' Decent default values
 #'

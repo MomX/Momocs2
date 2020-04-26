@@ -38,6 +38,6 @@ Also, \code{pile} is shorter.
 \examples{
 bot \%>\% pick(1) \%>\% pile()
 pile(bot$coo)
-bot \%>\% dplyr::rename(coo2=coo) \%>\% pile(bot, from_col=coo2)
+bot \%>\% dplyr::rename(coo2=coo) \%>\% pile(from_col=coo2)
 }
 \concept{coo_graphics}
