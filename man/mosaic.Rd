@@ -25,7 +25,6 @@ Plot all shapes as a mosaic
 }
 \examples{
 bot \%>\% mosaic()
-bot \%>\% mosaic(type, ncol=6)
 mosaic(bot, type, ncol=6, ggplot2::aes(col=type))
 
 }

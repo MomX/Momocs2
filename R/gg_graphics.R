@@ -374,7 +374,7 @@ decent_size_text <- function(x)
 #' @examples
 #' bot %>% pick(1) %>% pile()
 #' pile(bot$coo)
-#' bot %>% dplyr::rename(coo2=coo) %>% pile(bot, from_col=coo2)
+#' bot %>% dplyr::rename(coo2=coo) %>% pile(from_col=coo2)
 #' @name pile
 NULL
 
@@ -436,11 +436,12 @@ pile.mom_tbl <- function(x, ..., from_col=coo, geom, size, alpha){
   # if missing, try to find sensible values
   n <- nrow(x)
   if (missing(geom))  geom  <- decent_geom(dplyr::pull(x, !!enquo(from_col))[[1]] %>% nrow())
+  # print(geom)
   if (missing(size))  size  <- decent_size(n)
   if (missing(alpha)) alpha <- decent_alpha(n)
 
   # cook and return this beauty
-  x %>% unfold({{from_col}}) %>% pile0() + geom(..., size=size, alpha=alpha)
+  x %>% unfold(from_col={{from_col}}) %>% pile0() + geom(..., size=size, alpha=alpha)
 }
 
 
@@ -458,7 +459,6 @@ pile.mom_tbl <- function(x, ..., from_col=coo, geom, size, alpha){
 #' @family family_picture
 #' @examples
 #' bot %>% mosaic()
-#' bot %>% mosaic(type, ncol=6)
 #' mosaic(bot, type, ncol=6, ggplot2::aes(col=type))
 #'
 #' @export
@@ -473,7 +473,7 @@ mosaic.default <- function(x, ...) {
 }
 
 #' @export
-mosaic.mom_tbl <- function(x, f, ..., ncol, geom=geom_path) {
+mosaic.mom_tbl <- function(x, f, ..., ncol, geom) {
 
   # go for squarish defaults
   if (missing(ncol)){
@@ -516,8 +516,14 @@ mosaic.mom_tbl <- function(x, f, ..., ncol, geom=geom_path) {
   df$coo <- purrr::pmap(list(df$coo, df$ci, df$ri),
                         ~coo_trans(..1, x_trans=..2, y_trans=..3)) %>% coo_list()
 
-  df %>%
-    gg0() + geom(...)
+  if (missing(geom))
+    geom <- decent_geom(nrow(df$coo[[1]]))
+  df %>% unfold(coo) %>%
+  ggplot2::ggplot() +
+    ggplot2::aes(x=.data$x, y=.data$y, group=.data$group) +
+    ggplot2::coord_equal() +
+    ggplot2::theme_void() + geom(...)
+
 }
 
 #
