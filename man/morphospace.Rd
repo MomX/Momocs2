@@ -23,7 +23,7 @@ pos1 <- tibble::tibble(PC1=seq(-5, 5, 1))
 pos2 <- tibble::tibble(PC1=seq(-5, 5, 1), PC2=seq(-5, 5, 1))
 m <- x \%>\% morphospace(pos1)
 # both useless
-m \%>\% pile()
-m \%>\% mosaic()
-m \%>\% morphospace_template() # warning is normal, only PC1 was passed
+#m \%>\% pile()
+#m \%>\% mosaic()
+#m \%>\% morphospace_template() # warning is normal, only PC1 was passed
 }
