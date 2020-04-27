@@ -7,8 +7,34 @@
 lhs \%>\% rhs
 
 lhs \%$\% rhs
+
+lhs \%T>\% rhs
 }
 \description{
 See \verb{magrittr::[\\\%>\\\%][magrittr::pipe]} for details.
+}
+\examples{
+# Quick introduction to pipe operators
+
+x <- 1:5
+
+### \%>\% the forward operator
+x \%>\% mean()
+# is equivalent to
+mean(x)
+
+### \%T>\% the tee operator
+x \%T>\% plot \%>\% mean()
+# it takes left hand side, do something (here a plot)
+# then pass it to next function (mean)
+
+### \%$\% the exposition operator
+l <- list(x=x, x2=x^2)
+l \%$\% x
+# or
+l \%$\% mean(x2)
+# names in l (x and x2) are "exposed" to right hand side
+
+# See magrittr vignette for more!
 }
 \keyword{internal}

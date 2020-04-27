@@ -61,9 +61,38 @@ NULL
 #' @export
 #' @usage lhs \%>\% rhs
 #' @usage lhs \%$\% rhs
+#' @usage lhs \%T>\% rhs
+#'
+#' @examples
+#' # Quick introduction to pipe operators
+#'
+#' x <- 1:5
+#'
+#' ### %>% the forward operator
+#' x %>% mean()
+#' # is equivalent to
+#' mean(x)
+#'
+#' ### %T>% the tee operator
+#' x %T>% plot %>% mean()
+#' # it takes left hand side, do something (here a plot)
+#' # then pass it to next function (mean)
+#'
+#' ### %$% the exposition operator
+#' l <- list(x=x, x2=x^2)
+#' l %$% x
+#' # or
+#' l %$% mean(x2)
+#' # names in l (x and x2) are "exposed" to right hand side
+#'
+#' # See magrittr vignette for more!
 NULL
 
 #' @importFrom magrittr %$%
 #' @export
 magrittr::`%$%`
+
+#' @importFrom magrittr %T>%
+#' @export
+magrittr::`%T>%`
 
