@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Natural and orthogonal polynomials — npoly • Momocs2</title>
+<title>Natural polynomials — npoly • Momocs2</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Natural and orthogonal polynomials — npoly" />
-<meta property="og:description" content="Calculates natural and orthogonal polynomial coefficients using stats::lm" />
+<meta property="og:title" content="Natural polynomials — npoly" />
+<meta property="og:description" content="Calculates natural polynomial coefficients using stats::lm" />
 <meta property="og:image" content="http://momx.github.io/Momocs2/logo.png" />
 
 
@@ -103,16 +103,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/coo.html">coo_ modify shapes</a>
-    </li>
-    <li>
       <a href="../articles/graphics.html">Momocs2 graphics</a>
     </li>
     <li>
-      <a href="../articles/intro-to.html">Introduction to</a>
+      <a href="../articles/intro.html">MomX philosophy</a>
     </li>
     <li>
-      <a href="../articles/intro.html">MomX philosophy</a>
+      <a href="../articles/shape.html">Shape manipulation</a>
     </li>
   </ul>
 </li>
@@ -140,13 +137,13 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Natural and orthogonal polynomials</h1>
+    <h1>Natural polynomials</h1>
     
     <div class="hidden name"><code>npoly.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Calculates natural and orthogonal polynomial coefficients using <a href='https://rdrr.io/r/stats/lm.html'>stats::lm</a></p>
+    <p>Calculates natural polynomial coefficients using <a href='https://rdrr.io/r/stats/lm.html'>stats::lm</a></p>
     </div>
 
     <pre class="usage"><span class='fu'>npoly</span>(
@@ -166,7 +163,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>a matrix (or a list) of (x; y) coordinates</p></td>
+      <td><p>coo_single, coo_list or mom_tbl</p></td>
     </tr>
     <tr>
       <th>degree</th>
@@ -217,9 +214,6 @@ and the last on (0.5, 0). Use coo_bookstein</p>
 <p>A polynomial of degree <code>n</code> use this fit:</p>
 <p>\(y = a_{0} + a_{1}x^1 + a_{...}x^{...} + a_{n}x^{n}\)</p>
 <p>And thus returns <code>n+1</code> coefficients. The <code>+1</code> being $a_0$  ie the intercept.</p>
-<p>Orthogonal polynomials are also called Legendre's polynomials. They are
-preferred over natural polynomials since adding a degree does not
-change lower order coefficients.</p>
 <p>In retired Momocs, baseline was free and not necessarily Bookstein. Not sure this
 was really helpful but I'm sure this overcomplicated coding. If your shapes are not
 registered on Bookstein coordinates, you will be messaged (not for coo_single though)</p>
@@ -231,15 +225,16 @@ registered on Bookstein coordinates, you will be messaged (not for coo_single th
 </ul>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other efourier: 
-<code>efourier()</code></p>
+    <div class='dont-index'><p>Other polynomials: 
+<code>opoly()</code></p>
 <p>Other morphometrics: 
-<code>efourier()</code></p></div>
+<code>efourier()</code>,
+<code>opoly()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='no'>o</span> <span class='kw'>&lt;-</span> <span class='no'>olea</span> <span class='kw'>%&gt;%</span> <span class='fu'>pick</span>(<span class='fl'>5</span>) <span class='kw'>%&gt;%</span> <span class='fu'>coo_bookstein</span>()
-<span class='no'>o</span> <span class='kw'>%&gt;%</span> <span class='fu'>gg</span>()</div><div class='img'><img src='npoly-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>op</span> <span class='kw'>&lt;-</span> <span class='no'>o</span> <span class='kw'>%&gt;%</span> <span class='fu'>npoly</span>(<span class='kw'>degree</span><span class='kw'>=</span><span class='fl'>3</span>)
+<span class='no'>o</span> <span class='kw'>%&gt;%</span> <span class='fu'>pile</span>()</div><div class='img'><img src='npoly-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>op</span> <span class='kw'>&lt;-</span> <span class='no'>o</span> <span class='kw'>%&gt;%</span> <span class='fu'>npoly</span>(<span class='kw'>degree</span><span class='kw'>=</span><span class='fl'>3</span>)
 <span class='no'>op</span></div><div class='output co'>#&gt; # A tibble: 1 x 4
 #&gt;      a0     a1    a2     a3
 #&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
@@ -248,11 +243,11 @@ registered on Bookstein coordinates, you will be messaged (not for coo_single th
 <span class='no'>op</span> <span class='kw'>%&gt;%</span> <span class='fu'>npoly_i</span>() <span class='kw'>%&gt;%</span> <span class='fu'>draw</span>()</div><div class='img'><img src='npoly-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='no'>olea</span> <span class='kw'>%&gt;%</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span>(<span class='fl'>1</span>:<span class='fl'>3</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>npoly</span>(<span class='kw'>drop</span><span class='kw'>=</span><span class='fl'>FALSE</span>) <span class='kw'>%&gt;%</span> <span class='no'>npoly_i</span></div><div class='output co'>#&gt; <span class='message'>! npoly: 'degree' not provided and set to 5</span></div><div class='output co'>#&gt; # A tibble: 3 x 7
-#&gt;   coo               var   domes view  ind   coe              coe_i             
-#&gt;   &lt;coo&gt;             &lt;fct&gt; &lt;fct&gt; &lt;fct&gt; &lt;fct&gt; &lt;coe&gt;            &lt;coo&gt;             
-#&gt; 1 &lt;tibble [99 × 2]&gt; Aglan cult  VD    O10   &lt;tibble [1 × 6]&gt; &lt;tibble [120 × 2]&gt;
-#&gt; 2 &lt;tibble [96 × 2]&gt; Aglan cult  VL    O10   &lt;tibble [1 × 6]&gt; &lt;tibble [120 × 2]&gt;
-#&gt; 3 &lt;tibble [95 × 2]&gt; Aglan cult  VD    O11   &lt;tibble [1 × 6]&gt; &lt;tibble [120 × 2]&gt;
+#&gt;   coo                var   domes view  ind   coe               coe_i            
+#&gt;   &lt;list&lt;coo_single[&gt; &lt;fct&gt; &lt;fct&gt; &lt;fct&gt; &lt;fct&gt; &lt;list&lt;coe_single&gt; &lt;list&lt;coo_single&gt;
+#&gt; 1 &lt;tibble [99 × 2]&gt;  Aglan cult  VD    O10   &lt;tibble [1 × 6]&gt;  &lt;tibble [120 × 2…
+#&gt; 2 &lt;tibble [96 × 2]&gt;  Aglan cult  VL    O10   &lt;tibble [1 × 6]&gt;  &lt;tibble [120 × 2…
+#&gt; 3 &lt;tibble [95 × 2]&gt;  Aglan cult  VD    O11   &lt;tibble [1 × 6]&gt;  &lt;tibble [120 × 2…
 #&gt; ❯mom_tbl</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

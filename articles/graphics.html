@@ -61,16 +61,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/coo.html">coo_ modify shapes</a>
-    </li>
-    <li>
       <a href="../articles/graphics.html">Momocs2 graphics</a>
     </li>
     <li>
-      <a href="../articles/intro-to.html">Introduction to</a>
+      <a href="../articles/intro.html">MomX philosophy</a>
     </li>
     <li>
-      <a href="../articles/intro.html">MomX philosophy</a>
+      <a href="../articles/shape.html">Shape manipulation</a>
     </li>
   </ul>
 </li>
@@ -108,10 +105,10 @@
 
     
     
-<p>Momocs2 (now only) deals with shape manipulation and morphometrics. Its graphics fall in three categories: plotting shape(s), plotting coefficient(s), visualizing steps in between like reconstruction or calibration, detailed below.</p>
-<p>Momocs2 graphics all use <code>ggplot2</code> graphics (todo Mombook) and, when sensible, use tidyevaluation (todo Mombook).</p>
+<p>Momocs2 as a shape manipulation and morphometrics package is chiefly (and pretty much only) concerned with plotting shape(s).</p>
+<p>Momocs2 graphics all use <code>ggplot2</code> graphics (todo link Mombook) and, where that makes sense, use tidyevaluation (todo link Mombook).</p>
 <p>Momocs2 graphical methods try hard to use minimal but sensible default. I do not want to have functions with 50 arguments, that would anyway be redundant due to their <code>ggplot2</code> nature. If you want to change something, just start from a recipe here, or do it yourself using <code>ggplot2</code> methods.</p>
-<p>Each object have a default method, that can be obtained with the good old <code>plot</code>. I realize that is really heretic to use <code><a href="https://rdrr.io/r/graphics/plot.html">plot()</a></code> to obtain <code>ggplot2</code>, but I think it’s simple and useful.</p>
+<p>Each object have a default method, that can be obtained with the good old <code>plot</code>. I realize that is really heretic to use <code><a href="https://rdrr.io/r/base/plot.html">plot()</a></code> to obtain <code>ggplot2</code>, but I think it’s simple and useful.</p>
 <div id="plotting-shapes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#plotting-shapes" class="anchor"></a>Plotting shapes</h2>

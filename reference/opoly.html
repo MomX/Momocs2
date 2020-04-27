@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot all shapes as a mosaic — mosaic • Momocs2</title>
+<title>Orthogonal polynomials — opoly • Momocs2</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Plot all shapes as a mosaic — mosaic" />
-<meta property="og:description" content="Plot all shapes as a mosaic" />
+<meta property="og:title" content="Orthogonal polynomials — opoly" />
+<meta property="og:description" content="Calculates orthogonal polynomial coefficients using stats::lm" />
 <meta property="og:image" content="http://momx.github.io/Momocs2/logo.png" />
 
 
@@ -137,53 +137,121 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot all shapes as a mosaic</h1>
+    <h1>Orthogonal polynomials</h1>
     
-    <div class="hidden name"><code>mosaic.Rd</code></div>
+    <div class="hidden name"><code>opoly.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Plot all shapes as a mosaic</p>
+    <p>Calculates orthogonal polynomial coefficients using <a href='https://rdrr.io/r/stats/lm.html'>stats::lm</a></p>
     </div>
 
-    <pre class="usage"><span class='fu'>mosaic</span>(<span class='no'>x</span>, <span class='no'>f</span>, <span class='no'>...</span>, <span class='no'>ncol</span>, <span class='no'>geom</span>)</pre>
+    <pre class="usage"><span class='fu'>opoly</span>(
+  <span class='no'>x</span>,
+  <span class='no'>degree</span>,
+  <span class='no'>raw</span>,
+  <span class='no'>drop_coo</span>,
+  <span class='kw'>from_coo</span> <span class='kw'>=</span> <span class='no'>coo</span>,
+  <span class='kw'>to_coe</span> <span class='kw'>=</span> {     {         <span class='no'>coe</span>     } },
+  <span class='no'>...</span>
+)
+
+<span class='fu'>opoly_i</span>(<span class='no'>x</span>, <span class='no'>nb_pts</span>, <span class='no'>from_coe</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>a Momocs object</p></td>
+      <td><p>coo_single, coo_list or mom_tbl</p></td>
     </tr>
     <tr>
-      <th>f</th>
-      <td><p>a factor column to skip lines after the end of each level</p></td>
+      <th>degree</th>
+      <td><p>polynomial degree for the fit (<code>degree+1</code>) coefficients are returned, see Details)</p></td>
+    </tr>
+    <tr>
+      <th>raw</th>
+      <td><p><code>logical</code> whether to return raw and full results</p></td>
+    </tr>
+    <tr>
+      <th>drop_coo</th>
+      <td><p><code>logical</code> whether to drop coo column (default to TRUE)</p></td>
+    </tr>
+    <tr>
+      <th>from_coo, to_coe</th>
+      <td><p>column names</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>additional parameters to feed <code>geom(...)</code>.</p></td>
+      <td><p>for generics. Useless here.</p></td>
     </tr>
     <tr>
-      <th>ncol</th>
-      <td><p><code>integer</code> that specifies the number of columns. Otherwise, a roughly squared mosaic is produced.</p></td>
+      <th>nb_pts</th>
+      <td><p>number of points to sample and on which to calculate polynomials</p></td>
     </tr>
     <tr>
-      <th>geom</th>
-      <td><p>which <code>ggplot2::geom</code> to use (<a href='https://ggplot2.tidyverse.org/reference/geom_polygon.html'>ggplot2::geom_polygon</a> by default)</p></td>
+      <th>from_coe</th>
+      <td><p>column name for inverse method</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a <code>ggplot</code> object</p>
+    <p>a list with components when applied on a single shape:</p><ul>
+<li><p><code>coeff</code> the coefficients (including the intercept)</p></li>
+<li><p><code>ortho</code> whether orthogonal or natural polynomials were fitted</p></li>
+<li><p><code>degree</code> degree of the fit (could be retrieved through <code>coeff</code> though)</p></li>
+<li><p><code>baseline1</code> the first baseline point (so far the first point)</p></li>
+<li><p><code>baseline2</code> the second baseline point (so far the last point)</p></li>
+<li><p><code>r2</code> the r2 from the fit</p></li>
+<li><p><code>mod</code> the raw lm model</p></li>
+</ul>
+
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Curves must be registered on a bookstein baseline, with the first coordinates on (-0.5, 0)
+and the last on (0.5, 0). Use coo_bookstein</p>
+<p>A polynomial of degree <code>n</code> use this fit:</p>
+<p>\(y = a_{0} + a_{1}x^1 + a_{...}x^{...} + a_{n}x^{n}\)</p>
+<p>And thus returns <code>n+1</code> coefficients. The <code>+1</code> being $a_0$  ie the intercept.</p>
+<p>Orthogonal polynomials are also called Legendre's polynomials. They are
+preferred over natural polynomials since adding a degree does not
+change lower order coefficients.</p>
+<p>In retired Momocs, baseline was free and not necessarily Bookstein. Not sure this
+was really helpful but I'm sure this overcomplicated coding. If your shapes are not
+registered on Bookstein coordinates, you will be messaged (not for coo_single though)</p>
+    <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
+
+    
+<ul>
+<li><p><code>opoly_i</code>: inverse opoly method</p></li>
+</ul>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other family_picture: 
-<code>inspect()</code></p></div>
+    <div class='dont-index'><p>Other polynomials: 
+<code>npoly()</code></p>
+<p>Other morphometrics: 
+<code>efourier()</code>,
+<code>npoly()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>bot</span> <span class='kw'>%&gt;%</span> <span class='fu'>mosaic</span>()</div><div class='img'><img src='mosaic-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>mosaic</span>(<span class='no'>bot</span>, <span class='no'>type</span>, <span class='kw'>ncol</span><span class='kw'>=</span><span class='fl'>6</span>, <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>col</span><span class='kw'>=</span><span class='no'>type</span>))</div><div class='img'><img src='mosaic-2.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+    <pre class="examples"><div class='input'>
+<span class='no'>o</span> <span class='kw'>&lt;-</span> <span class='no'>olea</span> <span class='kw'>%&gt;%</span> <span class='fu'>pick</span>(<span class='fl'>5</span>) <span class='kw'>%&gt;%</span> <span class='fu'>coo_bookstein</span>()
+<span class='no'>o</span> <span class='kw'>%&gt;%</span> <span class='fu'>pile</span>()</div><div class='img'><img src='opoly-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>op</span> <span class='kw'>&lt;-</span> <span class='no'>o</span> <span class='kw'>%&gt;%</span> <span class='fu'>opoly</span>(<span class='kw'>degree</span><span class='kw'>=</span><span class='fl'>3</span>)
+<span class='no'>op</span></div><div class='output co'>#&gt; # A tibble: 1 x 4
+#&gt;      a0     a1     a2      a3
+#&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
+#&gt; 1 0.216 0.0154 -0.996 0.00544
+#&gt; ❯coe_single with 4 coefficients</div><div class='input'><span class='no'>op</span> <span class='kw'>%&gt;%</span> <span class='no'>class</span></div><div class='output co'>#&gt; [1] "opoly_single" "coe_single"   "tbl_df"       "tbl"          "data.frame"  </div><div class='input'>
+<span class='no'>op</span> <span class='kw'>%&gt;%</span> <span class='fu'>opoly_i</span>() <span class='kw'>%&gt;%</span> <span class='fu'>draw</span>()</div><div class='img'><img src='opoly-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>olea</span> <span class='kw'>%&gt;%</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span>(<span class='fl'>1</span>:<span class='fl'>3</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>opoly</span>(<span class='kw'>drop</span><span class='kw'>=</span><span class='fl'>FALSE</span>) <span class='kw'>%&gt;%</span> <span class='no'>npoly_i</span></div><div class='output co'>#&gt; <span class='message'>! opoly: 'degree' not provided and set to 5</span></div><div class='output co'>#&gt; # A tibble: 3 x 7
+#&gt;   coo                var   domes view  ind   coe               coe_i            
+#&gt;   &lt;list&lt;coo_single[&gt; &lt;fct&gt; &lt;fct&gt; &lt;fct&gt; &lt;fct&gt; &lt;list&lt;coe_single&gt; &lt;list&lt;coo_single&gt;
+#&gt; 1 &lt;tibble [99 × 2]&gt;  Aglan cult  VD    O10   &lt;tibble [1 × 6]&gt;  &lt;tibble [120 × 2…
+#&gt; 2 &lt;tibble [96 × 2]&gt;  Aglan cult  VL    O10   &lt;tibble [1 × 6]&gt;  &lt;tibble [120 × 2…
+#&gt; 3 &lt;tibble [95 × 2]&gt;  Aglan cult  VD    O11   &lt;tibble [1 × 6]&gt;  &lt;tibble [120 × 2…
+#&gt; ❯mom_tbl</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -105,16 +105,13 @@ and (length(id/ldk)+1) fragments returned." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/coo.html">coo_ modify shapes</a>
-    </li>
-    <li>
       <a href="../articles/graphics.html">Momocs2 graphics</a>
     </li>
     <li>
-      <a href="../articles/intro-to.html">Introduction to</a>
+      <a href="../articles/intro.html">MomX philosophy</a>
     </li>
     <li>
-      <a href="../articles/intro.html">MomX philosophy</a>
+      <a href="../articles/shape.html">Shape manipulation</a>
     </li>
   </ul>
 </li>
@@ -306,10 +303,10 @@ after slicing around landmarks and/or starting points.</p>
 <span class='no'>hearts</span> <span class='kw'>%&gt;%</span>
   <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span>(<span class='fl'>1</span>:<span class='fl'>2</span>) <span class='kw'>%&gt;%</span> <span class='co'># for the sake of speed</span>
   <span class='fu'>coo_split</span>(<span class='kw'>ldk</span><span class='kw'>=</span><span class='fl'>2</span>:<span class='fl'>3</span>)</div><div class='output co'>#&gt; <span class='message'>ℹ coo_split: id not provided, working on ldk</span></div><div class='output co'>#&gt; # A tibble: 2 x 6
-#&gt;   coo              ldk       aut   coo_1          coo_2           coo_3         
-#&gt; * &lt;coo&gt;            &lt;list&gt;    &lt;fct&gt; &lt;coo&gt;          &lt;coo&gt;           &lt;coo&gt;         
-#&gt; 1 &lt;tibble [80 × 2… &lt;dbl [4]&gt; ced   &lt;tibble [5 × … &lt;tibble [75 × … &lt;tibble [2 × …
-#&gt; 2 &lt;tibble [80 × 2… &lt;dbl [4]&gt; ced   &lt;tibble [7 × … &lt;tibble [73 × … &lt;tibble [2 × …
+#&gt;   coo              ldk     aut   coo_1           coo_2           coo_3          
+#&gt; * &lt;list&lt;coo_singl&gt; &lt;list&gt;  &lt;fct&gt; &lt;list&lt;coo_sing&gt; &lt;list&lt;coo_sing&gt; &lt;list&lt;coo_sing&gt;
+#&gt; 1 &lt;tibble [80 × 2… &lt;dbl [… ced   &lt;tibble [5 × 2… &lt;tibble [75 × … &lt;tibble [2 × 2…
+#&gt; 2 &lt;tibble [80 × 2… &lt;dbl [… ced   &lt;tibble [7 × 2… &lt;tibble [73 × … &lt;tibble [2 × 2…
 #&gt; ❯mom_tbl</div><div class='input'>
 # then dplyr::rename or Momocs2::coo_select if you want to rename/select columns
 </div></pre>

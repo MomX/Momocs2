@@ -47,7 +47,8 @@
 
 
 <meta property="og:title" content="Decent default values — decent" />
-<meta property="og:description" content="Aims at finding sesisble default values when not specified." />
+<meta property="og:description" content="Aims at finding sesisble default values when not specified.
+Aims at finding sesisble default values when not specified." />
 <meta property="og:image" content="http://momx.github.io/Momocs2/logo.png" />
 
 
@@ -103,16 +104,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/coo.html">coo_ modify shapes</a>
-    </li>
-    <li>
       <a href="../articles/graphics.html">Momocs2 graphics</a>
     </li>
     <li>
-      <a href="../articles/intro-to.html">Introduction to</a>
+      <a href="../articles/intro.html">MomX philosophy</a>
     </li>
     <li>
-      <a href="../articles/intro.html">MomX philosophy</a>
+      <a href="../articles/shape.html">Shape manipulation</a>
     </li>
   </ul>
 </li>
@@ -147,9 +145,24 @@
 
     <div class="ref-description">
     <p>Aims at finding sesisble default values when not specified.</p>
+<p>Aims at finding sesisble default values when not specified.</p>
     </div>
 
     <pre class="usage"><span class='fu'>decent_decimals</span>(<span class='no'>x</span>)
+
+<span class='fu'>decent_geom</span>(<span class='no'>x</span>)
+
+<span class='fu'>decent_alpha</span>(<span class='no'>x</span>)
+
+<span class='fu'>decent_size</span>(<span class='no'>x</span>)
+
+<span class='fu'>decent_size_path</span>(<span class='no'>x</span>)
+
+<span class='fu'>decent_size_point</span>(<span class='no'>x</span>)
+
+<span class='fu'>decent_size_text</span>(<span class='no'>x</span>)
+
+<span class='fu'>decent_decimals</span>(<span class='no'>x</span>)
 
 <span class='fu'>decent_geom</span>(<span class='no'>x</span>)
 
@@ -177,6 +190,9 @@
     <p>Sizes are expressed in typographic points.
 Mostly used internally, but can be overriden.
 Will possibly be turned into options at some point.</p>
+<p>Sizes are expressed in typographic points.
+Mostly used internally, but can be overriden.
+Will possibly be turned into options at some point.</p>
     <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
 
     
@@ -188,10 +204,32 @@ Will possibly be turned into options at some point.</p>
 <li><p><code>decent_size_path</code>: size_path</p></li>
 <li><p><code>decent_size_point</code>: size_point</p></li>
 <li><p><code>decent_size_text</code>: size_text</p></li>
+<li><p><code>decent_decimals</code>: decimals</p></li>
+<li><p><code>decent_geom</code>: geom</p></li>
+<li><p><code>decent_alpha</code>: alpha</p></li>
+<li><p><code>decent_size</code>: size_geom</p></li>
+<li><p><code>decent_size_path</code>: size_path</p></li>
+<li><p><code>decent_size_point</code>: size_point</p></li>
+<li><p><code>decent_size_text</code>: size_text</p></li>
 </ul>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>x</span><span class='kw'>=</span><span class='fl'>10</span>^(<span class='fl'>1</span>:<span class='fl'>5</span>)) <span class='kw'>%&gt;%</span>
+    <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate_all.html'>mutate_all</a></span>(<span class='kw'>.funs</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
+        <span class='kw'>decimals</span>   <span class='kw'>=</span> <span class='no'>decent_decimals</span>,
+        <span class='kw'>alpha</span>      <span class='kw'>=</span> <span class='no'>decent_alpha</span>,
+        <span class='co'>#geom       = decent_geom,</span>
+        <span class='kw'>size_path</span>  <span class='kw'>=</span> <span class='no'>decent_size_path</span>,
+        <span class='kw'>size_point</span> <span class='kw'>=</span> <span class='no'>decent_size_point</span>,
+        <span class='kw'>size_text</span>  <span class='kw'>=</span> <span class='no'>decent_size_text</span>
+        ))</div><div class='output co'>#&gt; # A tibble: 5 x 6
+#&gt;        x decimals alpha size_path size_point size_text
+#&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;
+#&gt; 1     10        1  1       0.351      0.351       4.22
+#&gt; 2    100        2  0.5     0.176      0.176       3.51
+#&gt; 3   1000        3  0.25    0.0879     0.0879      2.81
+#&gt; 4  10000        4  0.1     0.0351     0.0351      2.11
+#&gt; 5 100000        5  0.05    0.0176     0.0176      1.41</div><div class='input'><span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>x</span><span class='kw'>=</span><span class='fl'>10</span>^(<span class='fl'>1</span>:<span class='fl'>5</span>)) <span class='kw'>%&gt;%</span>
     <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate_all.html'>mutate_all</a></span>(<span class='kw'>.funs</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
         <span class='kw'>decimals</span>   <span class='kw'>=</span> <span class='no'>decent_decimals</span>,
         <span class='kw'>alpha</span>      <span class='kw'>=</span> <span class='no'>decent_alpha</span>,

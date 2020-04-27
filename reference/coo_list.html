@@ -103,16 +103,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/coo.html">coo_ modify shapes</a>
-    </li>
-    <li>
       <a href="../articles/graphics.html">Momocs2 graphics</a>
     </li>
     <li>
-      <a href="../articles/intro-to.html">Introduction to</a>
+      <a href="../articles/intro.html">MomX philosophy</a>
     </li>
     <li>
-      <a href="../articles/intro.html">MomX philosophy</a>
+      <a href="../articles/shape.html">Shape manipulation</a>
     </li>
   </ul>
 </li>
@@ -189,7 +186,12 @@ The only difference is that and are understood by morphometric methods used in M
 </ul>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fl'>1</span>:<span class='fl'>12</span>, <span class='kw'>ncol</span><span class='kw'>=</span><span class='fl'>2</span>) <span class='kw'>%&gt;%</span> <span class='fu'>coo_single</span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'>coo_list</span>()</div><div class='output co'>#&gt; &lt;coo_list[1]&gt;
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fl'>1</span>:<span class='fl'>12</span>, <span class='kw'>ncol</span><span class='kw'>=</span><span class='fl'>2</span>) <span class='kw'>%&gt;%</span> <span class='fu'>coo_single</span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'>coo_list</span>()</div><div class='output co'>#&gt; &lt;list_of&lt;
+#&gt;   coo_single&lt;
+#&gt;     x: double
+#&gt;     y: double
+#&gt;   &gt;
+#&gt; &gt;[1]&gt;
 #&gt; [[1]]
 #&gt; # A tibble: 6 x 2
 #&gt;       x     y
