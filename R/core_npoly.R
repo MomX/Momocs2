@@ -37,7 +37,7 @@ set_names_poly <- function(x){
 #' was really helpful but I'm sure this overcomplicated coding. If your shapes are not
 #' registered on Bookstein coordinates, you will be messaged (not for [coo_single] though)
 #'
-#' @param x a matrix (or a list) of (x; y) coordinates
+#' @param x [coo_single], [coo_list] or [mom_tbl]
 #' @param degree polynomial degree for the fit (`degree+1`) coefficients are returned, see Details)
 #' @param raw `logical` whether to return raw and full results
 #' @param nb_pts number of points to sample and on which to calculate polynomials

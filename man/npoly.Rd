@@ -18,7 +18,7 @@ npoly(
 npoly_i(x, nb_pts, from_coe, ...)
 }
 \arguments{
-\item{x}{a matrix (or a list) of (x; y) coordinates}
+\item{x}{\link{coo_single}, \link{coo_list} or \link{mom_tbl}}
 
 \item{degree}{polynomial degree for the fit (\code{degree+1}) coefficients are returned, see Details)}
 

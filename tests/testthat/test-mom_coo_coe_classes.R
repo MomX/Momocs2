@@ -118,7 +118,7 @@ test_that("coo_list works", {
   expect_is(bot %>% dplyr::mutate(coo2=coo) %>% dplyr::pull(coo2), "coo_list")
 
   # printers and pillars ---
-  expect_output(new_coo_list() %>% print, "coo_list") # vec_ptype_full.coo_list
+  expect_output(new_coo_list() %>% print, "list_of.*coo_single") # vec_ptype_full.coo_list
   expect_output(bot %>% print, "mom_tbl") # vec_ptype_abbr.coo_list
   expect_true(new_coo_list() %>% pillar::is_vector_s3())
 })
@@ -199,7 +199,7 @@ test_that("coe_list works", {
   expect_true(x %>% dplyr::mutate(coe2=coe) %>% dplyr::pull(coe2) %>% is_coe_list())
 
   # printers and pillars --
-  expect_output(new_coe_list() %>% print, "coe_list") # vec_ptype_full.coo_list
+  expect_output(new_coe_list() %>% print, "list_of.*coe_single") # vec_ptype_full.coo_list
   expect_output(x %>% print, "mom") # vec_ptype_abbr.coo_list
   expect_true(new_coe_list() %>% pillar::is_vector_s3())
 })

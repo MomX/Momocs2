@@ -111,13 +111,13 @@ efourier <- function(x,  ...) {
 #' @export
 #' @rdname efourier
 efourier.default <- function(x, nb_h=NA, raw=FALSE, ...){
-  .msg_warning("efourier: only defined on <coo_single> and <mom_tbl>")
+  not_defined("efourier")
 }
 
 #' @export
 #' @rdname efourier
 efourier.coo_single <- function (x, nb_h=NA, raw=FALSE, ...) {
-  x <- validate_coo_single(x)
+  # x <- validate_coo_single(x)
   # if (coo_is_closed(coo))
   #   coo <- coo_unclose(coo)
   n <- nrow(x)

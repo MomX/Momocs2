@@ -99,11 +99,3 @@ reference:
       - hearts
       - olea
 
-  - title: "PCA"
-    desc: >
-      Will move to Momstats
-    contents:
-      - stat_pca
-      - scree
-      - morphospace
-      - morphospace_template
