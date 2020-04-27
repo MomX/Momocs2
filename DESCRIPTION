@@ -55,5 +55,6 @@ Imports:
     tidyselect
 Remotes:
     tidyverse/dplyr,
-    tidyverse/rlang
+    tidyverse/rlang,
+    r-lib/vctrs
 VignetteBuilder: knitr
