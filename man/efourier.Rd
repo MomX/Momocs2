@@ -105,11 +105,9 @@ Ferson S, Rohlf FJ, Koehn RK. 1985. Measuring shape variation of
 two-dimensional outlines. \strong{Systematic Biology} \strong{34}: 59-68.
 }
 \seealso{
-Other efourier: 
-\code{\link{npoly}()}
-
 Other morphometrics: 
-\code{\link{npoly}()}
+\code{\link{npoly}()},
+\code{\link{opoly}()}
 }
 \concept{efourier}
 \concept{morphometrics}

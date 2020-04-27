@@ -10,9 +10,9 @@ vignette: >
 library(Momocs2)
 ```
 
-Momocs2 (now only) deals with shape manipulation and morphometrics. Its graphics fall in three categories: plotting shape(s), plotting coefficient(s), visualizing steps in between like reconstruction or calibration, detailed below.
+Momocs2 as a shape manipulation and morphometrics package is chiefly (and pretty much only) concerned with plotting shape(s).
 
-Momocs2 graphics all use `ggplot2` graphics (todo Mombook) and, when sensible, use tidyevaluation (todo Mombook).
+Momocs2 graphics all use `ggplot2` graphics (todo link Mombook) and, where that makes sense, use tidyevaluation (todo link Mombook).
 
 Momocs2 graphical methods try hard to use minimal but sensible default. I do not want to have functions with 50 arguments, that would anyway be redundant due to their `ggplot2` nature. If you want to change something, just start from a recipe here, or do it yourself using `ggplot2` methods.
 

@@ -1,25 +1,8 @@
-##### Core functions for polynomials approaches on open outlines
-
-# likely_bookstein ----------------------------------------
-# helper method to test if a shape is likely booksteined
-
-likely_bookstein <- function(x){
-  # get first and last coordinates
-  tips <- x[c(1, nrow(x)), ]
-  # expected if booksteined before
-  book <- tibble::tibble(x=c(-0.5, 0.5), y=0)
-  sum(abs(tips-book)) < 1e-5
-}
-
-# set sensible names in the form a0, a1, ..., an
-set_names_poly <- function(x){
-  names(x) <- paste0("a", 0:(length(x)-1))
-  x
-}
+# OPOLY ===================================================
 # npoly ---------------------------------------------------
-#' Natural and orthogonal polynomials
+#' Orthogonal polynomials
 #'
-#' Calculates natural and orthogonal polynomial coefficients using [stats::lm]
+#' Calculates orthogonal polynomial coefficients using [stats::lm]
 #'
 #' @details
 #'
@@ -59,48 +42,48 @@ set_names_poly <- function(x){
 #'  \item \code{mod} the raw lm model
 #' }
 #'
-#' @family efourier
+#' @family polynomials
 #' @family morphometrics
 #'
 #' @examples
 #'
 #' o <- olea %>% pick(5) %>% coo_bookstein()
-#' o %>% gg()
-#' op <- o %>% npoly(degree=3)
+#' o %>% pile()
+#' op <- o %>% opoly(degree=3)
 #' op
 #' op %>% class
 #'
-#' op %>% npoly_i() %>% draw()
+#' op %>% opoly_i() %>% draw()
 #'
 #' olea %>% dplyr::slice(1:3) %>%
-#'   npoly(drop=FALSE) %>% npoly_i
+#'   opoly(drop=FALSE) %>% npoly_i
 #' @export
-npoly <- function(x, degree, raw, drop_coo, from_coo=coo, to_coe={{coe}}, ...){
-  UseMethod("npoly")
+opoly <- function(x, degree, raw, drop_coo, from_coo=coo, to_coe={{coe}}, ...){
+  UseMethod("opoly")
 }
 
 #' @export
-npoly.default <- function(x, ...){
-  not_defined("npoly")
+opoly.default <- function(x, ...){
+  not_defined("opoly")
 }
 
 #' @export
-npoly.coo_single <- function(x, degree, raw=TRUE, ...){
+opoly.coo_single <- function(x, degree, raw=TRUE, ...){
 
   if (missing(degree)) {
     degree <- 5
-    .msg_warning("npoly: 'degree' not provided and set to {degree}")
+    .msg_warning("opoly: 'degree' not provided and set to {degree}")
   }
 
   # consumed by intercept as implemented below
   if (degree < 1)
-    stop("npoly: degree must be >= 1")
+    stop("opoly: degree must be >= 1")
 
   y0 <- unlist(x[, 2])
   x0 <- unlist(x[, 1])
   # x <- poly(coo[, 1], degree = degree, raw = TRUE)
   # mod <- lm(coo[, 2] ~ x)
-  x_pol <- stats::poly(x0, degree = degree, raw = TRUE) #! not the same 'raw' as the arg
+  x_pol <- stats::poly(x0, degree = degree, raw = FALSE) #! not the same 'raw' as the arg
   mod <- stats::lm(y0 ~ x_pol)
 
   # prepare coe, get them
@@ -113,7 +96,7 @@ npoly.coo_single <- function(x, degree, raw=TRUE, ...){
     dplyr::bind_cols() %>%
     # append classes
     coe_single() %>%
-    .append_class("npoly_single")
+    .append_class("opoly_single")
 
   # early return if we just want the coe
   if (raw)
@@ -128,33 +111,33 @@ npoly.coo_single <- function(x, degree, raw=TRUE, ...){
 }
 
 #' @export
-npoly.coo_list <- function(x, degree, ...){
+opoly.coo_list <- function(x, degree, ...){
   # check that all are booksteined
   if (any(purrr::map_lgl(x, purrr::negate(likely_bookstein)))){
-    stop("npoly: your shapes are (likely) not registered on bookstein coordinates. Use coo_bookstein().")
+    stop("opoly: your shapes are (likely) not registered on bookstein coordinates. Use coo_bookstein().")
   }
 
   # check for missing degree here
   if (missing(degree)){
     degree <- 5
-    .msg_warning("npoly: 'degree' not provided and set to {degree}")
+    .msg_warning("opoly: 'degree' not provided and set to {degree}")
   }
   # run and return that beauty
-  purrr::map(x, npoly, degre=degree) %>%
+  purrr::map(x, opoly, degre=degree) %>%
     coe_list() %>%
-    .append_class("npoly")
+    .append_class("opoly")
 }
 
 #' @export
-npoly.mom_tbl <- function(x, degree, raw, drop_coo=TRUE, from_coo=coo, to_coe=coe, ...){
+opoly.mom_tbl <- function(x, degree, raw, drop_coo=TRUE, from_coo=coo, to_coe=coe, ...){
   # prelim ---
   # stupid but S3 arguments order rule, rules...
   if (provided(raw))
-    .msg_info("npoly: `raw` provided but useless here")
+    .msg_info("opoly: `raw` provided but useless here")
   # check for missing degree here
   if (missing(degree)){
     degree <- 5
-    .msg_warning("npoly: 'degree' not provided and set to {degree}")
+    .msg_warning("opoly: 'degree' not provided and set to {degree}")
   }
 
   # tidyeval ---
@@ -163,8 +146,8 @@ npoly.mom_tbl <- function(x, degree, raw, drop_coo=TRUE, from_coo=coo, to_coe=co
 
   res <- x %>%
     dplyr::pull(!!from_coo) %>%
-    npoly(degree=degree) %>%
-    .append_class("npoly")
+    opoly(degree=degree) %>%
+    .append_class("opoly")
   res <- dplyr::mutate(x, !!to_coe := res)
 
   # drop_coo if required and return this beauty
@@ -174,80 +157,80 @@ npoly.mom_tbl <- function(x, degree, raw, drop_coo=TRUE, from_coo=coo, to_coe=co
     res
 }
 
-# npoly_i -------------------------------------------------
-#' @describeIn npoly inverse npoly method
+# opoly_i -------------------------------------------------
+#' @describeIn opoly inverse opoly method
 #' @export
-npoly_i <- function(x, nb_pts, from_coe, ...){
-  UseMethod("npoly_i")
-}
-
-#' @export
-npoly_i.default <- function(x, nb_pts, ...){
-  not_defined("npoly_i")
+opoly_i <- function(x, nb_pts, from_coe, ...){
+  UseMethod("opoly_i")
 }
 
 # see efourier_i for the .default here
 #' @export
-npoly_i.default <- function(x, nb_pts=120, ...){
+opoly_i.default <- function(x, nb_pts=120, ...){
+  # domestic inherited from Momocs
+  .mprod <- function(m, s) {
+    res <- m
+    for (i in 1:ncol(m)) {
+      res[, i] <- m[, i] * s[i]
+    }
+    res
+  }
+  # extract
   intercept <- x[[1]]
   coeffs    <- x[-1]
   # deduce the degree
   degree <- ncol(x) - 1
   # x template
-  x_pred <- seq(-0.5, 0.5, length=nb_pts)
-  # map over coefficients
-  y_pred <- seq_along(coeffs) %>%
-    # return their contributions
-    purrr::map(~(x_pred^.x)*coeffs[[.x]]) %>%
-    # reduce by additionning all of them ("rowwise")
-    purrr::reduce(`+`)
-  # add back the intercept
-  y_pred <- intercept + y_pred
+  x_new <- seq(-0.5, 0.5, length=nb_pts)
+  x_poly <- stats::poly(x_new, degree=degree)
+  y_pred <- stats::predict(x_poly, x_new)
+  # here is the calculation
+  y_new <- intercept + rowSums(.mprod(m = y_pred, s = unlist(coeffs)))
   # return a coo_single
-  tibble::tibble(x=x_pred, y=y_pred) %>% coo_single()
+  tibble::tibble(x=x_new, y=y_new) %>% coo_single()
 }
 
 #' @export
-npoly_i.coe_list <- function(x, nb_pts=120, ...){
-  purrr::map(x, npoly_i, nb_pts=nb_pts) %>% coo_list()
+opoly_i.coe_list <- function(x, nb_pts=120, ...){
+  purrr::map(x, opoly_i, nb_pts=nb_pts) %>% coo_list()
 }
 
 #' @export
-npoly_i.mom_tbl <- function(x, nb_pts=120, from_coe=coe, ...){
+opoly_i.mom_tbl <- function(x, nb_pts=120, from_coe=coe, ...){
   from_coe <- enquo(from_coe)
   dplyr::mutate(x,
                 "{{from_coe}}_i" := x %>%
                   dplyr::pull(!!from_coe) %>%
-                  npoly_i(nb_pts=nb_pts))
+                  opoly_i(nb_pts=nb_pts))
 }
 
 # calibrate -----------------------------------------------
-calibrate_npoly_r2 <- function(x, degree_range){
-  UseMethod("calibrate_npoly_r2")
+calibrate_opoly_r2 <- function(x, degree_range){
+  UseMethod("calibrate_opoly_r2")
 }
 
-calibrate_npoly_r2.default <- function(x, degree_range){
-  not_defined("calibrate_npoly_r2")
+calibrate_opoly_r2.default <- function(x, degree_range){
+  not_defined("calibrate_opoly_r2")
 }
 
-calibrate_npoly_r2.coo_single <- function(x, degree_range){
+calibrate_opoly_r2.coo_single <- function(x, degree_range){
   if (missing(degree_range)){
     degree_range <- 1:6
-    .msg_info("calibrate_npoly_r2: 'degree_range' was missing and set to {degree_range}")
+    .msg_info("calibrate_opoly_r2: 'degree_range' was missing and set to {degree_range}")
   }
   purrr::map_dbl(degree_range,
-                 ~npoly(x, degree=.x, raw=FALSE)$r2)
+                 ~opoly(x, degree=.x, raw=FALSE)$r2)
 }
 
-calibrate_npoly_r2.coo_list <- function(x, degree_range){
+calibrate_opoly_r2.coo_list <- function(x, degree_range){
   if (missing(degree_range)){
     degree_range <- 1:6
-    .msg_info("calibrate_npoly_r2: 'degree_range' was missing and set to {degree_range}")
+    .msg_info("calibrate_opoly_r2: 'degree_range' was missing and set to {degree_range}")
   }
 
   res <- x %>%
     # calibrate
-    purrr::map(calibrate_npoly_r2, degree_range=degree_range) %>%
+    purrr::map(calibrate_opoly_r2, degree_range=degree_range) %>%
     # turn into a data.frame
     do.call("rbind", .) %>%
     # rename cols before tibble
@@ -279,12 +262,13 @@ calibrate_npoly_r2.coo_list <- function(x, degree_range){
   #   labs(x="degree", y=expression(r^2))
 }
 
-calibrate_npoly_r2.mom_tbl <- function(x, degree_range, from_col=coo){
+calibrate_opoly_r2.mom_tbl <- function(x, degree_range, from_col=coo){
   if (missing(degree_range)){
     degree_range <- 1:6
-    .msg_info("calibrate_npoly_r2: 'degree_range' was missing and set to {degree_range}")
+    .msg_info("calibrate_opoly_r2: 'degree_range' was missing and set to {degree_range}")
   }
   coo <- enquo(from_col)
-  x %>% dplyr::pull(!!coo) %>% calibrate_npoly_r2(degree_range=degree_range)
+  x %>% dplyr::pull(!!coo) %>% calibrate_opoly_r2(degree_range=degree_range)
 }
 
+# opoly_calibrate_bla

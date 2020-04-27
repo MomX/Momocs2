@@ -1,0 +1,52 @@
+---
+title: "Shape manipulation"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{shape}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Momocs2 shape manipulation functions come in two different flavours, those which: 
+
+* _modify_ shapes start with `coo_`: eg `coo_center` and `coo_sample`, 
+* _describe_ shapes start with `get_`: eg `get_centsize` and `get_area`,  
+
+We could add morphometrics operation in the second category fo shape descriptors, but we will not.
+
+If you want an exhaustive list you can :
+
+* type `coo_` and then press `<tab>` and let autocompletion do its job
+* have a look to the [Reference section](https://momx.github.io/Momocs2/reference) of the website
+
+## Implementation
+Each `coo_` function, is actually a _method_, that is a function that will do a different job depending on the class it is pass with. That mechanism is what allows the following to work:
+
+```{r, eval=FALSE}
+coo_center(bot)           # a mom_tbl
+coo_center(bot$coo)       # a coo_list
+coo_center(bot$coo[[1]])  # a coo_single
+```
+
+Besides arguments that a particular `coo_`, eg `coo_trans` may have, these three methods apply seamlessly using the same grammar. 
+
+Typically, code is defined for the `coo_single` method; for `coo_list` it is applied using `purrr::map`; for `mom_tbl` it is slightly more subtle. Indeed, all `coo_*` methods on `mom_tbl` also have `from_col` and `to_col` arguments. This allows to work using different columns and creating columns with the name you want. By default, `coo` is used for both `from_col` and `to_col` so this:
+
+```{r, eval=FALSE}
+coo_center(bot)
+```
+
+is actually a shortcut for:
+
+```{r, eval=FALSE}
+coo_center(bot, from_col=coo, to_col=coo)
+```
+
+This is useless if you have a single column with coordinates named `coo` and if you want the new `coo` to be the centered (or anything-ed) version of it. Which is typically the behaviour you want. But this will greatly simplify more complex manipulations.
+
+
+
+
+* coo_foo.default implements the modification
+* coo_foo.list allows is use on coo_list with `purrr::map*`
+* coo_foo.coo_tbl allows its use on `coo_tbl` _and_ to specify from and to columns, using [tidyevaluation](https://tidyeval.tidyverse.org/)

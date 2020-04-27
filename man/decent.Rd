@@ -24,14 +24,34 @@ decent_size_path(x)
 decent_size_point(x)
 
 decent_size_text(x)
+
+decent_decimals(x)
+
+decent_geom(x)
+
+decent_alpha(x)
+
+decent_size(x)
+
+decent_size_path(x)
+
+decent_size_point(x)
+
+decent_size_text(x)
 }
 \arguments{
 \item{x}{\code{integer} a number on which to find a sensible value}
 }
 \description{
 Aims at finding sesisble default values when not specified.
+
+Aims at finding sesisble default values when not specified.
 }
 \details{
+Sizes are expressed in typographic points.
+Mostly used internally, but can be overriden.
+Will possibly be turned into options at some point.
+
 Sizes are expressed in typographic points.
 Mostly used internally, but can be overriden.
 Will possibly be turned into options at some point.
@@ -51,9 +71,32 @@ Will possibly be turned into options at some point.
 \item \code{decent_size_point}: size_point
 
 \item \code{decent_size_text}: size_text
+
+\item \code{decent_decimals}: decimals
+
+\item \code{decent_geom}: geom
+
+\item \code{decent_alpha}: alpha
+
+\item \code{decent_size}: size_geom
+
+\item \code{decent_size_path}: size_path
+
+\item \code{decent_size_point}: size_point
+
+\item \code{decent_size_text}: size_text
 }}
 
 \examples{
+tibble::tibble(x=10^(1:5)) \%>\%
+    dplyr::mutate_all(.funs=list(
+        decimals   = decent_decimals,
+        alpha      = decent_alpha,
+        #geom       = decent_geom,
+        size_path  = decent_size_path,
+        size_point = decent_size_point,
+        size_text  = decent_size_text
+        ))
 tibble::tibble(x=10^(1:5)) \%>\%
     dplyr::mutate_all(.funs=list(
         decimals   = decent_decimals,
