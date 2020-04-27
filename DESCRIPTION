@@ -42,7 +42,7 @@ Imports:
     ggplot2,
     magrittr,
     tibble,
-    rlang (>= 0.4.0),
+    rlang (>= 0.4.5),
     cli,
     pillar,
     stats,
