@@ -178,6 +178,12 @@
     <loc>http://momx.github.io/Momocs2/reference/unfold.html</loc>
   </url>
   <url>
+    <loc>http://momx.github.io/Momocs2/articles/architecture.html</loc>
+  </url>
+  <url>
+    <loc>http://momx.github.io/Momocs2/articles/extending.html</loc>
+  </url>
+  <url>
     <loc>http://momx.github.io/Momocs2/articles/graphics.html</loc>
   </url>
   <url>
@@ -185,5 +191,8 @@
   </url>
   <url>
     <loc>http://momx.github.io/Momocs2/articles/shape.html</loc>
+  </url>
+  <url>
+    <loc>http://momx.github.io/Momocs2/articles/survival.html</loc>
   </url>
 </urlset>

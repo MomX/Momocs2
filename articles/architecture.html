@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Graphics • Momocs2</title>
+<title>Architecture • Momocs2</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -17,7 +17,7 @@
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Graphics">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Architecture">
 <meta property="og:description" content="Momocs2">
 <meta property="og:image" content="http://momx.github.io/Momocs2/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -104,70 +104,74 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Graphics</h1>
+      <h1 data-toc-skip>Architecture</h1>
             
       
       
-      <div class="hidden name"><code>graphics.Rmd</code></div>
+      <div class="hidden name"><code>architecture.Rmd</code></div>
 
     </div>
 
     
     
-<p>Momocs2 as a shape manipulation and morphometrics package is chiefly (and pretty much only) concerned with plotting shape(s).</p>
-<p>Momocs2 graphics all use <code>ggplot2</code> graphics (todo link Mombook) and, where that makes sense, use tidyevaluation (todo link Mombook).</p>
-<p>Momocs2 graphical methods try hard to use minimal but sensible default. I do not want to have functions with 50 arguments, that would anyway be redundant due to their <code>ggplot2</code> nature. If you want to change something, just start from a recipe here, or do it yourself using <code>ggplot2</code> methods.</p>
-<p>Each object have a default method, that can be obtained with the good old <code>plot</code>. I realize that is really heretic to use <code><a href="https://rdrr.io/r/base/plot.html">plot()</a></code> to obtain <code>ggplot2</code>, but I think it’s simple and useful.</p>
-<div id="plotting-shapes" class="section level2">
+<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidyverse</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">Momocs2</span>)</pre></body></html></div>
+<p>Let’s have a drink<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. Do you prefer beer or wine?</p>
+<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/Momocs2/man/mosaic.html">mosaic</a></span>(<span class="no">bot</span>, <span class="no">type</span>) <span class="co"># add id support</span></pre></body></html></div>
+<div id="everything-is-a-tibble" class="section level2">
 <h2 class="hasAnchor">
-<a href="#plotting-shapes" class="anchor"></a>Plotting shapes</h2>
-<div id="pile" class="section level3">
-<h3 class="hasAnchor">
-<a href="#pile" class="anchor"></a>pile</h3>
-<p>pile is the default method for shape(s):</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="no">bot</span> <span class="kw">%&gt;%</span> <span class="fu">pick</span>(<span class="fl">1</span>) <span class="kw">%&gt;%</span> <span class="fu">pile</span>()</pre></body></html></div>
-<p><img src="graphics_files/figure-html/unnamed-chunk-1-1.png" width="700"></p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">bot</span>$<span class="no">coo</span> <span class="kw">%&gt;%</span> <span class="fu">pile</span>()</pre></body></html></div>
-<p><img src="graphics_files/figure-html/unnamed-chunk-1-2.png" width="700"></p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">bot</span> <span class="kw">%&gt;%</span> <span class="fu">pile</span>()</pre></body></html></div>
-<p><img src="graphics_files/figure-html/unnamed-chunk-1-3.png" width="700"></p>
+<a href="#everything-is-a-tibble" class="anchor"></a>Everything is a tibble</h2>
+<p>You see the visual representation of a “mom” object that looks like this:</p>
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">bot</span>                  <span class="co"># shipped with Momocs2</span></pre></body></html></div>
+<p>Across MomX, the main object is <code>mom</code>, are <a href="https://tibble.tidyverse.org/">tibbles</a>, slightly augmented for morphometrics. Tibbles themselves are built on top of goold old <code>data.frame</code>.</p>
+<p>Keep this in mind:</p>
+<blockquote>
+<p>A mom is a tibble, a tibble is a data.frame, a data.frame is a list, and a list can contain anything, including other lists.</p>
+</blockquote>
+<p>Typically, at some point of the MomX pipeline, one or more columns in these tibbles will store coordinates (<code>&lt;coo_list&gt;</code>), coefficients (<code>&lt;coe_list&gt;</code>), etc.</p>
 </div>
-<div id="mosaic" class="section level3">
-<h3 class="hasAnchor">
-<a href="#mosaic" class="anchor"></a>mosaic</h3>
-</div>
-<div id="inspect" class="section level3">
-<h3 class="hasAnchor">
-<a href="#inspect" class="anchor"></a>inspect</h3>
-</div>
-</div>
-<div id="plotting-coefficients" class="section level2">
+<div id="coordinates-classes" class="section level2">
 <h2 class="hasAnchor">
-<a href="#plotting-coefficients" class="anchor"></a>Plotting coefficients</h2>
+<a href="#coordinates-classes" class="anchor"></a><code>coo</code>rdinates classes</h2>
+<p>The <code>coo</code> column above is a <code>&lt;coo_list&gt;</code> a list of single shapes. Let’s have a look:</p>
+<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">bot</span>$<span class="no">coo</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fl">2</span>)</pre></body></html></div>
+<p>Each single shapes are stored in tibbles with exactly 2 columns, named <code>x</code> and <code>y</code>. Such a thing is a <code>&lt;coo_single&gt;</code>.</p>
+<p>In morphometrics, shapes rarely come single but as collection of shapes, hence the <code>&lt;coo_list&gt;</code>. Also, they usually have covariates attached that should be firmly tied to it, hence the <code>&lt;mom_tbl&gt;</code>.</p>
 </div>
-<div id="other-graphics" class="section level2">
+<div id="coefficients-classes" class="section level2">
 <h2 class="hasAnchor">
-<a href="#other-graphics" class="anchor"></a>Other graphics</h2>
+<a href="#coefficients-classes" class="anchor"></a><code>coe</code>fficients classes</h2>
+<p>In morphometrics, the destiny of coordinates is to be turned into coefficients. Coefficients are obtained using morphometric methods like elliptical Fourier transforms, or Procrustes alignment.</p>
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/Momocs2/man/efourier.html">efourier</a></span>(<span class="no">bot</span>$<span class="no">coo</span><span class="kw">[[</span><span class="fl">1</span>]])</pre></body></html></div>
+<p>Here an elliptical Fourier tranform turned a <code>&lt;coo_single&gt;</code> into a <code>&lt;coe_single&gt;</code>. They are tibbles with exactly 1 row but with possiby many columns.</p>
+<p>Morphometrics is pivotationnal, or transpositionnal, in nature: it turns long tables (many rows, few columns) into large table (1 row, many columns)</p>
+<p>Yes, <code>&lt;coe_single&gt;</code> can be gathered into <code>&lt;coe_list&gt;</code>, and can be a column in a <code>&lt;mom&gt;</code>.</p>
+<p>Now you know how it works.</p>
+<p>The best news is that, in most cases, and whether you have met retired Momocs before, you won’t have to bother with this<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>:</p>
+<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">bot</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/Momocs2/man/efourier.html">efourier</a></span>()</pre></body></html></div>
 </div>
-<div id="technical-aspects" class="section level2">
+<div id="momx-and-the-tidyverse" class="section level2">
 <h2 class="hasAnchor">
-<a href="#technical-aspects" class="anchor"></a>Technical aspects</h2>
-<div id="all-graphics-are-ggplot2-graphics" class="section level3">
-<h3 class="hasAnchor">
-<a href="#all-graphics-are-ggplot2-graphics" class="anchor"></a>All graphics are <code>ggplot2</code> graphics</h3>
-<p>All MomX, and thus Momocs2, graphics rely on <a href="https://ggplot2.tidyverse.org/">ggplot2</a>. If you do not know it at all, or do not master it yet, there is nothing to be afraid of, really. An by the way, you do not need extensive <code>ggplot2</code>, recipes below are likely to cover your needs.</p>
-<p>I do not want to enter the infinite and slippery discussion of “why ggplot2”: just like anything else, <code>ggplot2</code> has its detractors and evagelists. I obviously fall more in the second category for several reasons:</p>
+<a href="#momx-and-the-tidyverse" class="anchor"></a>MomX and the tidyverse</h2>
+<p>MomX owes everything to the tidyverse and to the humans behind it. I deeply believe, it is not a trend or something, it is more the right way to do things in data science as a whole.</p>
+<p>In particular, MomX :</p>
 <ul>
-<li>Its graphics are beautiful and if yours suck, it is likely not <code>ggplot2</code> fault.</li>
-<li>It is “smart” because of the grammar it relies on. If there is somewhere I really want a grammar it is graphics. Did you really like <code><a href="https://rdrr.io/r/graphics/legend.html">legend()</a></code>?</li>
-<li>Its learning curve is steep, mostly the, say, first 20 hours. But these first moments will be fulled of “wow” moments.</li>
-<li>Time invested will be funded back quickly and forever.</li>
-<li>Do not think there are things you cannot do with <code>ggplot2</code> just because it want a <code>tibble</code> to start with.</li>
-<li>There are many extensions</li>
-<li>The user community is huge, so it is very likely that your problem has already been adressed, eg on StackOverflow</li>
+<li>is built on top of the tidyverse. For example, Momocs2 has no other dependencies outside those that the tidyverse also uses</li>
+<li>embraces the <a href="https://cran.r-project.org/web/packages/tidyverse/vignettes/manifesto.html">tidy tools manifesto</a>
+</li>
+<li>is directly inspired, in its ecosystemic nature, by the tidyverse</li>
 </ul>
-<p>Overall, I think using <code>ggplot2</code> as the main graphics engine in MomX is a good choice and if you do not agree, it is likely because you think you can do better from scratch, so do not chew the cud and go ahead ;-)</p>
+<p>MomX thus makes a massive use of <code>dplyr</code>, <code>ggplot2</code>, <code>purrr</code> and, on a lighter note, on <code>magrittr</code> pipe operators. They are a must and you haven’t heard of these, stop what you’re doing, close the door and go there :</p>
+<blockquote>
+<p><a href="https://r4ds.had.co.nz/" class="uri">https://r4ds.had.co.nz/</a></p>
+</blockquote>
 </div>
+<div class="footnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Please drink responsibly<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>I did it for you ;-)<a href="#fnref2" class="footnote-back">↩</a></p></li>
+</ol>
 </div>
   </div>
 
