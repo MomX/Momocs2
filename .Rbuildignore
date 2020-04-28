@@ -14,3 +14,5 @@ __.*
 ^codecov\.yml$
 sandbox.*
 ^README\.Rmd$
+^doc$
+^Meta$

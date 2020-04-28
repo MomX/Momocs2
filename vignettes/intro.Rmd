@@ -1,8 +1,8 @@
 ---
-title: "MomX philosophy"
+title: "Philosophy"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{architecture}
+  %\VignetteIndexEntry{philosophy}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

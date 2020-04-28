@@ -1,5 +1,5 @@
 ---
-title: "extending"
+title: "Extending"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{extending}
@@ -7,7 +7,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-As long as Momocs2 API is not considered stable, this is more as a notebook for what is intended, not for what works fine.
+As long as Momocs2 API is not considered stable, this is more a notebook for what is intended, not for what works fine.
 
 ## Patterns
 

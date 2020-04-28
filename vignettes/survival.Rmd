@@ -1,11 +1,18 @@
 ---
-title: "Survival guide for object manipulation"
+title: "Survival"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Handling}
+  %\VignetteIndexEntry{survival}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval=FALSE
+)
+```
 
 As mom objects are tibbles, they probably look more than familiar to you. And as they are tibbles, the entire tidyverse comes for free. 
 
@@ -47,7 +54,7 @@ Unless you're an ultra-rthodox or something^[And if you're a post-modeRnist you 
 
 By our side, we will play with olive stones:
 
-```{r, message=FALSE}
+```{r, message=FALSE, eval=FALSE}
 library(tidyverse)
 library(Momocs2)
 olea
@@ -56,7 +63,7 @@ olea
 ### Filtering
 You can filter individuals based on logical conditions:
 
-```{r}
+```{r, eval=FALSE}
 olea %>% filter(view == "VL")
 ```
 
