@@ -41,16 +41,29 @@ get_centpos.mom_tbl <- function(x) {
 # get_centsize --------------
 #' Calculate centroid size
 #'
-#' Which is the square root of mean squared distances between each point
+#' [get_centsize] provides the classical centroid size which is the
+#' square root of the _sum_ of squared distances between each point
+#' along the shape and its centroid coordinates. [get_centsize_norm] is the
+#' square root of the _mean_ of squared distances between each point
 #' along the shape and its centroid coordinates.
+#' The latter does not depend (so much) on the number of points of the shape (see Examples),
+#' makes direct sense as a dimension in the plane, and
+#' also when the number of points differs between shapes, which is both typical
+#' for outlines and never seen for landmarks.
+#' See Dryden I. E. and Mardia K. V. 1998. Statistical Shape Analysis. Wiley,
+#  Chichester.
 #'
 #' @inheritParams coo_center
 #' @return `numeric` or additional column
 #' @details Can be used, among others, to record size before [coo_scale].
 #' @examples
 #'
-#' bot$coo[[1]] %>% get_centsize
+#' b <- bot %>% pick(1)
+#' b %>% get_centsize
+#' b %>% coo_sample(64) %>% get_centsize()
 #'
+#' b %>% get_centsize_norm()
+#' b %>% coo_sample(64) %>% get_centsize_norm()
 #' @family coo_descriptors
 #' @export
 get_centsize <- function(x){
@@ -58,9 +71,13 @@ get_centsize <- function(x){
 }
 
 #' @export
-get_centsize.default <- function(x) {
-  df <- coo_single(x)
-  sqrt(mean((df$x-mean(df$x))^2 + (df$y-mean(df$y))^2))
+get_centsize.default <- function(x){
+  not_defined("get_centsize")
+}
+
+#' @export
+get_centsize.coo_single <- function(x) {
+  sqrt(sum((x$x-mean(x$x))^2 + (x$y-mean(x$y))^2))
 }
 
 #' @export
@@ -72,6 +89,34 @@ get_centsize.coo_list <- function(x){
 get_centsize.mom_tbl <- function(x){
   x %>% dplyr::mutate(centsize=purrr::map_dbl(x$coo, get_centsize))
 }
+
+
+#' @describeIn get_centsize normalized version
+#' @export
+get_centsize_norm <- function(x){
+  UseMethod("get_centsize_norm")
+}
+
+#' @export
+get_centsize_norm.default <- function(x){
+  not_defined("get_centsize_norm")
+}
+
+#' @export
+get_centsize_norm.default <- function(x) {
+  sqrt(mean((x$x-mean(x$x))^2 + (x$y-mean(x$y))^2))
+}
+
+#' @export
+get_centsize_norm.coo_list <- function(x){
+  purrr::map_dbl(x, get_centsize_norm) %>% tibble::tibble(centsize=.)
+}
+
+#' @export
+get_centsize_norm.mom_tbl <- function(x){
+  x %>% dplyr::mutate(centsize=purrr::map_dbl(x$coo, get_centsize_norm))
+}
+
 
 # PERIM AND CO --------------------------------------------
 

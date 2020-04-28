@@ -2,9 +2,12 @@
 % Please edit documentation in R/coo_getters.R
 \name{get_centsize}
 \alias{get_centsize}
+\alias{get_centsize_norm}
 \title{Calculate centroid size}
 \usage{
 get_centsize(x)
+
+get_centsize_norm(x)
 }
 \arguments{
 \item{x}{\link{coo_single}, \link{coo_list} or \link{mom_tbl}}
@@ -13,16 +16,33 @@ get_centsize(x)
 \code{numeric} or additional column
 }
 \description{
-Which is the square root of mean squared distances between each point
+\link{get_centsize} provides the classical centroid size which is the
+square root of the \emph{sum} of squared distances between each point
+along the shape and its centroid coordinates. \link{get_centsize_norm} is the
+square root of the \emph{mean} of squared distances between each point
 along the shape and its centroid coordinates.
+The latter does not depend (so much) on the number of points of the shape (see Examples),
+makes direct sense as a dimension in the plane, and
+also when the number of points differs between shapes, which is both typical
+for outlines and never seen for landmarks.
+See Dryden I. E. and Mardia K. V. 1998. Statistical Shape Analysis. Wiley,
 }
 \details{
 Can be used, among others, to record size before \link{coo_scale}.
 }
+\section{Functions}{
+\itemize{
+\item \code{get_centsize_norm}: normalized version
+}}
+
 \examples{
 
-bot$coo[[1]] \%>\% get_centsize
+b <- bot \%>\% pick(1)
+b \%>\% get_centsize
+b \%>\% coo_sample(64) \%>\% get_centsize()
 
+b \%>\% get_centsize_norm()
+b \%>\% coo_sample(64) \%>\% get_centsize_norm()
 }
 \seealso{
 Other coo_descriptors: 
