@@ -1,0 +1,83 @@
+---
+title: "Architecture"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{architecture}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, message=FALSE}
+library(tidyverse)
+library(Momocs2)
+```
+
+Let's have a drink^[Please drink responsibly]. Do you prefer beer or wine?
+
+```{r, results='hold'}
+mosaic(bot, type) # add id support
+```
+
+## Everything is a tibble
+
+You see the visual representation of a "mom" object that looks like this: 
+
+```{r}
+bot                  # shipped with Momocs2
+```
+
+Across MomX, the main object is `mom`, are [tibbles](https://tibble.tidyverse.org/), slightly augmented for morphometrics. Tibbles themselves are built on top of goold old `data.frame`.
+
+Keep this in mind:
+
+> A mom is a tibble, a tibble is a data.frame, a data.frame is a list, and a list can contain anything, including other lists.
+
+Typically, at some point of the MomX pipeline, one or more columns in these tibbles will store coordinates (`<coo_list>`), coefficients (`<coe_list>`), etc.
+
+## `coo`rdinates classes
+
+The `coo` column above is a `<coo_list>` a list of single shapes. Let's have a look:
+
+```{r}
+bot$coo %>% head(2)
+```
+
+Each single shapes are stored in tibbles with exactly 2 columns, named `x` and `y`. Such a thing is a `<coo_single>`.
+
+In morphometrics, shapes rarely come single but as collection of shapes, hence the `<coo_list>`. Also, they usually have covariates attached that should be firmly tied to it, hence the `<mom_tbl>`.
+
+## `coe`fficients classes
+In morphometrics, the destiny of coordinates is to be turned into coefficients. Coefficients are obtained using morphometric methods like elliptical Fourier transforms, or Procrustes alignment.
+
+```{r}
+efourier(bot$coo[[1]])
+```
+
+Here an elliptical Fourier tranform turned a `<coo_single>` into a `<coe_single>`. They are tibbles with exactly 1 row but with possiby many columns.
+
+Morphometrics is pivotationnal, or transpositionnal, in nature: it turns long tables (many rows, few columns) into large table (1 row, many columns)
+
+Yes, `<coe_single>` can be gathered into `<coe_list>`, and can be a column in a `<mom>`.
+
+Now you know how it works.
+
+The best news is that, in most cases, and whether you have met retired Momocs before, you won't have to bother with this^[I did it for you ;-)]:
+
+```{r}
+bot %>% efourier()
+```
+
+## MomX and the tidyverse
+
+MomX owes everything to the tidyverse and to the humans behind it. I deeply believe, it is not a trend or something, it is more the right way to do things in data science as a whole.
+
+In particular, MomX :
+
+* is built on top of the tidyverse. For example, Momocs2 has no other dependencies outside those that the tidyverse also uses
+* embraces the [tidy tools manifesto](https://cran.r-project.org/web/packages/tidyverse/vignettes/manifesto.html)
+* is directly inspired, in its ecosystemic nature, by the tidyverse
+
+MomX thus makes a massive use of `dplyr`, `ggplot2`, `purrr` and, on a lighter note, on `magrittr` pipe operators. They are a must and you haven't heard of these, stop what you're doing, close the door and go there :
+
+> https://r4ds.had.co.nz/
+

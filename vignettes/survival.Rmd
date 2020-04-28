@@ -1,0 +1,78 @@
+---
+title: "Survival guide for object manipulation"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Handling}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+As mom objects are tibbles, they probably look more than familiar to you. And as they are tibbles, the entire tidyverse comes for free. 
+
+This vignette illustrates how to use the most common tidyverse functions for the most common data manipulation tasks in MomX. Things shown here will "work" on any `data.frame` and can be found easily from the tidyverse homepage: [https://www.tidyverse.org/]().
+
+## The pipe operators 
+First thing first: if you're not familiar with these `%>%` everywhere in my code, examples, etc. let me just show you some "base R":
+
+```{r, eval=FALSE}
+bot_c    <- coo_center(bot)
+bot_cs   <- coo_scale(bot_c)
+bot_csa  <- coo_align(bot_cs)
+bot_csa1 <- coo_slidedirection(bot_csa)
+bot_eft  <- efourier(bot_csa1)
+```
+
+And now some "piped R":
+```{r, eval=FALSE}
+bot %>% 
+  coo_center %>% 
+  coo_scale %>% 
+  coo_align %>% 
+  coo_slidedirection("right") %>% 
+  efourier()
+```
+
+Unless you're an ultra-rthodox or something^[And if you're a post-modeRnist you will appreciate the [nakedpipe](https://github.com/moodymudskipper/nakedpipe) too], you will likely vote for the second one. We should not reduce the pipe-operator to a matter of taste, it is also:
+
+* safer (it reduces typos)
+* easier and more comfy to read (thus to understand and debug)
+* easier and faster to write (use RStudio shortcut!)
+* a guarantee that functions consistently use data as first argument
+
+> Read the [_Introduction to magrittr_](https://magrittr.tidyverse.org/articles/magrittr.html)
+
+## `dplyr`: common data manipulation
+
+> If you're not familiar with dplyr, the [_Introduction to dplyr_](https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html) will definitely change your life.
+
+By our side, we will play with olive stones:
+
+```{r, message=FALSE}
+library(tidyverse)
+library(Momocs2)
+olea
+```
+
+### Filtering
+You can filter individuals based on logical conditions:
+
+```{r}
+olea %>% filter(view == "VL")
+```
+
+And you can group conditions:
+
+```{r}
+olea %>% filter(view == "VL", var != "Aglan", ind %in% c("O10", "O11"))
+```
+
+## Select rows
+
+Except in "inspection" case, it's generally not perfectly safe to subset positionnally but that's the job of `slice`
+
+```{r}
+olea %>% slice(1:5)
+
+olea %>% slice(-(1:5))
+
+```

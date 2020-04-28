@@ -1,0 +1,65 @@
+---
+title: "extending"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{extending}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+As long as Momocs2 API is not considered stable, this is more as a notebook for what is intended, not for what works fine.
+
+## Patterns
+
+### Morphometric method
+```
+method <- function(x, more_args, from_col, to_col, drop_coo, ...){
+  UseMethod("method")
+}
+
+method.default <- function(x, ...){
+  not_defined("method")
+}
+
+method.coo_single <- function(x, more_args, ...){
+  # here goes the calculation
+  # that ends with
+  ... %>% 
+    coe_single() %>% 
+    .append_class("method_single")
+}
+
+method.coo_list <- function(x, more_args, ...){
+  # something on the lines of
+  x %>% 
+  purrr::map(method, more_args) %>% 
+  coe_list() %>% 
+  .append_class("method_list")
+}
+
+method.mom_tbl <- function(x, more_args, from_col, to_col, drop_coo=TRUE, ...){
+  # tidyeval
+  from_col <- enquo(from_col)
+  to_col <- enquo(to_col)
+
+  res <- dplyr::pull(x, !!from_col) %>% method(more_args)
+  res <- dplyr::mutate(x, !!to_col := res)
+
+  if (drop_coo)
+    res <- dplyr::select(res, -(!!from_col))
+  res
+}
+```
+
+### Inverse morphometric method
+
+
+
+
+### Calibrate morphometric method
+In Momocs2 their names follow this pattern: `method_cal_flavour`, eg `efourier_cal_harmonicpower`
+
+
+
+
+
