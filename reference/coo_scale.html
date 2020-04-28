@@ -47,7 +47,7 @@
 
 
 <meta property="og:title" content="Scale shapes — coo_scale" />
-<meta property="og:description" content="Returns a scaled shape." />
+<meta property="og:description" content="Returns a scaled shape. Note that normalized centroid size is used by default. See get_centsize_norm." />
 <meta property="og:image" content="http://momx.github.io/Momocs2/logo.png" />
 
 
@@ -143,10 +143,10 @@
     </div>
 
     <div class="ref-description">
-    <p>Returns a scaled shape.</p>
+    <p>Returns a scaled shape. Note that normalized centroid size is used by default. See get_centsize_norm.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>coo_scale</span>(<span class='no'>x</span>, <span class='no'>scale</span>, <span class='no'>from_col</span>, <span class='no'>to_col</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>coo_scale</span>(<span class='no'>x</span>, <span class='no'>scale</span>, <span class='kw'>centsize</span> <span class='kw'>=</span> <span class='no'>get_centsize_norm</span>, <span class='no'>from_col</span>, <span class='no'>to_col</span>, <span class='no'>...</span>)
 
 <span class='fu'>coo_scale_x</span>(<span class='no'>x</span>, <span class='no'>scale</span>, <span class='no'>from_col</span>, <span class='no'>to_col</span>, <span class='no'>...</span>)
 
@@ -161,7 +161,11 @@
     </tr>
     <tr>
       <th>scale</th>
-      <td><p><code>numeric</code> scaling factor (get_centsize by default).</p></td>
+      <td><p><code>numeric</code> scaling factor (get_centsize_norm by default).</p></td>
+    </tr>
+    <tr>
+      <th>centsize</th>
+      <td><p><code>function</code> either <code>get_centsize_norm</code> (default) or <code>get_centsize</code>. No brackets.</p></td>
     </tr>
     <tr>
       <th>from_col</th>
