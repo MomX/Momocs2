@@ -20,14 +20,17 @@ get_centsize_norm(x)
 square root of the \emph{sum} of squared distances between each point
 along the shape and its centroid coordinates. \link{get_centsize_norm} is the
 square root of the \emph{mean} of squared distances between each point
-along the shape and its centroid coordinates.
-The latter does not depend (so much) on the number of points of the shape (see Examples),
+along the shape and its centroid coordinates. See Details.
+}
+\details{
+\link{get_centsize_norm} does not depend (so much) on the number of points of the shape (see Examples),
 makes direct sense as a dimension in the plane, and
 also when the number of points differs between shapes, which is both typical
 for outlines and never seen for landmarks.
 See Dryden I. E. and Mardia K. V. 1998. Statistical Shape Analysis. Wiley,
-}
-\details{
+Chichester. Since \link{get_centsize} never made a lot of sense to me, as an "outline" person, and because
+\link{get_centsize_norm} will "work" in all cases, it is the default method in \link{coo_scale}
+
 Can be used, among others, to record size before \link{coo_scale}.
 }
 \section{Functions}{

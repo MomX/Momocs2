@@ -45,13 +45,15 @@ get_centpos.mom_tbl <- function(x) {
 #' square root of the _sum_ of squared distances between each point
 #' along the shape and its centroid coordinates. [get_centsize_norm] is the
 #' square root of the _mean_ of squared distances between each point
-#' along the shape and its centroid coordinates.
-#' The latter does not depend (so much) on the number of points of the shape (see Examples),
+#' along the shape and its centroid coordinates. See Details.
+#'
+#' [get_centsize_norm] does not depend (so much) on the number of points of the shape (see Examples),
 #' makes direct sense as a dimension in the plane, and
 #' also when the number of points differs between shapes, which is both typical
 #' for outlines and never seen for landmarks.
 #' See Dryden I. E. and Mardia K. V. 1998. Statistical Shape Analysis. Wiley,
-#  Chichester.
+#'  Chichester. Since [get_centsize] never made a lot of sense to me, as an "outline" person, and because
+#'  [get_centsize_norm] will "work" in all cases, it is the default method in [coo_scale]
 #'
 #' @inheritParams coo_center
 #' @return `numeric` or additional column

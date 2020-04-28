@@ -73,11 +73,11 @@ test_that("coo_scale works", {
   test_cols_tidyeval(coo_scale)
   test_equivalence(coo_scale)
 
-  expect_equivalent(tibble(x=c(0, sqrt(2)), y=c(0, -sqrt(2))) %>% get_centsize(),
+  expect_equivalent(tibble(x=c(0, sqrt(2)), y=c(0, -sqrt(2))) %>% get_centsize_norm(),
                     expected = 1, tolerance=1e-10)
-  expect_equivalent(tibble(x=c(0, 2*sqrt(2)), y=c(0, -2*sqrt(2))) %>% get_centsize(),
+  expect_equivalent(tibble(x=c(0, 2*sqrt(2)), y=c(0, -2*sqrt(2))) %>% get_centsize_norm(),
                     expected = 2, tolerance=1e-10)
-  expect_equivalent(bot$coo[[1]] %>% coo_scale %>% get_centsize(), 1, tol=1e-10)
+  expect_equivalent(bot$coo[[1]] %>% coo_scale %>% get_centsize_norm(), 1, tol=1e-10)
 
 })
 

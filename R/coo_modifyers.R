@@ -123,10 +123,11 @@ coo_trans.mom_tbl <- function(x, x_trans=0, y_trans=0, from_col=coo, to_col={{fr
 
 #' Scale shapes
 #'
-#' Returns a scaled shape.
+#' Returns a scaled shape. Note that normalized centroid size is used by default. See [get_centsize_norm].
 #'
 #' @inherit coo_center params return
-#' @param scale `numeric` scaling factor ([get_centsize] by default).
+#' @param scale `numeric` scaling factor ([get_centsize_norm] by default).
+#' @param centsize `function` either `get_centsize_norm` (default) or `get_centsize`. No brackets.
 #' @family coo_modifyers
 #' @family scalings
 #' @examples
@@ -138,7 +139,7 @@ coo_trans.mom_tbl <- function(x, x_trans=0, y_trans=0, from_col=coo, to_col={{fr
 #' x %>% coo_scale_x(5) %>% gg()
 #' x %>% coo_scale_y(5) %>% gg()
 #' @export
-coo_scale <- function(x, scale, from_col, to_col, ...) {
+coo_scale <- function(x, scale, centsize=get_centsize_norm, from_col, to_col, ...) {
   UseMethod("coo_scale")
 }
 
@@ -148,10 +149,10 @@ coo_scale.default <- function(x, ...){
 }
 
 #' @export
-coo_scale.coo_single <- function(x, scale, ...) {
+coo_scale.coo_single <- function(x, scale, centsize=get_centsize_norm, ...) {
   # use centroid size by default
   if (missing(scale))
-    scale <- get_centsize(x)
+    scale <- centsize(x)
   # record centroid position to reposition after scaling
   cent <- get_centpos(x)
   # center and scale
@@ -163,22 +164,22 @@ coo_scale.coo_single <- function(x, scale, ...) {
 }
 
 #' @export
-coo_scale.coo_list <- function(x, scale, ...){
+coo_scale.coo_list <- function(x, scale, centsize=get_centsize_norm, ...){
   if (missing(scale))
-    scale <- purrr::map_dbl(x, get_centsize)
+    scale <- purrr::map_dbl(x, centsize)
   purrr::map2(x, scale, ~coo_scale(.x, scale=.y)) %>%
     coo_list()
 }
 
 #' @export
-coo_scale.mom_tbl <- function(x, scale, from_col=coo, to_col={{from_col}}, ...) {
+coo_scale.mom_tbl <- function(x, scale, centsize=get_centsize_norm, from_col=coo, to_col={{from_col}}, ...) {
   # tidyeval
   c(from_col, to_col) %<-% tidyeval_coo_modifyers(from_col={{from_col}}, to_col={{to_col}})
 
   # operate
   x %>% dplyr::mutate(!!to_col := x %>%
                         dplyr::pull(!!from_col) %>%
-                        coo_scale())
+                        coo_scale(centsize=centsize))
 }
 
 

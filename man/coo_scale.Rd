@@ -6,7 +6,7 @@
 \alias{coo_scale_y}
 \title{Scale shapes}
 \usage{
-coo_scale(x, scale, from_col, to_col, ...)
+coo_scale(x, scale, centsize = get_centsize_norm, from_col, to_col, ...)
 
 coo_scale_x(x, scale, from_col, to_col, ...)
 
@@ -15,7 +15,9 @@ coo_scale_y(x, scale, from_col, to_col, ...)
 \arguments{
 \item{x}{\link{coo_single}, \link{coo_list} or \link{mom_tbl}}
 
-\item{scale}{\code{numeric} scaling factor (\link{get_centsize} by default).}
+\item{scale}{\code{numeric} scaling factor (\link{get_centsize_norm} by default).}
+
+\item{centsize}{\code{function} either \code{get_centsize_norm} (default) or \code{get_centsize}. No brackets.}
 
 \item{from_col}{colnames from where to get the \link{coo_list}
 and how to name the resulting one (only for \link{mom_tbl} method)}
@@ -29,7 +31,7 @@ and how to name the resulting one (only for \link{mom_tbl} method)}
 a \link{coo_single}, \link{coo_list} or \link{mom_tbl}
 }
 \description{
-Returns a scaled shape.
+Returns a scaled shape. Note that normalized centroid size is used by default. See \link{get_centsize_norm}.
 }
 \section{Functions}{
 \itemize{
