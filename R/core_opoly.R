@@ -68,7 +68,7 @@ opoly.default <- function(x, ...){
 }
 
 #' @export
-opoly.coo_single <- function(x, degree, raw=TRUE, ...){
+opoly.coo_single <- function(x, degree, raw=FALSE, ...){
 
   if (missing(degree)) {
     degree <- 5
@@ -99,7 +99,7 @@ opoly.coo_single <- function(x, degree, raw=TRUE, ...){
     .append_class("opoly_single")
 
   # early return if we just want the coe
-  if (raw)
+  if (!raw)
     return(res)
   # otherwise return details
 
@@ -123,7 +123,7 @@ opoly.coo_list <- function(x, degree, ...){
     .msg_warning("opoly: 'degree' not provided and set to {degree}")
   }
   # run and return that beauty
-  purrr::map(x, opoly, degre=degree) %>%
+  purrr::map(x, opoly, degre=degree, raw=FALSE) %>%
     coe_list() %>%
     .append_class("opoly")
 }
@@ -146,7 +146,7 @@ opoly.mom_tbl <- function(x, degree, raw, drop_coo=TRUE, from_coo=coo, to_coe=co
 
   res <- x %>%
     dplyr::pull(!!from_coo) %>%
-    opoly(degree=degree) %>%
+    opoly(degree=degree, raw=FALSE) %>%
     .append_class("opoly")
   res <- dplyr::mutate(x, !!to_coe := res)
 

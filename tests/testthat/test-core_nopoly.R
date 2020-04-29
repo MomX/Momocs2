@@ -44,5 +44,31 @@ test_that("npoly works", {
 })
 
 
+test_that("opoly works", {
+  expect_message(opoly("a"), "no method")
+  x <- olea %>% pick(1)
+  expect_error(opoly(x, degree=0), "degree")
+  xl <- opoly(x, degree=3, raw=TRUE)
+  expect_is(xl, "list")
+  expect_false(is.data.frame(xl))
+
+  k=3
+  x <- opoly(x, degree=k) # raw FALSE by default
+  expect_is(x, "coe_single")
+  expect_is(x, "data.frame")
+  expect_true(ncol(x)==k+1)
+  expect_true(nrow(x)==1)
+
+  # coo_list
+  expect_error(opoly(bot$coo[1:5], degree=1), "bookstein")
+
+  # mom
+  expect_error(opoly(bot[1:2, ], degree=1), "bookstein")
+
+  x <- olea[1:2, ]
+  expect_message(opoly(x, degree=1, raw=TRUE), "useless")
+})
+
+
 
 
