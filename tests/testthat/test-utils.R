@@ -51,3 +51,7 @@ test_that(".replace_class work", {
   expect_true(x %>% .replace_class("tbl", "tableau") %>% inherits("tableau"))
 })
 
+test_that("deprecated works", {
+  expect_message(deprecated("plop", "plip"),
+                 "plop.*deprecated.*plip")
+})
