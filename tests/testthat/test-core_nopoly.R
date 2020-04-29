@@ -21,6 +21,14 @@ test_that("set_names_poly works", {
 test_that("npoly works", {
   expect_message(npoly("a"), "no method")
   x <- olea %>% pick(1)
+
+  # degree default
+  expect_message(npoly(x), "not provided")
+  expect_message(npoly(olea$coo[1:2]), "not provided")
+  expect_message(npoly(olea[1:2, ]), "not provided")
+
+
+
   expect_error(npoly(x, degree=0), "degree")
   xl <- npoly(x, degree=3, raw=TRUE)
   expect_is(xl, "list")
@@ -47,6 +55,12 @@ test_that("npoly works", {
 test_that("opoly works", {
   expect_message(opoly("a"), "no method")
   x <- olea %>% pick(1)
+
+  # degree default
+  expect_message(opoly(x), "not provided")
+  expect_message(opoly(olea$coo[1:2]), "not provided")
+  expect_message(opoly(olea[1:2, ]), "not provided")
+
   expect_error(opoly(x, degree=0), "degree")
   xl <- opoly(x, degree=3, raw=TRUE)
   expect_is(xl, "list")
