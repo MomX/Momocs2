@@ -44,6 +44,8 @@ dfourier.coo_single <- function(x, nb_h, raw=FALSE, ...) {
     nb_h <- 6
     .msg_warning("dfourier: 'nb_h' not provided and set to {nb_h}")
   }
+
+
   # preliminaries
   x <- as.matrix(x)
   N <- nrow(x)
@@ -82,6 +84,11 @@ dfourier.coo_list <- function (x, nb_h, ...) {
     .msg_warning("dfourier: 'nb_h' not provided and set to {nb_h}")
   }
 
+  # check that all are booksteined
+  if (any(purrr::map_lgl(x, purrr::negate(likely_bookstein)))){
+    stop("dfourier: your shapes are (likely) not registered on bookstein coordinates. Use coo_bookstein().")
+  }
+
   x %>%
     purrr::map(dfourier, nb_h=nb_h, raw=FALSE) %>%
     new_coe_list() %>%
@@ -96,6 +103,12 @@ dfourier.mom_tbl <- function(x, nb_h, raw=FALSE, from_col=coo, to_col=coe, drop_
     nb_h <- 6
     .msg_warning("dfourier: 'nb_h' not provided and set to {nb_h}")
   }
+
+  # prelim ---
+  # stupid but S3 arguments order rule, rules...
+  if (provided(raw))
+    .msg_info("dfourier: `raw` provided but useless here")
+
   from_col <- enquo(from_col)
   to_col   <- enquo(to_col)
 
