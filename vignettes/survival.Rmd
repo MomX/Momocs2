@@ -48,6 +48,32 @@ Unless you're an ultra-rthodox or something^[And if you're a post-modeRnist you 
 
 > Read the [_Introduction to magrittr_](https://magrittr.tidyverse.org/articles/magrittr.html)
 
+## Everything is a tibble (thus a data.frame)
+
+To be perfectly clear, `<mom>` are tibbles that are themselves `data.frame` that are themselves `list`:
+
+```{r}
+tibble::is_tibble(bot)
+is.data.frame(bot)
+is.list(bot)
+```
+
+In other words you **do not need** tidyverse verbs (they are just really really desirable) to handles `<mom>` objects, ie all of this works:
+```{r}
+# a mom is a data.frame
+bot[1, ]
+
+# a coo column is a list
+bot$coo[[5]]
+
+lapply(bot$coo[1:5], coo_center)
+
+# because of lists nature of data.frames
+lapply(bot, summary)
+```
+
+
+
 ## `dplyr`: common data manipulation
 
 > If you're not familiar with dplyr, the [_Introduction to dplyr_](https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html) will definitely change your life.
