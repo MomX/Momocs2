@@ -2,9 +2,12 @@
 % Please edit documentation in R/core_dfourier.R
 \name{dfourier}
 \alias{dfourier}
+\alias{dfourier_i}
 \title{Discrete cosine transform}
 \usage{
 dfourier(x, nb_h, raw = FALSE, from_col, to_col, drop_coo, ...)
+
+dfourier_i(x, nb_h, nb_pts, from_col, to_col, ...)
 }
 \arguments{
 \item{x}{\link{coo_single}, \link{coo_list} or \link{mom_tbl}}
@@ -13,15 +16,13 @@ dfourier(x, nb_h, raw = FALSE, from_col, to_col, drop_coo, ...)
 
 \item{raw}{\code{logical} whether to return raw and full results for \link{dfourier}}
 
+\item{from_col, to_col}{column names}
+
 \item{drop_coo}{\code{logical} whether to drop coo column (default to \code{TRUE})}
 
 \item{...}{for generics. Useless here.}
 
 \item{nb_pts}{\code{int} nb of points for the reconstruction}
-
-\item{from_coo, to_col}{column names}
-
-\item{from_coe}{column name for inverse method}
 }
 \value{
 a list with components when applied on a single shape:
@@ -33,6 +34,11 @@ open outlines.
 \details{
 Shapes must be normalized, ie using \link{coo_bookstein} before performing the dct transform.
 }
+\section{Functions}{
+\itemize{
+\item \code{dfourier_i}: inverse dfourier method
+}}
+
 \examples{
 olea[1:3, ] \%>\% dfourier()
 }

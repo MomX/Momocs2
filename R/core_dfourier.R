@@ -12,8 +12,7 @@
 #' @param raw `logical` whether to return raw and full results for [dfourier]
 #' @param nb_pts `int` nb of points for the reconstruction
 #' @param drop_coo `logical` whether to drop coo column (default to `TRUE`)
-#' @param from_coo,to_col column names
-#' @param from_coe column name for inverse method
+#' @param from_col,to_col column names
 #' @param ... for generics. Useless here.
 #' @return a list with components when applied on a single shape:
 #'
@@ -110,12 +109,14 @@ dfourier.mom_tbl <- function(x, nb_h, raw=FALSE, from_col=coo, to_col=coe, drop_
   res
 }
 
-#'
-#' # dfourier_i ----------------------------------------------
-#' dfourier_i <- function(x, nb_h, nb_pts, from_coe, ...){
-#'   UseMethod("dfourier_i")
-#' }
-#'
+
+# dfourier_i ----------------------------------------------
+#' @describeIn dfourier inverse dfourier method
+#' @export
+dfourier_i <- function(x, nb_h, nb_pts, from_col, to_col, ...){
+  UseMethod("dfourier_i")
+}
+
 #' dfourier_i.default <- function(x, ...){
 #'   not_defined("dfourier_i")
 #' }
