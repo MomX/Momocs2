@@ -106,6 +106,7 @@ two-dimensional outlines. \strong{Systematic Biology} \strong{34}: 59-68.
 }
 \seealso{
 Other morphometrics: 
+\code{\link{dfourier}()},
 \code{\link{npoly}()},
 \code{\link{opoly}()}
 }

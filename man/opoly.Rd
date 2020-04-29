@@ -90,6 +90,7 @@ Other polynomials:
 \code{\link{npoly}()}
 
 Other morphometrics: 
+\code{\link{dfourier}()},
 \code{\link{efourier}()},
 \code{\link{npoly}()}
 }

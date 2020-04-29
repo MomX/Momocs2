@@ -86,6 +86,7 @@ Other polynomials:
 \code{\link{opoly}()}
 
 Other morphometrics: 
+\code{\link{dfourier}()},
 \code{\link{efourier}()},
 \code{\link{opoly}()}
 }

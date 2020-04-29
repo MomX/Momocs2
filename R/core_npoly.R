@@ -82,7 +82,7 @@ npoly.default <- function(x, ...){
 }
 
 #' @export
-npoly.coo_single <- function(x, degree, raw=TRUE, ...){
+npoly.coo_single <- function(x, degree, raw=FALSE, ...){
 
   if (missing(degree)) {
     degree <- 5
@@ -113,7 +113,7 @@ npoly.coo_single <- function(x, degree, raw=TRUE, ...){
     .append_class("npoly_single")
 
   # early return if we just want the coe
-  if (raw)
+  if (!raw)
     return(res)
   # otherwise return details
 
@@ -137,7 +137,7 @@ npoly.coo_list <- function(x, degree, ...){
     .msg_warning("npoly: 'degree' not provided and set to {degree}")
   }
   # run and return that beauty
-  purrr::map(x, npoly, degre=degree) %>%
+  purrr::map(x, npoly, degre=degree, raw=FALSE) %>%
     coe_list() %>%
     .append_class("npoly")
 }
@@ -160,7 +160,7 @@ npoly.mom_tbl <- function(x, degree, raw, drop_coo=TRUE, from_coo=coo, to_coe=co
 
   res <- x %>%
     dplyr::pull(!!from_coo) %>%
-    npoly(degree=degree) %>%
+    npoly(degree=degree, raw=FALSE) %>%
     .append_class("npoly")
   res <- dplyr::mutate(x, !!to_coe := res)
 
