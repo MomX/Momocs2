@@ -143,6 +143,25 @@
 <p>Read the <a href="https://magrittr.tidyverse.org/articles/magrittr.html"><em>Introduction to magrittr</em></a></p>
 </blockquote>
 </div>
+<div id="everything-is-a-tibble-thus-a-data-frame" class="section level2">
+<h2 class="hasAnchor">
+<a href="#everything-is-a-tibble-thus-a-data-frame" class="anchor"></a>Everything is a tibble (thus a data.frame)</h2>
+<p>To be perfectly clear, <code>&lt;mom&gt;</code> are tibbles that are themselves <code>data.frame</code> that are themselves <code>list</code>:</p>
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="kw pkg">tibble</span><span class="kw ns">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/is_tibble.html">is_tibble</a></span>(<span class="no">bot</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">is.data.frame</a></span>(<span class="no">bot</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/list.html">is.list</a></span>(<span class="no">bot</span>)</pre></body></html></div>
+<p>In other words you <strong>do not need</strong> tidyverse verbs (they are just really really desirable) to handles <code>&lt;mom&gt;</code> objects, ie all of this works:</p>
+<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="co"># a mom is a data.frame</span>
+<span class="no">bot</span>[<span class="fl">1</span>, ]
+
+<span class="co"># a coo column is a list</span>
+<span class="no">bot</span>$<span class="no">coo</span><span class="kw">[[</span><span class="fl">5</span>]]
+
+<span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="no">bot</span>$<span class="no">coo</span>[<span class="fl">1</span>:<span class="fl">5</span>], <span class="no">coo_center</span>)
+
+<span class="co"># because of lists nature of data.frames</span>
+<span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="no">bot</span>, <span class="no">summary</span>)</pre></body></html></div>
+</div>
 <div id="dplyr-common-data-manipulation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#dplyr-common-data-manipulation" class="anchor"></a><code>dplyr</code>: common data manipulation</h2>
@@ -150,23 +169,23 @@
 <p>If you’re not familiar with dplyr, the <a href="https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html"><em>Introduction to dplyr</em></a> will definitely change your life.</p>
 </blockquote>
 <p>By our side, we will play with olive stones:</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidyverse</span>)
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidyverse</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">Momocs2</span>)
 <span class="no">olea</span></pre></body></html></div>
 <div id="filtering" class="section level3">
 <h3 class="hasAnchor">
 <a href="#filtering" class="anchor"></a>Filtering</h3>
 <p>You can filter individuals based on logical conditions:</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">olea</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="no">view</span> <span class="kw">==</span> <span class="st">"VL"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">olea</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="no">view</span> <span class="kw">==</span> <span class="st">"VL"</span>)</pre></body></html></div>
 <p>And you can group conditions:</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">olea</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="no">view</span> <span class="kw">==</span> <span class="st">"VL"</span>, <span class="no">var</span> <span class="kw">!=</span> <span class="st">"Aglan"</span>, <span class="no">ind</span> <span class="kw">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"O10"</span>, <span class="st">"O11"</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">olea</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="no">view</span> <span class="kw">==</span> <span class="st">"VL"</span>, <span class="no">var</span> <span class="kw">!=</span> <span class="st">"Aglan"</span>, <span class="no">ind</span> <span class="kw">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"O10"</span>, <span class="st">"O11"</span>))</pre></body></html></div>
 </div>
 </div>
 <div id="select-rows" class="section level2">
 <h2 class="hasAnchor">
 <a href="#select-rows" class="anchor"></a>Select rows</h2>
 <p>Except in “inspection” case, it’s generally not perfectly safe to subset positionnally but that’s the job of <code>slice</code></p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">olea</span> <span class="kw">%&gt;%</span> <span class="fu">slice</span>(<span class="fl">1</span>:<span class="fl">5</span>)
+<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">olea</span> <span class="kw">%&gt;%</span> <span class="fu">slice</span>(<span class="fl">1</span>:<span class="fl">5</span>)
 
 <span class="no">olea</span> <span class="kw">%&gt;%</span> <span class="fu">slice</span>(-(<span class="fl">1</span>:<span class="fl">5</span>))</pre></body></html></div>
 </div>
