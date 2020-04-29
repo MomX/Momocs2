@@ -261,7 +261,7 @@ after slicing around landmarks and/or starting points.</p>
 #&gt; $`2`
 #&gt; # A tibble: 5 x 2
 #&gt;       x     y
-#&gt; * &lt;dbl&gt; &lt;dbl&gt;
+#&gt;   &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1   143    15
 #&gt; 2   316   113
 #&gt; 3   305   302
@@ -272,7 +272,7 @@ after slicing around landmarks and/or starting points.</p>
 #&gt; $`3`
 #&gt; # A tibble: 5 x 2
 #&gt;       x     y
-#&gt; * &lt;dbl&gt; &lt;dbl&gt;
+#&gt;   &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1   296   713
 #&gt; 2   240   912
 #&gt; 3   205  1101
@@ -313,7 +313,7 @@ after slicing around landmarks and/or starting points.</p>
   <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span>(<span class='fl'>1</span>:<span class='fl'>2</span>) <span class='kw'>%&gt;%</span> <span class='co'># for the sake of speed</span>
   <span class='fu'>coo_split</span>(<span class='kw'>ldk</span><span class='kw'>=</span><span class='fl'>2</span>:<span class='fl'>3</span>)</div><div class='output co'>#&gt; <span class='message'>ℹ coo_split: id not provided, working on ldk</span></div><div class='output co'>#&gt; # A tibble: 2 x 6
 #&gt;   coo              ldk     aut   coo_1           coo_2           coo_3          
-#&gt; * &lt;list&lt;coo_singl&gt; &lt;list&gt;  &lt;fct&gt; &lt;list&lt;coo_sing&gt; &lt;list&lt;coo_sing&gt; &lt;list&lt;coo_sing&gt;
+#&gt;   &lt;list&lt;coo_singl&gt; &lt;list&gt;  &lt;fct&gt; &lt;list&lt;coo_sing&gt; &lt;list&lt;coo_sing&gt; &lt;list&lt;coo_sing&gt;
 #&gt; 1 &lt;tibble [80 × 2… &lt;dbl [… ced   &lt;tibble [5 × 2… &lt;tibble [75 × … &lt;tibble [2 × 2…
 #&gt; 2 &lt;tibble [80 × 2… &lt;dbl [… ced   &lt;tibble [7 × 2… &lt;tibble [73 × … &lt;tibble [2 × 2…
 #&gt; ❯mom_tbl</div><div class='input'>
