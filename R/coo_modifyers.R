@@ -1810,7 +1810,7 @@ coo_baseline <- function(x,
 
 #' @export
 coo_baseline.default <- function(x, ...){
-  .msg_info("coo_baseline: not defined on this class")
+  not_defined("coo_baseline")
 }
 
 #' @export

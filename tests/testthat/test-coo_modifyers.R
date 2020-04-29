@@ -254,6 +254,17 @@ test_that("coo_interpolate works", {
 
 
 # coo_smooth -------
+test_that("coo_smooth and coo_smooth_curve and testers work", {
+  test_classes(coo_smooth, 2)
+  test_cols_tidyeval(coo_smooth, 2)
+  test_equivalence(coo_smooth, 2)
+
+  # bloody long
+  # test_classes(coo_smooth_curve, 2)
+  # test_cols_tidyeval(coo_smooth_curve, 2)
+  # test_equivalence(coo_smooth_curve, 2)
+})
+
 
 # coo_close ---------
 test_that("coo_close, coo_unclose and testers work", {
@@ -361,10 +372,14 @@ expect_is(hearts %>% dplyr::slice(1:3) %>% coo_split(id=c(2:3)), "mom_tbl")
 })
 
 
-#test_that("coo_baseline works", {
-#  # todo
-#})
+# coo_baseline-------
+# test_that("coo_baseline work", {
+  # test_classes(coo_baseline, id1=1, id2=5)
+  # test_cols_tidyeval(coo_baseline, id1=1, id2=5)
+  # test_equivalence(coo_baseline, id1=1, id2=5)
+  #
+  # test_classes(coo_baseline, ldk1=1, ldk2=2, data=hearts)
+  # test_cols_tidyeval(coo_baseline, ldk1=1, ldk2=2, data=hearts)
+  # test_equivalence(coo_baseline, ldk1=1, ldk2=2, data=hearts)
 
-# test ed also.
-
-
+# })
