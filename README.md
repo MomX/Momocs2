@@ -17,6 +17,8 @@ coverage](https://codecov.io/gh/MomX/Momocs2/branch/master/graph/badge.svg)](htt
 size](https://img.shields.io/github/languages/code-size/MomX/Momocs.svg)](https://github.com/MomX/Momocs2)
 [![Last
 commit](https://img.shields.io/github/last-commit/MomX/Momocs2.svg)](https://github.com/MomX/Momocs2/commits/master)
+[![R build
+status](https://github.com/MomX/Momocs2/workflows/R-CMD-check/badge.svg)](https://github.com/MomX/Momocs2/actions)
 <!-- badges: end -->
 
 <!--
