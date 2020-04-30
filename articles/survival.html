@@ -119,19 +119,19 @@
 <div id="the-pipe-operators" class="section level2">
 <h2 class="hasAnchor">
 <a href="#the-pipe-operators" class="anchor"></a>The pipe operators</h2>
-<p>First thing first: if you’re not familiar with these <code><a href="https://rdrr.io/pkg/Momocs2/man/pipe.html">%&gt;%</a></code> everywhere in my code, examples, etc. let me just show you some “base R”:</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="no">bot_c</span>    <span class="kw">&lt;-</span> <span class="fu">coo_center</span>(<span class="no">bot</span>)
-<span class="no">bot_cs</span>   <span class="kw">&lt;-</span> <span class="fu">coo_scale</span>(<span class="no">bot_c</span>)
-<span class="no">bot_csa</span>  <span class="kw">&lt;-</span> <span class="fu">coo_align</span>(<span class="no">bot_cs</span>)
+<p>First thing first: if you’re not familiar with these <code><a href="../reference/pipe.html">%&gt;%</a></code> everywhere in my code, examples, etc. let me just show you some “base R”:</p>
+<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="no">bot_c</span>    <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/coo_center.html">coo_center</a></span>(<span class="no">bot</span>)
+<span class="no">bot_cs</span>   <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/coo_scale.html">coo_scale</a></span>(<span class="no">bot_c</span>)
+<span class="no">bot_csa</span>  <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/coo_align.html">coo_align</a></span>(<span class="no">bot_cs</span>)
 <span class="no">bot_csa1</span> <span class="kw">&lt;-</span> <span class="fu">coo_slidedirection</span>(<span class="no">bot_csa</span>)
-<span class="no">bot_eft</span>  <span class="kw">&lt;-</span> <span class="fu">efourier</span>(<span class="no">bot_csa1</span>)</pre></body></html></div>
+<span class="no">bot_eft</span>  <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/efourier.html">efourier</a></span>(<span class="no">bot_csa1</span>)</pre></body></html></div>
 <p>And now some “piped R”:</p>
 <div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">bot</span> <span class="kw">%&gt;%</span>
   <span class="no">coo_center</span> <span class="kw">%&gt;%</span>
   <span class="no">coo_scale</span> <span class="kw">%&gt;%</span>
   <span class="no">coo_align</span> <span class="kw">%&gt;%</span>
   <span class="fu">coo_slidedirection</span>(<span class="st">"right"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu">efourier</span>()</pre></body></html></div>
+  <span class="fu"><a href="../reference/efourier.html">efourier</a></span>()</pre></body></html></div>
 <p>Unless you’re an ultra-rthodox or something<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>, you will likely vote for the second one. We should not reduce the pipe-operator to a matter of taste, it is also:</p>
 <ul>
 <li>safer (it reduces typos)</li>
@@ -192,7 +192,7 @@
 <div class="footnotes">
 <hr>
 <ol>
-<li id="fn1"><p>And if you’re a post-modeRnist you will appreciate the <a href="https://github.com/moodymudskipper/nakedpipe">nakedpipe</a> too<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn1"><p>And if you’re a post-modeRnist you will appreciate the <a href="https://github.com/moodymudskipper/nakedpipe">nakedpipe</a> too<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
   </div>
@@ -212,7 +212,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

@@ -168,7 +168,7 @@ Just a wrapper around range. get_diffrange adds diff to get_range." />
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>coo_single, coo_list or mom_tbl</p></td>
+      <td><p><a href='coo_single.html'>coo_single</a>, <a href='coo_list.html'>coo_list</a> or <a href='mom_tbl.html'>mom_tbl</a></p></td>
     </tr>
     </table>
 
@@ -179,36 +179,36 @@ Just a wrapper around range. get_diffrange adds diff to get_range." />
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other coo_descriptors: 
-<code>get_centpos()</code>,
-<code>get_centsize()</code></p>
+<code><a href='get_centpos.html'>get_centpos</a>()</code>,
+<code><a href='get_centsize.html'>get_centsize</a>()</code></p>
 <p>Other coo_descriptors: 
-<code>get_centpos()</code>,
-<code>get_centsize()</code></p></div>
+<code><a href='get_centpos.html'>get_centpos</a>()</code>,
+<code><a href='get_centsize.html'>get_centsize</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>bot</span>$<span class='no'>coo</span><span class='kw'>[[</span><span class='fl'>5</span>]] <span class='kw'>%&gt;%</span> <span class='no'>get_range</span></div><div class='output co'>#&gt; # A tibble: 1 x 4
+    <pre class="examples"><div class='input'><span class='no'>bot</span>$<span class='no'>coo</span><span class='kw'>[[</span><span class='fl'>5</span>]] <span class='kw'>%&gt;%</span> <span class='no'>get_range</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 1 x 4</span><span>
 #&gt;   x_min x_max y_min y_max
-#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1    36   323    53   939</div><div class='input'>
-<span class='no'>bot</span> <span class='kw'>%&gt;%</span> <span class='fu'>pick</span>(<span class='fl'>1</span>) <span class='kw'>%&gt;%</span> <span class='no'>get_range</span></div><div class='output co'>#&gt; # A tibble: 1 x 4
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span>    36   323    53   939</div><div class='input'>
+<span class='no'>bot</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='pick.html'>pick</a></span>(<span class='fl'>1</span>) <span class='kw'>%&gt;%</span> <span class='no'>get_range</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 4</span><span>
 #&gt;   x_min x_max y_min y_max
-#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1    33   316    14  1102</div><div class='input'><span class='no'>bot</span> <span class='kw'>%&gt;%</span> <span class='fu'>get_diffrange</span>()</div><div class='output co'>#&gt; # A tibble: 40 x 5
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span>    33   316    14  </span><span style='text-decoration: underline;'>1</span><span>102</div><div class='input'><span class='no'>bot</span> <span class='kw'>%&gt;%</span> <span class='fu'>get_diffrange</span>()</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 40 x 5</span><span>
 #&gt;    coo                    type   fake  x_range y_range
-#&gt;    &lt;list&lt;coo_single[,2]&gt;&gt; &lt;fct&gt;  &lt;fct&gt;   &lt;dbl&gt;   &lt;dbl&gt;
-#&gt;  1 &lt;tibble [138 × 2]&gt;     whisky a         283    1088
-#&gt;  2 &lt;tibble [168 × 2]&gt;     whisky a         261     994
-#&gt;  3 &lt;tibble [189 × 2]&gt;     whisky a         243     643
-#&gt;  4 &lt;tibble [129 × 2]&gt;     whisky a         187     806
-#&gt;  5 &lt;tibble [152 × 2]&gt;     whisky a         287     886
-#&gt;  6 &lt;tibble [161 × 2]&gt;     whisky a         240     606
-#&gt;  7 &lt;tibble [124 × 2]&gt;     whisky a         214     865
-#&gt;  8 &lt;tibble [126 × 2]&gt;     whisky a         252     765
-#&gt;  9 &lt;tibble [183 × 2]&gt;     whisky a         230     742
-#&gt; 10 &lt;tibble [193 × 2]&gt;     whisky a         267    1048
-#&gt; # … with 30 more rows
-#&gt; ❯mom_tbl</div><div class='input'>
-</div></pre>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;list&lt;coo_single[,2]&gt;&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> </span><span style='color: #555555;'>&lt;tibble [138 × 2]&gt;</span><span>     whisky a         283    </span><span style='text-decoration: underline;'>1</span><span>088
+#&gt; </span><span style='color: #555555;'> 2</span><span> </span><span style='color: #555555;'>&lt;tibble [168 × 2]&gt;</span><span>     whisky a         261     994
+#&gt; </span><span style='color: #555555;'> 3</span><span> </span><span style='color: #555555;'>&lt;tibble [189 × 2]&gt;</span><span>     whisky a         243     643
+#&gt; </span><span style='color: #555555;'> 4</span><span> </span><span style='color: #555555;'>&lt;tibble [129 × 2]&gt;</span><span>     whisky a         187     806
+#&gt; </span><span style='color: #555555;'> 5</span><span> </span><span style='color: #555555;'>&lt;tibble [152 × 2]&gt;</span><span>     whisky a         287     886
+#&gt; </span><span style='color: #555555;'> 6</span><span> </span><span style='color: #555555;'>&lt;tibble [161 × 2]&gt;</span><span>     whisky a         240     606
+#&gt; </span><span style='color: #555555;'> 7</span><span> </span><span style='color: #555555;'>&lt;tibble [124 × 2]&gt;</span><span>     whisky a         214     865
+#&gt; </span><span style='color: #555555;'> 8</span><span> </span><span style='color: #555555;'>&lt;tibble [126 × 2]&gt;</span><span>     whisky a         252     765
+#&gt; </span><span style='color: #555555;'> 9</span><span> </span><span style='color: #555555;'>&lt;tibble [183 × 2]&gt;</span><span>     whisky a         230     742
+#&gt; </span><span style='color: #555555;'>10</span><span> </span><span style='color: #555555;'>&lt;tibble [193 × 2]&gt;</span><span>     whisky a         267    </span><span style='text-decoration: underline;'>1</span><span>048
+#&gt; </span><span style='color: #555555;'># … with 30 more rows</span><span>
+#&gt; ❯</span><span style='background-color: #00BB00;'>mom_tbl</span><span></div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -224,7 +224,7 @@ Just a wrapper around range. get_diffrange adds diff to get_range." />
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

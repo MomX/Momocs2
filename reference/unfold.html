@@ -152,7 +152,7 @@
     </div>
 
     <div class="ref-description">
-    <p>Unfold list columns such as coo_list and coe_list, repeat lines if required.</p>
+    <p>Unfold list columns such as <a href='coo_list.html'>coo_list</a> and <a href='coe_list.html'>coe_list</a>, repeat lines if required.</p>
     </div>
 
     <pre class="usage"><span class='fu'>unfold</span>(<span class='no'>x</span>, <span class='no'>from_col</span>, <span class='no'>...</span>)</pre>
@@ -180,42 +180,42 @@
 Also <code>unpack</code> was already take by <code>tidyr</code>. <code>unfold.list</code> is just <code><a href='https://dplyr.tidyverse.org/reference/bind.html'>dplyr::bind_rows</a></code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>press for a related reshaping</p>
+    <div class='dont-index'><p><a href='press.html'>press</a> for a related reshaping</p>
 <p>Other mom verbs: 
-<code>pick()</code>,
-<code>press()</code>,
-<code>slive()</code></p></div>
+<code><a href='pick.html'>pick</a>()</code>,
+<code><a href='press.html'>press</a>()</code>,
+<code><a href='slive.html'>slive</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='no'>bot</span>$<span class='no'>coo</span> <span class='kw'>%&gt;%</span> <span class='no'>unfold</span></div><div class='output co'>#&gt; # A tibble: 6,469 x 3
+<span class='no'>bot</span>$<span class='no'>coo</span> <span class='kw'>%&gt;%</span> <span class='no'>unfold</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 6,469 x 3</span><span>
 #&gt;        x     y group
-#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;
-#&gt;  1    37   561     1
-#&gt;  2    40   540     1
-#&gt;  3    40   529     1
-#&gt;  4    43   508     1
-#&gt;  5    46   487     1
-#&gt;  6    48   477     1
-#&gt;  7    52   456     1
-#&gt;  8    54   435     1
-#&gt;  9    57   414     1
-#&gt; 10    59   403     1
-#&gt; # … with 6,459 more rows</div><div class='input'>
-<span class='no'>bot</span> <span class='kw'>%&gt;%</span> <span class='no'>unfold</span></div><div class='output co'>#&gt; <span class='message'>ℹ unfold.mom_tbl: can only handle a single coo_list, using coo column</span></div><div class='output co'>#&gt; # A tibble: 6,469 x 5
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span>    37   561     1
+#&gt; </span><span style='color: #555555;'> 2</span><span>    40   540     1
+#&gt; </span><span style='color: #555555;'> 3</span><span>    40   529     1
+#&gt; </span><span style='color: #555555;'> 4</span><span>    43   508     1
+#&gt; </span><span style='color: #555555;'> 5</span><span>    46   487     1
+#&gt; </span><span style='color: #555555;'> 6</span><span>    48   477     1
+#&gt; </span><span style='color: #555555;'> 7</span><span>    52   456     1
+#&gt; </span><span style='color: #555555;'> 8</span><span>    54   435     1
+#&gt; </span><span style='color: #555555;'> 9</span><span>    57   414     1
+#&gt; </span><span style='color: #555555;'>10</span><span>    59   403     1
+#&gt; </span><span style='color: #555555;'># … with 6,459 more rows</span><span></div><div class='input'>
+<span class='no'>bot</span> <span class='kw'>%&gt;%</span> <span class='no'>unfold</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>ℹ</span><span> unfold.mom_tbl: can only handle a single coo_list, using coo column</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 6,469 x 5</span><span>
 #&gt;        x     y group type   fake 
-#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;fct&gt;  &lt;fct&gt;
-#&gt;  1    37   561     1 whisky a    
-#&gt;  2    40   540     1 whisky a    
-#&gt;  3    40   529     1 whisky a    
-#&gt;  4    43   508     1 whisky a    
-#&gt;  5    46   487     1 whisky a    
-#&gt;  6    48   477     1 whisky a    
-#&gt;  7    52   456     1 whisky a    
-#&gt;  8    54   435     1 whisky a    
-#&gt;  9    57   414     1 whisky a    
-#&gt; 10    59   403     1 whisky a    
-#&gt; # … with 6,459 more rows</div></pre>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span>    37   561     1 whisky a    
+#&gt; </span><span style='color: #555555;'> 2</span><span>    40   540     1 whisky a    
+#&gt; </span><span style='color: #555555;'> 3</span><span>    40   529     1 whisky a    
+#&gt; </span><span style='color: #555555;'> 4</span><span>    43   508     1 whisky a    
+#&gt; </span><span style='color: #555555;'> 5</span><span>    46   487     1 whisky a    
+#&gt; </span><span style='color: #555555;'> 6</span><span>    48   477     1 whisky a    
+#&gt; </span><span style='color: #555555;'> 7</span><span>    52   456     1 whisky a    
+#&gt; </span><span style='color: #555555;'> 8</span><span>    54   435     1 whisky a    
+#&gt; </span><span style='color: #555555;'> 9</span><span>    57   414     1 whisky a    
+#&gt; </span><span style='color: #555555;'>10</span><span>    59   403     1 whisky a    
+#&gt; </span><span style='color: #555555;'># … with 6,459 more rows</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -231,7 +231,7 @@ Also <code>unpack</code> was already take by <code>tidyr</code>. <code>unfold.li
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

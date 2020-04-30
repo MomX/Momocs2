@@ -164,7 +164,7 @@ This function is typically used for analyses, after morphometrics.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>mom_tbl</p></td>
+      <td><p><a href='mom_tbl.html'>mom_tbl</a></p></td>
     </tr>
     <tr>
       <th>keep_others</th>
@@ -177,71 +177,71 @@ This function is typically used for analyses, after morphometrics.</p>
     <p><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble::tibble</a></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>unfold for a related reshaping</p>
+    <div class='dont-index'><p><a href='unfold.html'>unfold</a> for a related reshaping</p>
 <p>Other mom verbs: 
-<code>pick()</code>,
-<code>slive()</code>,
-<code>unfold()</code></p></div>
+<code><a href='pick.html'>pick</a>()</code>,
+<code><a href='slive.html'>slive</a>()</code>,
+<code><a href='unfold.html'>unfold</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>iris</span> <span class='kw'>%&gt;%</span> <span class='no'>mom</span> <span class='kw'>%&gt;%</span> <span class='no'>press</span></div><div class='output co'>#&gt; <span class='message'>ℹ press: found no coe; forward</span></div><div class='output co'>#&gt; # A tibble: 150 x 5
+    <pre class="examples"><div class='input'><span class='no'>iris</span> <span class='kw'>%&gt;%</span> <span class='no'>mom</span> <span class='kw'>%&gt;%</span> <span class='no'>press</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span><span> press: found no coe; forward</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 150 x 5</span><span>
 #&gt;    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
-#&gt;           &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt;  
-#&gt;  1          5.1         3.5          1.4         0.2 setosa 
-#&gt;  2          4.9         3            1.4         0.2 setosa 
-#&gt;  3          4.7         3.2          1.3         0.2 setosa 
-#&gt;  4          4.6         3.1          1.5         0.2 setosa 
-#&gt;  5          5           3.6          1.4         0.2 setosa 
-#&gt;  6          5.4         3.9          1.7         0.4 setosa 
-#&gt;  7          4.6         3.4          1.4         0.3 setosa 
-#&gt;  8          5           3.4          1.5         0.2 setosa 
-#&gt;  9          4.4         2.9          1.4         0.2 setosa 
-#&gt; 10          4.9         3.1          1.5         0.1 setosa 
-#&gt; # … with 140 more rows
-#&gt; ❯mom_tbl</div><div class='input'>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>bot</span> <span class='kw'>%&gt;%</span> <span class='fu'>efourier</span>(<span class='fl'>4</span>)
-<span class='no'>x</span>$<span class='no'>coe2</span> <span class='kw'>&lt;-</span> <span class='no'>bot</span>$<span class='no'>coo</span> <span class='kw'>%&gt;%</span> <span class='fu'>efourier</span>(<span class='fl'>6</span>)
-<span class='no'>x</span> <span class='kw'>%&gt;%</span> <span class='no'>press</span></div><div class='output co'>#&gt; # A tibble: 40 x 42
+#&gt;           </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  
+#&gt; </span><span style='color: #555555;'> 1</span><span>          5.1         3.5          1.4         0.2 setosa 
+#&gt; </span><span style='color: #555555;'> 2</span><span>          4.9         3            1.4         0.2 setosa 
+#&gt; </span><span style='color: #555555;'> 3</span><span>          4.7         3.2          1.3         0.2 setosa 
+#&gt; </span><span style='color: #555555;'> 4</span><span>          4.6         3.1          1.5         0.2 setosa 
+#&gt; </span><span style='color: #555555;'> 5</span><span>          5           3.6          1.4         0.2 setosa 
+#&gt; </span><span style='color: #555555;'> 6</span><span>          5.4         3.9          1.7         0.4 setosa 
+#&gt; </span><span style='color: #555555;'> 7</span><span>          4.6         3.4          1.4         0.3 setosa 
+#&gt; </span><span style='color: #555555;'> 8</span><span>          5           3.4          1.5         0.2 setosa 
+#&gt; </span><span style='color: #555555;'> 9</span><span>          4.4         2.9          1.4         0.2 setosa 
+#&gt; </span><span style='color: #555555;'>10</span><span>          4.9         3.1          1.5         0.1 setosa 
+#&gt; </span><span style='color: #555555;'># … with 140 more rows</span><span>
+#&gt; ❯</span><span style='background-color: #00BB00;'>mom_tbl</span><span></div><div class='input'>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>bot</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='efourier.html'>efourier</a></span>(<span class='fl'>4</span>)
+<span class='no'>x</span>$<span class='no'>coe2</span> <span class='kw'>&lt;-</span> <span class='no'>bot</span>$<span class='no'>coo</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='efourier.html'>efourier</a></span>(<span class='fl'>6</span>)
+<span class='no'>x</span> <span class='kw'>%&gt;%</span> <span class='no'>press</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 40 x 42</span><span>
 #&gt;    type  fake  coe_a1 coe_a2 coe_a3 coe_a4 coe_b1 coe_b2 coe_b3 coe_b4 coe_c1
-#&gt;    &lt;fct&gt; &lt;fct&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
-#&gt;  1 whis… a     -143.    5.29   23.0 -11.4   -13.9  -21.9  11.4   13.6    64.4
-#&gt;  2 whis… a     -134.    8.42   20.8  -2.59  -19.3  -30.3   8.69   4.37   57.0
-#&gt;  3 whis… a     -124.    6.75   12.8  -2.68  -10.3  -27.2   5.72   5.11   38.7
-#&gt;  4 whis… a      -98.0   5.14   17.2  -2.29  -13.8  -20.1   7.03   3.35   50.1
-#&gt;  5 whis… a     -125.   11.8    20.8   1.80  -14.6  -46.3   7.36  -2.28   47.0
-#&gt;  6 whis… a     -124.   10.0    11.9  -4.65  -24.8  -23.8   7.98   4.92   55.2
-#&gt;  7 whis… a     -115.    6.06   15.5  -7.01  -17.9  -21.1   7.42   9.47   58.6
-#&gt;  8 whis… a     -128.    7.07   17.0  -1.58  -12.8  -31.1   5.42   3.24   35.8
-#&gt;  9 whis… a     -118.    5.52   14.4  -3.09  -11.9  -27.1   4.01   6.98   34.7
-#&gt; 10 whis… a     -139.    6.22   22.9  -2.03  -13.3  -32.2   7.52   5.69   52.9
-#&gt; # … with 30 more rows, and 31 more variables: coe_c2 &lt;dbl&gt;, coe_c3 &lt;dbl&gt;,
-#&gt; #   coe_c4 &lt;dbl&gt;, coe_d1 &lt;dbl&gt;, coe_d2 &lt;dbl&gt;, coe_d3 &lt;dbl&gt;, coe_d4 &lt;dbl&gt;,
-#&gt; #   coe2_a1 &lt;dbl&gt;, coe2_a2 &lt;dbl&gt;, coe2_a3 &lt;dbl&gt;, coe2_a4 &lt;dbl&gt;, coe2_a5 &lt;dbl&gt;,
-#&gt; #   coe2_a6 &lt;dbl&gt;, coe2_b1 &lt;dbl&gt;, coe2_b2 &lt;dbl&gt;, coe2_b3 &lt;dbl&gt;, coe2_b4 &lt;dbl&gt;,
-#&gt; #   coe2_b5 &lt;dbl&gt;, coe2_b6 &lt;dbl&gt;, coe2_c1 &lt;dbl&gt;, coe2_c2 &lt;dbl&gt;, coe2_c3 &lt;dbl&gt;,
-#&gt; #   coe2_c4 &lt;dbl&gt;, coe2_c5 &lt;dbl&gt;, coe2_c6 &lt;dbl&gt;, coe2_d1 &lt;dbl&gt;, coe2_d2 &lt;dbl&gt;,
-#&gt; #   coe2_d3 &lt;dbl&gt;, coe2_d4 &lt;dbl&gt;, coe2_d5 &lt;dbl&gt;, coe2_d6 &lt;dbl&gt;</div><div class='input'>
-<span class='no'>x</span> <span class='kw'>%&gt;%</span> <span class='fu'>press</span>(<span class='kw'>keep_others</span><span class='kw'>=</span><span class='fl'>FALSE</span>) <span class='co'># eg for PCA</span></div><div class='output co'>#&gt; # A tibble: 40 x 40
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> whis… a     -</span><span style='color: #BB0000;'>143.</span><span>    5.29   23.0 -</span><span style='color: #BB0000;'>11.4</span><span>   -</span><span style='color: #BB0000;'>13.9</span><span>  -</span><span style='color: #BB0000;'>21.9</span><span>  11.4   13.6    64.4
+#&gt; </span><span style='color: #555555;'> 2</span><span> whis… a     -</span><span style='color: #BB0000;'>134.</span><span>    8.42   20.8  -</span><span style='color: #BB0000;'>2.59</span><span>  -</span><span style='color: #BB0000;'>19.3</span><span>  -</span><span style='color: #BB0000;'>30.3</span><span>   8.69   4.37   57.0
+#&gt; </span><span style='color: #555555;'> 3</span><span> whis… a     -</span><span style='color: #BB0000;'>124.</span><span>    6.75   12.8  -</span><span style='color: #BB0000;'>2.68</span><span>  -</span><span style='color: #BB0000;'>10.3</span><span>  -</span><span style='color: #BB0000;'>27.2</span><span>   5.72   5.11   38.7
+#&gt; </span><span style='color: #555555;'> 4</span><span> whis… a      -</span><span style='color: #BB0000;'>98.0</span><span>   5.14   17.2  -</span><span style='color: #BB0000;'>2.29</span><span>  -</span><span style='color: #BB0000;'>13.8</span><span>  -</span><span style='color: #BB0000;'>20.1</span><span>   7.03   3.35   50.1
+#&gt; </span><span style='color: #555555;'> 5</span><span> whis… a     -</span><span style='color: #BB0000;'>125.</span><span>   11.8    20.8   1.80  -</span><span style='color: #BB0000;'>14.6</span><span>  -</span><span style='color: #BB0000;'>46.3</span><span>   7.36  -</span><span style='color: #BB0000;'>2.28</span><span>   47.0
+#&gt; </span><span style='color: #555555;'> 6</span><span> whis… a     -</span><span style='color: #BB0000;'>124.</span><span>   10.0    11.9  -</span><span style='color: #BB0000;'>4.65</span><span>  -</span><span style='color: #BB0000;'>24.8</span><span>  -</span><span style='color: #BB0000;'>23.8</span><span>   7.98   4.92   55.2
+#&gt; </span><span style='color: #555555;'> 7</span><span> whis… a     -</span><span style='color: #BB0000;'>115.</span><span>    6.06   15.5  -</span><span style='color: #BB0000;'>7.01</span><span>  -</span><span style='color: #BB0000;'>17.9</span><span>  -</span><span style='color: #BB0000;'>21.1</span><span>   7.42   9.47   58.6
+#&gt; </span><span style='color: #555555;'> 8</span><span> whis… a     -</span><span style='color: #BB0000;'>128.</span><span>    7.07   17.0  -</span><span style='color: #BB0000;'>1.58</span><span>  -</span><span style='color: #BB0000;'>12.8</span><span>  -</span><span style='color: #BB0000;'>31.1</span><span>   5.42   3.24   35.8
+#&gt; </span><span style='color: #555555;'> 9</span><span> whis… a     -</span><span style='color: #BB0000;'>118.</span><span>    5.52   14.4  -</span><span style='color: #BB0000;'>3.09</span><span>  -</span><span style='color: #BB0000;'>11.9</span><span>  -</span><span style='color: #BB0000;'>27.1</span><span>   4.01   6.98   34.7
+#&gt; </span><span style='color: #555555;'>10</span><span> whis… a     -</span><span style='color: #BB0000;'>139.</span><span>    6.22   22.9  -</span><span style='color: #BB0000;'>2.03</span><span>  -</span><span style='color: #BB0000;'>13.3</span><span>  -</span><span style='color: #BB0000;'>32.2</span><span>   7.52   5.69   52.9
+#&gt; </span><span style='color: #555555;'># … with 30 more rows, and 31 more variables: coe_c2 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, coe_c3 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   coe_c4 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, coe_d1 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, coe_d2 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, coe_d3 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, coe_d4 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   coe2_a1 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, coe2_a2 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, coe2_a3 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, coe2_a4 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, coe2_a5 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   coe2_a6 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, coe2_b1 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, coe2_b2 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, coe2_b3 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, coe2_b4 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   coe2_b5 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, coe2_b6 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, coe2_c1 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, coe2_c2 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, coe2_c3 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   coe2_c4 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, coe2_c5 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, coe2_c6 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, coe2_d1 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, coe2_d2 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   coe2_d3 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, coe2_d4 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, coe2_d5 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, coe2_d6 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span></div><div class='input'>
+<span class='no'>x</span> <span class='kw'>%&gt;%</span> <span class='fu'>press</span>(<span class='kw'>keep_others</span><span class='kw'>=</span><span class='fl'>FALSE</span>) <span class='co'># eg for PCA</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 40 x 40</span><span>
 #&gt;    coe_a1 coe_a2 coe_a3 coe_a4 coe_b1 coe_b2 coe_b3 coe_b4 coe_c1 coe_c2 coe_c3
-#&gt;     &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
-#&gt;  1 -143.    5.29   23.0 -11.4   -13.9  -21.9  11.4   13.6    64.4  -3.15 -18.0 
-#&gt;  2 -134.    8.42   20.8  -2.59  -19.3  -30.3   8.69   4.37   57.0  -3.16 -15.7 
-#&gt;  3 -124.    6.75   12.8  -2.68  -10.3  -27.2   5.72   5.11   38.7  -4.58  -9.03
-#&gt;  4  -98.0   5.14   17.2  -2.29  -13.8  -20.1   7.03   3.35   50.1  -2.63 -14.1 
-#&gt;  5 -125.   11.8    20.8   1.80  -14.6  -46.3   7.36  -2.28   47.0  -7.60 -12.8 
-#&gt;  6 -124.   10.0    11.9  -4.65  -24.8  -23.8   7.98   4.92   55.2  -5.81 -10.9 
-#&gt;  7 -115.    6.06   15.5  -7.01  -17.9  -21.1   7.42   9.47   58.6  -2.82 -15.4 
-#&gt;  8 -128.    7.07   17.0  -1.58  -12.8  -31.1   5.42   3.24   35.8  -3.31  -9.05
-#&gt;  9 -118.    5.52   14.4  -3.09  -11.9  -27.1   4.01   6.98   34.7  -3.16  -8.98
-#&gt; 10 -139.    6.22   22.9  -2.03  -13.3  -32.2   7.52   5.69   52.9  -4.40 -14.6 
-#&gt; # … with 30 more rows, and 29 more variables: coe_c4 &lt;dbl&gt;, coe_d1 &lt;dbl&gt;,
-#&gt; #   coe_d2 &lt;dbl&gt;, coe_d3 &lt;dbl&gt;, coe_d4 &lt;dbl&gt;, coe2_a1 &lt;dbl&gt;, coe2_a2 &lt;dbl&gt;,
-#&gt; #   coe2_a3 &lt;dbl&gt;, coe2_a4 &lt;dbl&gt;, coe2_a5 &lt;dbl&gt;, coe2_a6 &lt;dbl&gt;, coe2_b1 &lt;dbl&gt;,
-#&gt; #   coe2_b2 &lt;dbl&gt;, coe2_b3 &lt;dbl&gt;, coe2_b4 &lt;dbl&gt;, coe2_b5 &lt;dbl&gt;, coe2_b6 &lt;dbl&gt;,
-#&gt; #   coe2_c1 &lt;dbl&gt;, coe2_c2 &lt;dbl&gt;, coe2_c3 &lt;dbl&gt;, coe2_c4 &lt;dbl&gt;, coe2_c5 &lt;dbl&gt;,
-#&gt; #   coe2_c6 &lt;dbl&gt;, coe2_d1 &lt;dbl&gt;, coe2_d2 &lt;dbl&gt;, coe2_d3 &lt;dbl&gt;, coe2_d4 &lt;dbl&gt;,
-#&gt; #   coe2_d5 &lt;dbl&gt;, coe2_d6 &lt;dbl&gt;</div><div class='input'>
-</div></pre>
+#&gt;     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> -</span><span style='color: #BB0000;'>143.</span><span>    5.29   23.0 -</span><span style='color: #BB0000;'>11.4</span><span>   -</span><span style='color: #BB0000;'>13.9</span><span>  -</span><span style='color: #BB0000;'>21.9</span><span>  11.4   13.6    64.4  -</span><span style='color: #BB0000;'>3.15</span><span> -</span><span style='color: #BB0000;'>18.0</span><span> 
+#&gt; </span><span style='color: #555555;'> 2</span><span> -</span><span style='color: #BB0000;'>134.</span><span>    8.42   20.8  -</span><span style='color: #BB0000;'>2.59</span><span>  -</span><span style='color: #BB0000;'>19.3</span><span>  -</span><span style='color: #BB0000;'>30.3</span><span>   8.69   4.37   57.0  -</span><span style='color: #BB0000;'>3.16</span><span> -</span><span style='color: #BB0000;'>15.7</span><span> 
+#&gt; </span><span style='color: #555555;'> 3</span><span> -</span><span style='color: #BB0000;'>124.</span><span>    6.75   12.8  -</span><span style='color: #BB0000;'>2.68</span><span>  -</span><span style='color: #BB0000;'>10.3</span><span>  -</span><span style='color: #BB0000;'>27.2</span><span>   5.72   5.11   38.7  -</span><span style='color: #BB0000;'>4.58</span><span>  -</span><span style='color: #BB0000;'>9.03</span><span>
+#&gt; </span><span style='color: #555555;'> 4</span><span>  -</span><span style='color: #BB0000;'>98.0</span><span>   5.14   17.2  -</span><span style='color: #BB0000;'>2.29</span><span>  -</span><span style='color: #BB0000;'>13.8</span><span>  -</span><span style='color: #BB0000;'>20.1</span><span>   7.03   3.35   50.1  -</span><span style='color: #BB0000;'>2.63</span><span> -</span><span style='color: #BB0000;'>14.1</span><span> 
+#&gt; </span><span style='color: #555555;'> 5</span><span> -</span><span style='color: #BB0000;'>125.</span><span>   11.8    20.8   1.80  -</span><span style='color: #BB0000;'>14.6</span><span>  -</span><span style='color: #BB0000;'>46.3</span><span>   7.36  -</span><span style='color: #BB0000;'>2.28</span><span>   47.0  -</span><span style='color: #BB0000;'>7.60</span><span> -</span><span style='color: #BB0000;'>12.8</span><span> 
+#&gt; </span><span style='color: #555555;'> 6</span><span> -</span><span style='color: #BB0000;'>124.</span><span>   10.0    11.9  -</span><span style='color: #BB0000;'>4.65</span><span>  -</span><span style='color: #BB0000;'>24.8</span><span>  -</span><span style='color: #BB0000;'>23.8</span><span>   7.98   4.92   55.2  -</span><span style='color: #BB0000;'>5.81</span><span> -</span><span style='color: #BB0000;'>10.9</span><span> 
+#&gt; </span><span style='color: #555555;'> 7</span><span> -</span><span style='color: #BB0000;'>115.</span><span>    6.06   15.5  -</span><span style='color: #BB0000;'>7.01</span><span>  -</span><span style='color: #BB0000;'>17.9</span><span>  -</span><span style='color: #BB0000;'>21.1</span><span>   7.42   9.47   58.6  -</span><span style='color: #BB0000;'>2.82</span><span> -</span><span style='color: #BB0000;'>15.4</span><span> 
+#&gt; </span><span style='color: #555555;'> 8</span><span> -</span><span style='color: #BB0000;'>128.</span><span>    7.07   17.0  -</span><span style='color: #BB0000;'>1.58</span><span>  -</span><span style='color: #BB0000;'>12.8</span><span>  -</span><span style='color: #BB0000;'>31.1</span><span>   5.42   3.24   35.8  -</span><span style='color: #BB0000;'>3.31</span><span>  -</span><span style='color: #BB0000;'>9.05</span><span>
+#&gt; </span><span style='color: #555555;'> 9</span><span> -</span><span style='color: #BB0000;'>118.</span><span>    5.52   14.4  -</span><span style='color: #BB0000;'>3.09</span><span>  -</span><span style='color: #BB0000;'>11.9</span><span>  -</span><span style='color: #BB0000;'>27.1</span><span>   4.01   6.98   34.7  -</span><span style='color: #BB0000;'>3.16</span><span>  -</span><span style='color: #BB0000;'>8.98</span><span>
+#&gt; </span><span style='color: #555555;'>10</span><span> -</span><span style='color: #BB0000;'>139.</span><span>    6.22   22.9  -</span><span style='color: #BB0000;'>2.03</span><span>  -</span><span style='color: #BB0000;'>13.3</span><span>  -</span><span style='color: #BB0000;'>32.2</span><span>   7.52   5.69   52.9  -</span><span style='color: #BB0000;'>4.40</span><span> -</span><span style='color: #BB0000;'>14.6</span><span> 
+#&gt; </span><span style='color: #555555;'># … with 30 more rows, and 29 more variables: coe_c4 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, coe_d1 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   coe_d2 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, coe_d3 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, coe_d4 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, coe2_a1 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, coe2_a2 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   coe2_a3 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, coe2_a4 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, coe2_a5 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, coe2_a6 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, coe2_b1 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   coe2_b2 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, coe2_b3 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, coe2_b4 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, coe2_b5 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, coe2_b6 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   coe2_c1 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, coe2_c2 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, coe2_c3 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, coe2_c4 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, coe2_c5 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   coe2_c6 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, coe2_d1 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, coe2_d2 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, coe2_d3 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, coe2_d4 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   coe2_d5 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, coe2_d6 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span></div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -257,7 +257,7 @@ This function is typically used for analyses, after morphometrics.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

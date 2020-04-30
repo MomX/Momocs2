@@ -170,7 +170,7 @@ coo_trim does both.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>coo_single, coo_list or mom_tbl</p></td>
+      <td><p><a href='coo_single.html'>coo_single</a>, <a href='coo_list.html'>coo_list</a> or <a href='mom_tbl.html'>mom_tbl</a></p></td>
     </tr>
     <tr>
       <th>n</th>
@@ -178,13 +178,13 @@ coo_trim does both.</p>
     </tr>
     <tr>
       <th>from_col</th>
-      <td><p>colnames from where to get the coo_list
-and how to name the resulting one (only for mom_tbl method)</p></td>
+      <td><p>colnames from where to get the <a href='coo_list.html'>coo_list</a>
+and how to name the resulting one (only for <a href='mom_tbl.html'>mom_tbl</a> method)</p></td>
     </tr>
     <tr>
       <th>to_col</th>
-      <td><p>colnames from where to get the coo_list
-and how to name the resulting one (only for mom_tbl method)</p></td>
+      <td><p>colnames from where to get the <a href='coo_list.html'>coo_list</a>
+and how to name the resulting one (only for <a href='mom_tbl.html'>mom_tbl</a> method)</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -194,7 +194,7 @@ and how to name the resulting one (only for mom_tbl method)</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a coo_single, coo_list or mom_tbl</p>
+    <p>a <a href='coo_single.html'>coo_single</a>, <a href='coo_list.html'>coo_list</a> or <a href='mom_tbl.html'>mom_tbl</a></p>
     <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
 
     
@@ -205,53 +205,53 @@ and how to name the resulting one (only for mom_tbl method)</p></td>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other coo_modifyers: 
-<code>coo_align()</code>,
-<code>coo_baseline()</code>,
-<code>coo_center()</code>,
-<code>coo_reflect</code>,
-<code>coo_rev()</code>,
-<code>coo_rotatecenter()</code>,
-<code>coo_rotate()</code>,
-<code>coo_sample_rr()</code>,
-<code>coo_sample()</code>,
-<code>coo_scale()</code>,
-<code>coo_shear()</code>,
-<code>coo_slide()</code>,
-<code>coo_split()</code>,
-<code>coo_template()</code>,
-<code>coo_trans()</code>,
-<code>coo_up()</code></p></div>
+<code><a href='coo_align.html'>coo_align</a>()</code>,
+<code><a href='coo_baseline.html'>coo_baseline</a>()</code>,
+<code><a href='coo_center.html'>coo_center</a>()</code>,
+<code><a href='coo_reflect.html'>coo_reflect</a></code>,
+<code><a href='coo_rev.html'>coo_rev</a>()</code>,
+<code><a href='coo_rotatecenter.html'>coo_rotatecenter</a>()</code>,
+<code><a href='coo_rotate.html'>coo_rotate</a>()</code>,
+<code><a href='coo_sample_rr.html'>coo_sample_rr</a>()</code>,
+<code><a href='coo_sample.html'>coo_sample</a>()</code>,
+<code><a href='coo_scale.html'>coo_scale</a>()</code>,
+<code><a href='coo_shear.html'>coo_shear</a>()</code>,
+<code><a href='coo_slide.html'>coo_slide</a>()</code>,
+<code><a href='coo_split.html'>coo_split</a>()</code>,
+<code><a href='coo_template.html'>coo_template</a>()</code>,
+<code><a href='coo_trans.html'>coo_trans</a>()</code>,
+<code><a href='coo_up.html'>coo_up</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>bot</span> <span class='kw'>%&gt;%</span> <span class='fu'>pick</span>(<span class='fl'>1</span>) <span class='kw'>%&gt;%</span> <span class='fu'>coo_sample</span>(<span class='fl'>12</span>)
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>bot</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='pick.html'>pick</a></span>(<span class='fl'>1</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='coo_sample.html'>coo_sample</a></span>(<span class='fl'>12</span>)
 
-<span class='fu'>coo_trim</span>(<span class='no'>x</span>, <span class='fl'>5</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 2
+<span class='fu'>coo_trim</span>(<span class='no'>x</span>, <span class='fl'>5</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 2 x 2</span><span>
 #&gt;       x     y
-#&gt;   &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1   305   302
-#&gt; 2   295   523
-#&gt; ❯coo_single with 2 coordinates</div><div class='input'><span class='fu'>coo_trim_head</span>(<span class='no'>x</span>, <span class='fl'>5</span>)</div><div class='output co'>#&gt; # A tibble: 7 x 2
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span>   305   302
+#&gt; </span><span style='color: #555555;'>2</span><span>   295   523
+#&gt; ❯</span><span style='background-color: #0000BB;'>coo_single</span><span> with 2 coordinates</div><div class='input'><span class='fu'>coo_trim_head</span>(<span class='no'>x</span>, <span class='fl'>5</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 7 x 2</span><span>
 #&gt;       x     y
-#&gt;   &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1   305   302
-#&gt; 2   295   523
-#&gt; 3   296   713
-#&gt; 4   240   912
-#&gt; 5   205  1101
-#&gt; 6   110  1002
-#&gt; 7    82   781
-#&gt; ❯coo_single with 7 coordinates</div><div class='input'><span class='fu'>coo_trim_tail</span>(<span class='no'>x</span>, <span class='fl'>5</span>)</div><div class='output co'>#&gt; # A tibble: 7 x 2
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span>   305   302
+#&gt; </span><span style='color: #555555;'>2</span><span>   295   523
+#&gt; </span><span style='color: #555555;'>3</span><span>   296   713
+#&gt; </span><span style='color: #555555;'>4</span><span>   240   912
+#&gt; </span><span style='color: #555555;'>5</span><span>   205  </span><span style='text-decoration: underline;'>1</span><span>101
+#&gt; </span><span style='color: #555555;'>6</span><span>   110  </span><span style='text-decoration: underline;'>1</span><span>002
+#&gt; </span><span style='color: #555555;'>7</span><span>    82   781
+#&gt; ❯</span><span style='background-color: #0000BB;'>coo_single</span><span> with 7 coordinates</div><div class='input'><span class='fu'>coo_trim_tail</span>(<span class='no'>x</span>, <span class='fl'>5</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 7 x 2</span><span>
 #&gt;       x     y
-#&gt;   &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1   305   302
-#&gt; 2   295   523
-#&gt; 3   296   713
-#&gt; 4   240   912
-#&gt; 5   205  1101
-#&gt; 6   110  1002
-#&gt; 7    82   781
-#&gt; ❯coo_single with 7 coordinates</div></pre>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span>   305   302
+#&gt; </span><span style='color: #555555;'>2</span><span>   295   523
+#&gt; </span><span style='color: #555555;'>3</span><span>   296   713
+#&gt; </span><span style='color: #555555;'>4</span><span>   240   912
+#&gt; </span><span style='color: #555555;'>5</span><span>   205  </span><span style='text-decoration: underline;'>1</span><span>101
+#&gt; </span><span style='color: #555555;'>6</span><span>   110  </span><span style='text-decoration: underline;'>1</span><span>002
+#&gt; </span><span style='color: #555555;'>7</span><span>    82   781
+#&gt; ❯</span><span style='background-color: #0000BB;'>coo_single</span><span> with 7 coordinates</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -267,7 +267,7 @@ and how to name the resulting one (only for mom_tbl method)</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

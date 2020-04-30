@@ -117,7 +117,7 @@
 <div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidyverse</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">Momocs2</span>)</pre></body></html></div>
 <p>Let’s have a drink<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. Do you prefer beer or wine?</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/Momocs2/man/mosaic.html">mosaic</a></span>(<span class="no">bot</span>, <span class="no">type</span>) <span class="co"># add id support</span></pre></body></html></div>
+<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="../reference/mosaic.html">mosaic</a></span>(<span class="no">bot</span>, <span class="no">type</span>) <span class="co"># add id support</span></pre></body></html></div>
 <div id="everything-is-a-tibble" class="section level2">
 <h2 class="hasAnchor">
 <a href="#everything-is-a-tibble" class="anchor"></a>Everything is a tibble</h2>
@@ -142,13 +142,13 @@
 <h2 class="hasAnchor">
 <a href="#coefficients-classes" class="anchor"></a><code>coe</code>fficients classes</h2>
 <p>In morphometrics, the destiny of coordinates is to be turned into coefficients. Coefficients are obtained using morphometric methods like elliptical Fourier transforms, or Procrustes alignment.</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/Momocs2/man/efourier.html">efourier</a></span>(<span class="no">bot</span>$<span class="no">coo</span><span class="kw">[[</span><span class="fl">1</span>]])</pre></body></html></div>
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="../reference/efourier.html">efourier</a></span>(<span class="no">bot</span>$<span class="no">coo</span><span class="kw">[[</span><span class="fl">1</span>]])</pre></body></html></div>
 <p>Here an elliptical Fourier tranform turned a <code>&lt;coo_single&gt;</code> into a <code>&lt;coe_single&gt;</code>. They are tibbles with exactly 1 row but with possiby many columns.</p>
 <p>Morphometrics is pivotationnal, or transpositionnal, in nature: it turns long tables (many rows, few columns) into large table (1 row, many columns)</p>
 <p>Yes, <code>&lt;coe_single&gt;</code> can be gathered into <code>&lt;coe_list&gt;</code>, and can be a column in a <code>&lt;mom&gt;</code>.</p>
 <p>Now you know how it works.</p>
 <p>The best news is that, in most cases, and whether you have met retired Momocs before, you won’t have to bother with this<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>:</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">bot</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/Momocs2/man/efourier.html">efourier</a></span>()</pre></body></html></div>
+<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">bot</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/efourier.html">efourier</a></span>()</pre></body></html></div>
 </div>
 <div id="momx-and-the-tidyverse" class="section level2">
 <h2 class="hasAnchor">
@@ -169,8 +169,8 @@
 <div class="footnotes">
 <hr>
 <ol>
-<li id="fn1"><p>Please drink responsibly<a href="#fnref1" class="footnote-back">↩</a></p></li>
-<li id="fn2"><p>I did it for you ;-)<a href="#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn1"><p>Please drink responsibly<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>I did it for you ;-)<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
   </div>
@@ -190,7 +190,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>
