@@ -23,9 +23,7 @@ square root of the \emph{mean} of squared distances between each point
 along the shape and its centroid coordinates. See Details.
 }
 \details{
-\link{get_centsize_norm} does not depend (so much) on the number of points of the shape (see Examples),
-makes direct sense as a dimension in the plane, and
-also when the number of points differs between shapes, which is both typical
+\link{get_centsize_norm} does not depend on the number of points of the shape (see Examples) which is both typical
 for outlines and never seen for landmarks.
 See Dryden I. E. and Mardia K. V. 1998. Statistical Shape Analysis. Wiley,
 Chichester. Since \link{get_centsize} never made a lot of sense to me, as an "outline" person, and because
