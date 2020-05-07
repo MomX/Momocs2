@@ -152,7 +152,7 @@
     </div>
 
     <div class="ref-description">
-    <p><code>coo_list</code> objects are <a href='https://rdrr.io/r/base/list.html'>list</a> of coo_single.</p>
+    <p><code>coo_list</code> objects are <a href='https://rdrr.io/r/base/list.html'>list</a> of <a href='coo_single.html'>coo_single</a>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>new_coo_list</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>())
@@ -172,7 +172,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>a list of coo_single</p></td>
+      <td><p>a list of <a href='coo_single.html'>coo_single</a></p></td>
     </tr>
     </table>
 
@@ -195,24 +195,24 @@ The only difference is that and are understood by morphometric methods used in M
 </ul>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fl'>1</span>:<span class='fl'>12</span>, <span class='kw'>ncol</span><span class='kw'>=</span><span class='fl'>2</span>) <span class='kw'>%&gt;%</span> <span class='fu'>coo_single</span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'>coo_list</span>()</div><div class='output co'>#&gt; &lt;list_of&lt;
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fl'>1</span>:<span class='fl'>12</span>, <span class='kw'>ncol</span><span class='kw'>=</span><span class='fl'>2</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='coo_single.html'>coo_single</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'>coo_list</span>()</div><div class='output co'>#&gt; &lt;list_of&lt;
 #&gt;   coo_single&lt;
 #&gt;     x: double
 #&gt;     y: double
 #&gt;   &gt;
 #&gt; &gt;[1]&gt;
 #&gt; [[1]]
-#&gt; # A tibble: 6 x 2
+#&gt; <span style='color: #555555;'># A tibble: 6 x 2</span><span>
 #&gt;       x     y
-#&gt;   &lt;int&gt; &lt;int&gt;
-#&gt; 1     1     7
-#&gt; 2     2     8
-#&gt; 3     3     9
-#&gt; 4     4    10
-#&gt; 5     5    11
-#&gt; 6     6    12
-#&gt; ❯coo_single with 6 coordinates
-#&gt; </div></pre>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span>     1     7
+#&gt; </span><span style='color: #555555;'>2</span><span>     2     8
+#&gt; </span><span style='color: #555555;'>3</span><span>     3     9
+#&gt; </span><span style='color: #555555;'>4</span><span>     4    10
+#&gt; </span><span style='color: #555555;'>5</span><span>     5    11
+#&gt; </span><span style='color: #555555;'>6</span><span>     6    12
+#&gt; ❯</span><span style='background-color: #0000BB;'>coo_single</span><span> with 6 coordinates
+#&gt; </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -228,7 +228,7 @@ The only difference is that and are understood by morphometric methods used in M
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>
