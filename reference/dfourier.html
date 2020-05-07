@@ -166,7 +166,7 @@ open outlines.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><a href='coo_single.html'>coo_single</a>, <a href='coo_list.html'>coo_list</a> or <a href='mom_tbl.html'>mom_tbl</a></p></td>
+      <td><p>coo_single, coo_list or mom_tbl</p></td>
     </tr>
     <tr>
       <th>nb_h</th>
@@ -199,7 +199,7 @@ open outlines.</p>
     <p>a list with components when applied on a single shape:</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Shapes must be normalized, ie using <a href='coo_baseline.html'>coo_bookstein</a> before performing the dct transform.</p>
+    <p>Shapes must be normalized, ie using coo_bookstein before performing the dct transform.</p>
     <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
 
     
@@ -219,18 +219,18 @@ The Discrete Cosine Transform, a Fourier-related Method for Morphometric Analysi
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other morphometrics: 
-<code><a href='efourier.html'>efourier</a>()</code>,
-<code><a href='npoly.html'>npoly</a>()</code>,
-<code><a href='opoly.html'>opoly</a>()</code></p></div>
+<code>efourier()</code>,
+<code>npoly()</code>,
+<code>opoly()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>olea</span>[<span class='fl'>1</span>:<span class='fl'>3</span>, ] <span class='kw'>%&gt;%</span> <span class='fu'>dfourier</span>()</div><div class='output co'>#&gt; <span class='message'><span style='color: #BBBB00;'>!</span><span> dfourier: 'nb_h' not provided and set to 6</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>ℹ</span><span> dfourier: `raw` provided but useless here</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 5</span><span>
+    <pre class="examples"><div class='input'><span class='no'>olea</span>[<span class='fl'>1</span>:<span class='fl'>3</span>, ] <span class='kw'>%&gt;%</span> <span class='fu'>dfourier</span>()</div><div class='output co'>#&gt; <span class='message'>! dfourier: 'nb_h' not provided and set to 6</span></div><div class='output co'>#&gt; <span class='message'>ℹ dfourier: `raw` provided but useless here</span></div><div class='output co'>#&gt; # A tibble: 3 x 5
 #&gt;   var   domes view  ind   coe                   
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;list&lt;coe_single[,0]&gt;&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> Aglan cult  VD    O10   </span><span style='color: #555555;'>&lt;tibble [1 × 12]&gt;</span><span>     
-#&gt; </span><span style='color: #555555;'>2</span><span> Aglan cult  VL    O10   </span><span style='color: #555555;'>&lt;tibble [1 × 12]&gt;</span><span>     
-#&gt; </span><span style='color: #555555;'>3</span><span> Aglan cult  VD    O11   </span><span style='color: #555555;'>&lt;tibble [1 × 12]&gt;</span><span>     
-#&gt; ❯</span><span style='background-color: #00BB00;'>mom_tbl</span><span></div></span></pre>
+#&gt;   &lt;fct&gt; &lt;fct&gt; &lt;fct&gt; &lt;fct&gt; &lt;list&lt;coe_single[,0]&gt;&gt;
+#&gt; 1 Aglan cult  VD    O10   &lt;tibble [1 × 12]&gt;     
+#&gt; 2 Aglan cult  VL    O10   &lt;tibble [1 × 12]&gt;     
+#&gt; 3 Aglan cult  VD    O11   &lt;tibble [1 × 12]&gt;     
+#&gt; ❯mom_tbl</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -246,7 +246,7 @@ The Discrete Cosine Transform, a Fourier-related Method for Morphometric Analysi
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

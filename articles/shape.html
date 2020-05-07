@@ -131,14 +131,14 @@
 <h2 class="hasAnchor">
 <a href="#implementation" class="anchor"></a>Implementation</h2>
 <p>Each <code>coo_</code> function, is actually a <em>method</em>, that is a function that will do a different job depending on the class it is pass with. That mechanism is what allows the following to work:</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="../reference/coo_center.html">coo_center</a></span>(<span class="no">bot</span>)           <span class="co"># a mom_tbl</span>
-<span class="fu"><a href="../reference/coo_center.html">coo_center</a></span>(<span class="no">bot</span>$<span class="no">coo</span>)       <span class="co"># a coo_list</span>
-<span class="fu"><a href="../reference/coo_center.html">coo_center</a></span>(<span class="no">bot</span>$<span class="no">coo</span><span class="kw">[[</span><span class="fl">1</span>]])  <span class="co"># a coo_single</span></pre></body></html></div>
+<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu">coo_center</span>(<span class="no">bot</span>)           <span class="co"># a mom_tbl</span>
+<span class="fu">coo_center</span>(<span class="no">bot</span>$<span class="no">coo</span>)       <span class="co"># a coo_list</span>
+<span class="fu">coo_center</span>(<span class="no">bot</span>$<span class="no">coo</span><span class="kw">[[</span><span class="fl">1</span>]])  <span class="co"># a coo_single</span></pre></body></html></div>
 <p>Besides arguments that a particular <code>coo_</code>, eg <code>coo_trans</code> may have, these three methods apply seamlessly using the same grammar.</p>
 <p>Typically, code is defined for the <code>coo_single</code> method; for <code>coo_list</code> it is applied using <code><a href="https://purrr.tidyverse.org/reference/map.html">purrr::map</a></code>; for <code>mom_tbl</code> it is slightly more subtle. Indeed, all <code>coo_*</code> methods on <code>mom_tbl</code> also have <code>from_col</code> and <code>to_col</code> arguments. This allows to work using different columns and creating columns with the name you want. By default, <code>coo</code> is used for both <code>from_col</code> and <code>to_col</code> so this:</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="../reference/coo_center.html">coo_center</a></span>(<span class="no">bot</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu">coo_center</span>(<span class="no">bot</span>)</pre></body></html></div>
 <p>is actually a shortcut for:</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="../reference/coo_center.html">coo_center</a></span>(<span class="no">bot</span>, <span class="kw">from_col</span><span class="kw">=</span><span class="no">coo</span>, <span class="kw">to_col</span><span class="kw">=</span><span class="no">coo</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu">coo_center</span>(<span class="no">bot</span>, <span class="kw">from_col</span><span class="kw">=</span><span class="no">coo</span>, <span class="kw">to_col</span><span class="kw">=</span><span class="no">coo</span>)</pre></body></html></div>
 <p>This is useless if you have a single column with coordinates named <code>coo</code> and if you want the new <code>coo</code> to be the centered (or anything-ed) version of it. Which is typically the behaviour you want. But this will greatly simplify more complex manipulations.</p>
 <ul>
 <li>coo_foo.default implements the modification</li>
@@ -165,7 +165,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

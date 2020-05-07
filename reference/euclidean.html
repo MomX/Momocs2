@@ -174,7 +174,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x, y</th>
-      <td><p><a href='coo_single.html'>coo_single</a>, matrices or vectors of length 2 (when sensible)</p></td>
+      <td><p>coo_single, matrices or vectors of length 2 (when sensible)</p></td>
     </tr>
     <tr>
       <th>r</th>
@@ -197,19 +197,19 @@
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other geometry: 
-<code><a href='geometry.html'>geometry</a></code></p></div>
+<code>geometry</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>)
 <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>)
 
 <span class='fu'>ed</span>(<span class='no'>x</span>, <span class='no'>y</span>) <span class='co'># sqrt(2)</span></div><div class='output co'>#&gt; [1] 1.414214</div><div class='input'><span class='fu'>edi</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='fl'>0.25</span>) <span class='co'># c(0.25, 0.25)</span></div><div class='output co'>#&gt; [1] 0.25 0.25</div><div class='input'>
-<span class='no'>bot</span> <span class='kw'>%&gt;%</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span>(<span class='fl'>1</span>:<span class='fl'>2</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='coo_sample.html'>coo_sample</a></span>(<span class='fl'>12</span>)  <span class='kw'>%&gt;%</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/pull.html'>pull</a></span>(<span class='no'>coo</span>) <span class='kw'>-&gt;</span> <span class='no'>b</span>
+<span class='no'>bot</span> <span class='kw'>%&gt;%</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span>(<span class='fl'>1</span>:<span class='fl'>2</span>) <span class='kw'>%&gt;%</span> <span class='fu'>coo_sample</span>(<span class='fl'>12</span>)  <span class='kw'>%&gt;%</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/pull.html'>pull</a></span>(<span class='no'>coo</span>) <span class='kw'>-&gt;</span> <span class='no'>b</span>
 <span class='fu'>ed_pw</span>(<span class='no'>b</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='no'>b</span><span class='kw'>[[</span><span class='fl'>2</span>]])</div><div class='output co'>#&gt;  [1] 30.52868 20.59126 16.27882 13.03840 18.43909 12.52996 63.06346 73.05477
 #&gt;  [9] 78.23043 96.76776 77.36924 45.45327</div><div class='input'><span class='co'># checking</span>
 <span class='kw pkg'>purrr</span><span class='kw ns'>::</span><span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map_dbl</a></span>(<span class='fl'>1</span>:<span class='fl'>12</span>, ~<span class='fu'>ed</span>(<span class='no'>b</span><span class='kw'>[[</span><span class='fl'>1</span>]][<span class='no'>.x</span>, ], <span class='no'>b</span><span class='kw'>[[</span><span class='fl'>2</span>]][<span class='no'>.x</span>, ]))</div><div class='output co'>#&gt;  [1] 30.52868 20.59126 16.27882 13.03840 18.43909 12.52996 63.06346 73.05477
 #&gt;  [9] 78.23043 96.76776 77.36924 45.45327</div><div class='input'>
-<span class='no'>bot</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='pick.html'>pick</a></span>(<span class='fl'>1</span>) <span class='kw'>%&gt;%</span> <span class='fu'>ed_nearest</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>))</div><div class='output co'>#&gt; $d
+<span class='no'>bot</span> <span class='kw'>%&gt;%</span> <span class='fu'>pick</span>(<span class='fl'>1</span>) <span class='kw'>%&gt;%</span> <span class='fu'>ed_nearest</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>))</div><div class='output co'>#&gt; $d
 #&gt; [1] 74.20243
 #&gt; 
 #&gt; $ids
@@ -263,7 +263,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

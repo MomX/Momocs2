@@ -175,7 +175,7 @@ and (<code>length(id/ldk)+1</code>) fragments returned.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><a href='coo_single.html'>coo_single</a>, <a href='coo_list.html'>coo_list</a> or <a href='mom_tbl.html'>mom_tbl</a></p></td>
+      <td><p>coo_single, coo_list or mom_tbl</p></td>
     </tr>
     <tr>
       <th>id</th>
@@ -191,16 +191,16 @@ and (<code>length(id/ldk)+1</code>) fragments returned.</p>
     </tr>
     <tr>
       <th>from_col</th>
-      <td><p>colnames from where to get the <a href='coo_list.html'>coo_list</a></p></td>
+      <td><p>colnames from where to get the coo_list</p></td>
     </tr>
     <tr>
       <th>ldk_col</th>
-      <td><p>colnames from where to get the <a href='coo_list.html'>coo_list</a></p></td>
+      <td><p>colnames from where to get the coo_list</p></td>
     </tr>
     <tr>
       <th>to_col</th>
       <td><p>colname where to set the result (default to <code>from_col</code>)
-and how to name the resulting one (only for <a href='mom_tbl.html'>mom_tbl</a> method)</p></td>
+and how to name the resulting one (only for mom_tbl method)</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -210,7 +210,7 @@ and how to name the resulting one (only for <a href='mom_tbl.html'>mom_tbl</a> m
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a <a href='coo_single.html'>coo_single</a>, <a href='coo_list.html'>coo_list</a> or <a href='mom_tbl.html'>mom_tbl</a></p>
+    <p>a coo_single, coo_list or mom_tbl</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>If <code>share=TRUE</code>, then each slicing coordinates will be shared between consecutive fragments,
@@ -228,97 +228,97 @@ For these classes, it is ignored with a message.</p>
     <div class='dont-index'><p>Have a look to coo_slidegap (todo link when ready) if you have problems with gaps
 after slicing around landmarks and/or starting points.</p>
 <p>Other coo_modifyers: 
-<code><a href='coo_align.html'>coo_align</a>()</code>,
-<code><a href='coo_baseline.html'>coo_baseline</a>()</code>,
-<code><a href='coo_center.html'>coo_center</a>()</code>,
-<code><a href='coo_reflect.html'>coo_reflect</a></code>,
-<code><a href='coo_rev.html'>coo_rev</a>()</code>,
-<code><a href='coo_rotatecenter.html'>coo_rotatecenter</a>()</code>,
-<code><a href='coo_rotate.html'>coo_rotate</a>()</code>,
-<code><a href='coo_sample_rr.html'>coo_sample_rr</a>()</code>,
-<code><a href='coo_sample.html'>coo_sample</a>()</code>,
-<code><a href='coo_scale.html'>coo_scale</a>()</code>,
-<code><a href='coo_shear.html'>coo_shear</a>()</code>,
-<code><a href='coo_slide.html'>coo_slide</a>()</code>,
-<code><a href='coo_template.html'>coo_template</a>()</code>,
-<code><a href='coo_trans.html'>coo_trans</a>()</code>,
-<code><a href='coo_trim.html'>coo_trim</a>()</code>,
-<code><a href='coo_up.html'>coo_up</a>()</code></p></div>
+<code>coo_align()</code>,
+<code>coo_baseline()</code>,
+<code>coo_center()</code>,
+<code>coo_reflect</code>,
+<code>coo_rev()</code>,
+<code>coo_rotatecenter()</code>,
+<code>coo_rotate()</code>,
+<code>coo_sample_rr()</code>,
+<code>coo_sample()</code>,
+<code>coo_scale()</code>,
+<code>coo_shear()</code>,
+<code>coo_slide()</code>,
+<code>coo_template()</code>,
+<code>coo_trans()</code>,
+<code>coo_trim()</code>,
+<code>coo_up()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>bot</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='pick.html'>pick</a></span>(<span class='fl'>1</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='coo_sample.html'>coo_sample</a></span>(<span class='fl'>12</span>)
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>bot</span> <span class='kw'>%&gt;%</span> <span class='fu'>pick</span>(<span class='fl'>1</span>) <span class='kw'>%&gt;%</span> <span class='fu'>coo_sample</span>(<span class='fl'>12</span>)
 <span class='no'>x</span> <span class='kw'>%&gt;%</span> <span class='fu'>coo_split</span>(<span class='kw'>id</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>, <span class='fl'>8</span>))</div><div class='output co'>#&gt; $`1`
-#&gt; <span style='color: #555555;'># A tibble: 4 x 2</span><span>
+#&gt; # A tibble: 4 x 2
 #&gt;       x     y
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span>    37   561
-#&gt; </span><span style='color: #555555;'>2</span><span>    63   361
-#&gt; </span><span style='color: #555555;'>3</span><span>    42   150
-#&gt; </span><span style='color: #555555;'>4</span><span>   143    15
-#&gt; ❯</span><span style='background-color: #0000BB;'>coo_single</span><span> with 4 coordinates
+#&gt;   &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1    37   561
+#&gt; 2    63   361
+#&gt; 3    42   150
+#&gt; 4   143    15
+#&gt; ❯coo_single with 4 coordinates
 #&gt; 
 #&gt; $`2`
-#&gt; </span><span style='color: #555555;'># A tibble: 5 x 2</span><span>
+#&gt; # A tibble: 5 x 2
 #&gt;       x     y
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span>   143    15
-#&gt; </span><span style='color: #555555;'>2</span><span>   316   113
-#&gt; </span><span style='color: #555555;'>3</span><span>   305   302
-#&gt; </span><span style='color: #555555;'>4</span><span>   295   523
-#&gt; </span><span style='color: #555555;'>5</span><span>   296   713
-#&gt; ❯</span><span style='background-color: #0000BB;'>coo_single</span><span> with 5 coordinates
+#&gt;   &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1   143    15
+#&gt; 2   316   113
+#&gt; 3   305   302
+#&gt; 4   295   523
+#&gt; 5   296   713
+#&gt; ❯coo_single with 5 coordinates
 #&gt; 
 #&gt; $`3`
-#&gt; </span><span style='color: #555555;'># A tibble: 5 x 2</span><span>
+#&gt; # A tibble: 5 x 2
 #&gt;       x     y
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span>   296   713
-#&gt; </span><span style='color: #555555;'>2</span><span>   240   912
-#&gt; </span><span style='color: #555555;'>3</span><span>   205  </span><span style='text-decoration: underline;'>1</span><span>101
-#&gt; </span><span style='color: #555555;'>4</span><span>   110  </span><span style='text-decoration: underline;'>1</span><span>002
-#&gt; </span><span style='color: #555555;'>5</span><span>    82   781
-#&gt; ❯</span><span style='background-color: #0000BB;'>coo_single</span><span> with 5 coordinates
+#&gt;   &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1   296   713
+#&gt; 2   240   912
+#&gt; 3   205  1101
+#&gt; 4   110  1002
+#&gt; 5    82   781
+#&gt; ❯coo_single with 5 coordinates
 #&gt; </div><div class='input'><span class='no'>x</span> <span class='kw'>%&gt;%</span> <span class='fu'>coo_split</span>(<span class='kw'>id</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>, <span class='fl'>8</span>), <span class='kw'>share</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; $`1`
-#&gt; </span><span style='color: #555555;'># A tibble: 4 x 2</span><span>
+#&gt; # A tibble: 4 x 2
 #&gt;       x     y
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span>    37   561
-#&gt; </span><span style='color: #555555;'>2</span><span>    63   361
-#&gt; </span><span style='color: #555555;'>3</span><span>    42   150
-#&gt; </span><span style='color: #555555;'>4</span><span>   143    15
-#&gt; ❯</span><span style='background-color: #0000BB;'>coo_single</span><span> with 4 coordinates
+#&gt;   &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1    37   561
+#&gt; 2    63   361
+#&gt; 3    42   150
+#&gt; 4   143    15
+#&gt; ❯coo_single with 4 coordinates
 #&gt; 
 #&gt; $`2`
-#&gt; </span><span style='color: #555555;'># A tibble: 4 x 2</span><span>
+#&gt; # A tibble: 4 x 2
 #&gt;       x     y
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span>   316   113
-#&gt; </span><span style='color: #555555;'>2</span><span>   305   302
-#&gt; </span><span style='color: #555555;'>3</span><span>   295   523
-#&gt; </span><span style='color: #555555;'>4</span><span>   296   713
-#&gt; ❯</span><span style='background-color: #0000BB;'>coo_single</span><span> with 4 coordinates
+#&gt;   &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1   316   113
+#&gt; 2   305   302
+#&gt; 3   295   523
+#&gt; 4   296   713
+#&gt; ❯coo_single with 4 coordinates
 #&gt; 
 #&gt; $`3`
-#&gt; </span><span style='color: #555555;'># A tibble: 4 x 2</span><span>
+#&gt; # A tibble: 4 x 2
 #&gt;       x     y
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span>   240   912
-#&gt; </span><span style='color: #555555;'>2</span><span>   205  </span><span style='text-decoration: underline;'>1</span><span>101
-#&gt; </span><span style='color: #555555;'>3</span><span>   110  </span><span style='text-decoration: underline;'>1</span><span>002
-#&gt; </span><span style='color: #555555;'>4</span><span>    82   781
-#&gt; ❯</span><span style='background-color: #0000BB;'>coo_single</span><span> with 4 coordinates
+#&gt;   &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1   240   912
+#&gt; 2   205  1101
+#&gt; 3   110  1002
+#&gt; 4    82   781
+#&gt; ❯coo_single with 4 coordinates
 #&gt; </div><div class='input'>
 <span class='no'>hearts</span> <span class='kw'>%&gt;%</span>
   <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span>(<span class='fl'>1</span>:<span class='fl'>2</span>) <span class='kw'>%&gt;%</span> <span class='co'># for the sake of speed</span>
-  <span class='fu'>coo_split</span>(<span class='kw'>ldk</span><span class='kw'>=</span><span class='fl'>2</span>:<span class='fl'>3</span>)</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>ℹ</span><span> coo_split: id not provided, working on ldk</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 2 x 6</span><span>
+  <span class='fu'>coo_split</span>(<span class='kw'>ldk</span><span class='kw'>=</span><span class='fl'>2</span>:<span class='fl'>3</span>)</div><div class='output co'>#&gt; <span class='message'>ℹ coo_split: id not provided, working on ldk</span></div><div class='output co'>#&gt; # A tibble: 2 x 6
 #&gt;   coo              ldk     aut   coo_1           coo_2           coo_3          
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;list&lt;coo_singl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;list&lt;coo_sing&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;list&lt;coo_sing&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;list&lt;coo_sing&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> </span><span style='color: #555555;'>&lt;tibble [80 × 2</span><span>… </span><span style='color: #555555;'>&lt;dbl [</span><span>… ced   </span><span style='color: #555555;'>&lt;tibble [5 × 2</span><span>… </span><span style='color: #555555;'>&lt;tibble [75 × </span><span>… </span><span style='color: #555555;'>&lt;tibble [2 × 2</span><span>…
-#&gt; </span><span style='color: #555555;'>2</span><span> </span><span style='color: #555555;'>&lt;tibble [80 × 2</span><span>… </span><span style='color: #555555;'>&lt;dbl [</span><span>… ced   </span><span style='color: #555555;'>&lt;tibble [7 × 2</span><span>… </span><span style='color: #555555;'>&lt;tibble [73 × </span><span>… </span><span style='color: #555555;'>&lt;tibble [2 × 2</span><span>…
-#&gt; ❯</span><span style='background-color: #00BB00;'>mom_tbl</span><span></div><div class='input'>
+#&gt;   &lt;list&lt;coo_singl&gt; &lt;list&gt;  &lt;fct&gt; &lt;list&lt;coo_sing&gt; &lt;list&lt;coo_sing&gt; &lt;list&lt;coo_sing&gt;
+#&gt; 1 &lt;tibble [80 × 2… &lt;dbl [… ced   &lt;tibble [5 × 2… &lt;tibble [75 × … &lt;tibble [2 × 2…
+#&gt; 2 &lt;tibble [80 × 2… &lt;dbl [… ced   &lt;tibble [7 × 2… &lt;tibble [73 × … &lt;tibble [2 × 2…
+#&gt; ❯mom_tbl</div><div class='input'>
 # then dplyr::rename or Momocs2::coo_select if you want to rename/select columns
-</div></span></pre>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -334,7 +334,7 @@ after slicing around landmarks and/or starting points.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

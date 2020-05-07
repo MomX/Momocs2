@@ -178,7 +178,7 @@ to be on certain target points, that is homogeneizes for scale, rotation and pos
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><a href='coo_single.html'>coo_single</a>, <a href='coo_list.html'>coo_list</a> or <a href='mom_tbl.html'>mom_tbl</a></p></td>
+      <td><p>coo_single, coo_list or mom_tbl</p></td>
     </tr>
     <tr>
       <th>target1, target2</th>
@@ -194,8 +194,8 @@ to be on certain target points, that is homogeneizes for scale, rotation and pos
     </tr>
     <tr>
       <th>from_col</th>
-      <td><p>colnames from where to get the <a href='coo_list.html'>coo_list</a>
-and how to name the resulting one (only for <a href='mom_tbl.html'>mom_tbl</a> method)</p></td>
+      <td><p>colnames from where to get the coo_list
+and how to name the resulting one (only for mom_tbl method)</p></td>
     </tr>
     <tr>
       <th>ldk_col</th>
@@ -203,8 +203,8 @@ and how to name the resulting one (only for <a href='mom_tbl.html'>mom_tbl</a> m
     </tr>
     <tr>
       <th>to_col</th>
-      <td><p>colnames from where to get the <a href='coo_list.html'>coo_list</a>
-and how to name the resulting one (only for <a href='mom_tbl.html'>mom_tbl</a> method)</p></td>
+      <td><p>colnames from where to get the coo_list
+and how to name the resulting one (only for mom_tbl method)</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -214,7 +214,7 @@ and how to name the resulting one (only for <a href='mom_tbl.html'>mom_tbl</a> m
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a <a href='coo_single.html'>coo_single</a>, <a href='coo_list.html'>coo_list</a> or <a href='mom_tbl.html'>mom_tbl</a></p>
+    <p>a coo_single, coo_list or mom_tbl</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>coo_bookstein is just a coo_baseline with <code>target1=c(-0.5, 0)</code> and <code>target2=c(0.5, 0)</code>.
@@ -231,37 +231,37 @@ Given coo_baseline defaults, if the two <code>target</code>s are not modified, t
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other coo_modifyers: 
-<code><a href='coo_align.html'>coo_align</a>()</code>,
-<code><a href='coo_center.html'>coo_center</a>()</code>,
-<code><a href='coo_reflect.html'>coo_reflect</a></code>,
-<code><a href='coo_rev.html'>coo_rev</a>()</code>,
-<code><a href='coo_rotatecenter.html'>coo_rotatecenter</a>()</code>,
-<code><a href='coo_rotate.html'>coo_rotate</a>()</code>,
-<code><a href='coo_sample_rr.html'>coo_sample_rr</a>()</code>,
-<code><a href='coo_sample.html'>coo_sample</a>()</code>,
-<code><a href='coo_scale.html'>coo_scale</a>()</code>,
-<code><a href='coo_shear.html'>coo_shear</a>()</code>,
-<code><a href='coo_slide.html'>coo_slide</a>()</code>,
-<code><a href='coo_split.html'>coo_split</a>()</code>,
-<code><a href='coo_template.html'>coo_template</a>()</code>,
-<code><a href='coo_trans.html'>coo_trans</a>()</code>,
-<code><a href='coo_trim.html'>coo_trim</a>()</code>,
-<code><a href='coo_up.html'>coo_up</a>()</code></p></div>
+<code>coo_align()</code>,
+<code>coo_center()</code>,
+<code>coo_reflect</code>,
+<code>coo_rev()</code>,
+<code>coo_rotatecenter()</code>,
+<code>coo_rotate()</code>,
+<code>coo_sample_rr()</code>,
+<code>coo_sample()</code>,
+<code>coo_scale()</code>,
+<code>coo_shear()</code>,
+<code>coo_slide()</code>,
+<code>coo_split()</code>,
+<code>coo_template()</code>,
+<code>coo_trans()</code>,
+<code>coo_trim()</code>,
+<code>coo_up()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># default target1 and target2</span>
 <span class='co'># are Bookstein coordinates</span>
-<span class='no'>bot</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='pick.html'>pick</a></span>(<span class='fl'>1</span>) <span class='kw'>%&gt;%</span>
-  <span class='no'>coo_center</span> <span class='kw'>%&gt;%</span> <span class='no'>coo_align</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='coo_up.html'>coo_up</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'>coo_baseline</span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='gg.html'>gg</a></span>()</div><div class='img'><img src='coo_baseline-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>bot</span> <span class='kw'>%&gt;%</span> <span class='fu'>pick</span>(<span class='fl'>1</span>) <span class='kw'>%&gt;%</span>
+  <span class='no'>coo_center</span> <span class='kw'>%&gt;%</span> <span class='no'>coo_align</span> <span class='kw'>%&gt;%</span> <span class='fu'>coo_up</span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'>coo_baseline</span>() <span class='kw'>%&gt;%</span> <span class='fu'>gg</span>()</div><div class='img'><img src='coo_baseline-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='no'>hearts</span> <span class='kw'>%&gt;%</span>
 <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span>(<span class='fl'>1</span>:<span class='fl'>5</span>) <span class='kw'>%&gt;%</span>
   <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span>(<span class='kw'>foo</span><span class='kw'>=</span><span class='no'>ldk</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>coo_baseline</span>(<span class='kw'>ldk1</span><span class='kw'>=</span><span class='fl'>2</span>, <span class='kw'>ldk2</span><span class='kw'>=</span><span class='fl'>4</span>,
     <span class='kw'>target1</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>10</span>, <span class='fl'>0</span>), <span class='kw'>target2</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>20</span>, <span class='fl'>0</span>),
     <span class='kw'>ldk_col</span><span class='kw'>=</span><span class='no'>foo</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='coo_slide.html'>coo_slide</a></span>(<span class='kw'>ldk</span><span class='kw'>=</span><span class='fl'>4</span>, <span class='kw'>ldk_col</span><span class='kw'>=</span><span class='no'>foo</span>) <span class='kw'>%&gt;%</span>
- <span class='fu'><a href='pile.html'>pile</a></span>(<span class='kw'>alpha</span><span class='kw'>=</span><span class='fl'>0.1</span>)</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span><span> coo_baseline: id1/2 not provided, working on foo</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>ℹ</span><span> coo_slide: id not provided, working on foo</span></div><div class='img'><img src='coo_baseline-2.png' alt='' width='700' height='433' /></div></span></pre>
+    <span class='fu'>coo_slide</span>(<span class='kw'>ldk</span><span class='kw'>=</span><span class='fl'>4</span>, <span class='kw'>ldk_col</span><span class='kw'>=</span><span class='no'>foo</span>) <span class='kw'>%&gt;%</span>
+ <span class='fu'>pile</span>(<span class='kw'>alpha</span><span class='kw'>=</span><span class='fl'>0.1</span>)</div><div class='output co'>#&gt; <span class='message'>ℹ coo_baseline: id1/2 not provided, working on foo</span></div><div class='output co'>#&gt; <span class='message'>ℹ coo_slide: id not provided, working on foo</span></div><div class='img'><img src='coo_baseline-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -277,7 +277,7 @@ Given coo_baseline defaults, if the two <code>target</code>s are not modified, t
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>
