@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Momocs2
+# Momocs2 <a href="https://momx.github.io/Momocs2/"><img src="man/figures/logo.png" align="right" height="139" alt="Momocs2 website" /></a>
 
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/Momocs2)](https://CRAN.R-project.org/package=Momocs2)

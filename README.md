@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# Momocs2
+# Momocs2 <a href="https://momx.github.io/Momocs2/"><img src="man/figures/logo.png" align="right" height="139" alt="Momocs2 website" /></a>
 
 <!-- badges: start -->
 
