@@ -1,0 +1,124 @@
+All functions :
+
+Core trasnformations ----
+coo_center / coo_centre -> coo_centre remove
+coo_trans -> coo_translate
+coo_rotate / coo_rotatecenter -> same / coo_rotate_around
+coo_scale / coo_scalex / coo_scaley -> coo_scale. rm scalex and scaley
+coo_flipx / coo_flipy ->  coo_flip_x/yaxis use axes
+NEW: coo_flip_x/y allows any x/y intercept (centroid by default).
+coo_shearx / coo_sheary -> coo_shear_x/y
+coo_untiltx -> ?
+
+Alignement ----
+coo_align -> now use centroid as center.
+NEW: coo_align_minor uses 2nd svd axes (~2nd PC)
+coo_aligncalliper TODO
+coo_alignminradius TODO
+coo_alignxax TODO
+coo_baseline / coo_bookstein : same name, beter implementation
+coo_slide -> same behaviour and now guarantee to handle funny values
+coo_slidedirection -> coo_slide_direction
+NEW: coo_slide_closest -> can slide to closest of an arbitrary point
+coo_slidegap -> same
+
+Sampling & smoothing -----
+coo_sample  -> same name but now uses a real approximation along arc length / curvilinear abscissa. Using aprox also allows interpolate.
+coo_sample_prop -> same
+coo_samplerr > TODO
+coo_interpolate -> now included in coo_sample
+coo_smooth -> same but better implemented
+coo_smoothcurve -> coo_smooth_fixed
+
+
+Point manipulation: -----
+coo_slice -> coo_open # TODO group with coo_open_up, etc.
+coo_trim -> coo_head
+coo_trimbottom -> coo_tail
+coo_trimtop -> coo_head
+coo_extract -> same
+coo_rev
+coo_jitter
+coo_close
+coo_unclose
+coo_force2close
+
+# RETURN SCALARS
+Area & perimeter:
+measure_area          # coo_area
+measure_perim         # coo_perim
+measure_perimcum      # was coo_perimcum (cumulative - vector), now splitted in get_perim_cum
+measure_perimpts      # coo_perimpts (per point - vector)
+
+Size & dimensions:
+measure_centsize      # coo_centsize
+measure_length        # coo_length
+measure_width         # coo_width
+measure_lw            # coo_lw (length/width ratio)
+measure_calliper      # coo_calliper
+
+Shape descriptors:
+measure_circularity           # coo_circularity
+measure_circularityharalick   # coo_circularityharalick
+measure_circularitynorm       # coo_circularitynorm
+measure_convexity             # coo_convexity
+measure_solidity              # coo_solidity
+measure_eccentricityboundingbox  # coo_eccentricityboundingbox
+measure_eccentricityeigen     # coo_eccentricityeigen
+measure_elongation            # coo_elongation
+measure_rectangularity        # coo_rectangularity
+measure_rectilinearity        # coo_rectilinearity
+
+Distance and angles:
+measure_centdist         # coo_centdist (vector)
+measure_dxy              # coo_dxy (vector)
+measure_diffrange        # coo_diffrange
+measure_angle_edges      # coo_angle_edges (vector)
+measure_angle_tangent    # coo_angle_tangent (vector)
+measure_tangle           # coo_tangle (vector)
+
+Ranges and positions:
+measure_range            # coo_range (2 values)
+measure_centpos          # coo_centpos
+measure_nb               # coo_nb (number of points)
+
+Truss and scalars
+measure_truss            # coo_truss
+measure_scalars          # coo_scalars
+
+Plotting functions
+coo_plot -> pile
+coo_draw -> draw_*
+coo_draw_rads -> removed
+coo_arrows -> TODO ? viz ?
+coo_lolli -> viz
+coo_oscillo -> viz
+coo_ruban -> viz
+coo_tac -> get ? # TODO
+coo_listpanel -> mosaic
+
+stack -> pile (to avoid conflct with existing stack)
+panel -> mosaic
+
+MISC (selon Claude)
+
+coo_boundingbox       # bbox corners coordinates? -> get bounding box ?
+coo_chull             # convex hull coordinates # TODO
+coo_chull_onion       # -> get_chull # TODO
+coo_ldk               # removed. See Momacs.
+coo_range_enlarge     # removed
+
+coo_check             # validation# TODO
+coo_is_closed         # logical check # TODO but not a coo
+coo_template          # same name # TODO (and add to mosaic !!!)
+coo_template_relatively  # TODO
+
+coo_up / coo_down / coo_left / coo_right  # TODO
+coo_likely_clockwise / coo_likely_anticlockwise  # logical check
+
+coo_intersect_angle
+coo_intersect_direction
+coo_intersect_segment
+
+
+

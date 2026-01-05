@@ -1,0 +1,31 @@
+Package: Momocs2
+Type: Package
+Title: Morphometrics methods for outlines, curves, landmarks and measurements
+Version: 0.1.0
+Authors@R: c(
+       person("Vincent", "Bonhomme", ,"bonhomme.vincent@gmail.com", c("aut", "cre")), 
+       person("Julien", "Claude", , , c("aut"), comment = "core functions in base R"))
+Maintainer: <bonhomme.vincent@gmail.com>
+Description: The goal of 'Momocs' is to provide a complete, convenient, 
+       reproducible and open-source toolkit for 2D morphometrics.
+       It includes most common 2D morphometrics approaches on outlines, open outlines, 
+       configurations of landmarks, traditional morphometrics, and facilities for data preparation, 
+       manipulation and visualization with a consistent grammar throughout.
+       It allows reproducible, complex morphometrics analyses and other morphometrics approaches 
+       should be easy to plug in, or develop from, on top of this canvas. Momocs2 is part of MomX and 
+       a complete rewrite of Momocs.
+License: GPL (>= 3)
+Encoding: UTF-8
+LazyData: true
+Depends: 
+    R (>= 3.5)
+RoxygenNote: 7.3.3
+Imports: 
+    cli,
+    magrittr,
+    pillar,
+    rlang,
+    tidyselect
+Roxygen: list(markdown = TRUE)
+Suggests: 
+    dplyr
