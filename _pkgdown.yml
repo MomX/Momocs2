@@ -1,11 +1,7 @@
 url: https://momx.github.io/Momocs2/
 template:
   bootstrap: 5
-  bootswatch: flatly
-  bslib:
-    primary: "#2C5F8D"
-    base_font: {google: "Roboto"}
-    heading_font: {google: "Roboto Slab"}
+  bootswatch: simplex
 
 home:
   title: "Momocs2 • Modern Morphometrics for R"
@@ -87,14 +83,6 @@ reference:
   - rinse
   - "%>%"
 
-- title: "Function Factories"
-  desc: >
-    Higher-order functions for creating dispatchers (advanced users).
-  contents:
-  - make_coo_function
-  - make_get_function
-  - make_measure_function
-
 - title: "S3 Methods"
   desc: >
     Print and display methods for custom classes.
@@ -102,6 +90,11 @@ reference:
   - starts_with("print.")
   - starts_with("type_sum.")
   - starts_with("pillar_shaft.")
+
+news:
+  releases:
+  - text: "Version 0.1.0"
+    href: https://github.com/MomX/Momocs2/releases/tag/v0.1.0
 
 footer:
   structure:
