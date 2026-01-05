@@ -29,3 +29,5 @@ Imports:
 Roxygen: list(markdown = TRUE)
 Suggests: 
     dplyr
+URL: https://github.com/MomX/Momocs2
+BugReports: https://github.com/MomX/Momocs2/issues
