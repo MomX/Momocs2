@@ -103,30 +103,6 @@ reference:
   - starts_with("type_sum.")
   - starts_with("pillar_shaft.")
 
-articles:
-- title: Getting Started
-  navbar: ~
-  contents:
-  - getting-started
-
-- title: Workflows
-  desc: Complete analysis examples
-  contents:
-  - outline-workflow
-  - landmark-workflow
-  - measurements-workflow
-
-- title: Advanced Topics
-  contents:
-  - landmark-aware-sampling
-  - custom-visualizations
-  - extending-momocs2
-
-news:
-  releases:
-  - text: "Version 0.1.0"
-    href: https://github.com/MomX/Momocs2/releases/tag/v0.1.0
-
 footer:
   structure:
     left: developed_by
