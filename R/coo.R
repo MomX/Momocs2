@@ -1218,3 +1218,156 @@ coo_bookstein <- function(x, id1 = 1, id2 = nrow(x)) {
   coo_baseline(x, id1 = id1, id2 = id2,
                t1 = c(-0.5, 0), t2 = c(0.5, 0))
 }
+
+
+# coo_template ----
+
+#' Template shapes to standard size
+#'
+#' Scale and center shapes to fit in a standard template box.
+#'
+#' @param x A matrix (nx2), list of matrices, or tibble with coo columns.
+#' @param size Numeric. Target size for the largest dimension. Default is 1.
+#' @param ... Additional arguments (reserved for future use).
+#' @param .cols Column name(s) to process when `x` is a tibble. If `NULL`,
+#'   automatically detects columns containing coo objects.
+#' @param .ldk_col Character. Name of landmark column. If `NULL`, uses `colname_ldk`.
+#'
+#' @return
+#' * If `x` is a single matrix: returns the templated matrix
+#' * If `x` is a list: returns a list of templated matrices
+#' * If `x` is a tibble: returns the tibble with templated coo column(s)
+#'
+#' @details
+#' **`coo_template()`**: Scales each shape independently so its largest dimension
+#' equals `size`, then centers it at the origin (0, 0).
+#'
+#' **`coo_template_relatively()`**: Scales shapes while preserving relative sizes.
+#' The largest shape gets `size`, others are scaled proportionally smaller.
+#' All shapes are centered at (0, 0).
+#'
+#' For a single matrix, both functions produce identical results.
+#'
+#' `coo_template_relatively()` is perfect for `mosaic()` to create family pictures
+#' where size relationships are preserved!
+#'
+#' @examples
+#' # Single shape - both functions are identical
+#' coo_template(shapes$cat, size = 1)
+#' coo_template_relatively(shapes$cat, size = 1)
+#'
+#' # Multiple shapes - independent scaling
+#' shapes %>% coo_template(size = 1)
+#'
+#' # Multiple shapes - relative scaling
+#' shapes %>% coo_template_relatively(size = 1)
+#'
+#' # Perfect for mosaic - shows true size relationships
+#' shapes %>%
+#'   coo_template_relatively(size = 1) %>%
+#'   mosaic()
+#'
+#' @name coo_template
+#' @seealso [mosaic()], [coo_center()]
+#' @keywords internal
+NULL
+
+#' @rdname coo_template
+#' @export
+coo_template <- make_coo_function(.coo_template, sync_ldk = TRUE)
+
+.coo_template <- function(x, ldk = NULL, size = 1, ...) {
+  if (!is.matrix(x)) return(list(coo = x, ldk = ldk))
+
+  # Calculate ranges
+  x_range <- diff(range(x[, 1]))
+  y_range <- diff(range(x[, 2]))
+
+  # Scale factor based on largest dimension
+  scale_factor <- size / max(x_range, y_range)
+
+  # Scale coordinates
+  coo_scaled <- x * scale_factor
+
+  # Center at origin
+  # Expected center position (half of scaled ranges)
+  expected_center <- c(
+    diff(range(coo_scaled[, 1])) / 2,
+    diff(range(coo_scaled[, 2])) / 2
+  )
+
+  # Observed center (current max values)
+  observed_center <- c(
+    max(coo_scaled[, 1]),
+    max(coo_scaled[, 2])
+  )
+
+  # Shift to center at origin
+  shift <- expected_center - observed_center
+  coo_centered <- sweep(coo_scaled, 2, shift, "+")
+
+  list(coo = coo_centered, ldk = ldk)
+}
+
+
+#' @rdname coo_template
+#' @export
+
+#' @rdname coo_template
+#' @export
+coo_template_relatively <- function(x, size = 1, ..., .cols = NULL, .ldk_col = NULL) {
+  # Single matrix - just use regular template
+  if (is.matrix(x)) {
+    return(coo_template(x, size = size, ..., .cols = .cols, .ldk_col = .ldk_col))
+  }
+
+  # List case - need special handling for relative sizes
+  if (is.list(x) && !is.data.frame(x)) {
+    # Calculate "length" (max dimension) for each shape
+    lengths <- vapply(x, function(coo) {
+      if (!is.matrix(coo)) return(NA_real_)
+      x_range <- diff(range(coo[, 1]))
+      y_range <- diff(range(coo[, 2]))
+      max(x_range, y_range)
+    }, numeric(1))
+
+    # Find largest shape
+    max_length <- max(lengths, na.rm = TRUE)
+
+    # Calculate relative sizes
+    rel_sizes <- (lengths / max_length) * size
+
+    # Template each shape with its relative size
+    result <- lapply(seq_along(x), function(i) {
+      if (!is.matrix(x[[i]])) return(x[[i]])
+      coo_template(x[[i]], size = rel_sizes[i], ...)
+    })
+
+    names(result) <- names(x)
+    return(result)
+  }
+
+  # Tibble case - use standard dispatcher
+  if (is.data.frame(x)) {
+    # Get coo column
+    .cols_quo <- rlang::enquo(.cols)
+    if (rlang::quo_is_null(.cols_quo)) {
+      cols_to_process <- get_coo_cols(x, NULL)
+    } else {
+      cols_idx <- tidyselect::eval_select(.cols_quo, x)
+      cols_to_process <- names(cols_idx)
+    }
+
+    col <- cols_to_process[1]
+
+    # Extract list, template relatively, put back
+    coo_list <- x[[col]]
+    templated <- coo_template_relatively(coo_list, size = size, ...)
+    x[[col]] <- templated
+
+    return(x)
+  }
+
+  # Fallback
+  x
+}

@@ -4,7 +4,18 @@
 \alias{mosaic}
 \title{Plot shapes in grid mosaic layout}
 \usage{
-mosaic(x, ratio = NULL, nrow = NULL, ncol = NULL, ..., .cols = NULL)
+mosaic(
+  x,
+  ratio = NULL,
+  nrow = NULL,
+  ncol = NULL,
+  relative = TRUE,
+  .label = NULL,
+  label_cex = 0.5,
+  ...,
+  .cols = NULL,
+  .ldk_col = NULL
+)
 }
 \arguments{
 \item{x}{A matrix (nx2), list of matrices, or tibble with coo columns.}
@@ -16,10 +27,21 @@ If NULL and nrow/ncol not specified, creates square-ish layout.}
 
 \item{ncol}{Integer. Number of columns in the grid.}
 
+\item{relative}{Logical. If TRUE (default), uses \code{coo_template_relatively()} to
+preserve relative sizes. If FALSE, uses \code{coo_template()} to scale all shapes
+to the same size.}
+
+\item{.label}{Column name for labels to display at each shape's origin. Only works
+with tibbles. Can be specified with or without quotes.}
+
+\item{label_cex}{Numeric. Character expansion for labels. Default is 0.5.}
+
 \item{...}{Additional arguments (reserved for future use).}
 
 \item{.cols}{Column name(s) to process when \code{x} is a tibble. If \code{NULL},
 automatically detects columns containing coo objects.}
+
+\item{.ldk_col}{Character. Name of landmark column. If \code{NULL}, uses \code{colname_ldk}.}
 }
 \value{
 Invisibly returns list of translated matrices (for piping).
@@ -28,16 +50,22 @@ Invisibly returns list of translated matrices (for piping).
 Display one or more shapes arranged in a grid layout with automatic positioning.
 }
 \details{
-Arranges shapes in a grid mosaic. Shapes are assumed to be templated
-(centered in a 1x1 bounding box). Works with:
+Arranges shapes in a grid mosaic. By default, shapes are templated relatively
+to preserve their size relationships - perfect for family pictures!
+
+Works with:
 \itemize{
 \item Single matrix: plots that shape
 \item List of matrices: arranges all shapes in grid
-\item Tibble: arranges all shapes from coo columns (or specified \code{.cols})
+\item Tibble: arranges all shapes from coo column (or specified \code{.cols})
 }
 
 Grid dimensions can be controlled via \code{nrow}, \code{ncol}, or \code{ratio}. If none
 are specified, creates a square-ish layout.
+
+If a tibble has a landmark column (e.g., \code{coo_ldk}), landmarks will be drawn
+in addition to outlines. Otherwise, falls back to heuristic: if shapes have
+fewer than 32 points, draws as landmarks; otherwise draws as outlines.
 }
 \examples{
 mosaic(shapes$cat)
@@ -45,6 +73,16 @@ mosaic(shapes)
 mosaic(bot)
 mosaic(shapes, nrow = 2)
 mosaic(shapes, ratio = 16/9)
+
+# Preserve relative sizes (default)
+shapes \%>\% mosaic(relative = TRUE)
+
+# All same size
+shapes \%>\% mosaic(relative = FALSE)
+
+# With labels from tibble column
+bot \%>\% mosaic(.label = type)
+bot \%>\% mosaic(.label = "type", label_cex = 0.75)
 
 }
 \keyword{internal}

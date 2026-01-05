@@ -9,7 +9,7 @@ A data frame with 40 rows and three columns
 \describe{
 \item{img}{dummy paths}
 \item{coo}{outline coordinates}
-\item{ldk}{landmark id (4) on these coordinates}
+\item{coo_ldk}{landmark id (4) on these coordinates}
 \item{author}{who drawn these}
 }
 }

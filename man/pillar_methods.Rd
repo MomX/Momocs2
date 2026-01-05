@@ -3,103 +3,75 @@
 \name{pillar_methods}
 \alias{pillar_methods}
 \alias{type_sum.coo}
-\alias{pillar_shaft.coo}
 \alias{type_sum.out}
-\alias{pillar_shaft.out}
 \alias{type_sum.ldk}
-\alias{pillar_shaft.ldk}
 \alias{type_sum.ldk_id}
-\alias{pillar_shaft.ldk_id}
-\alias{type_sum.opoly}
-\alias{pillar_shaft.opoly}
-\alias{type_sum.npoly}
-\alias{pillar_shaft.npoly}
 \alias{type_sum.path}
-\alias{pillar_shaft.path}
 \alias{type_sum.cur}
-\alias{pillar_shaft.cur}
 \alias{type_sum.dct}
-\alias{pillar_shaft.dct}
 \alias{type_sum.eft}
-\alias{pillar_shaft.eft}
+\alias{type_sum.npoly}
+\alias{type_sum.opoly}
 \alias{type_sum.proc}
+\alias{pillar_shaft.coo}
+\alias{pillar_shaft.out}
+\alias{pillar_shaft.ldk}
+\alias{pillar_shaft.ldk_id}
+\alias{pillar_shaft.path}
+\alias{pillar_shaft.cur}
+\alias{pillar_shaft.dct}
+\alias{pillar_shaft.eft}
+\alias{pillar_shaft.npoly}
+\alias{pillar_shaft.opoly}
 \alias{pillar_shaft.proc}
 \title{Pillar support for morphometric data types}
 \usage{
 type_sum.coo(x)
 
-pillar_shaft.coo(x, ...)
-
 type_sum.out(x)
-
-pillar_shaft.out(x, ...)
 
 type_sum.ldk(x)
 
-pillar_shaft.ldk(x, ...)
-
 type_sum.ldk_id(x)
-
-pillar_shaft.ldk_id(x, ...)
-
-type_sum.opoly(x)
-
-pillar_shaft.opoly(x, ...)
-
-type_sum.npoly(x)
-
-pillar_shaft.npoly(x, ...)
 
 type_sum.path(x)
 
-pillar_shaft.path(x, ...)
-
 type_sum.cur(x)
-
-pillar_shaft.cur(x, ...)
 
 type_sum.dct(x)
 
-pillar_shaft.dct(x, ...)
-
 type_sum.eft(x)
 
-pillar_shaft.eft(x, ...)
+type_sum.npoly(x)
+
+type_sum.opoly(x)
 
 type_sum.proc(x)
 
-pillar_shaft.proc(x, ...)
-}
-\arguments{
-\item{x}{A vector of the appropriate class.}
+\method{pillar_shaft}{coo}(x, ...)
 
-\item{...}{Additional arguments passed to pillar methods.}
-}
-\value{
-\itemize{
-\item \verb{type_sum.*}: A character string with the abbreviated type name
-\item \verb{pillar_shaft.*}: A pillar shaft object for formatted display
-}
+\method{pillar_shaft}{out}(x, ...)
+
+\method{pillar_shaft}{ldk}(x, ...)
+
+\method{pillar_shaft}{ldk_id}(x, ...)
+
+\method{pillar_shaft}{path}(x, ...)
+
+\method{pillar_shaft}{cur}(x, ...)
+
+\method{pillar_shaft}{dct}(x, ...)
+
+\method{pillar_shaft}{eft}(x, ...)
+
+\method{pillar_shaft}{npoly}(x, ...)
+
+\method{pillar_shaft}{opoly}(x, ...)
+
+\method{pillar_shaft}{proc}(x, ...)
 }
 \description{
-These S3 methods provide custom formatting for morphometric data types
-when displayed in tibbles via the pillar package.
-}
-\details{
-These methods are called automatically by tibble/pillar and are not
-intended for direct use. They provide compact, colored display of:
-\itemize{
-\item \code{coo}: coordinate matrices with point count and dimensionality
-\item \code{out}: outline coordinates with point count
-\item \code{ldk}: landmark coordinates with point count
-\item \code{ldk_id}: landmark IDs with count
-\item \code{opoly}: open polygon coordinates with point count
-\item \code{npoly}: closed polygon lists with polygon count
-\item \code{path}: path coordinates with point count
-\item \code{cur}: curve coordinates with point count
-\item \code{dct}: discrete cosine transform coefficients with range
-\item \code{eft}: elliptical Fourier transform coefficients with range
-\item \code{proc}: Procrustes-aligned coordinates with point count
-}
+These functions provide custom display methods for morphometric classes
+in tibble printing via the pillar package.
 }
 \keyword{internal}

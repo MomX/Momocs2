@@ -36,6 +36,15 @@ reference:
   contents:
   - starts_with("as_")
 
+- title: "Datasets"
+  desc: >
+    Small datasets to play with
+  contents:
+  - bot
+  - hearts
+  - shapes
+  - wings
+
 - title: "Coordinate Transformations"
   desc: >
     Functions to transform shape coordinates. These modify the coo column in tibbles.

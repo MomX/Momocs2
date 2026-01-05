@@ -4,7 +4,7 @@
 \alias{pile}
 \title{Plot shapes stacked together}
 \usage{
-pile(x, ..., .cols = NULL)
+pile(x, ..., .cols = NULL, .ldk_col = NULL)
 }
 \arguments{
 \item{x}{A matrix (nx2), list of matrices, or tibble with coo columns.}
@@ -13,6 +13,8 @@ pile(x, ..., .cols = NULL)
 
 \item{.cols}{Column name(s) to process when \code{x} is a tibble. If \code{NULL},
 automatically detects columns containing coo objects.}
+
+\item{.ldk_col}{Character. Name of landmark column. If \code{NULL}, uses \code{colname_ldk}.}
 }
 \value{
 Invisibly returns \code{x} (for piping).
@@ -25,8 +27,12 @@ Stacks all shapes on a single plot. Works with:
 \itemize{
 \item Single matrix: plots that shape
 \item List of matrices: plots all shapes overlaid
-\item Tibble: plots all coo columns (or specified \code{.cols})
+\item Tibble: plots all shapes from coo column (or specified \code{.cols})
 }
+
+If a tibble has a landmark column (e.g., \code{coo_ldk}), landmarks will be drawn
+in addition to outlines. Otherwise, falls back to heuristic: if shapes have
+fewer than 32 points, draws as landmarks; otherwise draws as outlines.
 }
 \examples{
 pile(shapes$cat)

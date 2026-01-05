@@ -14,15 +14,17 @@
 # shapes <- shapes %>% Momocs::slice(c(4, 7, 11, 15)) %>% coo_sample(120) %$% coo
 # usethis::use_data(shapes, overwrite=T)
 #
-# # data(Momocs:::hearts)
+# data(Momocs:::hearts)
 # hearts <- hearts %>% as_df() %>% mutate(ldk=hearts$ldk) %>%
 #   select(coo, ldk, author=aut) %>% group_by(author) %>% slice(1:5) %>% ungroup()
 # class(hearts$coo) <- c("out", "coo", class(hearts$coo))
 # class(hearts$ldk) <- c("ldk_id", class(hearts$ldk))
+# strange below...but toherise '$ doest work for atomic vectors'
 # set.seed(2329)
 # hearts$img <- replicate(40, paste0(c(sample(letters, 8), ".jpg"), collapse = ""))
+# hearts <- dplyr::relocate(hearts, img) %>% dplyr::mutate(img=Momocs2::as_path(img))
 # class(hearts$img) <- c("path", class(hearts$img))
-# hearts <- hearts %>% select(img, coo, ldk, author)
+# hearts <- hearts %>% select(img, coo, coo_ldk=ldk, author)
 # usethis::use_data(hearts, overwrite=T)
 
 
@@ -74,7 +76,7 @@
 #' \describe{
 #'   \item{img}{dummy paths}
 #'   \item{coo}{outline coordinates}
-#'   \item{ldk}{landmark id (4) on these coordinates}
+#'   \item{coo_ldk}{landmark id (4) on these coordinates}
 #'   \item{author}{who drawn these}
 #' }
 #'

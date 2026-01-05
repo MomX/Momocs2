@@ -42,10 +42,8 @@ get_centroid_size(shapes)
 # Extract from tibble
 sizes <- get_centroid_size(bot)
 
-\dontrun{
- # Add to tibble when dplyr is loaded
-bot \%>\% mutate(centsize = get_centroid_size(coo))
-}
+# Add to tibble
+bot$centsize <- get_centroid_size(bot)
 
 }
 \keyword{internal}

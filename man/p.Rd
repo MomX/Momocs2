@@ -10,7 +10,7 @@
 \alias{draw_links}
 \title{Minimal plotting system for morphometric shapes}
 \usage{
-p(x, xlim, ylim)
+p(x, xlim, ylim, axes = TRUE)
 
 draw_landmarks(x, col = "grey20", pch = 3, cex = 0.25, ...)
 
@@ -30,6 +30,8 @@ draw_links(x, links, col = "grey20", lwd = 0.5, ...)
 \item{xlim}{Numeric vector of length 2 giving x-axis limits. If missing, calculated from data}
 
 \item{ylim}{Numeric vector of length 2 giving y-axis limits. If missing, calculated from data}
+
+\item{axes}{Logical. Whether to draw axes.}
 
 \item{col}{Character. Color for points, lines, or axes}
 
