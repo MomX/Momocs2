@@ -1,6 +1,12 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^LICENSE\.md$
-^ignore$
 ^README\.Rmd$
 ^CODE_OF_CONDUCT\.md$
+^\.github$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^\.git$
+^\.gitignore$
+^ignore$
