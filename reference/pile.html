@@ -52,7 +52,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">pile</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, .cols <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">pile</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, .cols <span class="op">=</span> <span class="cn">NULL</span>, .ldk_col <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -71,6 +71,10 @@
 <dd><p>Column name(s) to process when <code>x</code> is a tibble. If <code>NULL</code>,
 automatically detects columns containing coo objects.</p></dd>
 
+
+<dt id="arg--ldk-col">.ldk_col<a class="anchor" aria-label="anchor" href="#arg--ldk-col"></a></dt>
+<dd><p>Character. Name of landmark column. If <code>NULL</code>, uses <code>colname_ldk</code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -80,8 +84,11 @@ automatically detects columns containing coo objects.</p></dd>
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>Stacks all shapes on a single plot. Works with:</p><ul><li><p>Single matrix: plots that shape</p></li>
 <li><p>List of matrices: plots all shapes overlaid</p></li>
-<li><p>Tibble: plots all coo columns (or specified <code>.cols</code>)</p></li>
-</ul></div>
+<li><p>Tibble: plots all shapes from coo column (or specified <code>.cols</code>)</p></li>
+</ul><p>If a tibble has a landmark column (e.g., <code>coo_ldk</code>), landmarks will be drawn
+in addition to outlines. Otherwise, falls back to heuristic: if shapes have
+fewer than 32 points, draws as landmarks; otherwise draws as outlines.</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>

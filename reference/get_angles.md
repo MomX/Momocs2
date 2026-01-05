@@ -69,8 +69,6 @@ get_angles(shapes$cat)
 # Extract from tibble
 angles <- get_angles(bot)
 
-if (FALSE) { # \dontrun{
- # Add to tibble when dplyr is loaded
-bot %>% mutate(angles = get_angles(coo))
-} # }
+# Add to tibble
+bot$angles <- get_angles(bot)
 ```

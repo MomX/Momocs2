@@ -94,8 +94,6 @@ get_perim_cum(shapes$cat)
 # Extract from tibble
 perims <- get_perim(bot)
 
-if (FALSE) { # \dontrun{
- # Add to tibble when dplyr is loaded
-bot %>% mutate(perim = get_perim(coo))
-} # }
+# Add to tibble
+bot$perim <- get_perim(bot)
 ```

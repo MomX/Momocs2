@@ -113,10 +113,8 @@ Use within <code>mutate()</code> to add as a column: <code>mutate(df, cs = get_c
 <span class="r-in"><span><span class="co"># Extract from tibble</span></span></span>
 <span class="r-in"><span><span class="va">sizes</span> <span class="op">&lt;-</span> <span class="fu">get_centroid_size</span><span class="op">(</span><span class="va">bot</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
-<span class="r-in"><span> <span class="co"># Add to tibble when dplyr is loaded</span></span></span>
-<span class="r-in"><span><span class="va">bot</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">mutate</span><span class="op">(</span>centsize <span class="op">=</span> <span class="fu">get_centroid_size</span><span class="op">(</span><span class="va">coo</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
+<span class="r-in"><span><span class="co"># Add to tibble</span></span></span>
+<span class="r-in"><span><span class="va">bot</span><span class="op">$</span><span class="va">centsize</span> <span class="op">&lt;-</span> <span class="fu">get_centroid_size</span><span class="op">(</span><span class="va">bot</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

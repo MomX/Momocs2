@@ -49,6 +49,19 @@ files, so they display on GitHub and CRAN.
 
 S3 classes and constructor functions for morphometric data types.
 
+## Datasets
+
+Small datasets to play with
+
+- [`bot`](https://momx.github.io/Momocs2/reference/bot.md) : Bottles
+  dataset
+- [`hearts`](https://momx.github.io/Momocs2/reference/hearts.md) : Heart
+  dataset
+- [`shapes`](https://momx.github.io/Momocs2/reference/shapes.md) :
+  Shapes dataset
+- [`wings`](https://momx.github.io/Momocs2/reference/wings.md) : Wings
+  dataset
+
 ## Coordinate Transformations
 
 Functions to transform shape coordinates. These modify the coo column in

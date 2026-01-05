@@ -8,7 +8,7 @@ their input invisibly, enabling pipe-friendly workflows.
 ## Usage
 
 ``` r
-p(x, xlim, ylim)
+p(x, xlim, ylim, axes = TRUE)
 
 draw_landmarks(x, col = "grey20", pch = 3, cex = 0.25, ...)
 
@@ -39,6 +39,10 @@ draw_links(x, links, col = "grey20", lwd = 0.5, ...)
 
   Numeric vector of length 2 giving y-axis limits. If missing,
   calculated from data
+
+- axes:
+
+  Logical. Whether to draw axes.
 
 - col:
 

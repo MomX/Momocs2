@@ -68,8 +68,6 @@ get_centroid(shapes)
 # Extract from tibble
 centroids <- get_centroid(bot)
 
-if (FALSE) { # \dontrun{
- # Add to tibble when dplyr is loaded
-bot %>% mutate(centroid = get_centroid(coo))
-} # }
+# Add to tibble
+bot$centroid <- get_centroid(bot)
 ```

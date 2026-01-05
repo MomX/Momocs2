@@ -62,8 +62,6 @@ get_centroid_size_norm(shapes)
 # Extract from tibble
 sizes_norm <- get_centroid_size_norm(bot)
 
-if (FALSE) { # \dontrun{
- # Add to tibble when dplyr is loaded
-bot %>% mutate(cs_norm = get_centroid_size_norm(coo))
-} # }
+# Add to tibble
+bot$cs_norm <- get_centroid_size_norm(bot)
 ```

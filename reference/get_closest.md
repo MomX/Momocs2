@@ -68,8 +68,6 @@ get_closest_angle(shapes$cat, theta = 0)
 # Extract from tibble
 closest_ids <- get_closest(bot, c(100, 100))
 
-if (FALSE) { # \dontrun{
- # Add to tibble when dplyr is loaded
-bot %>% mutate(closest = get_closest(coo, c(100, 100)))
-} # }
+# Add to tibble
+bot$closest <- get_closest(bot, c(100, 100))
 ```

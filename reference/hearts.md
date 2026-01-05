@@ -20,7 +20,7 @@ A data frame with 40 rows and three columns
 
   outline coordinates
 
-- ldk:
+- coo_ldk:
 
   landmark id (4) on these coordinates
 

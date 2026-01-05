@@ -52,7 +52,18 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">mosaic</span><span class="op">(</span><span class="va">x</span>, ratio <span class="op">=</span> <span class="cn">NULL</span>, nrow <span class="op">=</span> <span class="cn">NULL</span>, ncol <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span>, .cols <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">mosaic</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  ratio <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  nrow <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  ncol <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  relative <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  .label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  label_cex <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  .cols <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  .ldk_col <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -76,6 +87,21 @@ If NULL and nrow/ncol not specified, creates square-ish layout.</p></dd>
 <dd><p>Integer. Number of columns in the grid.</p></dd>
 
 
+<dt id="arg-relative">relative<a class="anchor" aria-label="anchor" href="#arg-relative"></a></dt>
+<dd><p>Logical. If TRUE (default), uses <code><a href="coo_template.html">coo_template_relatively()</a></code> to
+preserve relative sizes. If FALSE, uses <code><a href="coo_template.html">coo_template()</a></code> to scale all shapes
+to the same size.</p></dd>
+
+
+<dt id="arg--label">.label<a class="anchor" aria-label="anchor" href="#arg--label"></a></dt>
+<dd><p>Column name for labels to display at each shape's origin. Only works
+with tibbles. Can be specified with or without quotes.</p></dd>
+
+
+<dt id="arg-label-cex">label_cex<a class="anchor" aria-label="anchor" href="#arg-label-cex"></a></dt>
+<dd><p>Numeric. Character expansion for labels. Default is 0.5.</p></dd>
+
+
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Additional arguments (reserved for future use).</p></dd>
 
@@ -84,6 +110,10 @@ If NULL and nrow/ncol not specified, creates square-ish layout.</p></dd>
 <dd><p>Column name(s) to process when <code>x</code> is a tibble. If <code>NULL</code>,
 automatically detects columns containing coo objects.</p></dd>
 
+
+<dt id="arg--ldk-col">.ldk_col<a class="anchor" aria-label="anchor" href="#arg--ldk-col"></a></dt>
+<dd><p>Character. Name of landmark column. If <code>NULL</code>, uses <code>colname_ldk</code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -91,12 +121,16 @@ automatically detects columns containing coo objects.</p></dd>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Arranges shapes in a grid mosaic. Shapes are assumed to be templated
-(centered in a 1x1 bounding box). Works with:</p><ul><li><p>Single matrix: plots that shape</p></li>
+    <p>Arranges shapes in a grid mosaic. By default, shapes are templated relatively
+to preserve their size relationships - perfect for family pictures!</p>
+<p>Works with:</p><ul><li><p>Single matrix: plots that shape</p></li>
 <li><p>List of matrices: arranges all shapes in grid</p></li>
-<li><p>Tibble: arranges all shapes from coo columns (or specified <code>.cols</code>)</p></li>
+<li><p>Tibble: arranges all shapes from coo column (or specified <code>.cols</code>)</p></li>
 </ul><p>Grid dimensions can be controlled via <code>nrow</code>, <code>ncol</code>, or <code>ratio</code>. If none
 are specified, creates a square-ish layout.</p>
+<p>If a tibble has a landmark column (e.g., <code>coo_ldk</code>), landmarks will be drawn
+in addition to outlines. Otherwise, falls back to heuristic: if shapes have
+fewer than 32 points, draws as landmarks; otherwise draws as outlines.</p>
     </div>
 
     <div class="section level2">
@@ -110,6 +144,19 @@ are specified, creates a square-ish layout.</p>
 <span class="r-in"><span><span class="fu">mosaic</span><span class="op">(</span><span class="va">shapes</span>, nrow <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="mosaic-4.png" alt="" width="2100" height="1500"></span>
 <span class="r-in"><span><span class="fu">mosaic</span><span class="op">(</span><span class="va">shapes</span>, ratio <span class="op">=</span> <span class="fl">16</span><span class="op">/</span><span class="fl">9</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Preserve relative sizes (default)</span></span></span>
+<span class="r-in"><span><span class="va">shapes</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">mosaic</span><span class="op">(</span>relative <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># All same size</span></span></span>
+<span class="r-in"><span><span class="va">shapes</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">mosaic</span><span class="op">(</span>relative <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="mosaic-5.png" alt="" width="2100" height="1500"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># With labels from tibble column</span></span></span>
+<span class="r-in"><span><span class="va">bot</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">mosaic</span><span class="op">(</span>.label <span class="op">=</span> <span class="va">type</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="mosaic-6.png" alt="" width="2100" height="1500"></span>
+<span class="r-in"><span><span class="va">bot</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">mosaic</span><span class="op">(</span>.label <span class="op">=</span> <span class="st">"type"</span>, label_cex <span class="op">=</span> <span class="fl">0.75</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="mosaic-7.png" alt="" width="2100" height="1500"></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
