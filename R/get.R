@@ -694,8 +694,8 @@ get_solidity <- make_get_function(.get_solidity)
 #' get_calliper(shapes$cat)
 #' get_calliper_ids(shapes$cat)
 #'
-#' # Use in measure()
-#' bot %>% measure("calliper")
+#' # Use in measure() on minibot for the sake of speed
+#' bot[1:2, ] %>% measure("calliper")
 #'
 #' @name get_calliper
 #' @keywords internal
@@ -774,8 +774,8 @@ get_calliper_ids <- make_get_function(.get_calliper_ids)
 #' @examples
 #' get_rectilinearity(shapes$cat)
 #'
-#' # Use in measure()
-#' bot %>% measure("rectilinearity")
+#' # Use in measure() on mini bot for the sake of speed
+#' bot[1:2, ] %>% measure("rectilinearity")
 #'
 #' @references
 #' Zunic, J., & Rosin, P. L. (2003). Rectilinearity measurements for polygons.

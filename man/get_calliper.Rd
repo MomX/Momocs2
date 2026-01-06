@@ -38,8 +38,8 @@ Note: \code{get_calliper_ids()} returns a vector, not a scalar, so cannot be use
 get_calliper(shapes$cat)
 get_calliper_ids(shapes$cat)
 
-# Use in measure()
-bot \%>\% measure("calliper")
+# Use in measure() on minibot for the sake of speed
+bot[1:2, ] \%>\% measure("calliper")
 
 }
 \keyword{internal}

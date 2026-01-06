@@ -1,9 +1,16 @@
 url: https://momx.github.io/Momocs2/
+
 template:
   bootstrap: 5
-  theme: flatly
+  math-rendering: mathjax
+  light-switch: true
   bslib:
-    primary: "#2C5F8D"
+    primary: "#0054AD"
+    border-radius: 0.5rem
+    btn-border-radius: 0.25rem
+    danger: "#A6081A"
+
+
 
 reference:
 - title: "Coordinate transformations (coo_*)"

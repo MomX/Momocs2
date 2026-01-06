@@ -47,6 +47,9 @@ make_coo_function <- function(impl_fn, fn_name = NULL, sync_ldk = FALSE) {
       }
 
       for (col in cols_to_process) {
+        # Store original class to restore later
+        original_class <- class(x[[col]])
+
         if (sync_ldk) {
           # Determine landmark column name with tidyeval support
           .ldk_col_quo <- rlang::enquo(.ldk_col)
@@ -78,6 +81,13 @@ make_coo_function <- function(impl_fn, fn_name = NULL, sync_ldk = FALSE) {
           # No landmark support needed
           x[[col]] <- lapply(x[[col]], impl_fn, ...)
         }
+
+        # Ensure 'coo' class is present (keep original classes too)
+        if (!"coo" %in% original_class) {
+          class(x[[col]]) <- c("coo", original_class)
+        } else {
+          class(x[[col]]) <- original_class
+        }
       }
       return(x)
     }
@@ -85,16 +95,35 @@ make_coo_function <- function(impl_fn, fn_name = NULL, sync_ldk = FALSE) {
     if (is.list(x)) {
       if (sync_ldk) {
         results <- lapply(x, function(coo) impl_fn(coo, ldk = NULL, ...))
-        lapply(results, `[[`, "coo")
+        result_list <- lapply(results, `[[`, "coo")
       } else {
-        lapply(x, impl_fn, ...)
+        result_list <- lapply(x, impl_fn, ...)
       }
+
+      # Ensure 'coo' class is present (keep original classes too)
+      original_class <- class(x)
+      if (!"coo" %in% original_class) {
+        class(result_list) <- c("coo", original_class)
+      } else {
+        class(result_list) <- original_class
+      }
+
+      return(result_list)
     } else {
-      if (sync_ldk) {
+      # Single matrix case
+      result <- if (sync_ldk) {
         impl_fn(x, ldk = NULL, ...)$coo
       } else {
         impl_fn(x, ...)
       }
+
+      # Ensure 'coo' class is present
+      original_class <- class(result)
+      if (!"coo" %in% original_class) {
+        class(result) <- c("coo", original_class)
+      }
+
+      return(result)
     }
   }
 
@@ -115,11 +144,11 @@ make_coo_function <- function(impl_fn, fn_name = NULL, sync_ldk = FALSE) {
 print.momocs2_function <- function(x, ...) {
   impl_fn <- attr(x, "impl_fn")
   sync_ldk <- attr(x, "sync_ldk")
-  cat(sprintf("# Momocs2 function wrapping: %s\n", impl_fn))
+  cat(sprintf("### Momocs2 function wrapping: %s\n", impl_fn, " ###"))
   if (sync_ldk) {
-    cat("# Landmark-aware: yes\n")
+    cat("### Landmark-aware: yes\n")
   }
-  cat(sprintf("# View implementation: Momocs2:::%s\n\n", impl_fn))
+  cat(sprintf("### View implementation: Momocs2:::%s\n\n", impl_fn, , " ###"))
   NextMethod()
 }
 
@@ -452,15 +481,7 @@ coo_translate <- make_coo_function(.coo_translate)
 coo_scale <- make_coo_function(.coo_scale, sync_ldk = FALSE)
 
 .coo_scale <- function(x, ldk = NULL, ...) {
-  if (!is.matrix(x)) return(list(coo = x, ldk = ldk))
-
-  # Scale to unit centroid size
-  cs <- .get_centroid_size(x)
-  if (cs > 0) {
-    x <- x / cs
-  }
-
-  list(coo = x, ldk = ldk)
+  scale(x, center = FALSE, scale = TRUE)
 }
 
 

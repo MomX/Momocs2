@@ -35,8 +35,8 @@ Computationally intensive - tests 4n rotations where n is the number of points.
 \examples{
 get_rectilinearity(shapes$cat)
 
-# Use in measure()
-bot \%>\% measure("rectilinearity")
+# Use in measure() on mini bot for the sake of speed
+bot[1:2, ] \%>\% measure("rectilinearity")
 
 }
 \references{
