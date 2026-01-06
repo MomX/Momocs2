@@ -13,8 +13,6 @@ coo_close_spread(x, ..., .cols = NULL, .ldk_col = NULL)
 
 \item{.cols}{Column name(s) to process when \code{x} is a tibble. If \code{NULL},
 automatically detects columns containing coo columns.}
-
-\item{.ldk_col}{Character. Name of landmark column. If \code{NULL}, uses \code{colname_ldk}.}
 }
 \value{
 \itemize{
@@ -29,14 +27,19 @@ Distribute the distance between first and last points across all points to close
 \details{
 For open outlines, distributes the gap between the first and last points
 evenly across all points, so the outline becomes closed.
-
-Landmarks are synced to maintain their positions.
 }
 \examples{
+# Close by spreading gap
 coo_close_spread(shapes$cat)
+
+# Works on lists
+coo_close_spread(bot$coo)
+
+# Works on tibbles
+coo_close_spread(bot)
 
 }
 \seealso{
-\code{\link[=coo_close]{coo_close()}}, \code{\link[=coo_open]{coo_open()}}
+\code{\link[=coo_close]{coo_close()}} for simple closing; \code{\link[=coo_open]{coo_open()}} for opening
 }
 \keyword{internal}

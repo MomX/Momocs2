@@ -23,7 +23,7 @@
 #' Additional arguments are passed through via `...`
 #'
 #' @keywords internal
-#' @noRd
+#' @export
 make_get_function <- function(impl_fn, fn_name = NULL) {
   # Infer function name if not provided
   if (is.null(fn_name)) {
@@ -121,10 +121,6 @@ print.momocs2_get_function <- function(x, ...) {
 #' @keywords internal
 #' @export
 get_centroid <- make_get_function(.get_centroid)
-
-#' @rdname get_centroid
-#' @export
-centroid <- get_centroid
 
 .get_centroid <- function(x, ...) {
   if (!is.matrix(x)) return(NA_real_)
@@ -1223,9 +1219,6 @@ get_compactness <- make_get_function(.get_compactness)
 #' @examples
 #' get_truss(shapes$cat)
 #' # Returns named vector: "1-2", "1-3", "1-4", ..., "n-1-n"
-#'
-#' @importFrom stats dist
-#' @importFrom stats sd
 #'
 #' @keywords internal
 #' @export

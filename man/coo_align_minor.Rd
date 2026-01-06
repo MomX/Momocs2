@@ -24,4 +24,15 @@ automatically detects columns containing coo objects.}
 \description{
 Align a shape to its principal axes with major and minor axes swapped.
 }
+\examples{
+# Align with swapped axes
+coo_align_minor(shapes$cat)
+
+# Works on tibbles
+coo_align_minor(bot)
+
+}
+\seealso{
+\code{\link[=coo_align]{coo_align()}} for standard alignment
+}
 \keyword{internal}

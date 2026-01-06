@@ -21,8 +21,6 @@ coo_trim_both(x, ..., .cols = NULL, .ldk_col = NULL)
 \item{.cols}{Column name(s) to process when \code{x} is a tibble. If \code{NULL},
 automatically detects columns containing coo columns.}
 
-\item{.ldk_col}{Character. Name of landmark column. If \code{NULL}, uses \code{colname_ldk}.}
-
 \item{n}{Integer or numeric. Number of points to remove, or if between 0 and 1,
 fraction of perimeter to remove.}
 }
@@ -51,8 +49,14 @@ Landmarks are NOT adjusted. Use with caution if shape has landmarks.
 # Remove 10 points from start
 coo_trim_head(shapes$cat, n = 10)
 
+# Remove 5 points from end
+coo_trim_tail(bot$coo, n = 5)
+
 # Remove 5\% of perimeter from each end
 coo_trim_both(shapes$cat, n = 0.05)
 
+}
+\seealso{
+\code{\link[=coo_head]{coo_head()}} for keeping first n points; \code{\link[=coo_tail]{coo_tail()}} for removing last n points
 }
 \keyword{internal}

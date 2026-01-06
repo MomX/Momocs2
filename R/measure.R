@@ -146,6 +146,10 @@ available_measures <- function() {
     "convexity",
     "solidity",
 
+    # Complexity
+    "rugosity",
+    "compactness",
+
     # Complex measures
     "rectilinearity",
     "calliper"

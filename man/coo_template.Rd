@@ -17,8 +17,6 @@ coo_template_relatively(x, size = 1, ..., .cols = NULL, .ldk_col = NULL)
 \item{.cols}{Column name(s) to process when \code{x} is a tibble. If \code{NULL},
 automatically detects columns containing coo objects.}
 
-\item{.ldk_col}{Character. Name of landmark column. If \code{NULL}, uses \code{colname_ldk}.}
-
 \item{size}{Numeric. Target size for the largest dimension. Default is 1.}
 }
 \value{
@@ -50,18 +48,18 @@ coo_template(shapes$cat, size = 1)
 coo_template_relatively(shapes$cat, size = 1)
 
 # Multiple shapes - independent scaling
-shapes \%>\% coo_template(size = 1)
+coo_template(bot$coo, size = 1)
 
 # Multiple shapes - relative scaling
-shapes \%>\% coo_template_relatively(size = 1)
+coo_template_relatively(bot$coo, size = 1)
 
 # Perfect for mosaic - shows true size relationships
-shapes \%>\%
+bot \%>\%
   coo_template_relatively(size = 1) \%>\%
   mosaic()
 
 }
 \seealso{
-\code{\link[=mosaic]{mosaic()}}, \code{\link[=coo_center]{coo_center()}}
+\code{\link[=mosaic]{mosaic()}} for visualization; \code{\link[=coo_center]{coo_center()}} for centering; \code{\link[=coo_scale]{coo_scale()}} for normalization
 }
 \keyword{internal}

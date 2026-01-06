@@ -28,6 +28,9 @@ Imports:
     tidyselect
 Roxygen: list(markdown = TRUE)
 Suggests: 
-    dplyr
+    dplyr,
+    knitr,
+    rmarkdown
 URL: https://github.com/MomX/Momocs2, https://momx.github.io/Momocs2/
 BugReports: https://github.com/MomX/Momocs2/issues
+VignetteBuilder: knitr

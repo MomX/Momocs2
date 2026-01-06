@@ -29,12 +29,17 @@ automatically detects columns containing coo objects.}
 Move a shape by a specified distance in x and y directions.
 }
 \examples{
+# Single shape
 coo_translate(shapes$cat, x_val = 10, y_val = 20)
-coo_translate(shapes, x_val = 10)
+
+# List of shapes
+coo_translate(bot$coo, x_val = 50)
+
+# Tibble
 coo_translate(bot, x_val = 50, y_val = 50)
 
 }
 \seealso{
-\code{\link[=coo_center]{coo_center()}} for centering; \code{\link[=coo_center_to]{coo_center_to()}} for combined centering and translation
+\code{\link[=coo_center]{coo_center()}} for centering
 }
 \keyword{internal}

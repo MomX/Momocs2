@@ -2,13 +2,17 @@
 % Please edit documentation in R/coo.R
 \name{coo_slide}
 \alias{coo_slide}
+\alias{coo_slide_id}
+\alias{coo_slide_ldk}
 \alias{coo_slide_closest}
 \alias{coo_slide_angle}
 \alias{coo_slide_direction}
 \alias{coo_slide_gap}
 \title{Slide coordinates along outline}
 \usage{
-coo_slide(x, ..., .cols = NULL, .ldk_col = NULL)
+coo_slide_id(x, ..., .cols = NULL, .ldk_col = NULL)
+
+coo_slide_ldk(x, ..., .cols = NULL, .ldk_col = NULL)
 
 coo_slide_closest(x, ..., .cols = NULL, .ldk_col = NULL)
 
@@ -30,6 +34,8 @@ automatically detects columns containing coo objects.}
 
 \item{id}{Integer. Index of point to become the first point. Default is 1.}
 
+\item{ldk_id}{Integer. Index of landmark (in ldk column) to become first point.}
+
 \item{target}{Numeric vector of length 2 (x, y). Find closest point to target.}
 
 \item{theta}{Numeric. Angle in radians. Find point closest to this angle.}
@@ -48,7 +54,8 @@ Rotate the order of points along the outline without changing the shape.
 }
 \details{
 \itemize{
-\item \code{coo_slide()}: slide to specific index
+\item \code{coo_slide_id()}: slide to specific point index
+\item \code{coo_slide_ldk()}: slide to make ith landmark become first point
 \item \code{coo_slide_closest()}: slide to point closest to spatial target
 \item \code{coo_slide_angle()}: slide to point closest to angle direction
 \item \code{coo_slide_direction()}: slide to point in specified direction
@@ -57,5 +64,25 @@ Rotate the order of points along the outline without changing the shape.
 
 These functions are landmark-aware: landmark indices are automatically
 shifted (with wrapping) to match the new point order.
+}
+\examples{
+# Slide to point 50
+coo_slide_id(shapes$cat, id = 50)
+
+# Slide to first landmark
+coo_slide_ldk(hearts, ldk_id = 1)
+
+# Slide to point closest to coordinates
+coo_slide_closest(shapes$cat, target = c(200, 100))
+
+# Slide to rightmost point
+coo_slide_direction(bot$coo, direction = "right")
+
+# Slide to largest gap
+coo_slide_gap(shapes$cat)
+
+}
+\seealso{
+\code{\link[=coo_reverse]{coo_reverse()}} for reversing point order; \code{\link[=coo_sample]{coo_sample()}} for resampling
 }
 \keyword{internal}

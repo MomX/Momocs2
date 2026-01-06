@@ -1,4 +1,209 @@
-# Pillar support for morphometric data types ----
+# as_ ------
+
+## as_class ---
+#' Coerce to Momocs class
+#'
+#' Add Momocs class attributes to an object while preserving existing classes.
+#'
+#' Mostly cosmetic effects for various printrs.
+#'
+#' @param x An object (typically a matrix or list).
+#' @param class Character or character vector. Class(es) to add.
+#'
+#' @return The object `x` with updated class attribute.
+#'
+#' @details
+#' Adds new class(es) to the front of the class vector, avoiding duplicates.
+#' This allows objects to have multiple class inheritance for proper S3 dispatch.
+#'
+#' @examples
+#' mat <- matrix(rnorm(100), ncol = 2)
+#' as_coo(mat)
+#' class(as_coo(mat))
+#'
+#' @keywords internal
+#' @noRd
+as_class <- function(x, class) {
+  class(x) <- unique(c(class, class(x)))
+  x
+}
+
+
+## as_coo ----
+
+#' Coerce to coordinate classes
+#'
+#' Convert objects to Momocs coordinate and coefficient classes.
+#'
+#' @param x An object to coerce.
+#'
+#' @return Object with updated class attribute.
+#'
+#' @details
+#' **List columns classes**
+#' * `as_coo()`: list of generic coordinate objects
+#' * `as_out()`: list of outlines
+#' * `as_ldk()`: list of landmarks
+#' * `as_cur()`: list of curves (open outlines)
+#'
+#' **Single matrices**
+#' * `as_xy()`: single xy matrix
+
+#' **Non-coordinate classes:**
+#' * `as_ldk_id()`: landmark identifiers (not inherits from coo)
+#' * `as_path()`: list of paths
+#'
+#' **Coefficient classes (all inherit from "coe"):**
+#' * `as_coe()`: generic coefficient object
+#' * `as_eft()`: (out) Elliptic Fourier Transform coefficients
+#' * `as_proc()`: (ldk) Procrustes-aligned coefficients
+#' * `as_dct()`: (cur) Discrete Cosine Transform coefficients
+#' * `as_npoly()`: (cur) natural polynomial coefficients
+#' * `as_opoly()`: (cur) orthogonal polynomial coefficients
+#'
+#' @examples
+#' mat <- matrix(rnorm(100), ncol = 2)
+#' as_coo(mat)
+#' as_out(mat)
+#' as_ldk(mat)
+#'
+#' coefs <- rnorm(20)
+#' as_eft(coefs)
+#' as_dct(coefs)
+#'
+#' @rdname as_class
+#' @keywords internal
+#' @export
+as_coo <- function(x) as_class(x, "coo")
+
+
+## as_out ----
+
+#' @rdname as_class
+#' @export
+as_out <- function(x) as_class(x, c("out", "coo"))
+
+
+## as_ldk ----
+
+#' @rdname as_class
+#' @export
+as_ldk <- function(x) as_class(x, c("ldk", "coo"))
+
+## as_xy ----
+
+#' @rdname as_class
+#' @export
+as_xy <- function(x) as_class(x, "xy")
+
+## as_ldk_id ----
+
+#' @rdname as_class
+#' @export
+as_ldk_id <- function(x) as_class(x, "ldk_id")
+
+
+## as_cur ----
+
+#' @rdname as_class
+#' @export
+as_cur <- function(x) as_class(x, c("cur", "coo"))
+
+
+## as_path ----
+
+#' @rdname as_class
+#' @export
+as_path <- function(x) as_class(x, "path")
+
+
+## as_meas ----
+as_meas <- function(x) as_class(x, "meas")
+
+## as_coe ----
+
+#' @rdname as_class
+#' @export
+as_coe <- function(x) as_class(x, "coe")
+
+
+## as_eft ----
+
+#' @rdname as_class
+#' @export
+as_eft <- function(x) as_class(x, c("eft", "coe"))
+
+
+## as_dct ----
+
+#' @rdname as_class
+#' @export
+as_dct <- function(x) as_class(x, c("dct", "coe"))
+
+
+## as_npoly ----
+
+#' @rdname as_class
+#' @export
+as_npoly <- function(x) as_class(x, c("npoly", "coe"))
+
+## as_opoly ----
+
+#' @rdname as_class
+#' @export
+as_opoly <- function(x) as_class(x, c("opoly", "coe"))
+
+## as_proc ----
+
+#' @rdname as_class
+#' @export
+as_proc <- function(x) as_class(x, c("proc", "coe"))
+
+
+# printers ----------
+
+#' @export
+print.xy <- function(x, n = 5, digits = 3, ...) {
+  # Header
+  cat(sprintf("<xy [%d x %d]>\n", nrow(x), ncol(x)))
+
+  # Remove row names
+  x_no_rownames <- x
+  rownames(x_no_rownames) <- NULL
+
+  # If n is large enough to show all rows, print everything
+  if (nrow(x_no_rownames) <= 2 * n) {
+    # Round and format with right alignment
+    x_rounded <- round(x_no_rownames, digits = digits)
+    print(format(x_rounded, justify = "right"), quote = FALSE)
+    return(invisible(x))
+  }
+
+  # Otherwise: n top + "... ..." + n bottom
+  # Round first, then extract top/bottom
+  x_rounded <- round(x_no_rownames, digits = digits)
+  top <- head(x_rounded, n)
+  bottom <- tail(x_rounded, n)
+
+  # Create separator row with dots (as character)
+  sep <- matrix(c("...", "..."), nrow = 1)
+  colnames(sep) <- colnames(x_rounded)
+
+  # Combine - need to convert numeric to character for rbind
+  combined <- rbind(
+    format(top, justify = "right"),
+    format(sep, justify = "right"),
+    format(bottom, justify = "right")
+  )
+  rownames(combined) <- NULL
+
+  print(combined, quote = FALSE)
+
+  invisible(x)
+}
+
+
+# pillars ----------
 
 #' Pillar support for morphometric data types
 #'
@@ -139,7 +344,7 @@ pillar_shaft.coo <- function(x, ...) {
   formatted <- vapply(x, function(coords) {
     if (!is.matrix(coords)) return(cli::col_grey("<NA>"))
     n_points <- nrow(coords)
-    color_fn(sprintf("%d pts", n_points))
+    color_fn(sprintf("(%d x 2)", n_points))  # (80·2)
   }, character(1))
 
   pillar::new_pillar_shaft_simple(formatted, align = "left")
@@ -153,7 +358,7 @@ pillar_shaft.out <- function(x, ...) {
   formatted <- vapply(x, function(coords) {
     if (!is.matrix(coords)) return(cli::col_grey("<NA>"))
     n_points <- nrow(coords)
-    color_fn(sprintf("(%d\u00B72)", n_points))  # (80·2)
+    color_fn(sprintf("(%d x 2)", n_points))  # (80·2)
   }, character(1))
 
   pillar::new_pillar_shaft_simple(formatted, align = "left")
@@ -167,7 +372,7 @@ pillar_shaft.ldk <- function(x, ...) {
   formatted <- vapply(x, function(coords) {
     if (!is.matrix(coords)) return(cli::col_grey("<NA>"))
     n_ldk <- nrow(coords)
-    color_fn(sprintf("[%d\u00B72]", n_ldk))  # [4·2]
+    color_fn(sprintf("[%d x 2]", n_ldk))  # [4·2]
   }, character(1))
 
   pillar::new_pillar_shaft_simple(formatted, align = "left")
@@ -209,7 +414,7 @@ pillar_shaft.cur <- function(x, ...) {
   formatted <- vapply(x, function(coeffs) {
     if (!is.numeric(coeffs)) return(cli::col_grey("<NA>"))
     n_coeffs <- length(coeffs)
-    color_fn(sprintf("(%d\u00B72)", n_coeffs))  # (80·2)
+    color_fn(sprintf("(%d x 2)", n_coeffs))  # (80·2)
   }, character(1))
 
   pillar::new_pillar_shaft_simple(formatted, align = "left")

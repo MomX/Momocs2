@@ -35,4 +35,18 @@ Smooth a shape using local averaging.
 \item \code{coo_smooth_fixed()}: smooth while keeping first and last points fixed
 }
 }
+\examples{
+# Smooth with 3 iterations
+coo_smooth(shapes$cat, n = 3)
+
+# Smooth list
+coo_smooth(bot$coo, n = 5)
+
+# Smooth with fixed endpoints
+coo_smooth_fixed(shapes$cat, n = 3)
+
+}
+\seealso{
+\code{\link[=coo_sample]{coo_sample()}} for resampling
+}
 \keyword{internal}

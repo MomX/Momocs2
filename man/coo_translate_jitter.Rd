@@ -26,6 +26,14 @@ automatically detects columns containing coo objects.}
 \description{
 Add random translation to a shape.
 }
+\examples{
+# Jitter by default amount
+coo_translate_jitter(shapes$cat)
+
+# Custom jitter amount
+coo_translate_jitter(bot$coo, amount = 0.2)
+
+}
 \seealso{
 \code{\link[=coo_translate]{coo_translate()}} for deterministic translation
 }

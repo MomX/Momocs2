@@ -28,6 +28,8 @@ The returned function automatically:
 \item Applies impl_fn to single matrices and returns the result
 \item Applies impl_fn to each element of a list and returns a list
 \item Applies impl_fn to specified columns of a tibble and returns the modified tibble
+\item Applies \code{xy} class to each single matrix
+\item Applies \code{coo} class to list and list-columns (ie when tibbles are passed)
 }
 
 When \code{sync_ldk = TRUE}, the dispatcher automatically handles landmark columns:
@@ -37,6 +39,9 @@ When \code{sync_ldk = TRUE}, the dispatcher automatically handles landmark colum
 \item Passes landmarks to implementation function
 \item Updates landmarks based on coordinate changes
 }
+
+When \code{sync_ldk = FALSE}, the implementation function should return just a matrix,
+not a list with coo and ldk elements.
 
 Additional arguments are passed through via \code{...}
 }

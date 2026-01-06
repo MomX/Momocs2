@@ -6,3 +6,4 @@
 .quarto
 ignore/
 docs
+inst/doc

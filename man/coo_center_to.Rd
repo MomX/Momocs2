@@ -28,4 +28,15 @@ automatically detects columns containing coo objects.}
 \description{
 Center a shape and then translate it to specified coordinates.
 }
+\examples{
+# Center and translate to origin
+coo_center_to(shapes$cat, x_val = 0, y_val = 0)
+
+# Center and translate to (100, 100)
+coo_center_to(bot$coo, x_val = 100, y_val = 100)
+
+}
+\seealso{
+\code{\link[=coo_center]{coo_center()}} for centering only; \code{\link[=coo_translate]{coo_translate()}} for translation only
+}
 \keyword{internal}

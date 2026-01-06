@@ -29,4 +29,15 @@ Default is the centroid.}
 \description{
 Rotate a shape by a specified angle around a given center point.
 }
+\examples{
+# Rotate around centroid
+coo_rotate_around(shapes$cat, theta = pi/4)
+
+# Rotate around custom point
+coo_rotate_around(bot$coo, theta = pi/6, center = c(100, 100))
+
+}
+\seealso{
+\code{\link[=coo_rotate]{coo_rotate()}} for rotation around origin
+}
 \keyword{internal}

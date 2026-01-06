@@ -28,4 +28,15 @@ Align a shape to its principal axes (major and minor axes) and recenter.
 Aligns to principal axes using SVD of the covariance matrix and recenters
 to the original centroid position.
 }
+\examples{
+# Align to principal axes
+coo_align(shapes$cat)
+
+# Works on lists
+coo_align(bot$coo)
+
+}
+\seealso{
+\code{\link[=coo_align_minor]{coo_align_minor()}} for swapped axes; \code{\link[=coo_rotate]{coo_rotate()}} for arbitrary rotation
+}
 \keyword{internal}

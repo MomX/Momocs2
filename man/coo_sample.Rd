@@ -43,7 +43,21 @@ These functions are landmark-aware: if landmarks are present, the outline
 is resampled segment-by-segment between landmarks, preserving landmark
 positions and distributing points proportionally across segments.
 }
+\examples{
+# Resample to 64 points
+coo_sample(shapes$cat, n = 64)
+
+# Resample list
+coo_sample(bot$coo, n = 100)
+
+# Resample with landmarks preserved
+coo_sample(hearts, n = 200)
+
+# Resample to 50\% of points
+coo_sample_prop(shapes$cat, prop = 0.5)
+
+}
 \seealso{
-\code{\link[=get_coords_nb]{get_coords_nb()}} for point count; \code{\link[=coo_smooth]{coo_smooth()}} for smoothing
+\code{\link[=get_coords_nb]{get_coords_nb()}} for point count; \code{\link[=coo_smooth]{coo_smooth()}} for smoothing; \code{\link[=coo_sample_regular_radius]{coo_sample_regular_radius()}} for radial sampling
 }
 \keyword{internal}

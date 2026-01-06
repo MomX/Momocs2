@@ -13,8 +13,6 @@ coo_scale(x, ..., .cols = NULL, .ldk_col = NULL)
 
 \item{.cols}{Column name(s) to process when \code{x} is a tibble. If \code{NULL},
 automatically detects columns containing coo objects.}
-
-\item{.ldk_col}{Character. Name of landmark column. If \code{NULL}, uses \code{colname_ldk}.}
 }
 \value{
 \itemize{
@@ -33,18 +31,19 @@ Equivalent to \code{scale(x, center = FALSE, scale = TRUE)} in base R.
 Does NOT center the shape first. Use \code{coo_center()} before \code{coo_scale()} if needed.
 
 For rescaling by a custom factor, use \code{coo_rescale()}.
-
-Landmarks are synced.
 }
 \examples{
-# Scale to unit centroid size
+# Single shape - scale to unit size
 coo_scale(shapes$cat)
 
-# Center then scale
-shapes$cat \%>\% coo_center() \%>\% coo_scale()
+# List of shapes
+coo_scale(bot$coo)
+
+# Tibble - center then scale
+bot \%>\% coo_center() \%>\% coo_scale()
 
 }
 \seealso{
-\code{\link[=coo_rescale]{coo_rescale()}} for custom scaling; \code{\link[=coo_center]{coo_center()}} for centering
+\code{\link[=coo_rescale]{coo_rescale()}} for custom scaling; \code{\link[=coo_center]{coo_center()}} for centering; \code{\link[=get_centroid_size]{get_centroid_size()}} for size measurement
 }
 \keyword{internal}

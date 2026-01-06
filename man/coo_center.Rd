@@ -25,12 +25,17 @@ automatically detects columns containing coo objects.}
 Center a shape around the origin using centering (subtract the mean).
 }
 \examples{
+# Single shape
 coo_center(shapes$cat)
-coo_center(shapes)
+
+# List of shapes
+coo_center(bot$coo)
+
+# Tibble
 coo_center(bot)
 
 }
 \seealso{
-\code{\link[=coo_center_to]{coo_center_to()}} for centering and translating; \code{\link[=coo_translate]{coo_translate()}} for translation only; \code{\link[=get_centroid]{get_centroid()}} for centroid coordinates
+\code{\link[=coo_translate]{coo_translate()}} for translation; \code{\link[=get_centroid]{get_centroid()}} for centroid coordinates
 }
 \keyword{internal}

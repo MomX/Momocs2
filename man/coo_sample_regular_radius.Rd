@@ -37,10 +37,17 @@ Landmarks are NOT preserved - this resampling method fundamentally changes
 the point structure.
 }
 \examples{
+# Sample at 64 regular angles
 coo_sample_regular_radius(shapes$cat, n = 64)
+
+# Works on lists
+coo_sample_regular_radius(bot$coo, n = 32)
+
+# Works on tibbles
+coo_sample_regular_radius(bot, n = 128)
 
 }
 \seealso{
-\code{\link[=coo_sample]{coo_sample()}}
+\code{\link[=coo_sample]{coo_sample()}} for arc-length sampling
 }
 \keyword{internal}

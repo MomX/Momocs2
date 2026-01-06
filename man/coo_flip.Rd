@@ -46,6 +46,20 @@ Flip a shape along a specified axis or line.
 \item \code{coo_flip_yaxis()}: flip across y-axis (x = 0)
 }
 }
+\examples{
+# Flip across x-axis
+coo_flip_xaxis(shapes$cat)
+
+# Flip across y-axis
+coo_flip_yaxis(bot$coo)
+
+# Flip across custom vertical line
+coo_flip_x(shapes$cat, xintercept = 100)
+
+# Flip across custom horizontal line
+coo_flip_y(bot, yintercept = 50)
+
+}
 \seealso{
 \code{\link[=coo_rotate]{coo_rotate()}} for rotation; \code{\link[=coo_align]{coo_align()}} for alignment
 }

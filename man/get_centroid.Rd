@@ -2,12 +2,9 @@
 % Please edit documentation in R/get.R
 \name{get_centroid}
 \alias{get_centroid}
-\alias{centroid}
 \title{Get centroid of a shape}
 \usage{
 get_centroid(x, ..., .cols = NULL)
-
-centroid(x, ..., .cols = NULL)
 }
 \arguments{
 \item{x}{A matrix (nx2), list of matrices, or tibble with coo columns.}

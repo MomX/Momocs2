@@ -38,12 +38,17 @@ Reverse the outline if it's traced clockwise to ensure counter-clockwise directi
 (negative direction). If counter-clockwise, reverses point order and syncs landmarks.
 }
 \examples{
+# Ensure counter-clockwise
 coo_direction_positive(shapes$cat)
-coo_direction_negative(shapes$cat)
-bot \%>\% coo_direction_positive()
+
+# Ensure clockwise
+coo_direction_negative(bot$coo)
+
+# Works with landmarks
+coo_direction_positive(hearts)
 
 }
 \seealso{
-\code{\link[=get_direction_sign]{get_direction_sign()}}, \code{\link[=coo_reverse]{coo_reverse()}}
+\code{\link[=get_direction_sign]{get_direction_sign()}} for checking direction; \code{\link[=coo_reverse]{coo_reverse()}} for reversing
 }
 \keyword{internal}

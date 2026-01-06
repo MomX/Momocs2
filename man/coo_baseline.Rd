@@ -33,4 +33,12 @@ at (-0.5, 0) and (0.5, 0) for standardized alignment.
 Note: These functions do not use the \code{make_coo_function} dispatcher as they
 require specific landmark indices.
 }
+\examples{
+# Bookstein registration using first and last points
+coo_bookstein(shapes$cat, id1 = 1, id2 = 120)
+
+# Custom baseline with target positions
+coo_baseline(shapes$cat, id1 = 1, id2 = 60, t1 = c(0, 0), t2 = c(1, 0))
+
+}
 \keyword{internal}

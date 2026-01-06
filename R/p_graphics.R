@@ -51,36 +51,93 @@ p <- function(x, xlim, ylim, axes=TRUE){
   # cosmetics
   axes_col = "grey50"
   tick_length = 1/4
+
   # open device if none exists
   if (dev.cur() == 1) dev.new()
+
   # if x is a single shape, turn it into a list
   if (!is.list(x) | is.data.frame(x))
     x <- list(x)
+
   # calculate full window
   w <- do.call("rbind", x)
+
   # and if missing, assign
   if (missing(xlim)) xlim <- range(w[, 1])
   if (missing(ylim)) ylim <- range(w[, 2])
+
   # define nice and homogeneous margins
   par(mar = c(2, 2, 0.5, 0.5))
+
   # empty but initialized plot
   plot(0, 0, pch=3, col="grey50", cex=0.5,
        xlim = xlim, ylim = ylim, asp = 1,
        xlab = "", ylab = "", axes = FALSE, frame.plot = FALSE)
+
   if (axes){
-    # minimal axes with only 3 ticks each (min, mid, max)
-    x_ticks <- pretty(c(xlim[1],  xlim[2]), n=2, min.n=2)
-    y_ticks <- pretty(c(ylim[1],  ylim[2]), n=2, min.n=2)
+    # Helper function to get sensible ticks
+    get_smart_ticks <- function(lim, n = 3) {
+      range_val <- diff(lim)
+
+      # If range is very small, use exact endpoints + midpoint
+      if (range_val < 1e-6) {
+        return(seq(lim[1], lim[2], length.out = n))
+      }
+
+      # Try pretty first
+      ticks <- pretty(lim, n = n - 1, min.n = 2)
+
+      # If pretty returns too few unique values, use seq
+      if (length(unique(ticks)) < 2) {
+        ticks <- seq(lim[1], lim[2], length.out = n)
+      }
+
+      return(unique(ticks))
+    }
+
+    # Helper to format with enough decimals to show differences
+    format_ticks <- function(ticks) {
+      if (length(ticks) < 2) return(as.character(ticks))
+
+      # Find minimum difference between consecutive ticks
+      min_diff <- min(diff(sort(ticks)))
+
+      # Determine decimal places needed
+      if (min_diff == 0) {
+        decimals <- 3
+      } else {
+        decimals <- max(0, ceiling(-log10(min_diff)) + 1)
+      }
+
+      # Cap at reasonable maximum
+      decimals <- min(decimals, 10)
+
+      # Format with fixed decimal places
+      sprintf(paste0("%.", decimals, "f"), ticks)
+    }
+
+    # Get smart ticks
+    x_ticks <- get_smart_ticks(xlim)
+    y_ticks <- get_smart_ticks(ylim)
+
+    # Format labels with enough precision
+    x_labels <- format_ticks(x_ticks)
+    y_labels <- format_ticks(y_ticks)
+
     # x-axis
-    axis(1, at = x_ticks, labels = signif(x_ticks, 2),
+    axis(1, at = x_ticks, labels = x_labels,
          tcl = tick_length, cex.axis = 0.7, padj = -2, lwd = 0,
          col = axes_col, col.axis = axes_col, col.ticks = axes_col, lwd.ticks = 0.5)
+
     # y-axis
-    axis(2, at = y_ticks, labels = signif(y_ticks, 2), las=1, hadj = 0.25, padj = 0.5,
-         tcl = tick_length, cex.axis = 0.7,  lwd = 0,
+    axis(2, at = y_ticks, labels = y_labels, las=1, hadj = 0.25, padj = 0.5,
+         tcl = tick_length, cex.axis = 0.7, lwd = 0,
          col = axes_col, col.axis = axes_col, col.ticks = axes_col, lwd.ticks = 0.5)
   }
+
   # pass x
+  if (!is.list(x) | is.data.frame(x))
+    x <- list(x)
   invisible(x)
 }
 
@@ -208,6 +265,11 @@ draw_links <- function(x, links, col="grey20", lwd=0.5, ...){
 #' @keywords internal
 #' @export
 pile <- function(x, ..., .cols = NULL, .ldk_col = NULL) {
+  # Convert single matrix to list for consistency
+  if (is.matrix(x)) {
+    x <- list(x)
+  }
+
   original_x <- x
 
   # Handle tibble dispatch with landmark awareness
@@ -258,10 +320,6 @@ pile <- function(x, ..., .cols = NULL, .ldk_col = NULL) {
     x <- coo_list
   }
 
-  # Convert single matrix to list for consistency
-  if (is.matrix(x)) {
-    x <- list(x)
-  }
 
   # Heuristic when no landmark info available
   if (length(x) == 1) {

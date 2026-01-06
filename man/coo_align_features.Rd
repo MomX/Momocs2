@@ -17,8 +17,6 @@ coo_align_minradius(x, ..., .cols = NULL, .ldk_col = NULL)
 
 \item{.cols}{Column name(s) to process when \code{x} is a tibble. If \code{NULL},
 automatically detects columns containing coo columns.}
-
-\item{.ldk_col}{Character. Name of landmark column. If \code{NULL}, uses \code{colname_ldk}.}
 }
 \value{
 \itemize{
@@ -36,12 +34,16 @@ horizontally along the x-axis.
 
 \strong{\code{coo_align_minradius()}}: Aligns the point with minimum distance to centroid
 (min radius) to the x-axis.
-
-Landmarks are synced.
 }
 \examples{
+# Align calliper to x-axis
 coo_align_calliper(shapes$cat)
-coo_align_minradius(shapes$cat)
 
+# Align min radius to x-axis
+coo_align_minradius(bot$coo)
+
+}
+\seealso{
+\code{\link[=coo_align]{coo_align()}} for principal axis alignment; \code{\link[=get_calliper]{get_calliper()}} for calliper measurement
 }
 \keyword{internal}

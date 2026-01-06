@@ -49,15 +49,22 @@ These functions are landmark-aware: invalid landmark indices are automatically
 filtered out after subsetting.
 }
 \examples{
+# Extract specific points
 coo_extract(shapes$cat, c(1, 10, 50))
-coo_extract(shapes, c(1, 6))
+coo_extract(bot$coo, c(1, 6))
+coo_extract(bot, c(1, 5, 10))
+
+# Keep first n points
 coo_head(shapes$cat, 10)
-coo_head(shapes, 3)
+coo_head(bot$coo, 20)
+coo_head(bot, 30)
+
+# Remove last n points
 coo_tail(shapes$cat, 5)
-coo_head(bot, 20)
+coo_tail(bot, 10)
 
 }
 \seealso{
-\code{\link[=coo_sample]{coo_sample()}} for resampling to different point counts
+\code{\link[=coo_sample]{coo_sample()}} for resampling to different point counts, \code{\link[=coo_trim_head]{coo_trim_head()}} for trimming from start
 }
 \keyword{internal}

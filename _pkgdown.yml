@@ -10,110 +10,164 @@ template:
     btn-border-radius: 0.25rem
     danger: "#A6081A"
 
+articles:
+- title: "Getting Started"
+  desc: "Introduction and migration guide"
+  contents:
+  - momocs-to-momocs2
+
+- title: "Function References"
+  desc: "Detailed guides for function families"
+  contents:
+  - coo-functions
+  - get-functions
+
+- title: "Analysis Workflows"
+  desc: "Complete analysis pipelines"
+  contents:
+  - outline-analysis
+  - curve-analysis
+  - landmark-analysis
 
 
 reference:
-- title: "Coordinate transformations (coo_*)"
-  desc: "Functions that transform shape coordinates"
+- title: "coo_* coordinate transformations "
+  desc: "Functions that take coo and return coo"
 
 - subtitle: "Basic transformations"
-  desc: "Translation, rotation, scaling, and centering"
   contents:
   - coo_center
   - coo_translate
-  - coo_rotate
-  - coo_rotate_around
   - coo_scale
 
-- subtitle: "Alignment and orientation"
-  desc: "Align shapes to axes or specific features"
+- subtitle: "Rotation"
+  contents:
+  - coo_rotate
+  - coo_rotate_around
+  - coo_untilt_x
+  - coo_untilt_y
+
+- subtitle: "Alignment"
+  desc: "Align shapes using internal information"
   contents:
   - coo_align
   - coo_align_minor
   - coo_align_calliper
   - coo_align_minradius
-  - coo_untilt_x
-  - coo_untilt_y
-  - coo_direction_positive
-  - coo_direction_negative
-  - coo_flip
+
+- subtitle: "Baseline registration"
+  desc: "Align shapes using landmarks"
+  contents:
+  - coo_baseline
+  - coo_bookstein
 
 - subtitle: "Sampling and smoothing"
-  desc: "Resample points along outlines"
+  desc: "Sample up and down coordinates number"
   contents:
   - coo_sample
   - coo_sample_regular_radius
   - coo_smooth
 
-- subtitle: "Point manipulation"
-  desc: "Reorder, reverse, trim, and modify point sequences"
+- subtitle: "Slide"
+  desc: "Change row ordering"
   contents:
-  - coo_slide
+  - coo_slide_id
+  - coo_slide_ldk
   - coo_slide_closest
   - coo_slide_angle
   - coo_slide_direction
   - coo_slide_gap
+
+- subtitle: "Direction"
+  desc: "Control trigonometric or clockwise direction"
+  contents:
   - coo_reverse
-  - coo_trim_head
-  - coo_trim_tail
-  - coo_trim_both
+  - coo_direction_positive
+  - coo_direction_negative
+
+- subtitle: "Open/close shapes"
+  contents:
   - coo_close
   - coo_open
   - coo_close_spread
 
-- subtitle: "Templates and transformations"
-  desc: "Standardize and transform shapes"
+- subtitle: "Template shapes"
+  desc: "Standardize on bounding boxes"
   contents:
   - coo_template
   - coo_template_relatively
-  - get_transformed
-  - coo_shear
 
-- subtitle: "Filtering and extraction"
-  desc: "Extract subsets based on spatial criteria"
+- subtitle: "Flipping"
+  desc: "Reflect shapes"
   contents:
+  - coo_flip_x
+  - coo_flip_y
+  - coo_flip_xaxis
+  - coo_flip_yaxis
+
+- subtitle: "Filtering"
+  desc: "Extract coordinates based on spatial criteria"
+  contents:
+  - coo_extract
+  - coo_head
+  - coo_tail
+  - coo_trim_head
+  - coo_trim_tail
+  - coo_trim_both
   - coo_up
   - coo_down
   - coo_left
   - coo_right
-  - coo_baseline
-  - coo_bookstein
 
-- title: "Shape measurements (get_* and measure)"
-  desc: "Functions to extract and measure shape properties"
-
-- subtitle: "Basic properties"
-  desc: "Fundamental shape characteristics"
+- subtitle: "Translate variants"
   contents:
-  - get_centroid
-  - centroid
+  - coo_translate_jitter
+  - coo_translate_to_xaxis
+  - coo_translate_to_yaxis
+
+- subtitle: "Cut and join"
+  desc: "Cut single shapes into several and back"
+  contents:
+  - get_cut
+  - get_join
+
+- subtitle: "Misc operations"
+  desc: "Where to put them? Why not here?"
+  contents:
+  - coo_check
+  - coo_shear
+
+- title: "get_* shape descriptors"
+  desc: "Functions that take coo and return scalar descriptors"
+
+- subtitle: "Measurement helper"
+  desc: "Compute and add multiple measurements"
+  contents:
+  - measure
+  - available_measures
+
+- subtitle: "Basic size measures"
+  contents:
   - get_area
   - get_perim
-  - get_perim_along
-  - get_perim_cum
-  - get_coords_nb
 
-- subtitle: "Size measures"
+- subtitle: "Other size measures"
   desc: "Overall size and dimensions"
   contents:
-  - get_centroid_size
-  - get_centroid_size_norm
   - get_length
   - get_width
-  - get_lw
-  - get_elongation
   - get_calliper
-  - get_calliper_ids
+  - get_centroid_size
+  - get_centroid_size_norm
 
-- subtitle: "Circularity and roundness"
-  desc: "Measures of how circular a shape is"
+- subtitle: "Circularity and aspect"
   contents:
+  - get_elongation
   - get_circularity
   - get_circularity_norm
   - get_circularity_haralick
 
 - subtitle: "Shape complexity"
-  desc: "Compactness, convexity, and irregularity"
   contents:
   - get_convexity
   - get_solidity
@@ -122,28 +176,47 @@ reference:
   - get_rectangularity
   - get_rectilinearity
 
-- subtitle: "Convex hull"
-  desc: "Convex hull extraction and analysis"
+- title: "get_* other operations"
+  desc: "Functions that take coo and return other than coo and scalars"
+
+- subtitle: "Landmarks"
+  desc: "ldk_id coordinates extraction"
   contents:
-  - get_chull
-  - get_chull_id
-  - get_chull_onion
+  - get_ldk
+
+- subtitle: "Transformations"
+  desc: "Extract and apply geometric transformations"
+  contents:
+  - get_transform
+  - get_transformed
+
+- subtitle: "Centroid related"
+  contents:
+  - get_centroid
+  - get_centroid_distance
 
 - subtitle: "Distances and angles"
-  desc: "Point-to-point distances and angular measures"
+  desc: "Distances and angular measures"
   contents:
   - get_centroid_distance
+  - get_perim_along
+  - get_perim_cum
+  - get_lw
+  - get_calliper_ids
   - get_truss
+
+- subtitle: "Angles"
+  contents:
   - get_angles
   - get_angle_edges
   - get_angle_tangent
 
-- subtitle: "Ranges and bounding box"
-  desc: "Spatial extents and boundaries"
+- subtitle: "Extents and boundaries"
   contents:
   - get_range
   - get_range_diff
   - get_bbox
+  - get_coords_nb
 
 - subtitle: "Direction and position"
   desc: "Orientation and point location"
@@ -153,27 +226,12 @@ reference:
   - get_closest_angle
   - get_closest_direction
 
-- subtitle: "Landmarks"
-  desc: "Landmark extraction and manipulation"
+- subtitle: "Convex hull"
+  desc: "Convex hull extraction and analysis"
   contents:
-  - get_ldk
-
-- subtitle: "Transformations"
-  desc: "Extract and apply geometric transformations"
-  contents:
-  - get_transform
-
-- subtitle: "Cut and join"
-  desc: "Split and merge curves"
-  contents:
-  - get_cut
-  - get_join
-
-- subtitle: "Unified measurement interface"
-  desc: "Compute multiple measurements at once"
-  contents:
-  - measure
-  - available_measures
+  - get_chull
+  - get_chull_id
+  - get_chull_onion
 
 - title: "Visualization"
   desc: "Plotting and display functions"
@@ -188,18 +246,26 @@ reference:
   - draw_first_point
   - draw_links
 
-- title: "Pillar display"
-  desc: "Custom tibble printing for morphometric data"
+- title: "Classes and printers"
+  desc: "Mostly cosmetics"
   contents:
+  - as_coo
   - pillar_colors
 
-- title: "Utilities"
-  desc: "Helper functions and internal tools"
+- title: "Dispatcher and function factories"
+  desc: "Exposed extending helpers"
   contents:
   - get_coo_cols
+  - make_coo_function
+  - make_get_function
+
+- title: "Reimport"
+  desc: "From other packages"
+  contents:
+  - pipes
 
 - title: "Dataset"
-  desc: "Helper functions and internal tools"
+  desc: "To play with"
   contents:
   - bot
   - hearts

@@ -44,10 +44,10 @@ coo_affine(shapes$cat, rot_mat)
 
 # Scaling matrix
 scale_mat <- matrix(c(2, 0, 0, 2), nrow = 2)
-coo_affine(shapes, scale_mat)
+coo_affine(bot$coo, scale_mat)
 
 }
 \seealso{
-\code{\link[=coo_rotate]{coo_rotate()}} for rotation; \code{\link[=coo_shear]{coo_shear()}} for shearing; \code{\link[=coo_flip]{coo_flip()}} for flipping
+\code{\link[=coo_rotate]{coo_rotate()}} for rotation; \code{\link[=coo_shear_x]{coo_shear_x()}} for shearing; \code{\link[=coo_flip_xaxis]{coo_flip_xaxis()}} for flipping
 }
 \keyword{internal}

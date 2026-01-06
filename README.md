@@ -7,9 +7,9 @@
 
 [![CRAN
 status](https://www.r-pkg.org/badges/version/Momocs2)](https://CRAN.R-project.org/package=Momocs2)
+[![R-CMD-check](https://github.com/MomX/Momocs2/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/MomX/Momocs2/actions/workflows/R-CMD-check.yaml)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-[![R-CMD-check](https://github.com/MomX/Momocs2/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/MomX/Momocs2/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The goal of Momocs2 is to provide…

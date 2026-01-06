@@ -31,9 +31,17 @@ This function is landmark-aware: landmark indices are automatically
 reversed to match the new point order using the formula \code{n - ldk + 1}.
 }
 \examples{
+# Reverse single shape
 coo_reverse(shapes$cat)
-coo_reverse(shapes)
-coo_reverse(bot)
 
+# Reverse list of shapes
+coo_reverse(bot$coo)
+
+# Reverse with landmarks
+coo_reverse(hearts)
+
+}
+\seealso{
+\code{\link[=coo_direction_positive]{coo_direction_positive()}} for ensuring counter-clockwise direction; \code{\link[=coo_slide_id]{coo_slide_id()}} for reordering
 }
 \keyword{internal}

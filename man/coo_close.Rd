@@ -16,8 +16,6 @@ coo_open(x, ..., .cols = NULL, .ldk_col = NULL)
 
 \item{.cols}{Column name(s) to process when \code{x} is a tibble. If \code{NULL},
 automatically detects columns containing coo columns.}
-
-\item{.ldk_col}{Character. Name of landmark column. If \code{NULL}, uses \code{colname_ldk}.}
 }
 \value{
 \itemize{
@@ -40,11 +38,20 @@ If already open, returns unchanged.
 Landmarks are NOT adjusted - they keep their original indices.
 }
 \examples{
+# Close a shape
 coo_close(shapes$cat)
+
+# Open a closed shape
 coo_open(shapes$cat)
+
+# Works on lists
+coo_close(bot$coo)
+
+# Works on tibbles
+coo_open(bot)
 
 }
 \seealso{
-\code{\link[=coo_sample]{coo_sample()}}
+\code{\link[=coo_sample]{coo_sample()}} for resampling; \code{\link[=coo_close_spread]{coo_close_spread()}} for closing by spreading gap
 }
 \keyword{internal}

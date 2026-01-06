@@ -48,8 +48,20 @@ Filters points based on their position relative to the centroid:
 Returns an open curve. Landmarks are synced.
 }
 \examples{
+# Keep upper half
 coo_up(shapes$cat)
-coo_right(shapes$cat)
 
+# Keep right half
+coo_right(bot$coo)
+
+# Keep lower half
+coo_down(shapes$cat)
+
+# Keep left half with landmarks
+coo_left(hearts)
+
+}
+\seealso{
+\code{\link[=coo_extract]{coo_extract()}} for extracting specific points
 }
 \keyword{internal}

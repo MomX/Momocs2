@@ -52,6 +52,6 @@ transformed <- get_transformed(new_shape, transform)
 
 }
 \seealso{
-\code{\link[=get_transform]{get_transform()}}
+\code{\link[=get_transform]{get_transform()}} for extracting transformations
 }
 \keyword{internal}

@@ -1,0 +1,19 @@
+---
+title: "curve-analysis"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{curve-analysis}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(Momocs2)
+```

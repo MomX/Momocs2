@@ -27,8 +27,13 @@ automatically detects columns containing coo objects.}
 Rotate a shape by a specified angle around the origin.
 }
 \examples{
+# Rotate by 45 degrees
 coo_rotate(shapes$cat, theta = pi / 4)
-coo_rotate(shapes, theta = pi / 6)
+
+# Rotate list of shapes
+coo_rotate(bot$coo, theta = pi / 6)
+
+# Rotate tibble shapes
 coo_rotate(bot, theta = pi / 8)
 
 }

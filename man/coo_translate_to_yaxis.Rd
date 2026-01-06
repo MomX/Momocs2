@@ -24,4 +24,15 @@ automatically detects columns containing coo objects.}
 \description{
 Translate a shape so its centroid aligns with the y-axis.
 }
+\examples{
+# Translate to y-axis
+coo_translate_to_yaxis(shapes$cat)
+
+# Works on tibbles
+coo_translate_to_yaxis(bot)
+
+}
+\seealso{
+\code{\link[=coo_translate_to_xaxis]{coo_translate_to_xaxis()}} for x-axis; \code{\link[=coo_center]{coo_center()}} for centering
+}
 \keyword{internal}

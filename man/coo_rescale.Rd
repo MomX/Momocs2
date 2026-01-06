@@ -42,10 +42,10 @@ Landmarks are synced.
 coo_rescale(shapes$cat, scale = 2)
 
 # Halve the size
-coo_rescale(shapes$cat, scale = 0.5)
+coo_rescale(bot$coo, scale = 0.5)
 
 # For tibbles - use stored scaling factors
-bot$scale_factor <-  rep(c(1, 5), each=20)
+bot$scale_factor <- rep(c(1, 2), length.out = nrow(bot))
 bot \%>\% coo_rescale(scale = scale_factor)
 
 }

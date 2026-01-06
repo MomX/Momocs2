@@ -17,8 +17,6 @@ coo_untilt_y(x, ..., .cols = NULL, .ldk_col = NULL)
 
 \item{.cols}{Column name(s) to process when \code{x} is a tibble. If \code{NULL},
 automatically detects columns containing coo columns.}
-
-\item{.ldk_col}{Character. Name of landmark column. If \code{NULL}, uses \code{colname_ldk}.}
 }
 \value{
 \itemize{
@@ -36,11 +34,20 @@ Rotate shape so the first point is exactly on an axis.
 \strong{\code{coo_untilt_y()}}: Rotates around centroid so first point is on y-axis (x=0),
 choosing the nearest y-axis (positive or negative).
 
-Landmarks are synced.
+Works best when shapes are centered.
 }
 \examples{
+# Untilt to x-axis
 coo_untilt_x(shapes$cat)
-coo_untilt_y(shapes$cat)
 
+# Untilt to y-axis
+coo_untilt_y(bot$coo)
+
+# Works better after centering
+shapes$cat \%>\% coo_center() \%>\% coo_untilt_x()
+
+}
+\seealso{
+\code{\link[=coo_rotate]{coo_rotate()}} for arbitrary rotation; \code{\link[=coo_align]{coo_align()}} for principal axis alignment
 }
 \keyword{internal}

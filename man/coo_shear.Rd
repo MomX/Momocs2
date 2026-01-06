@@ -36,7 +36,15 @@ Apply shear transformation to a shape.
 \item \code{coo_shear_y()}: shear in y direction
 }
 }
+\examples{
+# Shear in x direction
+coo_shear_x(shapes$cat, k = 0.5)
+
+# Shear in y direction
+coo_shear_y(bot$coo, k = 0.3)
+
+}
 \seealso{
-\code{\link[=coo_rotate]{coo_rotate()}} for rotation; \code{\link[=coo_flip]{coo_flip()}} for flipping
+\code{\link[=coo_rotate]{coo_rotate()}} for rotation; \code{\link[=coo_flip_xaxis]{coo_flip_xaxis()}} for flipping; \code{\link[=coo_affine]{coo_affine()}} for custom transformations
 }
 \keyword{internal}
