@@ -172,6 +172,8 @@ coo_translate(shapes$cat, x_val = 10, y_val = 20)
 #> [118,]  218   73
 #> [119,]  214   79
 #> [120,]  212   85
+#> attr(,"class")
+#> [1] "coo"    "matrix" "array" 
 coo_translate(shapes, x_val = 10)
 #> $cat
 #>        [,1] [,2]
@@ -665,19 +667,21 @@ coo_translate(shapes, x_val = 10)
 #> [119,]  217   68
 #> [120,]  211   69
 #> 
+#> attr(,"class")
+#> [1] "coo"  "list"
 coo_translate(bot, x_val = 50, y_val = 50)
 #> # A tibble: 40 × 3
-#>    coo             type   dummy
-#>    <named list>    <fct>  <fct>
-#>  1 <dbl [138 × 2]> whisky a    
-#>  2 <dbl [168 × 2]> whisky a    
-#>  3 <dbl [189 × 2]> whisky a    
-#>  4 <dbl [129 × 2]> whisky a    
-#>  5 <dbl [152 × 2]> whisky a    
-#>  6 <dbl [161 × 2]> whisky a    
-#>  7 <dbl [124 × 2]> whisky a    
-#>  8 <dbl [126 × 2]> whisky a    
-#>  9 <dbl [183 × 2]> whisky a    
-#> 10 <dbl [193 × 2]> whisky a    
+#>    coo     type   dummy
+#>    <out>   <fct>  <fct>
+#>  1 (138·2) whisky a    
+#>  2 (168·2) whisky a    
+#>  3 (189·2) whisky a    
+#>  4 (129·2) whisky a    
+#>  5 (152·2) whisky a    
+#>  6 (161·2) whisky a    
+#>  7 (124·2) whisky a    
+#>  8 (126·2) whisky a    
+#>  9 (183·2) whisky a    
+#> 10 (193·2) whisky a    
 #> # ℹ 30 more rows
 ```

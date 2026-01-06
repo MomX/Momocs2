@@ -49,20 +49,11 @@ get_rectangularity(shapes$cat)
 #>    length 
 #> 0.5527956 
 
-# Use in measure()
-bot %>% measure("rectangularity")
-#> # A tibble: 40 × 4
-#>    coo     type   dummy coo_rectangularity
-#>    <out>   <fct>  <fct>              <dbl>
-#>  1 (138·2) whisky a                  0.775
-#>  2 (168·2) whisky a                  0.777
-#>  3 (189·2) whisky a                  0.770
-#>  4 (129·2) whisky a                  0.793
-#>  5 (152·2) whisky a                  0.651
-#>  6 (161·2) whisky a                  0.784
-#>  7 (124·2) whisky a                  0.805
-#>  8 (126·2) whisky a                  0.766
-#>  9 (183·2) whisky a                  0.762
-#> 10 (193·2) whisky a                  0.785
-#> # ℹ 30 more rows
+# Use in measure() on a mini bot for the sake of speed
+bot[1:2, ] %>% measure("rectangularity")
+#> # A tibble: 2 × 4
+#>   coo     type   dummy coo_rectangularity
+#>   <out>   <fct>  <fct>              <dbl>
+#> 1 (138·2) whisky a                  0.775
+#> 2 (168·2) whisky a                  0.777
 ```

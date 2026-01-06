@@ -53,20 +53,11 @@ Intelligence.
 get_rectilinearity(shapes$cat)
 #> [1] 0.1343944
 
-# Use in measure()
-bot %>% measure("rectilinearity")
-#> # A tibble: 40 × 4
-#>    coo     type   dummy coo_rectilinearity
-#>    <out>   <fct>  <fct>              <dbl>
-#>  1 (138·2) whisky a                  0.430
-#>  2 (168·2) whisky a                  0.459
-#>  3 (189·2) whisky a                  0.400
-#>  4 (129·2) whisky a                  0.602
-#>  5 (152·2) whisky a                  0.388
-#>  6 (161·2) whisky a                  0.415
-#>  7 (124·2) whisky a                  0.567
-#>  8 (126·2) whisky a                  0.452
-#>  9 (183·2) whisky a                  0.482
-#> 10 (193·2) whisky a                  0.542
-#> # ℹ 30 more rows
+# Use in measure() on mini bot for the sake of speed
+bot[1:2, ] %>% measure("rectilinearity")
+#> # A tibble: 2 × 4
+#>   coo     type   dummy coo_rectilinearity
+#>   <out>   <fct>  <fct>              <dbl>
+#> 1 (138·2) whisky a                  0.430
+#> 2 (168·2) whisky a                  0.459
 ```

@@ -186,6 +186,8 @@ coo_affine(shapes$cat, rot_mat)
 #> [118,] 184.5549 -109.6015511
 #> [119,] 185.9691 -102.5304833
 #> [120,] 188.7975  -96.8736290
+#> attr(,"class")
+#> [1] "coo"    "matrix" "array" 
 
 # Scaling matrix
 scale_mat <- matrix(c(2, 0, 0, 2), nrow = 2)
@@ -682,4 +684,6 @@ coo_affine(shapes, scale_mat)
 #> [119,]  414  136
 #> [120,]  402  138
 #> 
+#> attr(,"class")
+#> [1] "coo"  "list"
 ```

@@ -60,5 +60,7 @@ segments.
 
 ## See also
 
+[`get_coords_nb()`](https://momx.github.io/Momocs2/reference/get_coords_nb.md)
+for point count;
 [`coo_smooth()`](https://momx.github.io/Momocs2/reference/coo_smooth.md)
 for smoothing

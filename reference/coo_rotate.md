@@ -168,6 +168,8 @@ coo_rotate(shapes$cat, theta = pi / 4)
 #> [118,] 109.6015511 184.5549
 #> [119,] 102.5304833 185.9691
 #> [120,]  96.8736290 188.7975
+#> attr(,"class")
+#> [1] "coo"    "matrix" "array" 
 coo_rotate(shapes, theta = pi / 6)
 #> $cat
 #>             [,1]      [,2]
@@ -661,19 +663,21 @@ coo_rotate(shapes, theta = pi / 6)
 #> [119,] 145.26726 162.3897
 #> [120,] 139.57111 160.2558
 #> 
+#> attr(,"class")
+#> [1] "coo"  "list"
 coo_rotate(bot, theta = pi / 8)
 #> # A tibble: 40 × 3
-#>    coo             type   dummy
-#>    <named list>    <fct>  <fct>
-#>  1 <dbl [138 × 2]> whisky a    
-#>  2 <dbl [168 × 2]> whisky a    
-#>  3 <dbl [189 × 2]> whisky a    
-#>  4 <dbl [129 × 2]> whisky a    
-#>  5 <dbl [152 × 2]> whisky a    
-#>  6 <dbl [161 × 2]> whisky a    
-#>  7 <dbl [124 × 2]> whisky a    
-#>  8 <dbl [126 × 2]> whisky a    
-#>  9 <dbl [183 × 2]> whisky a    
-#> 10 <dbl [193 × 2]> whisky a    
+#>    coo     type   dummy
+#>    <out>   <fct>  <fct>
+#>  1 (138·2) whisky a    
+#>  2 (168·2) whisky a    
+#>  3 (189·2) whisky a    
+#>  4 (129·2) whisky a    
+#>  5 (152·2) whisky a    
+#>  6 (161·2) whisky a    
+#>  7 (124·2) whisky a    
+#>  8 (126·2) whisky a    
+#>  9 (183·2) whisky a    
+#> 10 (193·2) whisky a    
 #> # ℹ 30 more rows
 ```

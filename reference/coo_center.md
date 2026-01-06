@@ -168,6 +168,8 @@ coo_center(shapes$cat)
 #> [120,]  13.875 -29.2
 #> attr(,"scaled:center")
 #> [1] 188.125  94.200
+#> attr(,"class")
+#> [1] "coo"    "matrix" "array" 
 coo_center(shapes)
 #> $cat
 #>           [,1]  [,2]
@@ -669,19 +671,21 @@ coo_center(shapes)
 #> attr(,"scaled:center")
 #> [1] 195.425 125.650
 #> 
+#> attr(,"class")
+#> [1] "coo"  "list"
 coo_center(bot)
 #> # A tibble: 40 × 3
-#>    coo             type   dummy
-#>    <named list>    <fct>  <fct>
-#>  1 <out [138 × 2]> whisky a    
-#>  2 <out [168 × 2]> whisky a    
-#>  3 <out [189 × 2]> whisky a    
-#>  4 <out [129 × 2]> whisky a    
-#>  5 <out [152 × 2]> whisky a    
-#>  6 <out [161 × 2]> whisky a    
-#>  7 <out [124 × 2]> whisky a    
-#>  8 <out [126 × 2]> whisky a    
-#>  9 <out [183 × 2]> whisky a    
-#> 10 <out [193 × 2]> whisky a    
+#>    coo     type   dummy
+#>    <out>   <fct>  <fct>
+#>  1 (138·2) whisky a    
+#>  2 (168·2) whisky a    
+#>  3 (189·2) whisky a    
+#>  4 (129·2) whisky a    
+#>  5 (152·2) whisky a    
+#>  6 (161·2) whisky a    
+#>  7 (124·2) whisky a    
+#>  8 (126·2) whisky a    
+#>  9 (183·2) whisky a    
+#> 10 (193·2) whisky a    
 #> # ℹ 30 more rows
 ```

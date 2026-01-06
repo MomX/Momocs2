@@ -7,7 +7,7 @@ Scale and center shapes to fit in a standard template box.
 ``` r
 coo_template(x, ..., .cols = NULL, .ldk_col = NULL)
 
-coo_template_relatively(x, ..., .cols = NULL, .ldk_col = NULL)
+coo_template_relatively(x, size = 1, ..., .cols = NULL, .ldk_col = NULL)
 ```
 
 ## Arguments
@@ -187,6 +187,8 @@ coo_template(shapes$cat, size = 1)
 #> [118,]  0.083333333 -0.301801802
 #> [119,]  0.065315315 -0.274774775
 #> [120,]  0.056306306 -0.247747748
+#> attr(,"class")
+#> [1] "coo"    "matrix" "array" 
 coo_template_relatively(shapes$cat, size = 1)
 #>                [,1]         [,2]
 #>   [1,]  0.047297297 -0.261261261
@@ -309,6 +311,8 @@ coo_template_relatively(shapes$cat, size = 1)
 #> [118,]  0.083333333 -0.301801802
 #> [119,]  0.065315315 -0.274774775
 #> [120,]  0.056306306 -0.247747748
+#> attr(,"class")
+#> [1] "coo"    "matrix" "array" 
 
 # Multiple shapes - independent scaling
 shapes %>% coo_template(size = 1)
@@ -804,6 +808,8 @@ shapes %>% coo_template(size = 1)
 #> [119,]  0.055825243 -0.266990291
 #> [120,]  0.026699029 -0.262135922
 #> 
+#> attr(,"class")
+#> [1] "coo"  "list"
 
 # Multiple shapes - relative scaling
 shapes %>% coo_template_relatively(size = 1)
@@ -929,6 +935,8 @@ shapes %>% coo_template_relatively(size = 1)
 #> [118,]  0.083333333 -0.301801802
 #> [119,]  0.065315315 -0.274774775
 #> [120,]  0.056306306 -0.247747748
+#> attr(,"class")
+#> [1] "coo"    "matrix" "array" 
 #> 
 #> $dog
 #>                [,1]         [,2]
@@ -1052,6 +1060,8 @@ shapes %>% coo_template_relatively(size = 1)
 #> [118,]  0.040540541 -0.139639640
 #> [119,]  0.013513514 -0.135135135
 #> [120,] -0.018018018 -0.135135135
+#> attr(,"class")
+#> [1] "coo"    "matrix" "array" 
 #> 
 #> $heart
 #>                [,1]         [,2]
@@ -1175,6 +1185,8 @@ shapes %>% coo_template_relatively(size = 1)
 #> [118,]  0.024774775 -0.362612613
 #> [119,]  0.011261261 -0.385135135
 #> [120,]  0.002252252 -0.403153153
+#> attr(,"class")
+#> [1] "coo"    "matrix" "array" 
 #> 
 #> $leaf2
 #>                [,1]         [,2]
@@ -1298,6 +1310,8 @@ shapes %>% coo_template_relatively(size = 1)
 #> [118,]  0.083333333 -0.256756757
 #> [119,]  0.051801802 -0.247747748
 #> [120,]  0.024774775 -0.243243243
+#> attr(,"class")
+#> [1] "coo"    "matrix" "array" 
 #> 
 
 # Perfect for mosaic - shows true size relationships

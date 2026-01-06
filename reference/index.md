@@ -1,75 +1,259 @@
 # Package index
 
-## Core Data Structures
+## Coordinate transformations (coo\_\*)
 
-S3 classes and constructor functions for morphometric data types.
+Functions that transform shape coordinates
 
-## Datasets
+### Basic transformations
 
-Small datasets to play with
+Translation, rotation, scaling, and centering
 
-- [`bot`](https://momx.github.io/Momocs2/reference/bot.md) : Bottles
-  dataset
-- [`hearts`](https://momx.github.io/Momocs2/reference/hearts.md) : Heart
-  dataset
-- [`shapes`](https://momx.github.io/Momocs2/reference/shapes.md) :
-  Shapes dataset
-- [`wings`](https://momx.github.io/Momocs2/reference/wings.md) : Wings
-  dataset
+- [`coo_center()`](https://momx.github.io/Momocs2/reference/coo_center.md)
+  : Center coordinates
+- [`coo_translate()`](https://momx.github.io/Momocs2/reference/coo_translate.md)
+  : Translate coordinates
+- [`coo_rotate()`](https://momx.github.io/Momocs2/reference/coo_rotate.md)
+  : Rotate coordinates
+- [`coo_rotate_around()`](https://momx.github.io/Momocs2/reference/coo_rotate_around.md)
+  : Rotate around a center point
+- [`coo_scale()`](https://momx.github.io/Momocs2/reference/coo_scale.md)
+  : Scale to unit centroid size
 
-## Coordinate Transformations
+### Alignment and orientation
 
-Functions to transform shape coordinates. These modify the coo column in
-tibbles.
+Align shapes to axes or specific features
 
-- [`bot`](https://momx.github.io/Momocs2/reference/bot.md) : Bottles
-  dataset
-- [`hearts`](https://momx.github.io/Momocs2/reference/hearts.md) : Heart
-  dataset
-- [`p()`](https://momx.github.io/Momocs2/reference/p.md)
-  [`draw_landmarks()`](https://momx.github.io/Momocs2/reference/p.md)
-  [`draw_landmarks_as_numbers()`](https://momx.github.io/Momocs2/reference/p.md)
-  [`draw_outlines()`](https://momx.github.io/Momocs2/reference/p.md)
-  [`draw_centroid()`](https://momx.github.io/Momocs2/reference/p.md)
-  [`draw_first_point()`](https://momx.github.io/Momocs2/reference/p.md)
-  [`draw_links()`](https://momx.github.io/Momocs2/reference/p.md) :
-  Minimal plotting system for morphometric shapes
-- [`shapes`](https://momx.github.io/Momocs2/reference/shapes.md) :
-  Shapes dataset
-- [`wings`](https://momx.github.io/Momocs2/reference/wings.md) : Wings
-  dataset
+- [`coo_align()`](https://momx.github.io/Momocs2/reference/coo_align.md)
+  : Align shape to principal axes
+- [`coo_align_minor()`](https://momx.github.io/Momocs2/reference/coo_align_minor.md)
+  : Align shape to minor and major axes (swapped)
+- [`coo_align_calliper()`](https://momx.github.io/Momocs2/reference/coo_align_features.md)
+  [`coo_align_minradius()`](https://momx.github.io/Momocs2/reference/coo_align_features.md)
+  : Align to special features
+- [`coo_untilt_x()`](https://momx.github.io/Momocs2/reference/coo_untilt.md)
+  [`coo_untilt_y()`](https://momx.github.io/Momocs2/reference/coo_untilt.md)
+  : Untilt to axis
+- [`coo_direction_positive()`](https://momx.github.io/Momocs2/reference/coo_direction.md)
+  [`coo_direction_negative()`](https://momx.github.io/Momocs2/reference/coo_direction.md)
+  : Ensure positive (counter-clockwise) direction
+- [`coo_flip_x()`](https://momx.github.io/Momocs2/reference/coo_flip.md)
+  [`coo_flip_xaxis()`](https://momx.github.io/Momocs2/reference/coo_flip.md)
+  [`coo_flip_y()`](https://momx.github.io/Momocs2/reference/coo_flip.md)
+  [`coo_flip_yaxis()`](https://momx.github.io/Momocs2/reference/coo_flip.md)
+  : Flip coordinates
 
-## Landmark Registration
+### Sampling and smoothing
 
-Specialized functions for landmark-based alignment.
+Resample points along outlines
 
+- [`coo_sample()`](https://momx.github.io/Momocs2/reference/coo_sample.md)
+  [`coo_sample_prop()`](https://momx.github.io/Momocs2/reference/coo_sample.md)
+  : Sample coordinates
+- [`coo_sample_regular_radius()`](https://momx.github.io/Momocs2/reference/coo_sample_regular_radius.md)
+  : Sample at regular angles from centroid
+- [`coo_smooth()`](https://momx.github.io/Momocs2/reference/coo_smooth.md)
+  [`coo_smooth_fixed()`](https://momx.github.io/Momocs2/reference/coo_smooth.md)
+  : Smooth coordinates
+
+### Point manipulation
+
+Reorder, reverse, trim, and modify point sequences
+
+- [`coo_slide()`](https://momx.github.io/Momocs2/reference/coo_slide.md)
+  [`coo_slide_closest()`](https://momx.github.io/Momocs2/reference/coo_slide.md)
+  [`coo_slide_angle()`](https://momx.github.io/Momocs2/reference/coo_slide.md)
+  [`coo_slide_direction()`](https://momx.github.io/Momocs2/reference/coo_slide.md)
+  [`coo_slide_gap()`](https://momx.github.io/Momocs2/reference/coo_slide.md)
+  : Slide coordinates along outline
+- [`coo_reverse()`](https://momx.github.io/Momocs2/reference/coo_reverse.md)
+  : Reverse point order
+- [`coo_trim_head()`](https://momx.github.io/Momocs2/reference/coo_trim.md)
+  [`coo_trim_tail()`](https://momx.github.io/Momocs2/reference/coo_trim.md)
+  [`coo_trim_both()`](https://momx.github.io/Momocs2/reference/coo_trim.md)
+  : Trim points from outline ends
+- [`coo_close()`](https://momx.github.io/Momocs2/reference/coo_close.md)
+  [`coo_open()`](https://momx.github.io/Momocs2/reference/coo_close.md)
+  : Close or open outlines
+- [`coo_close_spread()`](https://momx.github.io/Momocs2/reference/coo_close_spread.md)
+  : Close outline by spreading gap
+
+### Templates and transformations
+
+Standardize and transform shapes
+
+- [`coo_template()`](https://momx.github.io/Momocs2/reference/coo_template.md)
+  [`coo_template_relatively()`](https://momx.github.io/Momocs2/reference/coo_template.md)
+  : Template shapes to standard size
+- [`get_transformed()`](https://momx.github.io/Momocs2/reference/get_transformed.md)
+  : Apply transformation to coordinates
+- [`coo_shear_x()`](https://momx.github.io/Momocs2/reference/coo_shear.md)
+  [`coo_shear_y()`](https://momx.github.io/Momocs2/reference/coo_shear.md)
+  : Shear coordinates
+
+### Filtering and extraction
+
+Extract subsets based on spatial criteria
+
+- [`coo_up()`](https://momx.github.io/Momocs2/reference/coo_direction_filter.md)
+  [`coo_down()`](https://momx.github.io/Momocs2/reference/coo_direction_filter.md)
+  [`coo_right()`](https://momx.github.io/Momocs2/reference/coo_direction_filter.md)
+  [`coo_left()`](https://momx.github.io/Momocs2/reference/coo_direction_filter.md)
+  : Filter points by direction from centroid
 - [`coo_baseline()`](https://momx.github.io/Momocs2/reference/coo_baseline.md)
   [`coo_bookstein()`](https://momx.github.io/Momocs2/reference/coo_baseline.md)
   : Baseline correction (Bookstein registration)
 
-## Information Extraction
+## Shape measurements (get\_\* and measure)
 
-Extract information from shapes without modifying them. Use within
-mutate() to add columns.
+Functions to extract and measure shape properties
+
+### Basic properties
+
+Fundamental shape characteristics
 
 - [`get_centroid()`](https://momx.github.io/Momocs2/reference/get_centroid.md)
   [`centroid()`](https://momx.github.io/Momocs2/reference/get_centroid.md)
   : Get centroid of a shape
+- [`get_area()`](https://momx.github.io/Momocs2/reference/get_area.md) :
+  Get area of a closed outline
+- [`get_perim()`](https://momx.github.io/Momocs2/reference/get_perim.md)
+  [`get_perim_along()`](https://momx.github.io/Momocs2/reference/get_perim.md)
+  [`get_perim_cum()`](https://momx.github.io/Momocs2/reference/get_perim.md)
+  : Get perimeter measurements
+- [`get_coords_nb()`](https://momx.github.io/Momocs2/reference/get_coords_nb.md)
+  : Get number of coordinates
+
+### Size measures
+
+Overall size and dimensions
+
 - [`get_centroid_size()`](https://momx.github.io/Momocs2/reference/get_centroid_size.md)
   [`centsize()`](https://momx.github.io/Momocs2/reference/get_centroid_size.md)
   : Get centroid size
 - [`get_centroid_size_norm()`](https://momx.github.io/Momocs2/reference/get_centroid_size_norm.md)
   [`centsize_norm()`](https://momx.github.io/Momocs2/reference/get_centroid_size_norm.md)
   : Get normalized centroid size
+- [`get_length()`](https://momx.github.io/Momocs2/reference/get_length.md)
+  : Get length
+- [`get_width()`](https://momx.github.io/Momocs2/reference/get_width.md)
+  : Get width
+- [`get_lw()`](https://momx.github.io/Momocs2/reference/get_lw.md) : Get
+  length and width
+- [`get_elongation()`](https://momx.github.io/Momocs2/reference/get_elongation.md)
+  : Get elongation
+- [`get_calliper()`](https://momx.github.io/Momocs2/reference/get_calliper.md)
+  [`get_calliper_ids()`](https://momx.github.io/Momocs2/reference/get_calliper.md)
+  : Get calliper
 
-## Shape Measurements
+### Circularity and roundness
 
-Measure scalar properties of shapes. Automatically adds columns to
-tibbles.
+Measures of how circular a shape is
+
+- [`get_circularity()`](https://momx.github.io/Momocs2/reference/get_circularity.md)
+  [`get_circularity_norm()`](https://momx.github.io/Momocs2/reference/get_circularity.md)
+  [`get_circularity_haralick()`](https://momx.github.io/Momocs2/reference/get_circularity.md)
+  : Get circularity measures
+
+### Shape complexity
+
+Compactness, convexity, and irregularity
+
+- [`get_convexity()`](https://momx.github.io/Momocs2/reference/get_convexity.md)
+  : Get convexity
+- [`get_solidity()`](https://momx.github.io/Momocs2/reference/get_solidity.md)
+  : Get solidity
+- [`get_rugosity()`](https://momx.github.io/Momocs2/reference/get_rugosity.md)
+  : Get rugosity
+- [`get_compactness()`](https://momx.github.io/Momocs2/reference/get_compactness.md)
+  : Get compactness
+- [`get_rectangularity()`](https://momx.github.io/Momocs2/reference/get_rectangularity.md)
+  : Get rectangularity
+- [`get_rectilinearity()`](https://momx.github.io/Momocs2/reference/get_rectilinearity.md)
+  : Get rectilinearity
+
+### Convex hull
+
+Convex hull extraction and analysis
+
+- [`get_chull()`](https://momx.github.io/Momocs2/reference/get_chull.md)
+  [`get_chull_id()`](https://momx.github.io/Momocs2/reference/get_chull.md)
+  : Get convex hull
+- [`get_chull_onion()`](https://momx.github.io/Momocs2/reference/get_chull_onion.md)
+  : Get convex hull layers (onion peeling)
+
+### Distances and angles
+
+Point-to-point distances and angular measures
+
+- [`get_centroid_distance()`](https://momx.github.io/Momocs2/reference/get_centroid_distance.md)
+  : Get distances from centroid
+- [`get_truss()`](https://momx.github.io/Momocs2/reference/get_truss.md)
+  : Get truss (all pairwise distances)
+- [`get_angles()`](https://momx.github.io/Momocs2/reference/get_angles.md)
+  : Get angles from centroid
+- [`get_angle_edges()`](https://momx.github.io/Momocs2/reference/get_angle_edges.md)
+  : Get angles at vertices
+- [`get_angle_tangent()`](https://momx.github.io/Momocs2/reference/get_angle_tangent.md)
+  : Get tangent angles
+
+### Ranges and bounding box
+
+Spatial extents and boundaries
+
+- [`get_range()`](https://momx.github.io/Momocs2/reference/get_range.md)
+  : Get coordinate ranges
+- [`get_range_diff()`](https://momx.github.io/Momocs2/reference/get_range_diff.md)
+  : Get range span
+- [`get_bbox()`](https://momx.github.io/Momocs2/reference/get_bbox.md) :
+  Get bounding box corners
+
+### Direction and position
+
+Orientation and point location
+
+- [`get_direction_sign()`](https://momx.github.io/Momocs2/reference/get_direction_sign.md)
+  : Get outline direction sign
+- [`get_closest()`](https://momx.github.io/Momocs2/reference/get_closest.md)
+  [`get_closest_angle()`](https://momx.github.io/Momocs2/reference/get_closest.md)
+  : Find closest point to target
+- [`get_closest_direction()`](https://momx.github.io/Momocs2/reference/get_closest_direction.md)
+  : Get point closest to a given direction
+
+### Landmarks
+
+Landmark extraction and manipulation
+
+- [`get_ldk()`](https://momx.github.io/Momocs2/reference/get_ldk.md) :
+  Extract landmark coordinates
+
+### Transformations
+
+Extract and apply geometric transformations
+
+- [`get_transform()`](https://momx.github.io/Momocs2/reference/get_transform.md)
+  : Extract transformation between two configurations
+
+### Cut and join
+
+Split and merge curves
+
+- [`get_cut()`](https://momx.github.io/Momocs2/reference/get_cut.md) :
+  Cut outline at landmarks
+- [`get_join()`](https://momx.github.io/Momocs2/reference/get_join.md) :
+  Join curves into closed outline
+
+### Unified measurement interface
+
+Compute multiple measurements at once
+
+- [`measure()`](https://momx.github.io/Momocs2/reference/measure.md) :
+  Measure shape properties
+- [`available_measures()`](https://momx.github.io/Momocs2/reference/available_measures.md)
+  : List available measurements
 
 ## Visualization
 
-Functions for plotting and visualizing morphometric data.
+Plotting and display functions
 
 - [`pile()`](https://momx.github.io/Momocs2/reference/pile.md) : Plot
   shapes stacked together
@@ -84,17 +268,29 @@ Functions for plotting and visualizing morphometric data.
   [`draw_links()`](https://momx.github.io/Momocs2/reference/p.md) :
   Minimal plotting system for morphometric shapes
 
+## Pillar display
+
+Custom tibble printing for morphometric data
+
+- [`pillar_colors`](https://momx.github.io/Momocs2/reference/pillar_colors.md)
+  : Customize pillar colors
+
 ## Utilities
 
-Helper functions and utilities.
+Helper functions and internal tools
 
 - [`get_coo_cols()`](https://momx.github.io/Momocs2/reference/get_coo_cols.md)
   : Identify coo columns in a tibble
-- [`rinse()`](https://momx.github.io/Momocs2/reference/rinse.md) : Clear
-  the environment
-- [`` `%>%` ``](https://momx.github.io/Momocs2/reference/pipe.md) : Pipe
-  operator
 
-## S3 Methods
+## Dataset
 
-Print and display methods for custom classes.
+Helper functions and internal tools
+
+- [`bot`](https://momx.github.io/Momocs2/reference/bot.md) : Bottles
+  dataset
+- [`hearts`](https://momx.github.io/Momocs2/reference/hearts.md) : Heart
+  dataset
+- [`wings`](https://momx.github.io/Momocs2/reference/wings.md) : Wings
+  dataset
+- [`shapes`](https://momx.github.io/Momocs2/reference/shapes.md) :
+  Shapes dataset
