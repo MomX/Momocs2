@@ -56,8 +56,8 @@ get_calliper_ids(shapes$cat)
 # Use in measure() on minibot for the sake of speed
 bot[1:2, ] %>% measure("calliper")
 #> # A tibble: 2 × 4
-#>   coo     type   dummy coo_calliper
-#>   <out>   <fct>  <fct>        <dbl>
-#> 1 (138·2) whisky a            1088.
-#> 2 (168·2) whisky a             994.
+#>   coo       type   dummy coo_calliper
+#>   <out>     <fct>  <fct>        <dbl>
+#> 1 (138 x 2) whisky a            1088.
+#> 2 (168 x 2) whisky a             994.
 ```

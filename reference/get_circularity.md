@@ -69,32 +69,32 @@ get_circularity_haralick(shapes$cat)
 # Use in measure()
 bot %>% measure("circularity")
 #> # A tibble: 40 × 4
-#>    coo     type   dummy coo_circularity
-#>    <out>   <fct>  <fct>           <dbl>
-#>  1 (138·2) whisky a               0.466
-#>  2 (168·2) whisky a               0.482
-#>  3 (189·2) whisky a               0.592
-#>  4 (129·2) whisky a               0.445
-#>  5 (152·2) whisky a               0.478
-#>  6 (161·2) whisky a               0.629
-#>  7 (124·2) whisky a               0.477
-#>  8 (126·2) whisky a               0.544
-#>  9 (183·2) whisky a               0.524
-#> 10 (193·2) whisky a               0.470
+#>    coo       type   dummy coo_circularity
+#>    <out>     <fct>  <fct>           <dbl>
+#>  1 (138 x 2) whisky a               0.466
+#>  2 (168 x 2) whisky a               0.482
+#>  3 (189 x 2) whisky a               0.592
+#>  4 (129 x 2) whisky a               0.445
+#>  5 (152 x 2) whisky a               0.478
+#>  6 (161 x 2) whisky a               0.629
+#>  7 (124 x 2) whisky a               0.477
+#>  8 (126 x 2) whisky a               0.544
+#>  9 (183 x 2) whisky a               0.524
+#> 10 (193 x 2) whisky a               0.470
 #> # ℹ 30 more rows
 bot %>% measure(c("circularity", "circularity_haralick"))
 #> # A tibble: 40 × 5
-#>    coo     type   dummy coo_circularity coo_circularity_haralick
-#>    <out>   <fct>  <fct>           <dbl>                    <dbl>
-#>  1 (138·2) whisky a               0.466                     2.32
-#>  2 (168·2) whisky a               0.482                     2.37
-#>  3 (189·2) whisky a               0.592                     2.94
-#>  4 (129·2) whisky a               0.445                     2.26
-#>  5 (152·2) whisky a               0.478                     2.40
-#>  6 (161·2) whisky a               0.629                     3.12
-#>  7 (124·2) whisky a               0.477                     2.36
-#>  8 (126·2) whisky a               0.544                     2.64
-#>  9 (183·2) whisky a               0.524                     2.59
-#> 10 (193·2) whisky a               0.470                     2.35
+#>    coo       type   dummy coo_circularity coo_circularity_haralick
+#>    <out>     <fct>  <fct>           <dbl>                    <dbl>
+#>  1 (138 x 2) whisky a               0.466                     2.32
+#>  2 (168 x 2) whisky a               0.482                     2.37
+#>  3 (189 x 2) whisky a               0.592                     2.94
+#>  4 (129 x 2) whisky a               0.445                     2.26
+#>  5 (152 x 2) whisky a               0.478                     2.40
+#>  6 (161 x 2) whisky a               0.629                     3.12
+#>  7 (124 x 2) whisky a               0.477                     2.36
+#>  8 (126 x 2) whisky a               0.544                     2.64
+#>  9 (183 x 2) whisky a               0.524                     2.59
+#> 10 (193 x 2) whisky a               0.470                     2.35
 #> # ℹ 30 more rows
 ```

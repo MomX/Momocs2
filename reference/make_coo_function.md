@@ -42,6 +42,11 @@ The returned function automatically:
 - Applies impl_fn to specified columns of a tibble and returns the
   modified tibble
 
+- Applies `xy` class to each single matrix
+
+- Applies `coo` class to list and list-columns (ie when tibbles are
+  passed)
+
 When `sync_ldk = TRUE`, the dispatcher automatically handles landmark
 columns:
 
@@ -53,5 +58,8 @@ columns:
 - Passes landmarks to implementation function
 
 - Updates landmarks based on coordinate changes
+
+When `sync_ldk = FALSE`, the implementation function should return just
+a matrix, not a list with coo and ldk elements.
 
 Additional arguments are passed through via `...`

@@ -1,4 +1,4 @@
-# Momocs2
+# Momocs2 [![Momocs2 website](reference/figures/logo.png)](https://momx.github.io/Momocs2/)
 
 The goal of Momocs2 is to provide…
 

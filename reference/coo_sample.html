@@ -5,7 +5,7 @@
       fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
     }
   };
-</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Sample coordinates — coo_sample"><meta name="description" content="Resample a shape to a different number of points."><meta property="og:description" content="Resample a shape to a different number of points."><meta property="og:image" content="https://momx.github.io/Momocs2/logo.png"></head><body>
+</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Sample coordinates — coo_sample"><meta name="description" content="Resample a shape to a different number of points."><meta property="og:description" content="Resample a shape to a different number of points."></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -22,6 +22,7 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="nav-item"><a class="nav-link" href="../articles/index.html">Articles</a></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
@@ -39,7 +40,8 @@
 </nav><div class="container template-reference-topic">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="../logo.png" class="logo" alt=""><h1>Sample coordinates</h1>
+
+      <h1>Sample coordinates</h1>
       <small class="dont-index">Source: <a href="https://github.com/MomX/Momocs2/blob/master/R/coo.R" class="external-link"><code>R/coo.R</code></a></small>
       <div class="d-none name"><code>coo_sample.Rd</code></div>
     </div>
@@ -102,9 +104,692 @@ positions and distributing points proportionally across segments.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="get_coords_nb.html">get_coords_nb()</a></code> for point count; <code><a href="coo_smooth.html">coo_smooth()</a></code> for smoothing</p></div>
+    <div class="dont-index"><p><code><a href="get_coords_nb.html">get_coords_nb()</a></code> for point count; <code><a href="coo_smooth.html">coo_smooth()</a></code> for smoothing; <code><a href="coo_sample_regular_radius.html">coo_sample_regular_radius()</a></code> for radial sampling</p></div>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Resample to 64 points</span></span></span>
+<span class="r-in"><span><span class="fu">coo_sample</span><span class="op">(</span><span class="va">shapes</span><span class="op">$</span><span class="va">cat</span>, n <span class="op">=</span> <span class="fl">64</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;xy [64 x 2]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1]    [,2]   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,] 200.000  62.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,] 200.492  55.836</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,] 208.650  48.701</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,] 200.457  43.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,] 188.809  42.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] ...     ...    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,] 226.723  61.092</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,] 231.086  52.257</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,] 222.914  45.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,] 212.045  48.146</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,] 204.998  57.502</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Resample list</span></span></span>
+<span class="r-in"><span><span class="fu">coo_sample</span><span class="op">(</span><span class="va">bot</span><span class="op">$</span><span class="va">coo</span>, n <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>collapsing to unique 'x' values</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>collapsing to unique 'x' values</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>collapsing to unique 'x' values</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>collapsing to unique 'x' values</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>collapsing to unique 'x' values</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>collapsing to unique 'x' values</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>collapsing to unique 'x' values</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>collapsing to unique 'x' values</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>collapsing to unique 'x' values</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>collapsing to unique 'x' values</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>collapsing to unique 'x' values</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>collapsing to unique 'x' values</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>collapsing to unique 'x' values</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>collapsing to unique 'x' values</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>collapsing to unique 'x' values</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>collapsing to unique 'x' values</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>collapsing to unique 'x' values</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>collapsing to unique 'x' values</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>collapsing to unique 'x' values</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>collapsing to unique 'x' values</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>collapsing to unique 'x' values</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>collapsing to unique 'x' values</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>collapsing to unique 'x' values</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>collapsing to unique 'x' values</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $brahma</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;xy [100 x 2]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1]    [,2]   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  37.000 561.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  40.000 536.074</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  42.555 511.117</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  46.152 486.238</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  50.941 461.560</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] ...     ...    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  40.889 685.666</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  35.006 661.279</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  33.000 636.280</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  33.612 611.156</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,]  35.432 586.090</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $caney</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;xy [100 x 2]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1]    [,2]   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  53.000 535.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  53.644 512.126</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  53.568 489.322</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  54.000 466.453</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  54.000 443.563</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] ...     ...    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  92.842 640.094</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  79.791 621.416</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  69.320 601.155</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  60.519 580.062</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,]  55.547 557.737</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $chimay</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;xy [100 x 2]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1]    [,2]   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  49.000 333.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  49.115 317.081</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  50.000 301.211</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  50.795 285.360</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  50.000 269.483</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] ...     ...    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  71.106 407.766</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  65.027 393.053</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  58.675 378.479</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  51.201 364.469</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,]  48.111 348.886</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $corona</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;xy [100 x 2]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1]    [,2]   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  91.000 426.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  90.601 407.627</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  90.571 389.288</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  91.000 370.928</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  91.000 352.546</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] ...     ...    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,] 120.565 512.413</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,] 113.738 495.346</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,] 105.961 478.731</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  99.376 461.592</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,]  93.600 444.197</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $deusventrue</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;xy [100 x 2]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1]    [,2]   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  74.000 481.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  65.525 461.932</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  58.108 442.451</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  51.165 422.774</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  45.925 402.626</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] ...     ...    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,] 107.856 579.568</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,] 101.417 559.722</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  95.008 539.877</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  87.771 520.312</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,]  82.067 500.242</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $duvel</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;xy [100 x 2]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1]    [,2]   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  61.000 315.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  61.000 299.906</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  61.000 284.811</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  59.000 269.915</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  59.000 254.821</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] ...     ...    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  84.834 385.024</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  76.439 372.484</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  69.514 359.130</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  64.449 344.967</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,]  62.367 330.032</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $franziskaner</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;xy [100 x 2]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1]    [,2]   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  54.000 439.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  54.000 419.152</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  54.000 399.305</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  54.000 379.457</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  54.000 359.610</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] ...     ...    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  61.667 537.558</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  59.332 517.971</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  56.622 498.356</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  54.000 478.695</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,]  54.000 458.848</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $grimbergen</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;xy [100 x 2]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1]    [,2]   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  42.000 404.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  40.000 385.723</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  40.000 367.247</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  40.000 348.772</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  40.000 330.297</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] ...     ...    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  75.080 488.349</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  64.396 473.280</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  54.824 457.510</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  48.356 440.246</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,]  43.752 422.392</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $guiness</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;xy [100 x 2]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1]    [,2]   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  69.000 385.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  69.000 367.331</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  69.000 349.661</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  69.000 331.992</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  69.428 314.420</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] ...     ...    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  87.252 468.879</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  78.326 453.651</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  71.947 437.262</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  67.572 420.146</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,]  68.816 402.659</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $hoegardeen</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;xy [100 x 2]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1]    [,2]   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  42.000 544.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  40.000 519.916</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  40.000 495.680</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  40.000 471.443</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  40.000 447.207</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] ...     ...    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  71.206 661.168</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  63.836 638.089</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  56.755 614.955</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  50.265 591.613</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,]  45.984 567.907</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $jupiler</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;xy [100 x 2]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1]    [,2]   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  55.000 515.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  54.000 492.709</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  54.000 470.382</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  54.000 448.055</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  54.000 425.728</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] ...     ...    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  82.643 622.840</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  75.657 601.640</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  68.430 580.531</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  62.835 558.924</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,]  58.272 537.086</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $kingfisher</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;xy [100 x 2]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1]    [,2]   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  71.000 384.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  71.000 367.668</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  71.000 351.336</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  71.000 335.004</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  71.000 318.672</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] ...     ...    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  85.826 463.859</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  82.196 447.980</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  77.853 432.267</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  74.023 416.409</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,]  72.710 400.242</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $latrappe</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;xy [100 x 2]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1]    [,2]   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  26.000 389.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  25.000 370.038</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  25.000 351.035</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  25.579 332.056</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  26.000 313.070</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] ...     ...    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  34.813 482.393</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  28.199 464.598</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  25.418 445.986</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  26.000 427.007</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,]  26.000 408.003</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $lindemanskriek</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;xy [100 x 2]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1]    [,2]   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  60.000 427.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  56.536 408.608</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  54.000 389.959</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  53.564 371.018</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  54.000 352.137</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] ...     ...    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  86.638 517.913</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  81.294 499.741</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  75.895 481.579</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  70.599 463.394</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,]  65.348 445.184</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $nicechouffe</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;xy [100 x 2]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1]    [,2]   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  82.000 361.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  79.203 345.362</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  77.000 329.710</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  75.363 313.903</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  75.000 298.018</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] ...     ...    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,] 102.746 437.611</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  97.609 422.559</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  92.451 407.531</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  88.530 392.119</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,]  84.765 376.666</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $pecheresse</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;xy [100 x 2]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1]    [,2]   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  63.000 495.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  61.000 473.864</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  60.282 452.642</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  58.368 431.494</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  58.000 410.273</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] ...     ...    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  89.735 597.742</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  85.107 577.022</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  79.277 556.598</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  73.809 536.074</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,]  68.648 515.476</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $sierranevada</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;xy [100 x 2]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1]    [,2]   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  61.000 345.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  61.000 329.168</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  61.000 313.336</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  61.000 297.504</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  61.000 281.672</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] ...     ...    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  71.226 421.498</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  63.404 407.741</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  60.698 392.190</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  59.904 376.573</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,]  61.000 360.832</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $tanglefoot</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;xy [100 x 2]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1]    [,2]   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  48.000 367.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  48.000 349.708</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  48.320 332.437</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  49.000 315.187</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  49.000 297.895</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] ...     ...    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  65.520 449.432</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  56.768 434.537</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  50.317 418.512</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  47.658 401.532</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,]  47.000 384.261</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $tauro</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;xy [100 x 2]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1]    [,2]   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  56.000 515.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  54.000 492.781</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  54.000 470.397</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  54.000 448.012</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  54.000 425.628</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] ...     ...    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  82.154 623.307</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  76.249 601.747</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  69.368 580.471</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  62.384 559.306</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,]  58.895 537.196</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $westmalle</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;xy [100 x 2]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1]    [,2]   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  70.000 394.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  68.349 376.646</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  66.898 359.269</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  66.000 341.798</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  66.000 324.300</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] ...     ...    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  91.070 478.563</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  86.223 461.757</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  81.669 444.902</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  76.572 428.286</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,]  74.004 411.034</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $amrut</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;xy [100 x 2]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1]    [,2]   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  57.000 441.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  57.000 420.985</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  57.000 400.971</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  57.000 380.956</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  57.000 360.942</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] ...     ...    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  65.108 539.217</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  57.924 520.620</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  55.030 500.849</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  57.000 481.029</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,]  57.000 461.015</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ballantines</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;xy [100 x 2]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1]    [,2]   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  38.000 357.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  38.000 338.945</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  38.000 320.891</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  38.000 302.836</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  38.000 284.782</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] ...     ...    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  38.000 447.273</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  38.000 429.218</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  38.000 411.164</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  38.000 393.109</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,]  38.000 375.055</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $bushmills</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;xy [100 x 2]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1]    [,2]   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  72.000 456.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  72.000 435.283</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  72.000 414.565</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  72.010 393.848</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  73.388 373.177</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] ...     ...    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  68.283 559.466</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  69.614 538.792</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  70.000 518.087</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  70.000 497.370</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,]  70.666 476.674</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $chivas</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;xy [100 x 2]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1]    [,2]   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  33.000 437.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  29.637 417.414</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  29.000 397.539</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  29.086 377.629</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  30.000 357.745</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] ...     ...    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  94.452 513.770</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  79.466 500.658</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  65.241 486.756</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  52.267 471.690</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,]  41.330 455.055</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dalmore</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;xy [100 x 2]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1]    [,2]   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  52.000 371.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  45.992 354.630</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  42.582 337.490</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  42.000 320.054</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  42.000 302.569</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] ...     ...    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,] 108.311 436.884</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  95.782 424.738</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  82.660 413.188</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  70.722 400.467</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,]  60.996 385.993</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $famousgrouse</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;xy [100 x 2]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1]    [,2]   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  99.000 313.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  99.000 298.807</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  99.000 284.613</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  99.000 270.420</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  99.000 256.226</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] ...     ...    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  96.000 383.807</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  96.043 369.616</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  97.000 355.475</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  97.000 341.282</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,]  97.514 327.115</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $glendronach</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;xy [100 x 2]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1]    [,2]   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  73.000 435.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  73.585 415.978</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  74.000 396.948</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  74.000 377.902</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  74.000 358.855</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] ...     ...    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  83.201 528.103</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  75.530 510.673</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  72.000 492.098</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  72.826 473.086</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,]  73.000 454.047</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $glenmorangie</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;xy [100 x 2]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1]    [,2]   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  53.000 518.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  54.000 495.182</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  54.744 472.356</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  57.000 449.633</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  57.000 426.786</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] ...     ...    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  74.043 628.842</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  65.119 607.838</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  58.528 585.980</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  53.804 563.672</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,]  53.000 540.848</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $highlandpark</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;xy [100 x 2]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1]    [,2]   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  42.000 371.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  42.000 353.206</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  42.000 335.412</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  42.000 317.617</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  41.916 299.826</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] ...     ...    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  39.651 459.887</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  40.919 442.138</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  42.000 424.383</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  42.000 406.588</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,]  42.000 388.794</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $jackdaniels</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;xy [100 x 2]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1]    [,2]   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  63.000 414.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  63.000 394.822</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  63.000 375.643</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  63.000 356.465</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  63.000 337.286</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] ...     ...    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  74.468 508.516</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  69.587 490.106</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  66.210 471.244</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  64.058 452.244</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,]  64.471 433.122</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $jb</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;xy [100 x 2]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1]    [,2]   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  43.000 531.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  42.000 507.276</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  42.407 483.520</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  43.000 459.773</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  43.000 435.999</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] ...     ...    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  58.082 645.737</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  46.944 624.990</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  41.270 601.987</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  42.294 578.532</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,]  43.000 554.774</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $johnniewalker</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;xy [100 x 2]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1]    [,2]   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,] 133.000 175.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,] 133.000 167.038</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,] 133.487 159.106</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,] 134.000 151.176</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,] 134.000 143.214</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] ...     ...    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,] 132.000 214.688</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,] 133.000 206.849</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,] 133.000 198.886</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,] 133.000 190.924</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,] 133.000 182.962</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $magallan</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;xy [100 x 2]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1]    [,2]   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  78.000 397.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  78.567 380.015</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  80.000 363.152</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  80.992 346.121</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  81.000 329.058</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] ...     ...    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  75.000 482.164</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  75.000 465.100</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  75.000 448.036</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  76.325 431.060</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,]  77.225 414.046</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $makersmark</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;xy [100 x 2]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1]    [,2]   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  31.000 432.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  19.654 414.263</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  13.106 394.494</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]   8.979 373.856</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]   8.027 352.864</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] ...     ...    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,] 103.107 502.799</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  88.242 489.844</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  75.168 476.270</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  61.963 460.402</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,]  45.894 446.894</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $oban</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;xy [100 x 2]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1]    [,2]   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  74.000 457.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  74.000 437.191</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  74.000 417.382</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  74.495 397.587</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  75.000 377.793</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] ...     ...    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  79.508 555.021</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  74.252 536.019</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  72.073 516.347</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  73.000 496.589</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,]  73.000 476.780</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $oldpotrero</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;xy [100 x 2]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1]    [,2]   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  83.000 307.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  74.301 295.401</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  67.169 282.859</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  61.511 269.534</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  57.938 255.505</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] ...     ...    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,] 120.181 368.658</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,] 115.376 355.077</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,] 107.725 342.782</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  99.542 330.813</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,]  91.361 318.845</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $redbreast</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;xy [100 x 2]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1]    [,2]   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,] 105.000 233.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,] 100.786 223.287</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  98.000 213.094</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  97.000 202.591</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  97.000 191.989</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] ...     ...    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,] 143.396 268.792</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,] 136.809 260.847</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,] 128.530 254.224</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,] 120.178 247.694</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,] 112.044 240.924</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $tamdhu</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;xy [100 x 2]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1]    [,2]   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  49.000 552.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  49.000 528.539</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  49.000 505.077</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  50.000 481.654</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  50.000 458.193</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] ...     ...    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  54.754 667.737</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  48.223 645.336</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  45.509 622.055</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  45.186 598.768</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,]  47.129 575.387</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $wildturkey</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;xy [100 x 2]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1]    [,2]   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  18.000 569.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  18.000 542.664</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  18.000 516.328</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  18.000 489.991</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  18.000 463.655</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] ...     ...    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  46.172 691.005</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  28.396 671.839</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  19.446 647.396</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  15.000 621.512</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,]  15.194 595.186</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $yoichi</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;xy [100 x 2]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1]    [,2]   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  69.000 384.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  69.000 366.510</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  69.000 349.019</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  69.000 331.529</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  70.000 314.110</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] ...     ...    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  68.000 471.419</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  68.000 453.928</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  68.000 436.438</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  68.137 418.952</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,]  69.000 401.490</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "out"  "coo"  "list"</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Resample with landmarks preserved</span></span></span>
+<span class="r-in"><span><span class="fu">coo_sample</span><span class="op">(</span><span class="va">hearts</span>, n <span class="op">=</span> <span class="fl">200</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> ✔ Updated landmarks in 'coo_ldk'</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 40 × 4</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    img          coo       coo_ldk      author</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;path&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;out&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;named list&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> <span style="color: #555555;">viodnwqb.jpg</span> <span style="color: #0000BB;">(200 x 2)</span> <span style="color: #949494;">&lt;dbl [4]&gt;</span>    ced   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> <span style="color: #555555;">ohmlpeqy.jpg</span> <span style="color: #0000BB;">(200 x 2)</span> <span style="color: #949494;">&lt;dbl [4]&gt;</span>    ced   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> <span style="color: #555555;">qleyuxan.jpg</span> <span style="color: #0000BB;">(200 x 2)</span> <span style="color: #949494;">&lt;dbl [4]&gt;</span>    ced   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> <span style="color: #555555;">esjuanpl.jpg</span> <span style="color: #0000BB;">(200 x 2)</span> <span style="color: #949494;">&lt;dbl [4]&gt;</span>    ced   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> <span style="color: #555555;">zjhldwkx.jpg</span> <span style="color: #0000BB;">(200 x 2)</span> <span style="color: #949494;">&lt;dbl [4]&gt;</span>    ced   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> <span style="color: #555555;">jgiurtke.jpg</span> <span style="color: #0000BB;">(200 x 2)</span> <span style="color: #949494;">&lt;dbl [4]&gt;</span>    jeya  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> <span style="color: #555555;">ctigzqxl.jpg</span> <span style="color: #0000BB;">(200 x 2)</span> <span style="color: #949494;">&lt;dbl [4]&gt;</span>    jeya  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> <span style="color: #555555;">azvxubnr.jpg</span> <span style="color: #0000BB;">(200 x 2)</span> <span style="color: #949494;">&lt;dbl [4]&gt;</span>    jeya  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> <span style="color: #555555;">pydkrcxh.jpg</span> <span style="color: #0000BB;">(200 x 2)</span> <span style="color: #949494;">&lt;dbl [4]&gt;</span>    jeya  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> <span style="color: #555555;">zxitnlfc.jpg</span> <span style="color: #0000BB;">(200 x 2)</span> <span style="color: #949494;">&lt;dbl [4]&gt;</span>    jeya  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 30 more rows</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Resample to 50% of points</span></span></span>
+<span class="r-in"><span><span class="fu">coo_sample_prop</span><span class="op">(</span><span class="va">shapes</span><span class="op">$</span><span class="va">cat</span>, prop <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;xy [60 x 2]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1]    [,2]   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,] 200.000  62.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,] 201.234  55.589</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,] 208.512  47.391</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,] 198.136  42.689</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,] 185.681  42.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] ...     ...    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,] 223.614  62.965</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,] 231.912  55.220</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,] 225.049  45.699</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,] 213.069  46.977</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,] 205.432  56.852</span>
+<span class="r-in"><span></span></span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 

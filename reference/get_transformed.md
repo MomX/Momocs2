@@ -57,6 +57,7 @@ Landmarks are transformed along with coordinates.
 ## See also
 
 [`get_transform()`](https://momx.github.io/Momocs2/reference/get_transform.md)
+for extracting transformations
 
 ## Examples
 

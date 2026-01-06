@@ -11,13 +11,13 @@ as_out(x)
 
 as_ldk(x)
 
+as_xy(x)
+
 as_ldk_id(x)
 
 as_cur(x)
 
 as_path(x)
-
-as_opoly(x)
 
 as_coe(x)
 
@@ -26,6 +26,8 @@ as_eft(x)
 as_dct(x)
 
 as_npoly(x)
+
+as_opoly(x)
 
 as_proc(x)
 ```
@@ -42,35 +44,37 @@ Object with updated class attribute.
 
 ## Details
 
-**Coordinate classes (all inherit from "coo"):**
+**List columns classes**
 
-- `as_coo()`: generic coordinate object
+- `as_coo()`: list of generic coordinate objects
 
-- `as_out()`: outline (closed polygon)
+- `as_out()`: list of outlines
 
-- `as_ldk()`: landmarks
+- `as_ldk()`: list of landmarks
 
-- `as_cur()`: curve (open outline)
+- `as_cur()`: list of curves (open outlines)
 
-- `as_path()`: path (open curve with direction)
+**Single matrices**
 
-- `as_opoly()`: open polygon
-
-**Non-coordinate classes:**
+- `as_xy()`: single xy matrix **Non-coordinate classes:**
 
 - `as_ldk_id()`: landmark identifiers (not inherits from coo)
+
+- `as_path()`: list of paths
 
 **Coefficient classes (all inherit from "coe"):**
 
 - `as_coe()`: generic coefficient object
 
-- `as_eft()`: Elliptic Fourier Transform coefficients
+- `as_eft()`: (out) Elliptic Fourier Transform coefficients
 
-- `as_dct()`: Discrete Cosine Transform coefficients
+- `as_proc()`: (ldk) Procrustes-aligned coefficients
 
-- `as_proc()`: Procrustes-aligned coefficients
+- `as_dct()`: (cur) Discrete Cosine Transform coefficients
 
-- `as_npoly()`: nested polygon coefficients
+- `as_npoly()`: (cur) natural polynomial coefficients
+
+- `as_opoly()`: (cur) orthogonal polynomial coefficients
 
 ## Examples
 

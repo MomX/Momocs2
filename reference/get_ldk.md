@@ -97,35 +97,35 @@ get_ldk(shapes, ldk = c(1, 25, 50))
 bot %>% get_ldk()
 #> Warning: Landmark column 'coo_ldk' not found. Skipping.
 #> # A tibble: 40 × 3
-#>    coo     type   dummy
-#>    <out>   <fct>  <fct>
-#>  1 (138·2) whisky a    
-#>  2 (168·2) whisky a    
-#>  3 (189·2) whisky a    
-#>  4 (129·2) whisky a    
-#>  5 (152·2) whisky a    
-#>  6 (161·2) whisky a    
-#>  7 (124·2) whisky a    
-#>  8 (126·2) whisky a    
-#>  9 (183·2) whisky a    
-#> 10 (193·2) whisky a    
+#>    coo       type   dummy
+#>    <out>     <fct>  <fct>
+#>  1 (138 x 2) whisky a    
+#>  2 (168 x 2) whisky a    
+#>  3 (189 x 2) whisky a    
+#>  4 (129 x 2) whisky a    
+#>  5 (152 x 2) whisky a    
+#>  6 (161 x 2) whisky a    
+#>  7 (124 x 2) whisky a    
+#>  8 (126 x 2) whisky a    
+#>  9 (183 x 2) whisky a    
+#> 10 (193 x 2) whisky a    
 #> # ℹ 30 more rows
 
 # Tibble with custom output name
 bot %>% get_ldk(.name = "landmarks")
 #> Warning: Landmark column 'coo_ldk' not found. Skipping.
 #> # A tibble: 40 × 3
-#>    coo     type   dummy
-#>    <out>   <fct>  <fct>
-#>  1 (138·2) whisky a    
-#>  2 (168·2) whisky a    
-#>  3 (189·2) whisky a    
-#>  4 (129·2) whisky a    
-#>  5 (152·2) whisky a    
-#>  6 (161·2) whisky a    
-#>  7 (124·2) whisky a    
-#>  8 (126·2) whisky a    
-#>  9 (183·2) whisky a    
-#> 10 (193·2) whisky a    
+#>    coo       type   dummy
+#>    <out>     <fct>  <fct>
+#>  1 (138 x 2) whisky a    
+#>  2 (168 x 2) whisky a    
+#>  3 (189 x 2) whisky a    
+#>  4 (129 x 2) whisky a    
+#>  5 (152 x 2) whisky a    
+#>  6 (161 x 2) whisky a    
+#>  7 (124 x 2) whisky a    
+#>  8 (126 x 2) whisky a    
+#>  9 (183 x 2) whisky a    
+#> 10 (193 x 2) whisky a    
 #> # ℹ 30 more rows
 ```

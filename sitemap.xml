@@ -2,6 +2,13 @@
 <url><loc>https://momx.github.io/Momocs2/404.html</loc></url>
 <url><loc>https://momx.github.io/Momocs2/CODE_OF_CONDUCT.html</loc></url>
 <url><loc>https://momx.github.io/Momocs2/LICENSE.html</loc></url>
+<url><loc>https://momx.github.io/Momocs2/articles/coo-functions.html</loc></url>
+<url><loc>https://momx.github.io/Momocs2/articles/curve-analysis.html</loc></url>
+<url><loc>https://momx.github.io/Momocs2/articles/get-functions.html</loc></url>
+<url><loc>https://momx.github.io/Momocs2/articles/index.html</loc></url>
+<url><loc>https://momx.github.io/Momocs2/articles/landmark-analysis.html</loc></url>
+<url><loc>https://momx.github.io/Momocs2/articles/momocs-to-momocs2.html</loc></url>
+<url><loc>https://momx.github.io/Momocs2/articles/outline-analysis.html</loc></url>
 <url><loc>https://momx.github.io/Momocs2/authors.html</loc></url>
 <url><loc>https://momx.github.io/Momocs2/index.html</loc></url>
 <url><loc>https://momx.github.io/Momocs2/news/index.html</loc></url>
@@ -15,6 +22,7 @@
 <url><loc>https://momx.github.io/Momocs2/reference/coo_baseline.html</loc></url>
 <url><loc>https://momx.github.io/Momocs2/reference/coo_center.html</loc></url>
 <url><loc>https://momx.github.io/Momocs2/reference/coo_center_to.html</loc></url>
+<url><loc>https://momx.github.io/Momocs2/reference/coo_check.html</loc></url>
 <url><loc>https://momx.github.io/Momocs2/reference/coo_close.html</loc></url>
 <url><loc>https://momx.github.io/Momocs2/reference/coo_close_spread.html</loc></url>
 <url><loc>https://momx.github.io/Momocs2/reference/coo_direction.html</loc></url>
@@ -79,13 +87,14 @@
 <url><loc>https://momx.github.io/Momocs2/reference/hearts.html</loc></url>
 <url><loc>https://momx.github.io/Momocs2/reference/index.html</loc></url>
 <url><loc>https://momx.github.io/Momocs2/reference/make_coo_function.html</loc></url>
+<url><loc>https://momx.github.io/Momocs2/reference/make_get_function.html</loc></url>
 <url><loc>https://momx.github.io/Momocs2/reference/measure.html</loc></url>
 <url><loc>https://momx.github.io/Momocs2/reference/mosaic.html</loc></url>
 <url><loc>https://momx.github.io/Momocs2/reference/p.html</loc></url>
 <url><loc>https://momx.github.io/Momocs2/reference/pile.html</loc></url>
 <url><loc>https://momx.github.io/Momocs2/reference/pillar_colors.html</loc></url>
 <url><loc>https://momx.github.io/Momocs2/reference/pillar_methods.html</loc></url>
-<url><loc>https://momx.github.io/Momocs2/reference/pipe.html</loc></url>
+<url><loc>https://momx.github.io/Momocs2/reference/pipes.html</loc></url>
 <url><loc>https://momx.github.io/Momocs2/reference/rinse.html</loc></url>
 <url><loc>https://momx.github.io/Momocs2/reference/shapes.html</loc></url>
 <url><loc>https://momx.github.io/Momocs2/reference/wings.html</loc></url>

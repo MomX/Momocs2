@@ -6,8 +6,6 @@ Calculate the centroid (center of mass) of a shape.
 
 ``` r
 get_centroid(x, ..., .cols = NULL)
-
-centroid(x, ..., .cols = NULL)
 ```
 
 ## Arguments

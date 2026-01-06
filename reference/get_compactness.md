@@ -54,17 +54,17 @@ get_compactness(shapes$cat)
 # Use in measure()
 bot %>% measure("compactness")
 #> # A tibble: 40 × 4
-#>    coo     type   dummy coo_compactness
-#>    <out>   <fct>  <fct>           <dbl>
-#>  1 (138·2) whisky a               0.762
-#>  2 (168·2) whisky a               0.775
-#>  3 (189·2) whisky a               0.765
-#>  4 (129·2) whisky a               0.793
-#>  5 (152·2) whisky a               0.652
-#>  6 (161·2) whisky a               0.784
-#>  7 (124·2) whisky a               0.808
-#>  8 (126·2) whisky a               0.766
-#>  9 (183·2) whisky a               0.763
-#> 10 (193·2) whisky a               0.785
+#>    coo       type   dummy coo_compactness
+#>    <out>     <fct>  <fct>           <dbl>
+#>  1 (138 x 2) whisky a               0.762
+#>  2 (168 x 2) whisky a               0.775
+#>  3 (189 x 2) whisky a               0.765
+#>  4 (129 x 2) whisky a               0.793
+#>  5 (152 x 2) whisky a               0.652
+#>  6 (161 x 2) whisky a               0.784
+#>  7 (124 x 2) whisky a               0.808
+#>  8 (126 x 2) whisky a               0.766
+#>  9 (183 x 2) whisky a               0.763
+#> 10 (193 x 2) whisky a               0.785
 #> # ℹ 30 more rows
 ```

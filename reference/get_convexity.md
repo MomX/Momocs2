@@ -51,17 +51,17 @@ get_convexity(shapes$cat)
 # Use in measure()
 bot %>% measure("convexity")
 #> # A tibble: 40 × 4
-#>    coo     type   dummy coo_convexity
-#>    <out>   <fct>  <fct>         <dbl>
-#>  1 (138·2) whisky a             0.991
-#>  2 (168·2) whisky a             0.990
-#>  3 (189·2) whisky a             0.985
-#>  4 (129·2) whisky a             0.993
-#>  5 (152·2) whisky a             0.989
-#>  6 (161·2) whisky a             0.987
-#>  7 (124·2) whisky a             0.995
-#>  8 (126·2) whisky a             0.985
-#>  9 (183·2) whisky a             0.986
-#> 10 (193·2) whisky a             0.993
+#>    coo       type   dummy coo_convexity
+#>    <out>     <fct>  <fct>         <dbl>
+#>  1 (138 x 2) whisky a             0.991
+#>  2 (168 x 2) whisky a             0.990
+#>  3 (189 x 2) whisky a             0.985
+#>  4 (129 x 2) whisky a             0.993
+#>  5 (152 x 2) whisky a             0.989
+#>  6 (161 x 2) whisky a             0.987
+#>  7 (124 x 2) whisky a             0.995
+#>  8 (126 x 2) whisky a             0.985
+#>  9 (183 x 2) whisky a             0.986
+#> 10 (193 x 2) whisky a             0.993
 #> # ℹ 30 more rows
 ```

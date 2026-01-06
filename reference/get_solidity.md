@@ -50,17 +50,17 @@ get_solidity(shapes$cat)
 # Use in measure()
 bot %>% measure("solidity")
 #> # A tibble: 40 × 4
-#>    coo     type   dummy coo_solidity
-#>    <out>   <fct>  <fct>        <dbl>
-#>  1 (138·2) whisky a            0.893
-#>  2 (168·2) whisky a            0.920
-#>  3 (189·2) whisky a            0.928
-#>  4 (129·2) whisky a            0.944
-#>  5 (152·2) whisky a            0.875
-#>  6 (161·2) whisky a            0.954
-#>  7 (124·2) whisky a            0.949
-#>  8 (126·2) whisky a            0.922
-#>  9 (183·2) whisky a            0.916
-#> 10 (193·2) whisky a            0.933
+#>    coo       type   dummy coo_solidity
+#>    <out>     <fct>  <fct>        <dbl>
+#>  1 (138 x 2) whisky a            0.893
+#>  2 (168 x 2) whisky a            0.920
+#>  3 (189 x 2) whisky a            0.928
+#>  4 (129 x 2) whisky a            0.944
+#>  5 (152 x 2) whisky a            0.875
+#>  6 (161 x 2) whisky a            0.954
+#>  7 (124 x 2) whisky a            0.949
+#>  8 (126 x 2) whisky a            0.922
+#>  9 (183 x 2) whisky a            0.916
+#> 10 (193 x 2) whisky a            0.933
 #> # ℹ 30 more rows
 ```

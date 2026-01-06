@@ -51,17 +51,17 @@ get_rugosity(shapes$cat)
 # Use in measure()
 bot %>% measure("rugosity")
 #> # A tibble: 40 × 4
-#>    coo     type   dummy coo_rugosity
-#>    <out>   <fct>  <fct>        <dbl>
-#>  1 (138·2) whisky a             1.01
-#>  2 (168·2) whisky a             1.01
-#>  3 (189·2) whisky a             1.02
-#>  4 (129·2) whisky a             1.01
-#>  5 (152·2) whisky a             1.01
-#>  6 (161·2) whisky a             1.01
-#>  7 (124·2) whisky a             1.00
-#>  8 (126·2) whisky a             1.02
-#>  9 (183·2) whisky a             1.01
-#> 10 (193·2) whisky a             1.01
+#>    coo       type   dummy coo_rugosity
+#>    <out>     <fct>  <fct>        <dbl>
+#>  1 (138 x 2) whisky a             1.01
+#>  2 (168 x 2) whisky a             1.01
+#>  3 (189 x 2) whisky a             1.02
+#>  4 (129 x 2) whisky a             1.01
+#>  5 (152 x 2) whisky a             1.01
+#>  6 (161 x 2) whisky a             1.01
+#>  7 (124 x 2) whisky a             1.00
+#>  8 (126 x 2) whisky a             1.02
+#>  9 (183 x 2) whisky a             1.01
+#> 10 (193 x 2) whisky a             1.01
 #> # ℹ 30 more rows
 ```

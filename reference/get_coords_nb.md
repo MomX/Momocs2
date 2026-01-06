@@ -59,17 +59,17 @@ get_coords_nb(shapes)
 # Use in measure()
 bot %>% measure("coords_nb")
 #> # A tibble: 40 × 4
-#>    coo     type   dummy coo_coords_nb
-#>    <out>   <fct>  <fct>         <dbl>
-#>  1 (138·2) whisky a               138
-#>  2 (168·2) whisky a               168
-#>  3 (189·2) whisky a               189
-#>  4 (129·2) whisky a               129
-#>  5 (152·2) whisky a               152
-#>  6 (161·2) whisky a               161
-#>  7 (124·2) whisky a               124
-#>  8 (126·2) whisky a               126
-#>  9 (183·2) whisky a               183
-#> 10 (193·2) whisky a               193
+#>    coo       type   dummy coo_coords_nb
+#>    <out>     <fct>  <fct>         <dbl>
+#>  1 (138 x 2) whisky a               138
+#>  2 (168 x 2) whisky a               168
+#>  3 (189 x 2) whisky a               189
+#>  4 (129 x 2) whisky a               129
+#>  5 (152 x 2) whisky a               152
+#>  6 (161 x 2) whisky a               161
+#>  7 (124 x 2) whisky a               124
+#>  8 (126 x 2) whisky a               126
+#>  9 (183 x 2) whisky a               183
+#> 10 (193 x 2) whisky a               193
 #> # ℹ 30 more rows
 ```

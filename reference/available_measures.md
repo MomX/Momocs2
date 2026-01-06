@@ -26,5 +26,6 @@ available_measures()
 #>  [4] "centroid_size_norm"   "circularity"          "circularity_norm"    
 #>  [7] "circularity_haralick" "length"               "width"               
 #> [10] "elongation"           "rectangularity"       "convexity"           
-#> [13] "solidity"             "rectilinearity"       "calliper"            
+#> [13] "solidity"             "rugosity"             "compactness"         
+#> [16] "rectilinearity"       "calliper"            
 ```
