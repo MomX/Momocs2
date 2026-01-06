@@ -23,8 +23,7 @@
 # set.seed(2329)
 # hearts$img <- replicate(40, paste0(c(sample(letters, 8), ".jpg"), collapse = ""))
 # hearts <- dplyr::relocate(hearts, img) %>% dplyr::mutate(img=Momocs2::as_path(img))
-# class(hearts$img) <- c("path", class(hearts$img))
-# hearts <- hearts %>% select(img, coo, coo_ldk=ldk, author)
+# hearts <- hearts %>% select(img, coo, coo_ldk=ldk, author) %>% mutate(path=Momocs2::as_path(img))
 # usethis::use_data(hearts, overwrite=T)
 
 

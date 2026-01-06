@@ -50,9 +50,9 @@ filtered out after subsetting.
 }
 \examples{
 coo_extract(shapes$cat, c(1, 10, 50))
-coo_extract(shapes)
+coo_extract(shapes, c(1, 6))
 coo_head(shapes$cat, 10)
-coo_head(shapes)
+coo_head(shapes, 3)
 coo_tail(shapes$cat, 5)
 coo_head(bot, 20)
 

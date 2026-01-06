@@ -44,6 +44,6 @@ is resampled segment-by-segment between landmarks, preserving landmark
 positions and distributing points proportionally across segments.
 }
 \seealso{
-\code{\link[=coo_smooth]{coo_smooth()}} for smoothing
+\code{\link[=get_coords_nb]{get_coords_nb()}} for point count; \code{\link[=coo_smooth]{coo_smooth()}} for smoothing
 }
 \keyword{internal}

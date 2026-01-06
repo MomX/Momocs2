@@ -28,7 +28,7 @@
 #' Additional arguments are passed through via `...`
 #'
 #' @keywords internal
-#' @noRd
+#' @export
 make_coo_function <- function(impl_fn, fn_name = NULL, sync_ldk = FALSE) {
   # Infer function name if not provided
   if (is.null(fn_name)) {
@@ -238,9 +238,9 @@ get_coo_cols <- function(df, .cols = NULL) {
 #'
 #' @examples
 #' coo_extract(shapes$cat, c(1, 10, 50))
-#' coo_extract(shapes)
+#' coo_extract(shapes, c(1, 6))
 #' coo_head(shapes$cat, 10)
-#' coo_head(shapes)
+#' coo_head(shapes, 3)
 #' coo_tail(shapes$cat, 5)
 #' coo_head(bot, 20)
 #'
@@ -278,7 +278,7 @@ coo_tail <- make_coo_function(.coo_tail, sync_ldk = TRUE)
   list(coo = new_coo, ldk = new_ldk)
 }
 
-.coo_head <- function(x, ldk = NULL, n=10, ...) {
+.coo_head <- function(x, ldk = NULL, n, ...) {
   if (!is.matrix(x)) return(list(coo = x, ldk = ldk))
   if (n < 1) stop("n must be at least 1")
   if (n == nrow(x)) return(list(coo = x, ldk = ldk))
@@ -295,7 +295,7 @@ coo_tail <- make_coo_function(.coo_tail, sync_ldk = TRUE)
   list(coo = new_coo, ldk = new_ldk)
 }
 
-.coo_tail <- function(x, ldk = NULL, n=10, ...) {
+.coo_tail <- function(x, ldk = NULL, n, ...) {
   if (!is.matrix(x)) return(list(coo = x, ldk = ldk))
   if (n < 0) stop("n must be >= 0")
   if (n == 0) return(list(coo = x, ldk = ldk))
@@ -408,6 +408,170 @@ coo_translate <- make_coo_function(.coo_translate)
 .coo_translate <- function(x, x_val = 0, y_val = 0, ...) {
   if (!is.matrix(x)) return(x)
   cbind(x[, 1] + x_val, x[, 2] + y_val)
+}
+
+
+# coo_scale ----
+
+#' Scale to unit centroid size
+#'
+#' Scale shape coordinates to unit centroid size (without centering).
+#'
+#' @param x A matrix (nx2), list of matrices, or tibble with coo columns.
+#' @param ... Additional arguments (reserved for future use).
+#' @param .cols Column name(s) to process when `x` is a tibble. If `NULL`,
+#'   automatically detects columns containing coo objects.
+#' @param .ldk_col Character. Name of landmark column. If `NULL`, uses `colname_ldk`.
+#'
+#' @return
+#' * If `x` is a single matrix: returns the scaled matrix
+#' * If `x` is a list: returns a list of scaled matrices
+#' * If `x` is a tibble: returns the tibble with scaled coo column(s)
+#'
+#' @details
+#' Scales coordinates to unit centroid size: divides all coordinates by centroid size.
+#' Equivalent to `scale(x, center = FALSE, scale = TRUE)` in base R.
+#'
+#' Does NOT center the shape first. Use `coo_center()` before `coo_scale()` if needed.
+#'
+#' For rescaling by a custom factor, use `coo_rescale()`.
+#'
+#' Landmarks are synced.
+#'
+#' @examples
+#' # Scale to unit centroid size
+#' coo_scale(shapes$cat)
+#'
+#' # Center then scale
+#' shapes$cat %>% coo_center() %>% coo_scale()
+#'
+#' @seealso [coo_rescale()] for custom scaling; [coo_center()] for centering
+#'
+#' @keywords internal
+#' @export
+coo_scale <- make_coo_function(.coo_scale, sync_ldk = FALSE)
+
+.coo_scale <- function(x, ldk = NULL, ...) {
+  if (!is.matrix(x)) return(list(coo = x, ldk = ldk))
+
+  # Scale to unit centroid size
+  cs <- .get_centroid_size(x)
+  if (cs > 0) {
+    x <- x / cs
+  }
+
+  list(coo = x, ldk = ldk)
+}
+
+
+# coo_rescale ----
+
+#' Rescale by a factor
+#'
+#' Multiply shape coordinates by a scaling factor.
+#'
+#' @param x A matrix (nx2), list of matrices, or tibble with coo columns.
+#' @param scale Numeric. Scaling factor to multiply coordinates by. If `x` is a tibble,
+#'   can also be a column name (quoted or unquoted) containing scaling factors.
+#' @param ... Additional arguments (reserved for future use).
+#' @param .cols Column name(s) to process when `x` is a tibble. If `NULL`,
+#'   automatically detects columns containing coo objects.
+#' @param .ldk_col Character. Name of landmark column. If `NULL`, uses `colname_ldk`.
+#'
+#' @return
+#' * If `x` is a single matrix: returns the rescaled matrix
+#' * If `x` is a list: returns a list of rescaled matrices
+#' * If `x` is a tibble: returns the tibble with rescaled coo column(s)
+#'
+#' @details
+#' Multiplies all coordinates by a scaling factor. For tibbles, the scale factor
+#' can come from a column (useful for rescaling based on stored measurements).
+#'
+#' This is pure multiplication - no centering or normalization.
+#'
+#' Landmarks are synced.
+#'
+#' @examples
+#' # Double the size
+#' coo_rescale(shapes$cat, scale = 2)
+#'
+#' # Halve the size
+#' coo_rescale(shapes$cat, scale = 0.5)
+#'
+#' # For tibbles - use stored scaling factors
+#' bot$scale_factor <-  rep(c(1, 5), each=20)
+#' bot %>% coo_rescale(scale = scale_factor)
+#'
+#' @seealso [coo_scale()] for normalizing to unit centroid size
+#'
+#' @keywords internal
+#' @export
+coo_rescale <- function(x, scale, ..., .cols = NULL, .ldk_col = NULL) {
+  # Tibble case - handle scale from column
+  if (is.data.frame(x)) {
+    # Get coo column(s)
+    .cols_quo <- rlang::enquo(.cols)
+    if (rlang::quo_is_null(.cols_quo)) {
+      cols_to_process <- get_coo_cols(x, NULL)
+    } else {
+      cols_idx <- tidyselect::eval_select(.cols_quo, x)
+      cols_to_process <- names(cols_idx)
+    }
+
+    # Get landmark column name
+    .ldk_col_quo <- rlang::enquo(.ldk_col)
+
+    # Handle scale parameter
+    scale_quo <- rlang::enquo(scale)
+
+    # Try to evaluate as column name
+    scale_values <- tryCatch({
+      tidyselect::eval_select(scale_quo, x)
+      x[[rlang::as_name(scale_quo)]]
+    }, error = function(e) {
+      # If not a column, evaluate as expression
+      rlang::eval_tidy(scale_quo)
+    })
+
+    # If single value, recycle it
+    if (length(scale_values) == 1) {
+      scale_values <- rep(scale_values, nrow(x))
+    }
+
+    # Process each coo column
+    for (col in cols_to_process) {
+      # Get landmark column name
+      ldk_col_name <- if (!rlang::quo_is_null(.ldk_col_quo)) {
+        rlang::as_name(.ldk_col_quo)
+      } else {
+        paste0(col, "_ldk")
+      }
+
+      has_ldk <- ldk_col_name %in% names(x)
+
+      # Rescale each shape
+      for (i in seq_len(nrow(x))) {
+        if (is.matrix(x[[col]][[i]])) {
+          x[[col]][[i]] <- x[[col]][[i]] * scale_values[i]
+        }
+      }
+    }
+
+    return(x)
+  }
+
+  # Single matrix or list - use make_coo_function
+  if (!is.numeric(scale) || length(scale) != 1) {
+    stop("For matrices/lists, scale must be a single numeric value")
+  }
+
+  rescale_fn <- make_coo_function(.coo_rescale, sync_ldk = TRUE)
+  rescale_fn(x, scale = scale, ..., .cols = .cols, .ldk_col = .ldk_col)
+}
+
+.coo_rescale <- function(x, ldk = NULL, scale, ...) {
+  if (!is.matrix(x)) return(list(coo = x, ldk = ldk))
+  list(coo = x * scale, ldk = ldk)
 }
 
 
@@ -977,7 +1141,7 @@ coo_reverse <- make_coo_function(.coo_reverse, sync_ldk = TRUE)
 #' * If `x` is a list: returns a list of resampled matrices
 #' * If `x` is a tibble: returns the tibble with specified coo columns resampled
 #'
-#' @seealso [coo_smooth()] for smoothing
+#' @seealso [get_coords_nb()] for point count; [coo_smooth()] for smoothing
 #'
 #' @name coo_sample
 #' @keywords internal
@@ -1274,10 +1438,9 @@ NULL
 
 #' @rdname coo_template
 #' @export
-coo_template <- make_coo_function(.coo_template, sync_ldk = TRUE)
+coo_template <- make_coo_function(.coo_template, sync_ldk = FALSE)
 
-.coo_template <- function(x, ldk = NULL, size = 1, ...) {
-  if (!is.matrix(x)) return(list(coo = x, ldk = ldk))
+.coo_template <- function(x, size = 1, ...) {
 
   # Calculate ranges
   x_range <- diff(range(x[, 1]))
@@ -1306,12 +1469,10 @@ coo_template <- make_coo_function(.coo_template, sync_ldk = TRUE)
   shift <- expected_center - observed_center
   coo_centered <- sweep(coo_scaled, 2, shift, "+")
 
-  list(coo = coo_centered, ldk = ldk)
+  # return this beauty
+  coo_centered
 }
 
-
-#' @rdname coo_template
-#' @export
 
 #' @rdname coo_template
 #' @export
@@ -1370,4 +1531,680 @@ coo_template_relatively <- function(x, size = 1, ..., .cols = NULL, .ldk_col = N
 
   # Fallback
   x
+}
+
+
+# coo_direction_positive ----
+
+#' Ensure positive (counter-clockwise) direction
+#'
+#' Reverse the outline if it's traced clockwise to ensure counter-clockwise direction.
+#'
+#' @param x A matrix (nx2), list of matrices, or tibble with coo columns.
+#' @param ... Additional arguments (reserved for future use).
+#' @param .cols Column name(s) to process when `x` is a tibble. If `NULL`,
+#'   automatically detects columns containing coo columns.
+#' @param .ldk_col Character. Name of landmark column. If `NULL`, uses `colname_ldk`.
+#'
+#' @return
+#' * If `x` is a single matrix: returns the matrix (reversed if needed)
+#' * If `x` is a list: returns a list of matrices
+#' * If `x` is a tibble: returns the tibble with direction-corrected coo column(s)
+#'
+#' @details
+#' **`coo_direction_positive()`**: Ensures outline is traced counter-clockwise
+#' (trigonometric/positive direction). If clockwise, reverses point order and syncs landmarks.
+#'
+#' **`coo_direction_negative()`**: Ensures outline is traced clockwise
+#' (negative direction). If counter-clockwise, reverses point order and syncs landmarks.
+#'
+#' @examples
+#' coo_direction_positive(shapes$cat)
+#' coo_direction_negative(shapes$cat)
+#' bot %>% coo_direction_positive()
+#'
+#' @name coo_direction
+#' @seealso [get_direction_sign()], [coo_reverse()]
+#' @keywords internal
+NULL
+
+#' @rdname coo_direction
+#' @export
+coo_direction_positive <- make_coo_function(.coo_direction_positive, sync_ldk = TRUE)
+
+.coo_direction_positive <- function(x, ldk = NULL, ...) {
+  if (!is.matrix(x)) return(list(coo = x, ldk = ldk))
+
+  # Check direction
+  if (.get_direction_sign(x)) {
+    # Already positive (counter-clockwise)
+    list(coo = x, ldk = ldk)
+  } else {
+    # Clockwise - reverse it
+    .coo_reverse(x, ldk = ldk)
+  }
+}
+
+
+#' @rdname coo_direction
+#' @export
+coo_direction_negative <- make_coo_function(.coo_direction_negative, sync_ldk = TRUE)
+
+.coo_direction_negative <- function(x, ldk = NULL, ...) {
+  if (!is.matrix(x)) return(list(coo = x, ldk = ldk))
+
+  # Check direction
+  if (.get_direction_sign(x)) {
+    # Counter-clockwise - reverse it to make clockwise
+    .coo_reverse(x, ldk = ldk)
+  } else {
+    # Already negative (clockwise)
+    list(coo = x, ldk = ldk)
+  }
+}
+
+
+# coo_close ----
+
+#' Close or open outlines
+#'
+#' Close an outline by duplicating the first point at the end, or open by removing
+#' duplicate endpoint.
+#'
+#' @param x A matrix (nx2), list of matrices, or tibble with coo columns.
+#' @param ... Additional arguments (reserved for future use).
+#' @param .cols Column name(s) to process when `x` is a tibble. If `NULL`,
+#'   automatically detects columns containing coo columns.
+#' @param .ldk_col Character. Name of landmark column. If `NULL`, uses `colname_ldk`.
+#'
+#' @return
+#' * If `x` is a single matrix: returns the matrix (closed or opened)
+#' * If `x` is a list: returns a list of matrices
+#' * If `x` is a tibble: returns the tibble with modified coo column(s)
+#'
+#' @details
+#' **`coo_close()`**: If the last point is not identical to the first, adds the
+#' first point at the end. If already closed, returns unchanged.
+#'
+#' **`coo_open()`**: If the last point is identical to the first, removes it.
+#' If already open, returns unchanged.
+#'
+#' Landmarks are NOT adjusted - they keep their original indices.
+#'
+#' @examples
+#' coo_close(shapes$cat)
+#' coo_open(shapes$cat)
+#'
+#' @name coo_close
+#' @seealso [coo_sample()]
+#' @keywords internal
+NULL
+
+#' @rdname coo_close
+#' @export
+coo_close <- make_coo_function(.coo_close, sync_ldk = FALSE)
+
+.coo_close <- function(x, ldk = NULL, ...) {
+  if (!is.matrix(x)) return(list(coo = x, ldk = ldk))
+
+  # Check if already closed
+  if (isTRUE(all.equal(x[1, ], x[nrow(x), ]))) {
+    return(list(coo = x, ldk = ldk))
+  }
+
+  # Add first point at end
+  list(coo = rbind(x, x[1, ]), ldk = ldk)
+}
+
+
+#' @rdname coo_close
+#' @export
+coo_open <- make_coo_function(.coo_open, sync_ldk = FALSE)
+
+.coo_open <- function(x, ldk = NULL, ...) {
+  if (!is.matrix(x)) return(list(coo = x, ldk = ldk))
+
+  # Check if closed (last point = first point)
+  if (isTRUE(all.equal(x[1, ], x[nrow(x), ]))) {
+    # Remove last point
+    return(list(coo = x[-nrow(x), ], ldk = ldk))
+  }
+
+  # Already open
+  list(coo = x, ldk = ldk)
+}
+
+
+# coo_trim ----
+
+#' Trim points from outline ends
+#'
+#' Remove points from the start (head), end (tail), or both ends of an outline.
+#'
+#' @param x A matrix (nx2), list of matrices, or tibble with coo columns.
+#' @param n Integer or numeric. Number of points to remove, or if between 0 and 1,
+#'   fraction of perimeter to remove.
+#' @param ... Additional arguments (reserved for future use).
+#' @param .cols Column name(s) to process when `x` is a tibble. If `NULL`,
+#'   automatically detects columns containing coo columns.
+#' @param .ldk_col Character. Name of landmark column. If `NULL`, uses `colname_ldk`.
+#'
+#' @return
+#' * If `x` is a single matrix: returns the trimmed matrix
+#' * If `x` is a list: returns a list of trimmed matrices
+#' * If `x` is a tibble: returns the tibble with trimmed coo column(s)
+#'
+#' @details
+#' **`coo_trim_head(n)`**: Removes `n` points from the start (head).
+#'
+#' **`coo_trim_tail(n)`**: Removes `n` points from the end (tail).
+#'
+#' **`coo_trim_both(n)`**: Removes `n` points from each end (2n total).
+#'
+#' If `n` is between 0 and 1, interprets as fraction of perimeter to remove.
+#'
+#' Landmarks are NOT adjusted. Use with caution if shape has landmarks.
+#'
+#' @examples
+#' # Remove 10 points from start
+#' coo_trim_head(shapes$cat, n = 10)
+#'
+#' # Remove 5% of perimeter from each end
+#' coo_trim_both(shapes$cat, n = 0.05)
+#'
+#' @name coo_trim
+#' @keywords internal
+NULL
+
+#' @rdname coo_trim
+#' @export
+coo_trim_head <- make_coo_function(.coo_trim_head, sync_ldk = FALSE)
+
+.coo_trim_head <- function(x, ldk = NULL, n = 1, ...) {
+  if (!is.matrix(x)) return(list(coo = x, ldk = ldk))
+
+  # If n is fraction, convert to number of points
+  if (n > 0 && n < 1) {
+    perim <- .get_perim(x)
+    perim_cum <- c(0, cumsum(sqrt(rowSums(diff(rbind(x, x[1, ]))^2))))
+    n_points <- which(perim_cum >= n * perim)[1] - 1
+    n <- max(1, n_points)
+  }
+
+  n <- as.integer(n)
+  if (n >= nrow(x)) {
+    stop("Cannot trim more points than available")
+  }
+
+  list(coo = x[-(1:n), ], ldk = ldk)
+}
+
+
+#' @rdname coo_trim
+#' @export
+coo_trim_tail <- make_coo_function(.coo_trim_tail, sync_ldk = FALSE)
+
+.coo_trim_tail <- function(x, ldk = NULL, n = 1, ...) {
+  if (!is.matrix(x)) return(list(coo = x, ldk = ldk))
+
+  # If n is fraction, convert to number of points
+  if (n > 0 && n < 1) {
+    perim <- .get_perim(x)
+    perim_cum <- c(0, cumsum(sqrt(rowSums(diff(rbind(x, x[1, ]))^2))))
+    n_points <- which(perim_cum >= n * perim)[1] - 1
+    n <- max(1, n_points)
+  }
+
+  n <- as.integer(n)
+  if (n >= nrow(x)) {
+    stop("Cannot trim more points than available")
+  }
+
+  nr <- nrow(x)
+  list(coo = x[-((nr-n+1):nr), ], ldk = ldk)
+}
+
+
+#' @rdname coo_trim
+#' @export
+coo_trim_both <- make_coo_function(.coo_trim_both, sync_ldk = TRUE)
+
+.coo_trim_both <- function(x, ldk = NULL, n = 1, ...) {
+  if (!is.matrix(x)) return(list(coo = x, ldk = ldk))
+
+  # If n is fraction, convert to number of points
+  if (n > 0 && n < 1) {
+    perim <- .get_perim(x)
+    perim_cum <- c(0, cumsum(sqrt(rowSums(diff(rbind(x, x[1, ]))^2))))
+    n_points <- which(perim_cum >= n * perim)[1] - 1
+    n <- max(1, n_points)
+  }
+
+  n <- as.integer(n)
+  if (2 * n >= nrow(x)) {
+    stop("Cannot trim more points than available")
+  }
+
+  nr <- nrow(x)
+  list(coo = x[-c(1:n, (nr-n+1):nr), ], ldk = ldk)
+}
+
+
+# get_transformed ----
+
+#' Apply transformation to coordinates
+#'
+#' Apply a transformation (scale, rotation, translation) to shape coordinates.
+#'
+#' @param x A matrix (nx2), list of matrices, or tibble with coo columns.
+#' @param transform A list with elements `scale`, `rotation`, and `translation`,
+#'   typically from `get_transform()`.
+#' @param ... Additional arguments (reserved for future use).
+#' @param .cols Column name(s) to process when `x` is a tibble. If `NULL`,
+#'   automatically detects columns containing coo columns.
+#' @param .ldk_col Character. Name of landmark column. If `NULL`, uses `colname_ldk`.
+#'
+#' @return
+#' * If `x` is a single matrix: returns the transformed matrix
+#' * If `x` is a list: returns a list of transformed matrices
+#' * If `x` is a tibble: returns the tibble with transformed coo column(s)
+#'
+#' @details
+#' Applies transformation in order:
+#' 1. Scale (multiply coordinates by scale factor)
+#' 2. Rotate (by rotation angle in radians)
+#' 3. Translate (shift by translation vector)
+#'
+#' Landmarks are transformed along with coordinates.
+#'
+#' @examples
+#' source <- matrix(c(0,0, 1,0, 1,1, 0,1), ncol=2, byrow=TRUE)
+#' target <- source * 2  # Scaled by 2
+#'
+#' # Extract transformation
+#' transform <- get_transform(source, target)
+#'
+#' # Apply to another shape
+#' new_shape <- matrix(c(0,0, 2,0, 2,2), ncol=2, byrow=TRUE)
+#' transformed <- get_transformed(new_shape, transform)
+#'
+#' @seealso [get_transform()]
+#'
+#' @keywords internal
+#' @export
+get_transformed <- make_coo_function(.get_transformed, sync_ldk = TRUE)
+
+.get_transformed <- function(x, ldk = NULL, transform, ...) {
+  if (!is.matrix(x)) return(list(coo = x, ldk = ldk))
+
+  if (!is.list(transform) ||
+      !all(c("scale", "rotation", "translation") %in% names(transform))) {
+    stop("transform must be a list with scale, rotation, and translation")
+  }
+
+  # Apply scale
+  x_scaled <- x * transform$scale
+
+  # Apply rotation
+  cos_r <- cos(transform$rotation)
+  sin_r <- sin(transform$rotation)
+  x_rotated <- cbind(
+    x_scaled[, 1] * cos_r - x_scaled[, 2] * sin_r,
+    x_scaled[, 1] * sin_r + x_scaled[, 2] * cos_r
+  )
+
+  # Apply translation
+  x_transformed <- sweep(x_rotated, 2, transform$translation, "+")
+
+  list(coo = x_transformed, ldk = ldk)
+}
+
+
+# coo_close_spread ----
+
+#' Close outline by spreading gap
+#'
+#' Distribute the distance between first and last points across all points to close the outline.
+#'
+#' @param x A matrix (nx2), list of matrices, or tibble with coo columns.
+#' @param ... Additional arguments (reserved for future use).
+#' @param .cols Column name(s) to process when `x` is a tibble. If `NULL`,
+#'   automatically detects columns containing coo columns.
+#' @param .ldk_col Character. Name of landmark column. If `NULL`, uses `colname_ldk`.
+#'
+#' @return
+#' * If `x` is a single matrix: returns the closed matrix
+#' * If `x` is a list: returns a list of closed matrices
+#' * If `x` is a tibble: returns the tibble with closed coo column(s)
+#'
+#' @details
+#' For open outlines, distributes the gap between the first and last points
+#' evenly across all points, so the outline becomes closed.
+#'
+#' Landmarks are synced to maintain their positions.
+#'
+#' @examples
+#' coo_close_spread(shapes$cat)
+#'
+#' @seealso [coo_close()], [coo_open()]
+#'
+#' @keywords internal
+#' @export
+coo_close_spread <- make_coo_function(.coo_close_spread, sync_ldk = FALSE)
+
+.coo_close_spread <- function(x, ldk = NULL, ...) {
+  if (!is.matrix(x)) return(list(coo = x, ldk = ldk))
+
+  n <- nrow(x)
+
+  # Calculate gap between first and last points
+  gap <- x[1, ] - x[n, ]
+
+  # Distribute gap evenly across all points
+  adjustment <- outer(seq(0, 1, length.out = n), gap)
+
+  x_closed <- x + adjustment
+
+  list(coo = x_closed, ldk = ldk)
+}
+
+
+# coo_up/down/left/right ----
+
+#' Filter points by direction from centroid
+#'
+#' Keep only points in a specific direction relative to the centroid.
+#'
+#' @param x A matrix (nx2), list of matrices, or tibble with coo columns.
+#' @param ... Additional arguments (reserved for future use).
+#' @param .cols Column name(s) to process when `x` is a tibble. If `NULL`,
+#'   automatically detects columns containing coo columns.
+#' @param .ldk_col Character. Name of landmark column. If `NULL`, uses `colname_ldk`.
+#'
+#' @return
+#' * If `x` is a single matrix: returns the filtered matrix (open curve)
+#' * If `x` is a list: returns a list of filtered matrices
+#' * If `x` is a tibble: returns the tibble with filtered coo column(s)
+#'
+#' @details
+#' Filters points based on their position relative to the centroid:
+#' - **`coo_up()`**: Keep points with y > centroid_y
+#' - **`coo_down()`**: Keep points with y < centroid_y
+#' - **`coo_right()`**: Keep points with x > centroid_x
+#' - **`coo_left()`**: Keep points with x < centroid_x
+#'
+#' Returns an open curve. Landmarks are synced.
+#'
+#' @examples
+#' coo_up(shapes$cat)
+#' coo_right(shapes$cat)
+#'
+#' @name coo_direction_filter
+#' @keywords internal
+NULL
+
+#' @rdname coo_direction_filter
+#' @export
+coo_up <- make_coo_function(.coo_up, sync_ldk = TRUE)
+
+.coo_up <- function(x, ldk = NULL, ...) {
+  if (!is.matrix(x)) return(list(coo = x, ldk = ldk))
+
+  cent <- colMeans(x)
+  keep <- x[, 2] > cent[2]
+
+  list(coo = x[keep, , drop = FALSE], ldk = ldk)
+}
+
+#' @rdname coo_direction_filter
+#' @export
+coo_down <- make_coo_function(.coo_down, sync_ldk = TRUE)
+
+.coo_down <- function(x, ldk = NULL, ...) {
+  if (!is.matrix(x)) return(list(coo = x, ldk = ldk))
+
+  cent <- colMeans(x)
+  keep <- x[, 2] < cent[2]
+
+  list(coo = x[keep, , drop = FALSE], ldk = ldk)
+}
+
+#' @rdname coo_direction_filter
+#' @export
+coo_right <- make_coo_function(.coo_right, sync_ldk = TRUE)
+
+.coo_right <- function(x, ldk = NULL, ...) {
+  if (!is.matrix(x)) return(list(coo = x, ldk = ldk))
+
+  cent <- colMeans(x)
+  keep <- x[, 1] > cent[1]
+
+  list(coo = x[keep, , drop = FALSE], ldk = ldk)
+}
+
+#' @rdname coo_direction_filter
+#' @export
+coo_left <- make_coo_function(.coo_left, sync_ldk = TRUE)
+
+.coo_left <- function(x, ldk = NULL, ...) {
+  if (!is.matrix(x)) return(list(coo = x, ldk = ldk))
+
+  cent <- colMeans(x)
+  keep <- x[, 1] < cent[1]
+
+  list(coo = x[keep, , drop = FALSE], ldk = ldk)
+}
+
+
+# coo_untilt_x ----
+
+#' Untilt to axis
+#'
+#' Rotate shape so the first point is exactly on an axis.
+#'
+#' @param x A matrix (nx2), list of matrices, or tibble with coo columns.
+#' @param ... Additional arguments (reserved for future use).
+#' @param .cols Column name(s) to process when `x` is a tibble. If `NULL`,
+#'   automatically detects columns containing coo columns.
+#' @param .ldk_col Character. Name of landmark column. If `NULL`, uses `colname_ldk`.
+#'
+#' @return
+#' * If `x` is a single matrix: returns the rotated matrix
+#' * If `x` is a list: returns a list of rotated matrices
+#' * If `x` is a tibble: returns the tibble with rotated coo column(s)
+#'
+#' @details
+#' **`coo_untilt_x()`**: Rotates around centroid so first point is on x-axis (y=0).
+#'
+#' **`coo_untilt_y()`**: Rotates around centroid so first point is on y-axis (x=0),
+#' choosing the nearest y-axis (positive or negative).
+#'
+#' Landmarks are synced.
+#'
+#' @examples
+#' coo_untilt_x(shapes$cat)
+#' coo_untilt_y(shapes$cat)
+#'
+#' @name coo_untilt
+#' @keywords internal
+NULL
+
+#' @rdname coo_untilt
+#' @export
+coo_untilt_x <- make_coo_function(.coo_untilt_x, sync_ldk = FALSE)
+
+.coo_untilt_x <- function(x, ldk = NULL, ...) {
+  if (!is.matrix(x)) return(list(coo = x, ldk = ldk))
+
+  # Center
+  cent <- colMeans(x)
+  x_centered <- sweep(x, 2, cent)
+
+  # Angle of first point
+  angle <- atan2(x_centered[1, 2], x_centered[1, 1])
+
+  # Rotate by -angle to put on x-axis
+  .coo_rotate(x, ldk = ldk, theta = -angle)
+}
+
+#' @rdname coo_untilt
+#' @export
+coo_untilt_y <- make_coo_function(.coo_untilt_y, sync_ldk = FALSE)
+
+.coo_untilt_y <- function(x, ldk = NULL, ...) {
+  if (!is.matrix(x)) return(list(coo = x, ldk = ldk))
+
+  # Center
+  cent <- colMeans(x)
+  x_centered <- sweep(x, 2, cent)
+
+  # Angle of first point
+  angle <- atan2(x_centered[1, 2], x_centered[1, 1])
+
+  # Rotate to nearest y-axis (pi/2 or -pi/2)
+  # Determine which is closer
+  if (abs(angle - pi/2) < abs(angle + pi/2)) {
+    target_angle <- pi/2
+  } else {
+    target_angle <- -pi/2
+  }
+
+  .coo_rotate(x, ldk = ldk, theta = target_angle - angle)
+}
+
+
+# coo_align_calliper ----
+
+#' Align to special features
+#'
+#' Align shape to x-axis based on specific geometric features.
+#'
+#' @param x A matrix (nx2), list of matrices, or tibble with coo columns.
+#' @param ... Additional arguments (reserved for future use).
+#' @param .cols Column name(s) to process when `x` is a tibble. If `NULL`,
+#'   automatically detects columns containing coo columns.
+#' @param .ldk_col Character. Name of landmark column. If `NULL`, uses `colname_ldk`.
+#'
+#' @return
+#' * If `x` is a single matrix: returns the aligned matrix
+#' * If `x` is a list: returns a list of aligned matrices
+#' * If `x` is a tibble: returns the tibble with aligned coo column(s)
+#'
+#' @details
+#' **`coo_align_calliper()`**: Aligns the calliper (maximum distance between points)
+#' horizontally along the x-axis.
+#'
+#' **`coo_align_minradius()`**: Aligns the point with minimum distance to centroid
+#' (min radius) to the x-axis.
+#'
+#' Landmarks are synced.
+#'
+#' @examples
+#' coo_align_calliper(shapes$cat)
+#' coo_align_minradius(shapes$cat)
+#'
+#' @name coo_align_features
+#' @keywords internal
+NULL
+
+#' @rdname coo_align_features
+#' @export
+coo_align_calliper <- make_coo_function(.coo_align_calliper, sync_ldk = FALSE)
+
+.coo_align_calliper <- function(x, ldk = NULL, ...) {
+  if (!is.matrix(x)) return(list(coo = x, ldk = ldk))
+
+  # Get calliper point indices
+  ids <- .get_calliper_ids(x)
+
+  # Vector between these points
+  v <- x[ids[2], ] - x[ids[1], ]
+
+  # Angle of this vector
+  angle <- atan2(v[2], v[1])
+
+  # Rotate to x-axis
+  .coo_rotate(x, ldk = ldk, theta = -angle)
+}
+
+#' @rdname coo_align_features
+#' @export
+coo_align_minradius <- make_coo_function(.coo_align_minradius, sync_ldk = FALSE)
+
+.coo_align_minradius <- function(x, ldk = NULL, ...) {
+  if (!is.matrix(x)) return(list(coo = x, ldk = ldk))
+
+  # Center shape
+  cent <- colMeans(x)
+  x_centered <- sweep(x, 2, cent)
+
+  # Find point with minimum radius
+  radii <- sqrt(rowSums(x_centered^2))
+  min_id <- which.min(radii)
+
+  # Angle of this point
+  angle <- atan2(x_centered[min_id, 2], x_centered[min_id, 1])
+
+  # Rotate to x-axis
+  .coo_rotate(x, ldk = ldk, theta = -angle)
+}
+
+
+# coo_sample_regular_radius ----
+
+#' Sample at regular angles from centroid
+#'
+#' Sample points at regular angular intervals from the centroid (radial sampling).
+#'
+#' @param x A matrix (nx2), list of matrices, or tibble with coo columns.
+#' @param n Integer. Number of points to sample.
+#' @param ... Additional arguments (reserved for future use).
+#' @param .cols Column name(s) to process when `x` is a tibble. If `NULL`,
+#'   automatically detects columns containing coo columns.
+#' @param .ldk_col Character. Name of landmark column. If `NULL`, uses `colname_ldk`.
+#'
+#' @return
+#' * If `x` is a single matrix: returns the sampled matrix
+#' * If `x` is a list: returns a list of sampled matrices
+#' * If `x` is a tibble: returns the tibble with sampled coo column(s)
+#'
+#' @details
+#' Samples points at regular angular intervals from the centroid, like spokes
+#' on a wheel. For each target angle, finds the outline point closest to that
+#' direction.
+#'
+#' Landmarks are NOT preserved - this resampling method fundamentally changes
+#' the point structure.
+#'
+#' @examples
+#' coo_sample_regular_radius(shapes$cat, n = 64)
+#'
+#' @seealso [coo_sample()]
+#'
+#' @keywords internal
+#' @export
+coo_sample_regular_radius <- make_coo_function(.coo_sample_regular_radius, sync_ldk = TRUE)
+
+.coo_sample_regular_radius <- function(x, ldk = NULL, n = 64, ...) {
+  if (!is.matrix(x)) return(list(coo = x, ldk = ldk))
+
+  # Center shape
+  cent <- colMeans(x)
+  x_centered <- sweep(x, 2, cent)
+
+  # Calculate angles for all points
+  angles <- atan2(x_centered[, 2], x_centered[, 1])
+
+  # Target angles (regular intervals)
+  target_angles <- seq(0, 2*pi, length.out = n + 1)[-(n + 1)]
+
+  # For each target angle, find closest point
+  sampled_ids <- vapply(target_angles, function(theta) {
+    angle_diff <- abs(angles - theta)
+    # Handle circular distance
+    angle_diff <- pmin(angle_diff, 2*pi - angle_diff)
+    which.min(angle_diff)
+  }, integer(1))
+
+  list(coo = x[sampled_ids, ], ldk = NULL)
 }

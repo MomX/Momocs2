@@ -7,7 +7,7 @@
 \usage{
 coo_template(x, ..., .cols = NULL, .ldk_col = NULL)
 
-coo_template_relatively(x, ..., .cols = NULL, .ldk_col = NULL)
+coo_template_relatively(x, size = 1, ..., .cols = NULL, .ldk_col = NULL)
 }
 \arguments{
 \item{x}{A matrix (nx2), list of matrices, or tibble with coo columns.}

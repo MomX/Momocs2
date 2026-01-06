@@ -1,120 +1,203 @@
 url: https://momx.github.io/Momocs2/
 template:
   bootstrap: 5
-  bootswatch: simplex
-
-home:
-  title: "Momocs2 • Modern Morphometrics for R"
-  description: >
-    A modern, tidy approach to morphometric analysis with emphasis on
-    outlines, landmarks, and shape analysis.
-  links:
-  - text: Legacy Momocs
-    href: https://momx.github.io/Momocs/
-
-navbar:
-  structure:
-    left:  [intro, reference, articles, tutorials, news]
-    right: [search, github]
-  components:
-    articles:
-      text: Articles
-      menu:
-      - text: Getting Started
-        href: articles/getting-started.html
-      - text: -------
-      - text: Workflow Examples
-      - text: Basic Outline Analysis
-        href: articles/outline-workflow.html
-      - text: Landmark Analysis
-        href: articles/landmark-workflow.html
+  theme: flatly
+  bslib:
+    primary: "#2C5F8D"
 
 reference:
-- title: "Core Data Structures"
-  desc: >
-    S3 classes and constructor functions for morphometric data types.
-  contents:
-  - starts_with("as_")
+- title: "Coordinate transformations (coo_*)"
+  desc: "Functions that transform shape coordinates"
 
-- title: "Datasets"
-  desc: >
-    Small datasets to play with
+- subtitle: "Basic transformations"
+  desc: "Translation, rotation, scaling, and centering"
   contents:
-  - bot
-  - hearts
-  - shapes
-  - wings
+  - coo_center
+  - coo_translate
+  - coo_rotate
+  - coo_rotate_around
+  - coo_scale
 
-- title: "Coordinate Transformations"
-  desc: >
-    Functions to transform shape coordinates. These modify the coo column in tibbles.
+- subtitle: "Alignment and orientation"
+  desc: "Align shapes to axes or specific features"
   contents:
-  - starts_with("coo_")
-  - -coo_bookstein
-  - -coo_baseline
+  - coo_align
+  - coo_align_minor
+  - coo_align_calliper
+  - coo_align_minradius
+  - coo_untilt_x
+  - coo_untilt_y
+  - coo_direction_positive
+  - coo_direction_negative
+  - coo_flip
 
-- title: "Landmark Registration"
-  desc: >
-    Specialized functions for landmark-based alignment.
+- subtitle: "Sampling and smoothing"
+  desc: "Resample points along outlines"
   contents:
-  - coo_bookstein
+  - coo_sample
+  - coo_sample_regular_radius
+  - coo_smooth
+
+- subtitle: "Point manipulation"
+  desc: "Reorder, reverse, trim, and modify point sequences"
+  contents:
+  - coo_slide
+  - coo_slide_closest
+  - coo_slide_angle
+  - coo_slide_direction
+  - coo_slide_gap
+  - coo_reverse
+  - coo_trim_head
+  - coo_trim_tail
+  - coo_trim_both
+  - coo_close
+  - coo_open
+  - coo_close_spread
+
+- subtitle: "Templates and transformations"
+  desc: "Standardize and transform shapes"
+  contents:
+  - coo_template
+  - coo_template_relatively
+  - get_transformed
+  - coo_shear
+
+- subtitle: "Filtering and extraction"
+  desc: "Extract subsets based on spatial criteria"
+  contents:
+  - coo_up
+  - coo_down
+  - coo_left
+  - coo_right
   - coo_baseline
+  - coo_bookstein
 
-- title: "Information Extraction"
-  desc: >
-    Extract information from shapes without modifying them. Use within mutate() to add columns.
+- title: "Shape measurements (get_* and measure)"
+  desc: "Functions to extract and measure shape properties"
+
+- subtitle: "Basic properties"
+  desc: "Fundamental shape characteristics"
   contents:
-  - starts_with("get_")
+  - get_centroid
   - centroid
-  - centsize
-  - centsize_norm
+  - get_area
+  - get_perim
+  - get_perim_along
+  - get_perim_cum
+  - get_coords_nb
 
-- title: "Shape Measurements"
-  desc: >
-    Measure scalar properties of shapes. Automatically adds columns to tibbles.
+- subtitle: "Size measures"
+  desc: "Overall size and dimensions"
   contents:
-  - starts_with("measure_")
+  - get_centroid_size
+  - get_centroid_size_norm
+  - get_length
+  - get_width
+  - get_lw
+  - get_elongation
+  - get_calliper
+  - get_calliper_ids
+
+- subtitle: "Circularity and roundness"
+  desc: "Measures of how circular a shape is"
+  contents:
+  - get_circularity
+  - get_circularity_norm
+  - get_circularity_haralick
+
+- subtitle: "Shape complexity"
+  desc: "Compactness, convexity, and irregularity"
+  contents:
+  - get_convexity
+  - get_solidity
+  - get_rugosity
+  - get_compactness
+  - get_rectangularity
+  - get_rectilinearity
+
+- subtitle: "Convex hull"
+  desc: "Convex hull extraction and analysis"
+  contents:
+  - get_chull
+  - get_chull_id
+  - get_chull_onion
+
+- subtitle: "Distances and angles"
+  desc: "Point-to-point distances and angular measures"
+  contents:
+  - get_centroid_distance
+  - get_truss
+  - get_angles
+  - get_angle_edges
+  - get_angle_tangent
+
+- subtitle: "Ranges and bounding box"
+  desc: "Spatial extents and boundaries"
+  contents:
+  - get_range
+  - get_range_diff
+  - get_bbox
+
+- subtitle: "Direction and position"
+  desc: "Orientation and point location"
+  contents:
+  - get_direction_sign
+  - get_closest
+  - get_closest_angle
+  - get_closest_direction
+
+- subtitle: "Landmarks"
+  desc: "Landmark extraction and manipulation"
+  contents:
+  - get_ldk
+
+- subtitle: "Transformations"
+  desc: "Extract and apply geometric transformations"
+  contents:
+  - get_transform
+
+- subtitle: "Cut and join"
+  desc: "Split and merge curves"
+  contents:
+  - get_cut
+  - get_join
+
+- subtitle: "Unified measurement interface"
+  desc: "Compute multiple measurements at once"
+  contents:
+  - measure
+  - available_measures
 
 - title: "Visualization"
-  desc: >
-    Functions for plotting and visualizing morphometric data.
+  desc: "Plotting and display functions"
   contents:
   - pile
   - mosaic
   - p
-  - starts_with("draw_")
+  - draw_landmarks
+  - draw_landmarks_as_numbers
+  - draw_outlines
+  - draw_centroid
+  - draw_first_point
+  - draw_links
+
+- title: "Pillar display"
+  desc: "Custom tibble printing for morphometric data"
+  contents:
+  - pillar_colors
 
 - title: "Utilities"
-  desc: >
-    Helper functions and utilities.
+  desc: "Helper functions and internal tools"
   contents:
   - get_coo_cols
-  - rinse
-  - "%>%"
 
-- title: "S3 Methods"
-  desc: >
-    Print and display methods for custom classes.
+- title: "Dataset"
+  desc: "Helper functions and internal tools"
   contents:
-  - starts_with("print.")
-  - starts_with("type_sum.")
-  - starts_with("pillar_shaft.")
-
-news:
-  releases:
-  - text: "Version 0.1.0"
-    href: https://github.com/MomX/Momocs2/releases/tag/v0.1.0
-
-footer:
-  structure:
-    left: developed_by
-    right: built_with
-  components:
-    developed_by: |
-      Momocs2 is developed by [Vincent Bonhomme](https://vincentbonhomme.github.io/)
-      and contributors. Part of the [MomX](https://momx.github.io/) ecosystem.
-    built_with: |
-      Built with [pkgdown](https://pkgdown.r-lib.org/) and ❤️
+  - bot
+  - hearts
+  - wings
+  - shapes
 
 figures:
   dev: ragg::agg_png
@@ -124,5 +207,4 @@ figures:
   fig.width: 7
   fig.height: 5
   fig.retina: 2
-  fig.asp: ~
-  bg: NA
+  bg: white
