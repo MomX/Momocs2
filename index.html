@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Morphometrics methods for outlines, curves, landmarks and measurements • Momocs2</title>
+<title>Momocs2 • Modern Morphometrics for R • Momocs2</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
 <link rel="icon" type="”image/svg+xml”" href="favicon.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -21,7 +21,7 @@
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Morphometrics methods for outlines, curves, landmarks and measurements">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Momocs2 • Modern Morphometrics for R">
 <meta name="description" content="The goal of Momocs is to provide a complete, convenient, reproducible and open-source toolkit for 2D morphometrics. It includes most common 2D morphometrics approaches on outlines, open outlines, configurations of landmarks, traditional morphometrics, and facilities for data preparation, manipulation and visualization with a consistent grammar throughout. It allows reproducible, complex morphometrics analyses and other morphometrics approaches should be easy to plug in, or develop from, on top of this canvas. Momocs2 is part of MomX and a complete rewrite of Momocs.">
 <meta property="og:description" content="The goal of Momocs is to provide a complete, convenient, reproducible and open-source toolkit for 2D morphometrics. It includes most common 2D morphometrics approaches on outlines, open outlines, configurations of landmarks, traditional morphometrics, and facilities for data preparation, manipulation and visualization with a consistent grammar throughout. It allows reproducible, complex morphometrics analyses and other morphometrics approaches should be easy to plug in, or develop from, on top of this canvas. Momocs2 is part of MomX and a complete rewrite of Momocs.">
 <meta property="og:image" content="https://momx.github.io/Momocs2/logo.png">
@@ -53,11 +53,22 @@
 </form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/MomX/Momocs2/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
 <li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-lightswitch" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Light switch"><span class="fa fa-sun"></span></button>
-  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-lightswitch">
-<li><button class="dropdown-item" data-bs-theme-value="light"><span class="fa fa-sun"></span> Light</button></li>
-    <li><button class="dropdown-item" data-bs-theme-value="dark"><span class="fa fa-moon"></span> Dark</button></li>
-    <li><button class="dropdown-item" data-bs-theme-value="auto"><span class="fa fa-adjust"></span> Auto</button></li>
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-ecosystem" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Ecosystem</button>
+  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-ecosystem">
+<li><h6 class="dropdown-header" data-toc-skip>Core Packages</h6></li>
+    <li><a class="external-link dropdown-item" href="https://momx.github.io/MomX/">MomX</a></li>
+    <li><a class="external-link dropdown-item" href="https://momx.github.io/Momacs/">Momacs</a></li>
+    <li><a class="external-link dropdown-item" href="https://momx.github.io/Momit">Momit</a></li>
+    <li><a class="dropdown-item" href="https://momx.github.io/Momocs2/">Momocs2</a></li>
+    <li><a class="external-link dropdown-item" href="https://momx.github.io/Momstats">Momstats</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Extended Packages</h6></li>
+    <li><a class="external-link dropdown-item" href="https://momx.github.io/Momoshop/">Momoshop</a></li>
+    <li><a class="external-link dropdown-item" href="https://momx.github.io/Momdata/">Momdata</a></li>
+    <li><a class="external-link dropdown-item" href="https://momx.github.io/Momfarm">Momfarm</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Legacy Packages</h6></li>
+    <li><a class="external-link dropdown-item" href="https://momx.github.io/Momocs/">Momocs</a></li>
   </ul>
 </li>
       </ul>
@@ -94,6 +105,7 @@
 <ul class="list-unstyled">
 <li><a href="https://github.com/MomX/Momocs2/" class="external-link">Browse source code</a></li>
 <li><a href="https://github.com/MomX/Momocs2/issues" class="external-link">Report a bug</a></li>
+<li><a href="https://momx.github.io/Momocs2">Main website</a></li>
 </ul>
 </div>
 
