@@ -11,10 +11,10 @@ template:
     danger: "#A6081A"
 
 home:
-  title: Momocs • Modern Morphometrics for R
+  title: Momocs2 • Modern Morphometrics for R
   links:
   - text: Main website
-    href: https://momx.github.io/Momocs
+    href: https://momx.github.io/Momocs2
 
 navbar:
   structure:
