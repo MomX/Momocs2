@@ -48,44 +48,6 @@ navbar:
       - text: Momocs
         href: https://momx.github.io/Momocs/
 
-home:
-  title: Momocs2 • Modern Morphometrics for R
-  links:
-  - text: Main website
-    href: https://momx.github.io/Momocs2
-
-navbar:
-  structure:
-    left: [intro, reference, articles, news]
-    right: [search, github, ecosystem]
-  components:
-    ecosystem:
-      text: Ecosystem
-      menu:
-      - text: Core Packages
-      - text: MomX
-        href: https://momx.github.io/MomX/
-      - text: Momacs
-        href: https://momx.github.io/Momacs/
-      - text: Momit
-        href: https://momx.github.io/Momit
-      - text: Momocs2
-        href: https://momx.github.io/Momocs2/
-      - text: Momstats
-        href: https://momx.github.io/Momstats
-      - text: -------
-      - text: Extended Packages
-      - text: Momoshop
-        href: https://momx.github.io/Momoshop/
-      - text: Momdata
-        href: https://momx.github.io/Momdata/
-      - text: Momfarm
-        href: https://momx.github.io/Momfarm
-      - text: -------
-      - text: Legacy Packages
-      - text: Momocs
-        href: https://momx.github.io/Momocs/
-
 articles:
 - title: "Getting Started"
   desc: "Introduction and migration guide"
