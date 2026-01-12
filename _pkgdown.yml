@@ -296,6 +296,13 @@ reference:
   - get_coo_cols
   - make_coo_function
   - make_get_function
+  - get_coe_cols
+
+- title: "Folding"
+  desc: "and unfolding list columns, ie coefficients"
+  contents:
+  - fold
+  - unfold
 
 - title: "Reimport"
   desc: "From other packages"

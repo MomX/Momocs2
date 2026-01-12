@@ -25,6 +25,7 @@ Imports:
     magrittr,
     pillar,
     rlang,
+    tibble,
     tidyselect
 Roxygen: list(markdown = TRUE)
 Suggests: 

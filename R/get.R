@@ -13,12 +13,17 @@
 #'
 #' @details
 #' The returned function automatically:
-#' - Applies impl_fn to single matrices and returns the result
-#' - Applies impl_fn to each element of a list and returns a list
-#' - Applies impl_fn to tibble coo columns and EXTRACTS results (does not modify tibble)
+#' - Applies impl_fn to single matrices and returns the result (as numeric if scalar)
+#' - Applies impl_fn to each element of a list and returns a list (simplified to
+#'   numeric vector if all results are scalars)
+#' - Applies impl_fn to tibble coo columns and EXTRACTS results (simplified to
+#'   numeric vector if all results are scalars)
 #'
 #' For tibbles, get_* functions extract values for further processing by the user.
 #' They do NOT create new columns or modify the tibble.
+#'
+#' Simplification to numeric: If all results are length-1 scalars, the output is
+#' converted from a list to a numeric vector for convenience.
 #'
 #' Additional arguments are passed through via `...`
 #'
@@ -31,17 +36,27 @@ make_get_function <- function(impl_fn, fn_name = NULL) {
   }
 
   f <- function(x, ..., .cols = NULL) {
-    # Single matrix case - return computed value
+    # Single matrix case - return computed value (as numeric if scalar)
     if (is.matrix(x)) {
-      return(impl_fn(x, ...))
+      result <- impl_fn(x, ...)
+      # Ensure scalar results are numeric (not named numeric)
+      if (length(result) == 1 && is.numeric(result)) {
+        return(as.numeric(result))
+      }
+      return(result)
     }
 
-    # List case - return list of computed values
+    # List case - return list of computed values (simplified if all scalars)
     if (is.list(x) && !is.data.frame(x)) {
-      return(lapply(x, impl_fn, ...))
+      result <- lapply(x, impl_fn, ...)
+      # Simplify if all results are scalars
+      if (all(sapply(result, length) == 1)) {
+        return(unlist(result, use.names = FALSE))
+      }
+      return(result)
     }
 
-    # Tibble case - EXTRACT values, don't modify tibble
+    # Tibble case - EXTRACT values (simplified if all scalars)
     if (is.data.frame(x)) {
       # Capture .cols with tidyeval
       .cols_quo <- rlang::enquo(.cols)
@@ -58,7 +73,7 @@ make_get_function <- function(impl_fn, fn_name = NULL) {
 
       # Simplify if all results are scalars
       if (all(sapply(result, length) == 1)) {
-        result <- unlist(result)
+        return(unlist(result, use.names = FALSE))
       }
 
       return(result)
