@@ -54,18 +54,7 @@ for perimeter
 get_area(shapes$cat)
 #> [1] 14125.5
 get_area(shapes)
-#> $cat
-#> [1] 14125.5
-#> 
-#> $dog
-#> [1] 14907.5
-#> 
-#> $heart
-#> [1] 24277
-#> 
-#> $leaf2
-#> [1] 16905.5
-#> 
+#> [1] 14125.5 14907.5 24277.0 16905.5
 
 # Extract from tibble
 areas <- get_area(bot)

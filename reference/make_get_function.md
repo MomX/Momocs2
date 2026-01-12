@@ -30,14 +30,19 @@ A function that dispatches based on input type.
 
 The returned function automatically:
 
-- Applies impl_fn to single matrices and returns the result
+- Applies impl_fn to single matrices and returns the result (as numeric
+  if scalar)
 
 - Applies impl_fn to each element of a list and returns a list
+  (simplified to numeric vector if all results are scalars)
 
-- Applies impl_fn to tibble coo columns and EXTRACTS results (does not
-  modify tibble)
+- Applies impl_fn to tibble coo columns and EXTRACTS results (simplified
+  to numeric vector if all results are scalars)
 
 For tibbles, get\_\* functions extract values for further processing by
 the user. They do NOT create new columns or modify the tibble.
+
+Simplification to numeric: If all results are length-1 scalars, the
+output is converted from a list to a numeric vector for convenience.
 
 Additional arguments are passed through via `...`

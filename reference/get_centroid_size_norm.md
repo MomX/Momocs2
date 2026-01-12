@@ -46,18 +46,7 @@ Use within `mutate()` to add as a column:
 get_centroid_size_norm(shapes$cat)
 #> [1] 77.4076
 get_centroid_size_norm(shapes)
-#> $cat
-#> [1] 77.4076
-#> 
-#> $dog
-#> [1] 86.78916
-#> 
-#> $heart
-#> [1] 89.2805
-#> 
-#> $leaf2
-#> [1] 74.38899
-#> 
+#> [1] 77.40760 86.78916 89.28050 74.38899
 
 # Extract from tibble
 sizes_norm <- get_centroid_size_norm(bot)

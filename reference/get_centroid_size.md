@@ -49,18 +49,7 @@ Use within `mutate()` to add as a column:
 get_centroid_size(shapes$cat)
 #> [1] 847.9577
 get_centroid_size(shapes)
-#> $cat
-#> [1] 847.9577
-#> 
-#> $dog
-#> [1] 950.7276
-#> 
-#> $heart
-#> [1] 978.0189
-#> 
-#> $leaf2
-#> [1] 814.8906
-#> 
+#> [1] 847.9577 950.7276 978.0189 814.8906
 
 # Extract from tibble
 sizes <- get_centroid_size(bot)

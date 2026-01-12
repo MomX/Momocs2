@@ -12,6 +12,7 @@
 <url><loc>https://momx.github.io/Momocs2/authors.html</loc></url>
 <url><loc>https://momx.github.io/Momocs2/index.html</loc></url>
 <url><loc>https://momx.github.io/Momocs2/news/index.html</loc></url>
+<url><loc>https://momx.github.io/Momocs2/reference/Momocs2-package.html</loc></url>
 <url><loc>https://momx.github.io/Momocs2/reference/as_class.html</loc></url>
 <url><loc>https://momx.github.io/Momocs2/reference/available_measures.html</loc></url>
 <url><loc>https://momx.github.io/Momocs2/reference/bot.html</loc></url>
@@ -46,6 +47,7 @@
 <url><loc>https://momx.github.io/Momocs2/reference/coo_translate_to_yaxis.html</loc></url>
 <url><loc>https://momx.github.io/Momocs2/reference/coo_trim.html</loc></url>
 <url><loc>https://momx.github.io/Momocs2/reference/coo_untilt.html</loc></url>
+<url><loc>https://momx.github.io/Momocs2/reference/fold.html</loc></url>
 <url><loc>https://momx.github.io/Momocs2/reference/get_angle_edges.html</loc></url>
 <url><loc>https://momx.github.io/Momocs2/reference/get_angle_tangent.html</loc></url>
 <url><loc>https://momx.github.io/Momocs2/reference/get_angles.html</loc></url>
@@ -61,6 +63,7 @@
 <url><loc>https://momx.github.io/Momocs2/reference/get_circularity.html</loc></url>
 <url><loc>https://momx.github.io/Momocs2/reference/get_closest.html</loc></url>
 <url><loc>https://momx.github.io/Momocs2/reference/get_closest_direction.html</loc></url>
+<url><loc>https://momx.github.io/Momocs2/reference/get_coe_cols.html</loc></url>
 <url><loc>https://momx.github.io/Momocs2/reference/get_compactness.html</loc></url>
 <url><loc>https://momx.github.io/Momocs2/reference/get_convexity.html</loc></url>
 <url><loc>https://momx.github.io/Momocs2/reference/get_coo_cols.html</loc></url>
@@ -96,6 +99,7 @@
 <url><loc>https://momx.github.io/Momocs2/reference/pillar_methods.html</loc></url>
 <url><loc>https://momx.github.io/Momocs2/reference/pipes.html</loc></url>
 <url><loc>https://momx.github.io/Momocs2/reference/shapes.html</loc></url>
+<url><loc>https://momx.github.io/Momocs2/reference/unfold.html</loc></url>
 <url><loc>https://momx.github.io/Momocs2/reference/wings.html</loc></url>
 </urlset>
 

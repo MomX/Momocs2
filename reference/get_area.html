@@ -106,18 +106,7 @@ Use within <code>mutate()</code> to add as a column, or use <code>measure("area"
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">get_area</span><span class="op">(</span><span class="va">shapes</span><span class="op">$</span><span class="va">cat</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 14125.5</span>
 <span class="r-in"><span><span class="fu">get_area</span><span class="op">(</span><span class="va">shapes</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $cat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 14125.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $dog</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 14907.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $heart</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 24277</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $leaf2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 16905.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 14125.5 14907.5 24277.0 16905.5</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Extract from tibble</span></span></span>
 <span class="r-in"><span><span class="va">areas</span> <span class="op">&lt;-</span> <span class="fu">get_area</span><span class="op">(</span><span class="va">bot</span><span class="op">)</span></span></span>

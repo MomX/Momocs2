@@ -107,18 +107,7 @@ Use within <code>mutate()</code> to add as a column: <code>mutate(df, cs = get_c
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">get_centroid_size</span><span class="op">(</span><span class="va">shapes</span><span class="op">$</span><span class="va">cat</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 847.9577</span>
 <span class="r-in"><span><span class="fu">get_centroid_size</span><span class="op">(</span><span class="va">shapes</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $cat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 847.9577</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $dog</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 950.7276</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $heart</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 978.0189</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $leaf2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 814.8906</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 847.9577 950.7276 978.0189 814.8906</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Extract from tibble</span></span></span>
 <span class="r-in"><span><span class="va">sizes</span> <span class="op">&lt;-</span> <span class="fu">get_centroid_size</span><span class="op">(</span><span class="va">bot</span><span class="op">)</span></span></span>

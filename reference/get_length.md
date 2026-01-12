@@ -46,8 +46,7 @@ direction).
 
 ``` r
 get_length(shapes$cat)
-#>   length 
-#> 229.9564 
+#> [1] 229.9564
 
 # Use in measure()
 bot %>% measure("length")

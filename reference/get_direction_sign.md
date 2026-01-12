@@ -52,16 +52,5 @@ Returns TRUE for counter-clockwise, FALSE for clockwise.
 get_direction_sign(shapes$cat)
 #> [1] FALSE
 get_direction_sign(shapes)
-#> $cat
-#> [1] FALSE
-#> 
-#> $dog
-#> [1] FALSE
-#> 
-#> $heart
-#> [1] FALSE
-#> 
-#> $leaf2
-#> [1] FALSE
-#> 
+#> [1] FALSE FALSE FALSE FALSE
 ```

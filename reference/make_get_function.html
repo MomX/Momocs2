@@ -87,11 +87,15 @@ matrix (nx2). Should accept <code>x</code> as first argument and <code>...</code
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The returned function automatically:</p><ul><li><p>Applies impl_fn to single matrices and returns the result</p></li>
-<li><p>Applies impl_fn to each element of a list and returns a list</p></li>
-<li><p>Applies impl_fn to tibble coo columns and EXTRACTS results (does not modify tibble)</p></li>
+    <p>The returned function automatically:</p><ul><li><p>Applies impl_fn to single matrices and returns the result (as numeric if scalar)</p></li>
+<li><p>Applies impl_fn to each element of a list and returns a list (simplified to
+numeric vector if all results are scalars)</p></li>
+<li><p>Applies impl_fn to tibble coo columns and EXTRACTS results (simplified to
+numeric vector if all results are scalars)</p></li>
 </ul><p>For tibbles, get_* functions extract values for further processing by the user.
 They do NOT create new columns or modify the tibble.</p>
+<p>Simplification to numeric: If all results are length-1 scalars, the output is
+converted from a list to a numeric vector for convenience.</p>
 <p>Additional arguments are passed through via <code>...</code></p>
     </div>
 

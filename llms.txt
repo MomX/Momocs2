@@ -365,6 +365,17 @@ Exposed extending helpers
   : Create a coo function with automatic dispatch
 - [`make_get_function()`](https://momx.github.io/Momocs2/reference/make_get_function.md)
   : Create a get function with automatic dispatch
+- [`get_coe_cols()`](https://momx.github.io/Momocs2/reference/get_coe_cols.md)
+  : Identify coe columns in a tibble
+
+## Folding
+
+and unfolding list columns, ie coefficients
+
+- [`fold()`](https://momx.github.io/Momocs2/reference/fold.md) : Fold
+  multiple columns into a single list-column
+- [`unfold()`](https://momx.github.io/Momocs2/reference/unfold.md) :
+  Unfold a list-column into multiple columns
 
 ## Reimport
 

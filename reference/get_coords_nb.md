@@ -43,18 +43,7 @@ be used with
 get_coords_nb(shapes$cat)
 #> [1] 120
 get_coords_nb(shapes)
-#> $cat
-#> [1] 120
-#> 
-#> $dog
-#> [1] 120
-#> 
-#> $heart
-#> [1] 120
-#> 
-#> $leaf2
-#> [1] 120
-#> 
+#> [1] 120 120 120 120
 
 # Use in measure()
 bot %>% measure("coords_nb")

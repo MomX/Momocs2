@@ -46,8 +46,7 @@ rectangle. Lower values indicate less rectangular shapes.
 
 ``` r
 get_rectangularity(shapes$cat)
-#>    length 
-#> 0.5527956 
+#> [1] 0.5527956
 
 # Use in measure() on a mini bot for the sake of speed
 bot[1:2, ] %>% measure("rectangularity")

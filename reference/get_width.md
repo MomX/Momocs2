@@ -46,8 +46,7 @@ direction).
 
 ``` r
 get_width(shapes$cat)
-#>    width 
-#> 111.1204 
+#> [1] 111.1204
 
 # Use in measure()
 bot %>% measure("width")

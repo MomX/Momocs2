@@ -49,8 +49,7 @@ This is equivalent to eccentricity based on bounding box dimensions.
 
 ``` r
 get_elongation(shapes$cat)
-#>   length 
-#> 2.069434 
+#> [1] 2.069434
 
 # Use in measure()
 bot %>% measure("elongation")
