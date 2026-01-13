@@ -67,8 +67,43 @@ articles:
   - curve-analysis
   - landmark-analysis
 
-
 reference:
+
+- title: "Morphometric methods"
+- subtitle: "Outlines"
+  contents:
+  - starts_with("efourier")
+
+- title: "Classes and printers"
+  desc: "Mostly cosmetics"
+  contents:
+  - as_coo
+  - pillar_colors
+
+- title: "Dispatcher and function factories"
+  desc: "Exposed extending helpers"
+  contents:
+  - get_coo_cols
+  - make_coo_function
+  - make_get_function
+  - get_coe_cols
+
+- title: "Verbs"
+  desc: "ease common operations"
+  contents:
+  - fold
+  - unfold
+  - front
+  - declass
+
+- title: "Dataset"
+  desc: "To play with"
+  contents:
+  - bot
+  - hearts
+  - wings
+  - shapes
+
 - title: "coo_* coordinate transformations "
   desc: "Functions that take coo and return coo"
 
@@ -284,38 +319,10 @@ reference:
   - draw_first_point
   - draw_links
 
-- title: "Classes and printers"
-  desc: "Mostly cosmetics"
-  contents:
-  - as_coo
-  - pillar_colors
-
-- title: "Dispatcher and function factories"
-  desc: "Exposed extending helpers"
-  contents:
-  - get_coo_cols
-  - make_coo_function
-  - make_get_function
-  - get_coe_cols
-
-- title: "Folding"
-  desc: "and unfolding list columns, ie coefficients"
-  contents:
-  - fold
-  - unfold
-
 - title: "Reimport"
   desc: "From other packages"
   contents:
   - pipes
-
-- title: "Dataset"
-  desc: "To play with"
-  contents:
-  - bot
-  - hearts
-  - wings
-  - shapes
 
 figures:
   dev: ragg::agg_png
