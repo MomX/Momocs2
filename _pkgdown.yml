@@ -78,7 +78,6 @@ reference:
   desc: "Mostly cosmetics"
   contents:
   - as_coo
-  - pillar_colors
 
 - title: "Dispatcher and function factories"
   desc: "Exposed extending helpers"
