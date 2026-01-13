@@ -1,5 +1,80 @@
 # Package index
 
+## Morphometric methods
+
+### Outlines
+
+- [`efourier()`](https://momx.github.io/Momocs2/reference/efourier.md) :
+  Elliptic Fourier Transform
+- [`efourier_i()`](https://momx.github.io/Momocs2/reference/efourier_i.md)
+  : Inverse elliptic Fourier transform
+- [`efourier_name()`](https://momx.github.io/Momocs2/reference/efourier_name.md)
+  : Name elliptic Fourier coefficients
+- [`efourier_norm()`](https://momx.github.io/Momocs2/reference/efourier_norm.md)
+  : Normalize elliptic Fourier coefficients
+- [`efourier_split()`](https://momx.github.io/Momocs2/reference/efourier_split.md)
+  : Split EFT coefficient vector into components
+
+## Classes and printers
+
+Mostly cosmetics
+
+- [`as_coo()`](https://momx.github.io/Momocs2/reference/as_class.md)
+  [`as_out()`](https://momx.github.io/Momocs2/reference/as_class.md)
+  [`as_ldk()`](https://momx.github.io/Momocs2/reference/as_class.md)
+  [`as_xy()`](https://momx.github.io/Momocs2/reference/as_class.md)
+  [`as_ldk_id()`](https://momx.github.io/Momocs2/reference/as_class.md)
+  [`as_cur()`](https://momx.github.io/Momocs2/reference/as_class.md)
+  [`as_path()`](https://momx.github.io/Momocs2/reference/as_class.md)
+  [`as_meas()`](https://momx.github.io/Momocs2/reference/as_class.md)
+  [`as_coe()`](https://momx.github.io/Momocs2/reference/as_class.md)
+  [`as_eft()`](https://momx.github.io/Momocs2/reference/as_class.md)
+  [`as_rft()`](https://momx.github.io/Momocs2/reference/as_class.md)
+  [`as_dct()`](https://momx.github.io/Momocs2/reference/as_class.md)
+  [`as_npoly()`](https://momx.github.io/Momocs2/reference/as_class.md)
+  [`as_opoly()`](https://momx.github.io/Momocs2/reference/as_class.md)
+  [`as_proc()`](https://momx.github.io/Momocs2/reference/as_class.md) :
+  Coerce to Momocs morphometric classes
+
+## Dispatcher and function factories
+
+Exposed extending helpers
+
+- [`get_coo_cols()`](https://momx.github.io/Momocs2/reference/get_coo_cols.md)
+  : Identify coo columns in a tibble
+- [`make_coo_function()`](https://momx.github.io/Momocs2/reference/make_coo_function.md)
+  : Create a coo function with automatic dispatch
+- [`make_get_function()`](https://momx.github.io/Momocs2/reference/make_get_function.md)
+  : Create a get function with automatic dispatch
+- [`get_coe_cols()`](https://momx.github.io/Momocs2/reference/get_coe_cols.md)
+  : Identify coe columns in a tibble
+
+## Verbs
+
+ease common operations
+
+- [`fold()`](https://momx.github.io/Momocs2/reference/fold.md) : Fold
+  multiple columns into a single list-column
+- [`unfold()`](https://momx.github.io/Momocs2/reference/unfold.md) :
+  Unfold a list-column into multiple columns
+- [`front()`](https://momx.github.io/Momocs2/reference/front.md) :
+  Relocate morphometric columns to front
+- [`declass()`](https://momx.github.io/Momocs2/reference/declass.md) :
+  Remove Momocs classes
+
+## Dataset
+
+To play with
+
+- [`bot`](https://momx.github.io/Momocs2/reference/bot.md) : Bottles
+  dataset
+- [`hearts`](https://momx.github.io/Momocs2/reference/hearts.md) : Heart
+  dataset
+- [`wings`](https://momx.github.io/Momocs2/reference/wings.md) : Wings
+  dataset
+- [`shapes`](https://momx.github.io/Momocs2/reference/shapes.md) :
+  Shapes dataset
+
 ## coo\_\* coordinate transformations
 
 Functions that take coo and return coo
@@ -318,49 +393,6 @@ Plotting and display functions
   [`draw_links()`](https://momx.github.io/Momocs2/reference/p.md) :
   Minimal plotting system for morphometric shapes
 
-## Classes and printers
-
-Mostly cosmetics
-
-- [`as_coo()`](https://momx.github.io/Momocs2/reference/as_class.md)
-  [`as_out()`](https://momx.github.io/Momocs2/reference/as_class.md)
-  [`as_ldk()`](https://momx.github.io/Momocs2/reference/as_class.md)
-  [`as_xy()`](https://momx.github.io/Momocs2/reference/as_class.md)
-  [`as_ldk_id()`](https://momx.github.io/Momocs2/reference/as_class.md)
-  [`as_cur()`](https://momx.github.io/Momocs2/reference/as_class.md)
-  [`as_path()`](https://momx.github.io/Momocs2/reference/as_class.md)
-  [`as_coe()`](https://momx.github.io/Momocs2/reference/as_class.md)
-  [`as_eft()`](https://momx.github.io/Momocs2/reference/as_class.md)
-  [`as_dct()`](https://momx.github.io/Momocs2/reference/as_class.md)
-  [`as_npoly()`](https://momx.github.io/Momocs2/reference/as_class.md)
-  [`as_opoly()`](https://momx.github.io/Momocs2/reference/as_class.md)
-  [`as_proc()`](https://momx.github.io/Momocs2/reference/as_class.md) :
-  Coerce to coordinate classes
-- [`pillar_colors`](https://momx.github.io/Momocs2/reference/pillar_colors.md)
-  : Customize pillar colors
-
-## Dispatcher and function factories
-
-Exposed extending helpers
-
-- [`get_coo_cols()`](https://momx.github.io/Momocs2/reference/get_coo_cols.md)
-  : Identify coo columns in a tibble
-- [`make_coo_function()`](https://momx.github.io/Momocs2/reference/make_coo_function.md)
-  : Create a coo function with automatic dispatch
-- [`make_get_function()`](https://momx.github.io/Momocs2/reference/make_get_function.md)
-  : Create a get function with automatic dispatch
-- [`get_coe_cols()`](https://momx.github.io/Momocs2/reference/get_coe_cols.md)
-  : Identify coe columns in a tibble
-
-## Folding
-
-and unfolding list columns, ie coefficients
-
-- [`fold()`](https://momx.github.io/Momocs2/reference/fold.md) : Fold
-  multiple columns into a single list-column
-- [`unfold()`](https://momx.github.io/Momocs2/reference/unfold.md) :
-  Unfold a list-column into multiple columns
-
 ## Reimport
 
 From other packages
@@ -370,16 +402,3 @@ From other packages
   [`%T>%`](https://momx.github.io/Momocs2/reference/pipes.md)
   [`%$%`](https://momx.github.io/Momocs2/reference/pipes.md) : Pipe
   operators
-
-## Dataset
-
-To play with
-
-- [`bot`](https://momx.github.io/Momocs2/reference/bot.md) : Bottles
-  dataset
-- [`hearts`](https://momx.github.io/Momocs2/reference/hearts.md) : Heart
-  dataset
-- [`wings`](https://momx.github.io/Momocs2/reference/wings.md) : Wings
-  dataset
-- [`shapes`](https://momx.github.io/Momocs2/reference/shapes.md) :
-  Shapes dataset

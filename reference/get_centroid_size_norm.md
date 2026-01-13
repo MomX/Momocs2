@@ -37,8 +37,9 @@ centsize_norm(x, ..., .cols = NULL)
 ## Details
 
 For tibbles, this function extracts values without modifying the tibble.
-Use within `mutate()` to add as a column:
-`mutate(df, cs_norm = get_centroid_size_norm(coo))`
+Use within
+[`mutate()`](https://dplyr.tidyverse.org/reference/mutate.html) to add
+as a column: `mutate(df, cs_norm = get_centroid_size_norm(coo))`
 
 ## Examples
 

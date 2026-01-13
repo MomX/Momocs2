@@ -1,6 +1,7 @@
-# Coerce to coordinate classes
+# Coerce to Momocs morphometric classes
 
-Convert objects to Momocs coordinate and coefficient classes.
+Add class attributes to objects for proper S3 dispatch and printing in
+morphometric workflows.
 
 ## Usage
 
@@ -19,9 +20,13 @@ as_cur(x)
 
 as_path(x)
 
+as_meas(x)
+
 as_coe(x)
 
 as_eft(x)
+
+as_rft(x)
 
 as_dct(x)
 
@@ -36,7 +41,7 @@ as_proc(x)
 
 - x:
 
-  An object to coerce.
+  An object to coerce (typically a matrix, vector, or list).
 
 ## Value
 
@@ -44,218 +49,155 @@ Object with updated class attribute.
 
 ## Details
 
-**List columns classes**
+These functions add Momocs-specific class attributes that enable:
 
-- `as_coo()`: list of generic coordinate objects
+- Custom printing methods
 
-- `as_out()`: list of outlines
+- Pretty display in tibbles (via pillar)
 
-- `as_ldk()`: list of landmarks
+- S3 method dispatch for morphometric operations
 
-- `as_cur()`: list of curves (open outlines)
+- Type checking and validation
 
-**Single matrices**
+### Coordinate classes (inherit from `"coo"`)
 
-- `as_xy()`: single xy matrix **Non-coordinate classes:**
+Used for shape coordinate data, typically stored as nx2 matrices or
+list-columns of matrices:
 
-- `as_ldk_id()`: landmark identifiers (not inherits from coo)
+- **`as_coo()`**: Generic coordinate object - base class for all
+  coordinate types
 
-- `as_path()`: list of paths
+- **`as_out()`**: Closed outlines - class `c("out", "coo")`. For shapes
+  where the first and last points connect (e.g., leaf outlines, bottle
+  silhouettes)
 
-**Coefficient classes (all inherit from "coe"):**
+- **`as_ldk()`**: Landmarks - class `c("ldk", "coo")`. For discrete
+  anatomical points (e.g., skull landmarks, wing vein intersections)
 
-- `as_coe()`: generic coefficient object
+- **`as_cur()`**: Open curves - class `c("cur", "coo")`. For shapes with
+  distinct start and end points (e.g., leaf midribs, antenna segments)
 
-- `as_eft()`: (out) Elliptic Fourier Transform coefficients
+### Single coordinate matrix
 
-- `as_proc()`: (ldk) Procrustes-aligned coefficients
+- **`as_xy()`**: Single coordinate matrix - class `"xy"`. Used for
+  individual shape matrices (not list-columns). Has custom print method
+  showing dimensions
 
-- `as_dct()`: (cur) Discrete Cosine Transform coefficients
+### Landmark identifiers
 
-- `as_npoly()`: (cur) natural polynomial coefficients
+- **`as_ldk_id()`**: Landmark indices - class `"ldk_id"`. Integer
+  vectors indicating which points are landmarks. Does NOT inherit from
+  `"coo"` since it contains indices, not coordinates
 
-- `as_opoly()`: (cur) orthogonal polynomial coefficients
+### Path metadata
+
+- **`as_path()`**: File paths - class `"path"`. Character vectors of
+  image file paths, typically used to track source images for shapes
+
+### Measurement data
+
+- **`as_meas()`**: Measurements - class `"meas"`. Numeric vectors of
+  shape measurements (area, perimeter, etc.)
+
+### Coefficient classes (all inherit from `"coe"`)
+
+Used for shape descriptors from various decomposition methods:
+
+- **`as_coe()`**: Generic coefficient object - class `"coe"`. Base class
+  for all coefficient types
+
+- **`as_eft()`**: Elliptic Fourier coefficients - class
+  `c("eft", "coe")`. From closed outline decomposition (outlines)
+
+- **`as_rft()`**: Radii variation Fourier coefficients - class
+  `c("rft", "coe")`. From radii-based decomposition (outlines)
+
+- **`as_dct()`**: Discrete Cosine Transform coefficients - class
+  `c("dct", "coe")`. From open curve decomposition (curves)
+
+- **`as_npoly()`**: Natural polynomial coefficients - class
+  `c("npoly", "coe")`. From polynomial fitting (curves)
+
+- **`as_opoly()`**: Orthogonal polynomial coefficients - class
+  `c("opoly", "coe")`. From orthogonal polynomial fitting (curves)
+
+- **`as_proc()`**: Procrustes coefficients - class `c("proc", "coe")`.
+  From Procrustes superimposition (landmarks)
+
+### Class hierarchy
+
+    coo (coordinates)
+    ├── out (closed outlines)
+    ├── ldk (landmarks)
+    └── cur (open curves)
+
+    coe (coefficients)
+    ├── eft (elliptic Fourier - outlines)
+    ├── rft (radii Fourier - outlines)
+    ├── dct (discrete cosine - curves)
+    ├── npoly (natural polynomial - curves)
+    ├── opoly (orthogonal polynomial - curves)
+    └── proc (Procrustes - landmarks)
+
+    xy (single coordinate matrix)
+    ldk_id (landmark indices)
+    path (file paths)
+    meas (measurements)
+
+## See also
+
+[`declass()`](https://momx.github.io/Momocs2/reference/declass.md) to
+remove Momocs classes
 
 ## Examples
 
 ``` r
+# Coordinate classes
 mat <- matrix(rnorm(100), ncol = 2)
-as_coo(mat)
-#>               [,1]        [,2]
-#>  [1,]  0.255317055 -0.24323674
-#>  [2,] -2.437263611 -0.20608719
-#>  [3,] -0.005571287  0.01917759
-#>  [4,]  0.621552721  0.02956075
-#>  [5,]  1.148411606  0.54982754
-#>  [6,] -1.821817661 -2.27411486
-#>  [7,] -0.247325302  2.68255718
-#>  [8,] -0.244199607 -0.36122126
-#>  [9,] -0.282705449  0.21335575
-#> [10,] -0.553699384  1.07434588
-#> [11,]  0.628982042 -0.66508825
-#> [12,]  2.065024895  1.11395242
-#> [13,] -1.630989402 -0.24589641
-#> [14,]  0.512426950 -1.17756331
-#> [15,] -1.863011492 -0.97585062
-#> [16,] -0.522012515  1.06505732
-#> [17,] -0.052601910  0.13167063
-#> [18,]  0.542996343  0.48862881
-#> [19,] -0.914074827 -1.69945057
-#> [20,]  0.468154420 -1.47073631
-#> [21,]  0.362951256  0.28415034
-#> [22,] -1.304543545  1.33732041
-#> [23,]  0.737776321  0.23669628
-#> [24,]  1.888504929  1.31829338
-#> [25,] -0.097445104  0.52390979
-#> [26,] -0.935847354  0.60674805
-#> [27,] -0.015950311 -0.10993567
-#> [28,] -0.826788954  0.17218172
-#> [29,] -1.512399651 -0.09032729
-#> [30,]  0.935363190  1.92434334
-#> [31,]  0.176488611  1.29839276
-#> [32,]  0.243685465  0.74879127
-#> [33,]  1.623548883  0.55622433
-#> [34,]  0.112038083 -0.54825726
-#> [35,] -0.133997013  1.11053489
-#> [36,] -1.910087468 -2.61233433
-#> [37,] -0.279237242 -0.15569378
-#> [38,] -0.313445978  0.43388979
-#> [39,]  1.067307879 -0.38195111
-#> [40,]  0.070034850  0.42418757
-#> [41,] -0.639123324  1.06310200
-#> [42,] -0.049964899  1.04871262
-#> [43,] -0.251483443 -0.03810289
-#> [44,]  0.444797116  0.48614892
-#> [45,]  2.755417575  1.67288261
-#> [46,]  0.046531380 -0.35436116
-#> [47,]  0.577709069  0.94634789
-#> [48,]  0.118194874  1.31682636
-#> [49,] -1.911720491 -0.29664002
-#> [50,]  0.862086482 -0.38721358
-#> attr(,"class")
+coo <- as_coo(mat)
+class(coo)  # "coo" "matrix" "array"
 #> [1] "coo"    "matrix" "array" 
-as_out(mat)
-#>               [,1]        [,2]
-#>  [1,]  0.255317055 -0.24323674
-#>  [2,] -2.437263611 -0.20608719
-#>  [3,] -0.005571287  0.01917759
-#>  [4,]  0.621552721  0.02956075
-#>  [5,]  1.148411606  0.54982754
-#>  [6,] -1.821817661 -2.27411486
-#>  [7,] -0.247325302  2.68255718
-#>  [8,] -0.244199607 -0.36122126
-#>  [9,] -0.282705449  0.21335575
-#> [10,] -0.553699384  1.07434588
-#> [11,]  0.628982042 -0.66508825
-#> [12,]  2.065024895  1.11395242
-#> [13,] -1.630989402 -0.24589641
-#> [14,]  0.512426950 -1.17756331
-#> [15,] -1.863011492 -0.97585062
-#> [16,] -0.522012515  1.06505732
-#> [17,] -0.052601910  0.13167063
-#> [18,]  0.542996343  0.48862881
-#> [19,] -0.914074827 -1.69945057
-#> [20,]  0.468154420 -1.47073631
-#> [21,]  0.362951256  0.28415034
-#> [22,] -1.304543545  1.33732041
-#> [23,]  0.737776321  0.23669628
-#> [24,]  1.888504929  1.31829338
-#> [25,] -0.097445104  0.52390979
-#> [26,] -0.935847354  0.60674805
-#> [27,] -0.015950311 -0.10993567
-#> [28,] -0.826788954  0.17218172
-#> [29,] -1.512399651 -0.09032729
-#> [30,]  0.935363190  1.92434334
-#> [31,]  0.176488611  1.29839276
-#> [32,]  0.243685465  0.74879127
-#> [33,]  1.623548883  0.55622433
-#> [34,]  0.112038083 -0.54825726
-#> [35,] -0.133997013  1.11053489
-#> [36,] -1.910087468 -2.61233433
-#> [37,] -0.279237242 -0.15569378
-#> [38,] -0.313445978  0.43388979
-#> [39,]  1.067307879 -0.38195111
-#> [40,]  0.070034850  0.42418757
-#> [41,] -0.639123324  1.06310200
-#> [42,] -0.049964899  1.04871262
-#> [43,] -0.251483443 -0.03810289
-#> [44,]  0.444797116  0.48614892
-#> [45,]  2.755417575  1.67288261
-#> [46,]  0.046531380 -0.35436116
-#> [47,]  0.577709069  0.94634789
-#> [48,]  0.118194874  1.31682636
-#> [49,] -1.911720491 -0.29664002
-#> [50,]  0.862086482 -0.38721358
-#> attr(,"class")
+
+outline <- as_out(mat)
+class(outline)  # "out" "coo" "matrix" "array"
 #> [1] "out"    "coo"    "matrix" "array" 
-as_ldk(mat)
-#>               [,1]        [,2]
-#>  [1,]  0.255317055 -0.24323674
-#>  [2,] -2.437263611 -0.20608719
-#>  [3,] -0.005571287  0.01917759
-#>  [4,]  0.621552721  0.02956075
-#>  [5,]  1.148411606  0.54982754
-#>  [6,] -1.821817661 -2.27411486
-#>  [7,] -0.247325302  2.68255718
-#>  [8,] -0.244199607 -0.36122126
-#>  [9,] -0.282705449  0.21335575
-#> [10,] -0.553699384  1.07434588
-#> [11,]  0.628982042 -0.66508825
-#> [12,]  2.065024895  1.11395242
-#> [13,] -1.630989402 -0.24589641
-#> [14,]  0.512426950 -1.17756331
-#> [15,] -1.863011492 -0.97585062
-#> [16,] -0.522012515  1.06505732
-#> [17,] -0.052601910  0.13167063
-#> [18,]  0.542996343  0.48862881
-#> [19,] -0.914074827 -1.69945057
-#> [20,]  0.468154420 -1.47073631
-#> [21,]  0.362951256  0.28415034
-#> [22,] -1.304543545  1.33732041
-#> [23,]  0.737776321  0.23669628
-#> [24,]  1.888504929  1.31829338
-#> [25,] -0.097445104  0.52390979
-#> [26,] -0.935847354  0.60674805
-#> [27,] -0.015950311 -0.10993567
-#> [28,] -0.826788954  0.17218172
-#> [29,] -1.512399651 -0.09032729
-#> [30,]  0.935363190  1.92434334
-#> [31,]  0.176488611  1.29839276
-#> [32,]  0.243685465  0.74879127
-#> [33,]  1.623548883  0.55622433
-#> [34,]  0.112038083 -0.54825726
-#> [35,] -0.133997013  1.11053489
-#> [36,] -1.910087468 -2.61233433
-#> [37,] -0.279237242 -0.15569378
-#> [38,] -0.313445978  0.43388979
-#> [39,]  1.067307879 -0.38195111
-#> [40,]  0.070034850  0.42418757
-#> [41,] -0.639123324  1.06310200
-#> [42,] -0.049964899  1.04871262
-#> [43,] -0.251483443 -0.03810289
-#> [44,]  0.444797116  0.48614892
-#> [45,]  2.755417575  1.67288261
-#> [46,]  0.046531380 -0.35436116
-#> [47,]  0.577709069  0.94634789
-#> [48,]  0.118194874  1.31682636
-#> [49,] -1.911720491 -0.29664002
-#> [50,]  0.862086482 -0.38721358
-#> attr(,"class")
+
+landmarks <- as_ldk(mat)
+class(landmarks)  # "ldk" "coo" "matrix" "array"
 #> [1] "ldk"    "coo"    "matrix" "array" 
 
-coefs <- rnorm(20)
-as_eft(coefs)
-#>  [1] -0.7854327 -1.0567369 -0.7955414 -1.7562754 -0.6905379 -0.5585420
-#>  [7] -0.5366633  0.2271271  0.9784549 -0.2088827 -1.3994105  0.2585373
-#> [13] -0.4417995  0.5685999  2.1268505  0.4248584 -1.6842815  0.2494018
-#> [19]  1.0728383  2.0393693
-#> attr(,"class")
+# Coefficient classes
+coefs <- rnorm(24)  # 6 harmonics × 4 coefficients
+eft_coefs <- as_eft(coefs)
+class(eft_coefs)  # "eft" "coe" "numeric"
 #> [1] "eft"     "coe"     "numeric"
-as_dct(coefs)
-#>  [1] -0.7854327 -1.0567369 -0.7955414 -1.7562754 -0.6905379 -0.5585420
-#>  [7] -0.5366633  0.2271271  0.9784549 -0.2088827 -1.3994105  0.2585373
-#> [13] -0.4417995  0.5685999  2.1268505  0.4248584 -1.6842815  0.2494018
-#> [19]  1.0728383  2.0393693
-#> attr(,"class")
-#> [1] "dct"     "coe"     "numeric"
+
+# Landmark identifiers (NOT coo)
+ldk_indices <- as_ldk_id(c(1, 5, 10, 25))
+class(ldk_indices)  # "ldk_id" "integer"
+#> [1] "ldk_id"  "numeric"
+
+# In tibbles
+library(dplyr)
+#> 
+#> Attaching package: ‘dplyr’
+#> The following objects are masked from ‘package:stats’:
+#> 
+#>     filter, lag
+#> The following objects are masked from ‘package:base’:
+#> 
+#>     intersect, setdiff, setequal, union
+tibble(
+  shape = list(mat, mat * 2),
+  coef = list(coefs, coefs * 2)
+) %>%
+  mutate(
+    shape = as_out(shape),
+    coef = as_eft(coef)
+  )
+#> # A tibble: 2 × 2
+#>   shape    coef    
+#>   <out>    <eft>   
+#> 1 (50 x 2) <6h x 4>
+#> 2 (50 x 2) <6h x 4>
 ```

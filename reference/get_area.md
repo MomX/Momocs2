@@ -38,8 +38,9 @@ area. The outline is automatically treated as closed (first point
 connects to last).
 
 For tibbles, this function extracts values without modifying the tibble.
-Use within `mutate()` to add as a column, or use `measure("area")` for
-convenience.
+Use within
+[`mutate()`](https://dplyr.tidyverse.org/reference/mutate.html) to add
+as a column, or use `measure("area")` for convenience.
 
 ## See also
 

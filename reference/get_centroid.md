@@ -36,8 +36,9 @@ get_centroid(x, ..., .cols = NULL)
 ## Details
 
 For tibbles, this function extracts centroid values without modifying
-the tibble. Use within `mutate()` to add as a column:
-`mutate(df, cent = get_centroid(coo))`
+the tibble. Use within
+[`mutate()`](https://dplyr.tidyverse.org/reference/mutate.html) to add
+as a column: `mutate(df, cent = get_centroid(coo))`
 
 ## See also
 

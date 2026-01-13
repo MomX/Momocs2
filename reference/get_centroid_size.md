@@ -40,8 +40,9 @@ Centroid size is a common size measure in geometric morphometrics. It is
 scale-independent and used for allometric correction.
 
 For tibbles, this function extracts values without modifying the tibble.
-Use within `mutate()` to add as a column:
-`mutate(df, cs = get_centroid_size(coo))`
+Use within
+[`mutate()`](https://dplyr.tidyverse.org/reference/mutate.html) to add
+as a column: `mutate(df, cs = get_centroid_size(coo))`
 
 ## Examples
 

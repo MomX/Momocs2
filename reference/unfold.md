@@ -86,11 +86,11 @@ df_unfolded <- unfold(df_folded, coe)
 # Unfold with default prefix (column name + "_")
 df_unfolded
 #> # A tibble: 3 × 5
-#>      id coe_A1 coe_A2 coe_B1 coe_B2
-#>   <int> <eft>  <eft>  <eft>  <eft> 
-#> 1     1 <NA>   <NA>   <NA>   <NA>  
-#> 2     2 <NA>   <NA>   <NA>   <NA>  
-#> 3     3 <NA>   <NA>   <NA>   <NA>  
+#>      id coe_A1      coe_A2      coe_B1      coe_B2     
+#>   <int> <eft>       <eft>       <eft>       <eft>      
+#> 1     1 <0.25h x 4> <0.25h x 4> <0.25h x 4> <0.25h x 4>
+#> 2     2 <0.25h x 4> <0.25h x 4> <0.25h x 4> <0.25h x 4>
+#> 3     3 <0.25h x 4> <0.25h x 4> <0.25h x 4> <0.25h x 4>
 # A tibble: 3 × 5
 #      id coe_A1 coe_A2 coe_B1 coe_B2
 #   <int>  <dbl>  <dbl>  <dbl>  <dbl>
@@ -104,19 +104,19 @@ class(df_unfolded$coe_A1)
 # Unfold without prefix
 unfold(df_folded, coe, .prefix = "")
 #> # A tibble: 3 × 5
-#>      id A1    A2    B1    B2   
-#>   <int> <eft> <eft> <eft> <eft>
-#> 1     1 <NA>  <NA>  <NA>  <NA> 
-#> 2     2 <NA>  <NA>  <NA>  <NA> 
-#> 3     3 <NA>  <NA>  <NA>  <NA> 
+#>      id A1          A2          B1          B2         
+#>   <int> <eft>       <eft>       <eft>       <eft>      
+#> 1     1 <0.25h x 4> <0.25h x 4> <0.25h x 4> <0.25h x 4>
+#> 2     2 <0.25h x 4> <0.25h x 4> <0.25h x 4> <0.25h x 4>
+#> 3     3 <0.25h x 4> <0.25h x 4> <0.25h x 4> <0.25h x 4>
 # Creates: A1, A2, B1, B2
 
 # Custom prefix
 unfold(df_folded, coe, .prefix = "harm_")
 #> # A tibble: 3 × 5
-#>      id harm_A1 harm_A2 harm_B1 harm_B2
-#>   <int> <eft>   <eft>   <eft>   <eft>  
-#> 1     1 <NA>    <NA>    <NA>    <NA>   
-#> 2     2 <NA>    <NA>    <NA>    <NA>   
-#> 3     3 <NA>    <NA>    <NA>    <NA>   
+#>      id harm_A1     harm_A2     harm_B1     harm_B2    
+#>   <int> <eft>       <eft>       <eft>       <eft>      
+#> 1     1 <0.25h x 4> <0.25h x 4> <0.25h x 4> <0.25h x 4>
+#> 2     2 <0.25h x 4> <0.25h x 4> <0.25h x 4> <0.25h x 4>
+#> 3     3 <0.25h x 4> <0.25h x 4> <0.25h x 4> <0.25h x 4>
 ```
