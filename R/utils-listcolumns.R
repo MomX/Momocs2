@@ -81,32 +81,86 @@ get_coo_cols <- function(df, .cols = NULL) {
 }
 
 
-# get_coe_cols ----
+# get_coe ------
 
 #' Identify coe columns in a tibble
+
+#' Get coefficient column name(s)
 #'
-#' Detect which columns in a tibble/data.frame contain coefficient objects
-#' or list columns of numeric vectors/matrices.
+#' Detect and return the name of coefficient column(s) in a tibble. These functions
+#' look for columns with class `"coe"` in their class hierarchy.
 #'
-#' @param df A tibble or data.frame.
-#' @param .cols Character vector or NULL. If specified, use these column names.
-#'   If NULL, auto-detect columns containing coe objects.
+#' @param df A data frame or tibble
+#' @param .cols Optional. Explicitly specify which column(s) to use. Can be:
+#'   * Character vector of column names
+#'   * Integer vector of column positions
+#'   * Logical vector
+#'   If `NULL` (default), automatically detects columns with class `"coe"`.
 #'
-#' @return Character vector of column names to process.
+#' @return
+#' * `get_coe_cols()`: Character string with single column name
+#' * `get_all_coe_cols()`: Character vector with all coe column names
 #'
 #' @details
-#' Detection priority:
-#' 1. Columns with class "coe" in their class hierarchy (e.g., c("eft", "coe", "list"))
-#' 2. List columns where all elements are numeric vectors or matrices
+#' ## Detection strategy
 #'
-#' When multiple qualifying columns exist, an error is raised and user must
-#' specify `.cols` explicitly.
+#' Both functions look for columns that have `"coe"` anywhere in their class
+#' hierarchy. This includes:
+#' * Columns with class `c("coe", "list")`
+#' * Columns with class `c("eft", "coe", "list")`
+#' * Columns with class `c("out", "coe", "list")`
+#' * Any other combination where `"coe"` is present
+#'
+#' All morphometric methods automatically add the `"coe"` class to their output columns.
+#'
+#' ## Differences between functions
+#'
+#' * **`get_coe_cols()`**: Returns a single column name. Errors if:
+#'   - No `"coe"` columns found
+#'   - Multiple `"coe"` columns found (user must specify `.cols`)
+#'
+#' * **`get_all_coe_cols()`**: Returns all coe column names as a vector. Errors only if:
+#'   - No `"coe"` columns found
+#'
+#' ## Manual specification
+#'
+#' If automatic detection fails or you want to use a specific column,
+#' use the `.cols` argument in `get_coe_cols()`:
+#'
+#' ```r
+#' get_coe_cols(df, .cols = "my_coefficients")
+#' get_coe_cols(df, .cols = 2)  # Second column
+#' ```
 #'
 #' @examples
-#' #bot %>% eft() %>% get_coe_cols
-#' #get_coe_cols(boteft, "coe")
+#' # Create sample data with coefficient columns
+#' df <- tibble::tibble(
+#'   id = 1:3,
+#'   coe = list(1:5, 2:6, 3:7)
+#' )
+#' class(df$coe) <- c("eft", "coe", "list")
 #'
-#' @seealso [get_coo_cols()] for coordinate columns
+#' # Get single coe column
+#' get_coe_cols(df)
+#' # [1] "coe"
+#'
+#' # Multiple coe columns
+#' df$coe2 <- df$coe
+#' class(df$coe2) <- c("coe", "list")
+#'
+#' # get_coe_cols() errors with multiple
+#' try(get_coe_cols(df))
+#' # Error: Multiple coe columns found: coe, coe2
+#'
+#' # But can specify explicitly
+#' get_coe_cols(df, .cols = "coe")
+#' # [1] "coe"
+#'
+#' # get_all_coe_cols() returns all
+#' get_all_coe_cols(df)
+#' # [1] "coe"  "coe2"
+#'
+#' @seealso [fold()], [unfold()], [efourier()]
 #'
 #' @export
 get_coe_cols <- function(df, .cols = NULL) {
@@ -126,41 +180,31 @@ get_coe_cols <- function(df, .cols = NULL) {
     }
   }
 
-  # Helper to check if column contains numeric vectors/matrices
-  is_numeric_list <- function(col) {
-    if (!is.list(col) || length(col) == 0) return(FALSE)
-    # Check if all elements are numeric vectors or matrices
-    all(sapply(col, function(x) is.numeric(x) || is.matrix(x)))
-  }
-
-  # First, look for columns with class "coe" (anywhere in class hierarchy)
-  coe_cols <- names(df)[sapply(df, function(col) {
-    "coe" %in% class(col)
-  })]
-
-  # If found, check if multiple
-  if (length(coe_cols) > 1) {
-    stop(sprintf("Multiple coe columns found: %s. Specify '.cols' to choose which to process.",
-                 paste(coe_cols, collapse = ", ")))
-  }
-
-  if (length(coe_cols) == 1) {
-    return(coe_cols)
-  }
-
-  # Otherwise, look for list columns of numeric vectors/matrices
-  coe_cols <- names(df)[sapply(df, is_numeric_list)]
-
-  # Check if multiple list columns of numerics
-  if (length(coe_cols) > 1) {
-    stop(sprintf("Multiple list columns of numeric vectors found: %s. Specify '.cols' to choose which to process.",
-                 paste(coe_cols, collapse = ", ")))
-  }
+  # Look for columns with class "coe"
+  coe_cols <- names(df)[vapply(df, function(col) "coe" %in% class(col), logical(1))]
 
   if (length(coe_cols) == 0) {
-    stop("No columns of class 'coe' or list columns of numeric vectors found. Specify '.cols' argument explicitly.")
+    stop("No columns with class 'coe' found. Use .cols argument to specify explicitly.")
+  }
+
+  if (length(coe_cols) > 1) {
+    stop(sprintf("Multiple coe columns found: %s. Use .cols to specify which one.",
+                 paste(coe_cols, collapse = ", ")))
   }
 
   coe_cols
 }
 
+
+#' @rdname get_coe_cols
+#' @export
+get_all_coe_cols <- function(df) {
+  # Look for all columns with class "coe"
+  coe_cols <- names(df)[vapply(df, function(col) "coe" %in% class(col), logical(1))]
+
+  if (length(coe_cols) == 0) {
+    stop("No columns with class 'coe' found.")
+  }
+
+  coe_cols
+}

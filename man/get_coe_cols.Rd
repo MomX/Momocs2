@@ -2,38 +2,103 @@
 % Please edit documentation in R/utils-listcolumns.R
 \name{get_coe_cols}
 \alias{get_coe_cols}
-\title{Identify coe columns in a tibble}
+\alias{get_all_coe_cols}
+\title{Identify coe columns in a tibble
+Get coefficient column name(s)}
 \usage{
 get_coe_cols(df, .cols = NULL)
+
+get_all_coe_cols(df)
 }
 \arguments{
-\item{df}{A tibble or data.frame.}
+\item{df}{A data frame or tibble}
 
-\item{.cols}{Character vector or NULL. If specified, use these column names.
-If NULL, auto-detect columns containing coe objects.}
+\item{.cols}{Optional. Explicitly specify which column(s) to use. Can be:
+\itemize{
+\item Character vector of column names
+\item Integer vector of column positions
+\item Logical vector
+If \code{NULL} (default), automatically detects columns with class \code{"coe"}.
+}}
 }
 \value{
-Character vector of column names to process.
+\itemize{
+\item \code{get_coe_cols()}: Character string with single column name
+\item \code{get_all_coe_cols()}: Character vector with all coe column names
+}
 }
 \description{
-Detect which columns in a tibble/data.frame contain coefficient objects
-or list columns of numeric vectors/matrices.
+Detect and return the name of coefficient column(s) in a tibble. These functions
+look for columns with class \code{"coe"} in their class hierarchy.
 }
 \details{
-Detection priority:
-\enumerate{
-\item Columns with class "coe" in their class hierarchy (e.g., c("eft", "coe", "list"))
-\item List columns where all elements are numeric vectors or matrices
+\subsection{Detection strategy}{
+
+Both functions look for columns that have \code{"coe"} anywhere in their class
+hierarchy. This includes:
+\itemize{
+\item Columns with class \code{c("coe", "list")}
+\item Columns with class \code{c("eft", "coe", "list")}
+\item Columns with class \code{c("out", "coe", "list")}
+\item Any other combination where \code{"coe"} is present
 }
 
-When multiple qualifying columns exist, an error is raised and user must
-specify \code{.cols} explicitly.
+All morphometric methods automatically add the \code{"coe"} class to their output columns.
+}
+
+\subsection{Differences between functions}{
+\itemize{
+\item \strong{\code{get_coe_cols()}}: Returns a single column name. Errors if:
+\itemize{
+\item No \code{"coe"} columns found
+\item Multiple \code{"coe"} columns found (user must specify \code{.cols})
+}
+\item \strong{\code{get_all_coe_cols()}}: Returns all coe column names as a vector. Errors only if:
+\itemize{
+\item No \code{"coe"} columns found
+}
+}
+}
+
+\subsection{Manual specification}{
+
+If automatic detection fails or you want to use a specific column,
+use the \code{.cols} argument in \code{get_coe_cols()}:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{get_coe_cols(df, .cols = "my_coefficients")
+get_coe_cols(df, .cols = 2)  # Second column
+}\if{html}{\out{</div>}}
+}
 }
 \examples{
-#bot \%>\% eft() \%>\% get_coe_cols
-#get_coe_cols(boteft, "coe")
+# Create sample data with coefficient columns
+df <- tibble::tibble(
+  id = 1:3,
+  coe = list(1:5, 2:6, 3:7)
+)
+class(df$coe) <- c("eft", "coe", "list")
+
+# Get single coe column
+get_coe_cols(df)
+# [1] "coe"
+
+# Multiple coe columns
+df$coe2 <- df$coe
+class(df$coe2) <- c("coe", "list")
+
+# get_coe_cols() errors with multiple
+try(get_coe_cols(df))
+# Error: Multiple coe columns found: coe, coe2
+
+# But can specify explicitly
+get_coe_cols(df, .cols = "coe")
+# [1] "coe"
+
+# get_all_coe_cols() returns all
+get_all_coe_cols(df)
+# [1] "coe"  "coe2"
 
 }
 \seealso{
-\code{\link[=get_coo_cols]{get_coo_cols()}} for coordinate columns
+\code{\link[=fold]{fold()}}, \code{\link[=unfold]{unfold()}}, \code{\link[=efourier]{efourier()}}
 }

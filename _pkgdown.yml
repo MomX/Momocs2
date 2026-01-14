@@ -82,10 +82,11 @@ reference:
 - title: "Dispatcher and function factories"
   desc: "Exposed extending helpers"
   contents:
-  - get_coo_cols
   - make_coo_function
   - make_get_function
+  - get_coo_cols
   - get_coe_cols
+  - get_all_coe_cols
 
 - title: "Verbs"
   desc: "ease common operations"
