@@ -2,33 +2,50 @@
 % Please edit documentation in R/coe.R
 \name{unfold}
 \alias{unfold}
-\title{Unfold a list-column into multiple columns}
+\alias{unfold.data.frame}
+\alias{unfold.list}
+\title{Unfold a list-column into multiple columns or a matrix}
 \usage{
-unfold(.data, col, .prefix = NULL)
+unfold(x, ...)
+
+\method{unfold}{data.frame}(x, col, .prefix = NULL, ...)
+
+\method{unfold}{list}(x, .prefix = NULL, ...)
 }
 \arguments{
-\item{.data}{A data frame or tibble}
+\item{x}{A data frame, tibble, or list of numeric vectors}
+
+\item{...}{Additional arguments passed to methods}
 
 \item{col}{Name of the list-column to unfold (unquoted). If missing, automatically
 detects the single coe column using \code{\link[=get_coe_cols]{get_coe_cols()}}.}
 
-\item{.prefix}{Character string to prefix column names with. Default is to use
-the original column name followed by underscore (e.g., "coe_"). Set to \code{""}
-to use original names without prefix, or provide a custom prefix.}
+\item{.prefix}{Character string to prefix column names. Default \code{NULL} means no prefix.
+Set to a string to add a prefix to all column names.}
 }
 \value{
-A tibble with the list-column removed and replaced by multiple numeric
-columns (one per vector element). Column names are prefixed by default.
-Each column inherits classes from the original list-column (e.g., if the
-list-column had class \code{c("eft", "coe")}, each resulting column will too).
+\itemize{
+\item For tibbles: A tibble with the list-column removed and replaced by multiple
+numeric columns
+\item For lists: A numeric matrix with one row per list element
+}
 }
 \description{
-Expands a list-column of numeric vectors into separate columns, one for each
-element of the vectors. This is the inverse operation of \code{\link[=fold]{fold()}}. Classes from
-the list-column are copied to each resulting column. If no column is specified,
-automatically detects the coe column.
+Expands a list-column of numeric vectors into separate columns (when applied to
+a tibble) or into a matrix (when applied to a list-column directly). This is the
+inverse operation of \code{\link[=fold]{fold()}}.
 }
 \details{
+\code{unfold()} is an S3 generic with methods for:
+\itemize{
+\item \strong{Data frames/tibbles} (\code{unfold.data.frame}): User-facing, expands list-columns
+into separate columns with prefixes and class preservation
+\item \strong{Lists} (\code{unfold.list}): Internal use, converts list of vectors directly to
+a matrix for statistical functions
+}
+
+\subsection{For data frames (tibbles)}{
+
 The function:
 \enumerate{
 \item Auto-detects the coe column if not specified
@@ -42,7 +59,38 @@ The function:
 This is useful when you need to access individual coefficient values for
 statistical analysis, plotting, or further manipulation.
 }
+
+\subsection{For lists}{
+
+When applied directly to a list of numeric vectors, \code{unfold()} converts it to
+a matrix by stacking vectors as rows. This is useful for internal operations
+that need matrix input (e.g., \code{prcomp()}, \code{lda()}).
+
+The function:
+\enumerate{
+\item Finds the first non-NA element to determine structure
+\item Extracts or generates column names
+\item Stacks all vectors into a matrix (one row per vector)
+\item Preserves names as column names
+}
+}
+}
 \examples{
+# For tibbles - see ?unfold.data.frame
+df_folded <- tibble::tibble(
+  id = 1:3,
+  coe = list(c(A1=1, A2=4), c(A1=2, A2=5), c(A1=3, A2=6))
+)
+unfold(df_folded, coe)
+
+# For lists directly (returns matrix)
+coe_list <- list(c(A1=1, A2=4), c(A1=2, A2=5), c(A1=3, A2=6))
+unfold(coe_list)
+#      A1 A2
+# [1,]  1  4
+# [2,]  2  5
+# [3,]  3  6
+
 # Start with folded data
 df_folded <- tibble::tibble(
   id = 1:3,
@@ -77,7 +125,26 @@ unfold(df_folded, coe, .prefix = "")
 # Custom prefix
 unfold(df_folded, coe, .prefix = "harm_")
 
+# Direct list to matrix conversion
+coe_list <- list(
+  c(A1 = 1, A2 = 4, B1 = 7),
+  c(A1 = 2, A2 = 5, B1 = 8),
+  c(A1 = 3, A2 = 6, B1 = 9)
+)
+
+mat <- unfold(coe_list)
+mat
+#      A1 A2 B1
+# [1,]  1  4  7
+# [2,]  2  5  8
+# [3,]  3  6  9
+
+# With prefix
+unfold(coe_list, .prefix = "coef_")
+#      coef_A1 coef_A2 coef_B1
+# [1,]       1       4       7
+
 }
 \seealso{
-\code{\link[=fold]{fold()}} for the reverse operation, \code{\link[=get_coe_cols]{get_coe_cols()}} for detection
+\code{\link[=unfold.data.frame]{unfold.data.frame()}}, \code{\link[=unfold.list]{unfold.list()}}, \code{\link[=fold]{fold()}}
 }

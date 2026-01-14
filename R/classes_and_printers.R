@@ -436,8 +436,7 @@ pillar_shaft.eft <- function(x, ...) {
     if (length(coeffs) == 1 && is.na(coeffs)) {
       return(cli::col_grey("<NA>"))
     }
-    n_harmonics <- length(coeffs) / 4
-    cli::col_cyan(sprintf("<%gh x 4>", n_harmonics))
+    cli::col_cyan(sprintf("<%g>", length(coeffs)))
   }, character(1))
 
   pillar::new_pillar_shaft_simple(formatted, align = "left")

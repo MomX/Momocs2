@@ -199,28 +199,64 @@ fold <- function(.data, ..., .class = NULL) {
     dplyr::select(-dplyr::all_of(cols_names))
 }
 
+
 # unfold ----
 
-#' Unfold a list-column into multiple columns
+#' Unfold a list-column into multiple columns or a matrix
 #'
-#' Expands a list-column of numeric vectors into separate columns, one for each
-#' element of the vectors. This is the inverse operation of [fold()]. Classes from
-#' the list-column are copied to each resulting column. If no column is specified,
-#' automatically detects the coe column.
+#' Expands a list-column of numeric vectors into separate columns (when applied to
+#' a tibble) or into a matrix (when applied to a list-column directly). This is the
+#' inverse operation of [fold()].
 #'
-#' @param .data A data frame or tibble
+#' @param x A data frame, tibble, or list of numeric vectors
+#' @param ... Additional arguments passed to methods
+#'
+#' @return
+#' * For tibbles: A tibble with the list-column removed and replaced by multiple
+#'   numeric columns
+#' * For lists: A numeric matrix with one row per list element
+#'
+#' @details
+#' `unfold()` is an S3 generic with methods for:
+#' * **Data frames/tibbles** (`unfold.data.frame`): User-facing, expands list-columns
+#'   into separate columns with prefixes and class preservation
+#' * **Lists** (`unfold.list`): Internal use, converts list of vectors directly to
+#'   a matrix for statistical functions
+#'
+#' @seealso [unfold.data.frame()], [unfold.list()], [fold()]
+#'
+#' @examples
+#' # For tibbles - see ?unfold.data.frame
+#' df_folded <- tibble::tibble(
+#'   id = 1:3,
+#'   coe = list(c(A1=1, A2=4), c(A1=2, A2=5), c(A1=3, A2=6))
+#' )
+#' unfold(df_folded, coe)
+#'
+#' # For lists directly (returns matrix)
+#' coe_list <- list(c(A1=1, A2=4), c(A1=2, A2=5), c(A1=3, A2=6))
+#' unfold(coe_list)
+#' #      A1 A2
+#' # [1,]  1  4
+#' # [2,]  2  5
+#' # [3,]  3  6
+#'
+#' @export
+unfold <- function(x, ...) {
+  UseMethod("unfold")
+}
+
+
+#' @rdname unfold
 #' @param col Name of the list-column to unfold (unquoted). If missing, automatically
 #'   detects the single coe column using [get_coe_cols()].
 #' @param .prefix Character string to prefix column names with. Default is to use
 #'   the original column name followed by underscore (e.g., "coe_"). Set to `""`
 #'   to use original names without prefix, or provide a custom prefix.
 #'
-#' @return A tibble with the list-column removed and replaced by multiple numeric
-#'   columns (one per vector element). Column names are prefixed by default.
-#'   Each column inherits classes from the original list-column (e.g., if the
-#'   list-column had class `c("eft", "coe")`, each resulting column will too).
-#'
 #' @details
+#' ## For data frames (tibbles)
+#'
 #' The function:
 #' 1. Auto-detects the coe column if not specified
 #' 2. Extracts the list-column and its classes
@@ -231,8 +267,6 @@ fold <- function(.data, ..., .class = NULL) {
 #'
 #' This is useful when you need to access individual coefficient values for
 #' statistical analysis, plotting, or further manipulation.
-#'
-#' @seealso [fold()] for the reverse operation, [get_coe_cols()] for detection
 #'
 #' @examples
 #' # Start with folded data
@@ -270,7 +304,10 @@ fold <- function(.data, ..., .class = NULL) {
 #' unfold(df_folded, coe, .prefix = "harm_")
 #'
 #' @export
-unfold <- function(.data, col, .prefix = NULL) {
+unfold.data.frame <- function(x, col, .prefix = NULL, ...) {
+  # Rename for clarity
+  .data <- x
+
   # Auto-detect column if not provided
   if (missing(col)) {
     col_char <- get_coe_cols(.data)
@@ -314,17 +351,96 @@ unfold <- function(.data, col, .prefix = NULL) {
     colnames(mat) <- paste0(.prefix, colnames(mat))
   }
 
-  # Convert to tibble
+  # Convert to tibble (just numeric columns, no special classes)
   new_cols <- tibble::as_tibble(mat, .name_repair = "minimal")
 
-  # Copy classes to each column (if any)
-  if (length(list_classes) > 0) {
-    for (col_name in names(new_cols)) {
-      class(new_cols[[col_name]]) <- c(list_classes, class(new_cols[[col_name]]))
-    }
-  }
+  # Don't copy classes - unfolded columns are just regular numeric values
+  # The classes (eft, coe, etc.) apply to the list-column, not individual harmonics
 
   .data %>%
     dplyr::select(-!!rlang::sym(col_char)) %>%
     dplyr::bind_cols(new_cols)
+}
+
+
+#' @rdname unfold
+#'
+#' @details
+#' ## For lists
+#'
+#' When applied directly to a list of numeric vectors, `unfold()` converts it to
+#' a matrix by stacking vectors as rows. This is useful for internal operations
+#' that need matrix input (e.g., `prcomp()`, `lda()`).
+#'
+#' The function:
+#' 1. Finds the first non-NA element to determine structure
+#' 2. Extracts or generates column names
+#' 3. Stacks all vectors into a matrix (one row per vector)
+#' 4. Preserves names as column names
+#'
+#' @param .prefix Character string to prefix column names. Default `NULL` means no prefix.
+#'   Set to a string to add a prefix to all column names.
+#'
+#' @examples
+#' # Direct list to matrix conversion
+#' coe_list <- list(
+#'   c(A1 = 1, A2 = 4, B1 = 7),
+#'   c(A1 = 2, A2 = 5, B1 = 8),
+#'   c(A1 = 3, A2 = 6, B1 = 9)
+#' )
+#'
+#' mat <- unfold(coe_list)
+#' mat
+#' #      A1 A2 B1
+#' # [1,]  1  4  7
+#' # [2,]  2  5  8
+#' # [3,]  3  6  9
+#'
+#' # With prefix
+#' unfold(coe_list, .prefix = "coef_")
+#' #      coef_A1 coef_A2 coef_B1
+#' # [1,]       1       4       7
+#'
+#' @export
+unfold.list <- function(x, .prefix = NULL, ...) {
+
+  if (!is.list(x)) {
+    rlang::abort("x must be a list")
+  }
+
+  # Get first non-NA element to determine structure
+  first_valid_idx <- which(!vapply(x, function(y) all(is.na(y)), logical(1)))[1]
+
+  if (is.na(first_valid_idx)) {
+    rlang::abort("All elements in list are NA")
+  }
+
+  first_valid <- x[[first_valid_idx]]
+
+  # Get coefficient names from first valid element or generate
+  if (!is.null(names(first_valid))) {
+    coef_names <- names(first_valid)
+  } else {
+    coef_names <- paste0("V", seq_along(first_valid))
+  }
+
+  n_coefs <- length(first_valid)
+  n_obs <- length(x)
+
+  # Build matrix by stacking vectors
+  mat <- matrix(NA_real_, nrow = n_obs, ncol = n_coefs)
+  colnames(mat) <- coef_names
+
+  for (i in seq_len(n_obs)) {
+    if (!is.null(x[[i]]) && !all(is.na(x[[i]]))) {
+      mat[i, ] <- x[[i]]
+    }
+  }
+
+  # Apply prefix if provided
+  if (!is.null(.prefix) && .prefix != "") {
+    colnames(mat) <- paste0(.prefix, colnames(mat))
+  }
+
+  mat
 }
