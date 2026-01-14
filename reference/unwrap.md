@@ -59,45 +59,35 @@ reverse operation
 ## Examples
 
 ``` r
-# Start with wrapped coordinates
-df_wrapped <- tibble::tibble(
-  id = 1:3,
-  coo = list(
-    matrix(c(0, 1, 1, 0, 0, 0, 1, 1), ncol = 2, dimnames = list(NULL, c("x", "y"))),
-    matrix(c(2, 3, 3, 2, 0, 0, 1, 1), ncol = 2, dimnames = list(NULL, c("x", "y"))),
-    matrix(c(4, 5, 5, 4, 0, 0, 1, 1), ncol = 2, dimnames = list(NULL, c("x", "y")))
-  )
-)
+bot %>% unwrap()
+#> # A tibble: 6,469 × 6
+#>    id         x     y type   fake  price
+#>    <chr>  <dbl> <dbl> <fct>  <fct> <dbl>
+#>  1 brahma    37   561 whisky a         3
+#>  2 brahma    40   540 whisky a         3
+#>  3 brahma    40   529 whisky a         3
+#>  4 brahma    43   508 whisky a         3
+#>  5 brahma    46   487 whisky a         3
+#>  6 brahma    48   477 whisky a         3
+#>  7 brahma    52   456 whisky a         3
+#>  8 brahma    54   435 whisky a         3
+#>  9 brahma    57   414 whisky a         3
+#> 10 brahma    59   403 whisky a         3
+#> # ℹ 6,459 more rows
 
-# Unwrap to x, y rows
-df_unwrapped <- df_wrapped %>% unwrap(coo)
-#> Error in loadNamespace(x): there is no package called ‘tidyr’
-df_unwrapped
-#> Error: object 'df_unwrapped' not found
-# A tibble: 12 × 3
-#       id     x     y
-#    <int> <dbl> <dbl>
-#  1     1     0     0
-#  2     1     1     0
-#  3     1     1     1
-#  4     1     0     1
-# ...
-
-# Auto-detect coo column
-df_wrapped %>% unwrap()
-#> Error in unwrap(.): No 'coo' column found. Please specify the column explicitly.
-
-# Custom ID column name
-tibble::tibble(coo = list(matrix(1:4, ncol = 2))) %>%
-  unwrap(coo, .id = "shape_id")
-#> Error in loadNamespace(x): there is no package called ‘tidyr’
-# A tibble: 2 × 3
-#   shape_id     x     y
-#      <int> <int> <int>
-# 1        1     1     3
-# 2        1     2     4
-
-# No ID column (not recommended unless you have other identifying columns)
-df_wrapped %>% unwrap(coo, .id = FALSE)
-#> Error in loadNamespace(x): there is no package called ‘tidyr’
+bot %>% unwrap() %>% wrap()
+#> # A tibble: 40 × 5
+#>    id          type   fake  price coo      
+#>    <chr>       <fct>  <fct> <dbl> <coo>    
+#>  1 amrut       beer   c       3.5 (191 x 2)
+#>  2 ballantines beer   c       2.2 (146 x 2)
+#>  3 brahma      whisky a       3   (138 x 2)
+#>  4 bushmills   beer   c       1.2 (165 x 2)
+#>  5 caney       whisky a       1.2 (168 x 2)
+#>  6 chimay      whisky a       3.8 (189 x 2)
+#>  7 chivas      beer   c       3.9 (164 x 2)
+#>  8 corona      whisky a       2.6 (129 x 2)
+#>  9 dalmore     beer   c       1.6 (155 x 2)
+#> 10 deusventrue whisky a       1.1 (152 x 2)
+#> # ℹ 30 more rows
 ```

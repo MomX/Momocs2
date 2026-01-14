@@ -12,6 +12,10 @@ bot
 
 A data frame with 20 rows and three columns
 
+- id:
+
+  unique id, here brand name
+
 - coo:
 
   outlines coordinates
@@ -20,9 +24,13 @@ A data frame with 20 rows and three columns
 
   of beverage
 
-- dummy:
+- fake:
 
   one more column to play with
+
+- price:
+
+  one completely random numeric column
 
 ## Source
 

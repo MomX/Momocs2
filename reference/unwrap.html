@@ -110,47 +110,38 @@ inverse of <code><a href="wrap.html">wrap()</a></code>.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Start with wrapped coordinates</span></span></span>
-<span class="r-in"><span><span class="va">df_wrapped</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>  id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>,</span></span>
-<span class="r-in"><span>  coo <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">2</span>, dimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="cn">NULL</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">2</span>, dimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="cn">NULL</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">5</span>, <span class="fl">4</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">2</span>, dimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="cn">NULL</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">bot</span> <span class="op"><a href="pipes.html">%&gt;%</a></span> <span class="fu">unwrap</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6,469 × 6</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    id         x     y type   fake  price</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> brahma    37   561 whisky a         3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> brahma    40   540 whisky a         3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> brahma    40   529 whisky a         3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> brahma    43   508 whisky a         3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> brahma    46   487 whisky a         3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> brahma    48   477 whisky a         3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> brahma    52   456 whisky a         3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> brahma    54   435 whisky a         3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> brahma    57   414 whisky a         3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> brahma    59   403 whisky a         3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 6,459 more rows</span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Unwrap to x, y rows</span></span></span>
-<span class="r-in"><span><span class="va">df_unwrapped</span> <span class="op">&lt;-</span> <span class="va">df_wrapped</span> <span class="op"><a href="pipes.html">%&gt;%</a></span> <span class="fu">unwrap</span><span class="op">(</span><span class="va">coo</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in loadNamespace(x):</span> there is no package called ‘tidyr’</span>
-<span class="r-in"><span><span class="va">df_unwrapped</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'df_unwrapped' not found</span>
-<span class="r-in"><span><span class="co"># A tibble: 12 × 3</span></span></span>
-<span class="r-in"><span><span class="co">#       id     x     y</span></span></span>
-<span class="r-in"><span><span class="co">#    &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span></span>
-<span class="r-in"><span><span class="co">#  1     1     0     0</span></span></span>
-<span class="r-in"><span><span class="co">#  2     1     1     0</span></span></span>
-<span class="r-in"><span><span class="co">#  3     1     1     1</span></span></span>
-<span class="r-in"><span><span class="co">#  4     1     0     1</span></span></span>
-<span class="r-in"><span><span class="co"># ...</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Auto-detect coo column</span></span></span>
-<span class="r-in"><span><span class="va">df_wrapped</span> <span class="op"><a href="pipes.html">%&gt;%</a></span> <span class="fu">unwrap</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in unwrap(.):</span> No 'coo' column found. Please specify the column explicitly.</span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Custom ID column name</span></span></span>
-<span class="r-in"><span><span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>coo <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="pipes.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>  <span class="fu">unwrap</span><span class="op">(</span><span class="va">coo</span>, .id <span class="op">=</span> <span class="st">"shape_id"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in loadNamespace(x):</span> there is no package called ‘tidyr’</span>
-<span class="r-in"><span><span class="co"># A tibble: 2 × 3</span></span></span>
-<span class="r-in"><span><span class="co">#   shape_id     x     y</span></span></span>
-<span class="r-in"><span><span class="co">#      &lt;int&gt; &lt;int&gt; &lt;int&gt;</span></span></span>
-<span class="r-in"><span><span class="co"># 1        1     1     3</span></span></span>
-<span class="r-in"><span><span class="co"># 2        1     2     4</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># No ID column (not recommended unless you have other identifying columns)</span></span></span>
-<span class="r-in"><span><span class="va">df_wrapped</span> <span class="op"><a href="pipes.html">%&gt;%</a></span> <span class="fu">unwrap</span><span class="op">(</span><span class="va">coo</span>, .id <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in loadNamespace(x):</span> there is no package called ‘tidyr’</span>
+<span class="r-in"><span><span class="va">bot</span> <span class="op"><a href="pipes.html">%&gt;%</a></span> <span class="fu">unwrap</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipes.html">%&gt;%</a></span> <span class="fu"><a href="wrap.html">wrap</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 40 × 5</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    id          type   fake  price coo      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;coo&gt;</span>    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> amrut       beer   c       3.5 <span style="color: #0000BB;">(191 x 2)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> ballantines beer   c       2.2 <span style="color: #0000BB;">(146 x 2)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> brahma      whisky a       3   <span style="color: #0000BB;">(138 x 2)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> bushmills   beer   c       1.2 <span style="color: #0000BB;">(165 x 2)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> caney       whisky a       1.2 <span style="color: #0000BB;">(168 x 2)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> chimay      whisky a       3.8 <span style="color: #0000BB;">(189 x 2)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> chivas      beer   c       3.9 <span style="color: #0000BB;">(164 x 2)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> corona      whisky a       2.6 <span style="color: #0000BB;">(129 x 2)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> dalmore     beer   c       1.6 <span style="color: #0000BB;">(155 x 2)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> deusventrue whisky a       1.1 <span style="color: #0000BB;">(152 x 2)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 30 more rows</span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
