@@ -6,11 +6,13 @@
 # usethis::use_data(wings, overwrite=T)
 #
 # data(bot)
-# bot %>% as_df %>% rename(dummy=fake) -> bot
-# bot$coo <- bot$coo %>% map(~{class(.x) <- c("out", class(.x)); .x})
+# bot <- Momocs::bot %>% Momocs::as_df() %>% dplyr::mutate(id=names(coo), .before=1)
+# bot$coo <- bot$coo %>% purrr::map(as_xy)
 # class(bot$coo) <- c("out", "coo", class(bot$coo))
+# set.seed(2329)
+# bot <- bot %>% dplyr::mutate(price=runif(dplyr::n(), 1, 4) %>% round(1))
 # usethis::use_data(bot, overwrite=T)
-#
+
 # shapes <- shapes %>% Momocs::slice(c(4, 7, 11, 15)) %>% coo_sample(120) %$% coo
 # usethis::use_data(shapes, overwrite=T)
 #

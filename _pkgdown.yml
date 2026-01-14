@@ -92,6 +92,8 @@ reference:
   contents:
   - fold
   - unfold
+  - wrap
+  - unwrap
   - front
   - declass
 
