@@ -105,9 +105,9 @@ names(df_folded$coe[[1]])
 # Can specify custom classes (e.g., for efourier)
 fold(df, coe = A1:B2, .class = c("eft", "coe"))
 #> # A tibble: 3 × 2
-#>      id coe     
-#>   <int> <eft>   
-#> 1     1 <1h x 4>
-#> 2     2 <1h x 4>
-#> 3     3 <1h x 4>
+#>      id coe  
+#>   <int> <eft>
+#> 1     1 <4>  
+#> 2     2 <4>  
+#> 3     3 <4>  
 ```

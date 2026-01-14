@@ -196,8 +196,8 @@ tibble(
     coef = as_eft(coef)
   )
 #> # A tibble: 2 × 2
-#>   shape    coef    
-#>   <out>    <eft>   
-#> 1 (50 x 2) <6h x 4>
-#> 2 (50 x 2) <6h x 4>
+#>   shape    coef 
+#>   <out>    <eft>
+#> 1 (50 x 2) <24> 
+#> 2 (50 x 2) <24> 
 ```
