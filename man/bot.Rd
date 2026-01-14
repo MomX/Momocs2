@@ -7,9 +7,11 @@
 \format{
 A data frame with 20 rows and three columns
 \describe{
+\item{id}{unique id, here brand name}
 \item{coo}{outlines coordinates}
 \item{type}{of beverage}
-\item{dummy}{one more column to play with}
+\item{fake}{one more column to play with}
+\item{price}{one completely random numeric column}
 }
 }
 \source{

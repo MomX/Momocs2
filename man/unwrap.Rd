@@ -39,42 +39,10 @@ ID column behavior:
 }
 }
 \examples{
-# Start with wrapped coordinates
-df_wrapped <- tibble::tibble(
-  id = 1:3,
-  coo = list(
-    matrix(c(0, 1, 1, 0, 0, 0, 1, 1), ncol = 2, dimnames = list(NULL, c("x", "y"))),
-    matrix(c(2, 3, 3, 2, 0, 0, 1, 1), ncol = 2, dimnames = list(NULL, c("x", "y"))),
-    matrix(c(4, 5, 5, 4, 0, 0, 1, 1), ncol = 2, dimnames = list(NULL, c("x", "y")))
-  )
-)
 
-# Unwrap to x, y rows
-df_unwrapped <- df_wrapped \%>\% unwrap(coo)
-df_unwrapped
-# A tibble: 12 × 3
-#       id     x     y
-#    <int> <dbl> <dbl>
-#  1     1     0     0
-#  2     1     1     0
-#  3     1     1     1
-#  4     1     0     1
-# ...
+bot \%>\% unwrap()
 
-# Auto-detect coo column
-df_wrapped \%>\% unwrap()
-
-# Custom ID column name
-tibble::tibble(coo = list(matrix(1:4, ncol = 2))) \%>\%
-  unwrap(coo, .id = "shape_id")
-# A tibble: 2 × 3
-#   shape_id     x     y
-#      <int> <int> <int>
-# 1        1     1     3
-# 2        1     2     4
-
-# No ID column (not recommended unless you have other identifying columns)
-df_wrapped \%>\% unwrap(coo, .id = FALSE)
+bot \%>\% unwrap() \%>\% wrap()
 
 }
 \seealso{

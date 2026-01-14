@@ -26,6 +26,7 @@ Imports:
     pillar,
     rlang,
     tibble,
+    tidyr,
     tidyselect
 Roxygen: list(markdown = TRUE)
 Suggests: 
