@@ -40,14 +40,15 @@ Mostly cosmetics
 
 Exposed extending helpers
 
-- [`get_coo_cols()`](https://momx.github.io/Momocs2/reference/get_coo_cols.md)
-  : Identify coo columns in a tibble
 - [`make_coo_function()`](https://momx.github.io/Momocs2/reference/make_coo_function.md)
   : Create a coo function with automatic dispatch
 - [`make_get_function()`](https://momx.github.io/Momocs2/reference/make_get_function.md)
   : Create a get function with automatic dispatch
+- [`get_coo_cols()`](https://momx.github.io/Momocs2/reference/get_coo_cols.md)
+  : Identify coo columns in a tibble
 - [`get_coe_cols()`](https://momx.github.io/Momocs2/reference/get_coe_cols.md)
-  : Identify coe columns in a tibble
+  [`get_all_coe_cols()`](https://momx.github.io/Momocs2/reference/get_coe_cols.md)
+  : Identify coe columns in a tibble Get coefficient column name(s)
 
 ## Verbs
 
