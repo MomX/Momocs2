@@ -55,9 +55,9 @@ get_rectilinearity(shapes$cat)
 
 # Use in measure() on mini bot for the sake of speed
 bot[1:2, ] %>% measure("rectilinearity")
-#> # A tibble: 2 × 4
-#>   coo       type   dummy coo_rectilinearity
-#>   <out>     <fct>  <fct>              <dbl>
-#> 1 (138 x 2) whisky a                  0.430
-#> 2 (168 x 2) whisky a                  0.459
+#> # A tibble: 2 × 6
+#>   id     coo       type   fake  price coo_rectilinearity
+#>   <chr>  <out>     <fct>  <fct> <dbl>              <dbl>
+#> 1 brahma (138 x 2) whisky a       3                0.430
+#> 2 caney  (168 x 2) whisky a       1.2              0.459
 ```

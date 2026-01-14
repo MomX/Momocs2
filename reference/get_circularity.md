@@ -68,33 +68,34 @@ get_circularity_haralick(shapes$cat)
 
 # Use in measure()
 bot %>% measure("circularity")
-#> # A tibble: 40 × 4
-#>    coo       type   dummy coo_circularity
-#>    <out>     <fct>  <fct>           <dbl>
-#>  1 (138 x 2) whisky a               0.466
-#>  2 (168 x 2) whisky a               0.482
-#>  3 (189 x 2) whisky a               0.592
-#>  4 (129 x 2) whisky a               0.445
-#>  5 (152 x 2) whisky a               0.478
-#>  6 (161 x 2) whisky a               0.629
-#>  7 (124 x 2) whisky a               0.477
-#>  8 (126 x 2) whisky a               0.544
-#>  9 (183 x 2) whisky a               0.524
-#> 10 (193 x 2) whisky a               0.470
+#> # A tibble: 40 × 6
+#>    id           coo       type   fake  price coo_circularity
+#>    <chr>        <out>     <fct>  <fct> <dbl>           <dbl>
+#>  1 brahma       (138 x 2) whisky a       3             0.466
+#>  2 caney        (168 x 2) whisky a       1.2           0.482
+#>  3 chimay       (189 x 2) whisky a       3.8           0.592
+#>  4 corona       (129 x 2) whisky a       2.6           0.445
+#>  5 deusventrue  (152 x 2) whisky a       1.1           0.478
+#>  6 duvel        (161 x 2) whisky a       3.1           0.629
+#>  7 franziskaner (124 x 2) whisky a       2.6           0.477
+#>  8 grimbergen   (126 x 2) whisky a       2.9           0.544
+#>  9 guiness      (183 x 2) whisky a       1.2           0.524
+#> 10 hoegardeen   (193 x 2) whisky a       3.6           0.470
 #> # ℹ 30 more rows
 bot %>% measure(c("circularity", "circularity_haralick"))
-#> # A tibble: 40 × 5
-#>    coo       type   dummy coo_circularity coo_circularity_haralick
-#>    <out>     <fct>  <fct>           <dbl>                    <dbl>
-#>  1 (138 x 2) whisky a               0.466                     2.32
-#>  2 (168 x 2) whisky a               0.482                     2.37
-#>  3 (189 x 2) whisky a               0.592                     2.94
-#>  4 (129 x 2) whisky a               0.445                     2.26
-#>  5 (152 x 2) whisky a               0.478                     2.40
-#>  6 (161 x 2) whisky a               0.629                     3.12
-#>  7 (124 x 2) whisky a               0.477                     2.36
-#>  8 (126 x 2) whisky a               0.544                     2.64
-#>  9 (183 x 2) whisky a               0.524                     2.59
-#> 10 (193 x 2) whisky a               0.470                     2.35
+#> # A tibble: 40 × 7
+#>    id         coo       type  fake  price coo_circularity coo_circularity_hara…¹
+#>    <chr>      <out>     <fct> <fct> <dbl>           <dbl>                  <dbl>
+#>  1 brahma     (138 x 2) whis… a       3             0.466                   2.32
+#>  2 caney      (168 x 2) whis… a       1.2           0.482                   2.37
+#>  3 chimay     (189 x 2) whis… a       3.8           0.592                   2.94
+#>  4 corona     (129 x 2) whis… a       2.6           0.445                   2.26
+#>  5 deusventr… (152 x 2) whis… a       1.1           0.478                   2.40
+#>  6 duvel      (161 x 2) whis… a       3.1           0.629                   3.12
+#>  7 franziska… (124 x 2) whis… a       2.6           0.477                   2.36
+#>  8 grimbergen (126 x 2) whis… a       2.9           0.544                   2.64
+#>  9 guiness    (183 x 2) whis… a       1.2           0.524                   2.59
+#> 10 hoegardeen (193 x 2) whis… a       3.6           0.470                   2.35
 #> # ℹ 30 more rows
+#> # ℹ abbreviated name: ¹​coo_circularity_haralick
 ```

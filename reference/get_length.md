@@ -50,18 +50,18 @@ get_length(shapes$cat)
 
 # Use in measure()
 bot %>% measure("length")
-#> # A tibble: 40 × 4
-#>    coo       type   dummy coo_length
-#>    <out>     <fct>  <fct>      <dbl>
-#>  1 (138 x 2) whisky a          1088.
-#>  2 (168 x 2) whisky a           994.
-#>  3 (189 x 2) whisky a           644.
-#>  4 (129 x 2) whisky a           806.
-#>  5 (152 x 2) whisky a           886.
-#>  6 (161 x 2) whisky a           606.
-#>  7 (124 x 2) whisky a           865.
-#>  8 (126 x 2) whisky a           765.
-#>  9 (183 x 2) whisky a           742.
-#> 10 (193 x 2) whisky a          1048.
+#> # A tibble: 40 × 6
+#>    id           coo       type   fake  price coo_length
+#>    <chr>        <out>     <fct>  <fct> <dbl>      <dbl>
+#>  1 brahma       (138 x 2) whisky a       3        1088.
+#>  2 caney        (168 x 2) whisky a       1.2       994.
+#>  3 chimay       (189 x 2) whisky a       3.8       644.
+#>  4 corona       (129 x 2) whisky a       2.6       806.
+#>  5 deusventrue  (152 x 2) whisky a       1.1       886.
+#>  6 duvel        (161 x 2) whisky a       3.1       606.
+#>  7 franziskaner (124 x 2) whisky a       2.6       865.
+#>  8 grimbergen   (126 x 2) whisky a       2.9       765.
+#>  9 guiness      (183 x 2) whisky a       1.2       742.
+#> 10 hoegardeen   (193 x 2) whisky a       3.6      1048.
 #> # ℹ 30 more rows
 ```

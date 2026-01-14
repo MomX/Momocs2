@@ -53,18 +53,18 @@ get_compactness(shapes$cat)
 
 # Use in measure()
 bot %>% measure("compactness")
-#> # A tibble: 40 × 4
-#>    coo       type   dummy coo_compactness
-#>    <out>     <fct>  <fct>           <dbl>
-#>  1 (138 x 2) whisky a               0.762
-#>  2 (168 x 2) whisky a               0.775
-#>  3 (189 x 2) whisky a               0.765
-#>  4 (129 x 2) whisky a               0.793
-#>  5 (152 x 2) whisky a               0.652
-#>  6 (161 x 2) whisky a               0.784
-#>  7 (124 x 2) whisky a               0.808
-#>  8 (126 x 2) whisky a               0.766
-#>  9 (183 x 2) whisky a               0.763
-#> 10 (193 x 2) whisky a               0.785
+#> # A tibble: 40 × 6
+#>    id           coo       type   fake  price coo_compactness
+#>    <chr>        <out>     <fct>  <fct> <dbl>           <dbl>
+#>  1 brahma       (138 x 2) whisky a       3             0.762
+#>  2 caney        (168 x 2) whisky a       1.2           0.775
+#>  3 chimay       (189 x 2) whisky a       3.8           0.765
+#>  4 corona       (129 x 2) whisky a       2.6           0.793
+#>  5 deusventrue  (152 x 2) whisky a       1.1           0.652
+#>  6 duvel        (161 x 2) whisky a       3.1           0.784
+#>  7 franziskaner (124 x 2) whisky a       2.6           0.808
+#>  8 grimbergen   (126 x 2) whisky a       2.9           0.766
+#>  9 guiness      (183 x 2) whisky a       1.2           0.763
+#> 10 hoegardeen   (193 x 2) whisky a       3.6           0.785
 #> # ℹ 30 more rows
 ```

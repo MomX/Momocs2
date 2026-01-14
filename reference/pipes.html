@@ -52,7 +52,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Pipe operators</h1>
-      <small class="dont-index">Source: <a href="https://github.com/MomX/Momocs2/blob/master/R/imports.R" class="external-link"><code>R/imports.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/MomX/Momocs2/blob/master/R/Momocs2-package.R" class="external-link"><code>R/Momocs2-package.R</code></a></small>
       <div class="d-none name"><code>pipes.Rd</code></div>
     </div>
 
@@ -103,19 +103,19 @@
 <span class="r-in"><span>  <span class="fu"><a href="coo_center.html">coo_center</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="coo_scale.html">coo_scale</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="measure.html">measure</a></span><span class="op">(</span><span class="st">"area"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 40 × 4</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    coo       type   dummy coo_area</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;out&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> <span style="color: #0000BB;">(138 x 2)</span> whisky a         1.77</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> <span style="color: #0000BB;">(168 x 2)</span> whisky a         1.82</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> <span style="color: #0000BB;">(189 x 2)</span> whisky a         2.21</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> <span style="color: #0000BB;">(129 x 2)</span> whisky a         1.67</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> <span style="color: #0000BB;">(152 x 2)</span> whisky a         1.84</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> <span style="color: #0000BB;">(161 x 2)</span> whisky a         2.35</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> <span style="color: #0000BB;">(124 x 2)</span> whisky a         1.78</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> <span style="color: #0000BB;">(126 x 2)</span> whisky a         2.05</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> <span style="color: #0000BB;">(183 x 2)</span> whisky a         1.98</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> <span style="color: #0000BB;">(193 x 2)</span> whisky a         1.76</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 40 × 6</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    id           coo       type   fake  price coo_area</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;out&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> brahma       <span style="color: #0000BB;">(138 x 2)</span> whisky a       3       1.77</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> caney        <span style="color: #0000BB;">(168 x 2)</span> whisky a       1.2     1.82</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> chimay       <span style="color: #0000BB;">(189 x 2)</span> whisky a       3.8     2.21</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> corona       <span style="color: #0000BB;">(129 x 2)</span> whisky a       2.6     1.67</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> deusventrue  <span style="color: #0000BB;">(152 x 2)</span> whisky a       1.1     1.84</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> duvel        <span style="color: #0000BB;">(161 x 2)</span> whisky a       3.1     2.35</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> franziskaner <span style="color: #0000BB;">(124 x 2)</span> whisky a       2.6     1.78</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> grimbergen   <span style="color: #0000BB;">(126 x 2)</span> whisky a       2.9     2.05</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> guiness      <span style="color: #0000BB;">(183 x 2)</span> whisky a       1.2     1.98</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> hoegardeen   <span style="color: #0000BB;">(193 x 2)</span> whisky a       3.6     1.76</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 30 more rows</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Tee pipe - plot without breaking chain</span></span></span>
@@ -124,19 +124,19 @@
 <span class="r-in"><span>  <span class="fu"><a href="pile.html">pile</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>           <span class="co"># Plot without breaking the chain</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="coo_scale.html">coo_scale</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pipes-1.png" alt="" width="2100" height="1500"></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 40 × 3</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    coo       type   dummy</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;out&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> <span style="color: #0000BB;">(138 x 2)</span> whisky a    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> <span style="color: #0000BB;">(168 x 2)</span> whisky a    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> <span style="color: #0000BB;">(189 x 2)</span> whisky a    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> <span style="color: #0000BB;">(129 x 2)</span> whisky a    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> <span style="color: #0000BB;">(152 x 2)</span> whisky a    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> <span style="color: #0000BB;">(161 x 2)</span> whisky a    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> <span style="color: #0000BB;">(124 x 2)</span> whisky a    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> <span style="color: #0000BB;">(126 x 2)</span> whisky a    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> <span style="color: #0000BB;">(183 x 2)</span> whisky a    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> <span style="color: #0000BB;">(193 x 2)</span> whisky a    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 40 × 5</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    id           coo       type   fake  price</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;out&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> brahma       <span style="color: #0000BB;">(138 x 2)</span> whisky a       3  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> caney        <span style="color: #0000BB;">(168 x 2)</span> whisky a       1.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> chimay       <span style="color: #0000BB;">(189 x 2)</span> whisky a       3.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> corona       <span style="color: #0000BB;">(129 x 2)</span> whisky a       2.6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> deusventrue  <span style="color: #0000BB;">(152 x 2)</span> whisky a       1.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> duvel        <span style="color: #0000BB;">(161 x 2)</span> whisky a       3.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> franziskaner <span style="color: #0000BB;">(124 x 2)</span> whisky a       2.6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> grimbergen   <span style="color: #0000BB;">(126 x 2)</span> whisky a       2.9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> guiness      <span style="color: #0000BB;">(183 x 2)</span> whisky a       1.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> hoegardeen   <span style="color: #0000BB;">(193 x 2)</span> whisky a       3.6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 30 more rows</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Exposition pipe - access columns directly</span></span></span>

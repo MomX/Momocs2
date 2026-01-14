@@ -50,18 +50,18 @@ get_width(shapes$cat)
 
 # Use in measure()
 bot %>% measure("width")
-#> # A tibble: 40 × 4
-#>    coo       type   dummy coo_width
-#>    <out>     <fct>  <fct>     <dbl>
-#>  1 (138 x 2) whisky a          278.
-#>  2 (168 x 2) whisky a          260.
-#>  3 (189 x 2) whisky a          241.
-#>  4 (129 x 2) whisky a          187.
-#>  5 (152 x 2) whisky a          287.
-#>  6 (161 x 2) whisky a          240.
-#>  7 (124 x 2) whisky a          215.
-#>  8 (126 x 2) whisky a          252.
-#>  9 (183 x 2) whisky a          230.
-#> 10 (193 x 2) whisky a          267.
+#> # A tibble: 40 × 6
+#>    id           coo       type   fake  price coo_width
+#>    <chr>        <out>     <fct>  <fct> <dbl>     <dbl>
+#>  1 brahma       (138 x 2) whisky a       3        278.
+#>  2 caney        (168 x 2) whisky a       1.2      260.
+#>  3 chimay       (189 x 2) whisky a       3.8      241.
+#>  4 corona       (129 x 2) whisky a       2.6      187.
+#>  5 deusventrue  (152 x 2) whisky a       1.1      287.
+#>  6 duvel        (161 x 2) whisky a       3.1      240.
+#>  7 franziskaner (124 x 2) whisky a       2.6      215.
+#>  8 grimbergen   (126 x 2) whisky a       2.9      252.
+#>  9 guiness      (183 x 2) whisky a       1.2      230.
+#> 10 hoegardeen   (193 x 2) whisky a       3.6      267.
 #> # ℹ 30 more rows
 ```

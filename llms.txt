@@ -85,6 +85,10 @@ ease common operations
   multiple columns into a single list-column
 - [`unfold()`](https://momx.github.io/Momocs2/reference/unfold.md) :
   Unfold a list-column into multiple columns or a matrix
+- [`wrap()`](https://momx.github.io/Momocs2/reference/wrap.md) : Wrap
+  coordinates from rows to list-column of matrices
+- [`unwrap()`](https://momx.github.io/Momocs2/reference/unwrap.md) :
+  Unwrap coordinates from list-column of matrices to rows
 - [`front()`](https://momx.github.io/Momocs2/reference/front.md) :
   Relocate morphometric columns to front
 - [`declass()`](https://momx.github.io/Momocs2/reference/declass.md) :

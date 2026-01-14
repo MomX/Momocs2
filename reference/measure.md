@@ -97,69 +97,69 @@ for list of measurements; `get_*` functions for extraction
 ``` r
 # Single measurement
 bot %>% measure("area")
-#> # A tibble: 40 × 4
-#>    coo       type   dummy coo_area
-#>    <out>     <fct>  <fct>    <dbl>
-#>  1 (138 x 2) whisky a      234515 
-#>  2 (168 x 2) whisky a      201056.
-#>  3 (189 x 2) whisky a      119460.
-#>  4 (129 x 2) whisky a      119568.
-#>  5 (152 x 2) whisky a      165736.
-#>  6 (161 x 2) whisky a      114015 
-#>  7 (124 x 2) whisky a      149503 
-#>  8 (126 x 2) whisky a      147642.
-#>  9 (183 x 2) whisky a      130178.
-#> 10 (193 x 2) whisky a      219548 
+#> # A tibble: 40 × 6
+#>    id           coo       type   fake  price coo_area
+#>    <chr>        <out>     <fct>  <fct> <dbl>    <dbl>
+#>  1 brahma       (138 x 2) whisky a       3    234515 
+#>  2 caney        (168 x 2) whisky a       1.2  201056.
+#>  3 chimay       (189 x 2) whisky a       3.8  119460.
+#>  4 corona       (129 x 2) whisky a       2.6  119568.
+#>  5 deusventrue  (152 x 2) whisky a       1.1  165736.
+#>  6 duvel        (161 x 2) whisky a       3.1  114015 
+#>  7 franziskaner (124 x 2) whisky a       2.6  149503 
+#>  8 grimbergen   (126 x 2) whisky a       2.9  147642.
+#>  9 guiness      (183 x 2) whisky a       1.2  130178.
+#> 10 hoegardeen   (193 x 2) whisky a       3.6  219548 
 #> # ℹ 30 more rows
 
 # Multiple measurements
 bot %>% measure(c("area", "perim", "centroid_size"))
-#> # A tibble: 40 × 6
-#>    coo       type   dummy coo_area coo_perim coo_centroid_size
-#>    <out>     <fct>  <fct>    <dbl>     <dbl>             <dbl>
-#>  1 (138 x 2) whisky a      234515      2514.             4277.
-#>  2 (168 x 2) whisky a      201056.     2289.             4312.
-#>  3 (189 x 2) whisky a      119460.     1593.             3193.
-#>  4 (129 x 2) whisky a      119568.     1838.             3035.
-#>  5 (152 x 2) whisky a      165736.     2087.             3701.
-#>  6 (161 x 2) whisky a      114015      1509.             2796.
-#>  7 (124 x 2) whisky a      149503      1985.             3225.
-#>  8 (126 x 2) whisky a      147642.     1848.             3011.
-#>  9 (183 x 2) whisky a      130178.     1767.             3472.
-#> 10 (193 x 2) whisky a      219548      2424.             4907.
+#> # A tibble: 40 × 8
+#>    id           coo       type  fake  price coo_area coo_perim coo_centroid_size
+#>    <chr>        <out>     <fct> <fct> <dbl>    <dbl>     <dbl>             <dbl>
+#>  1 brahma       (138 x 2) whis… a       3    234515      2514.             4277.
+#>  2 caney        (168 x 2) whis… a       1.2  201056.     2289.             4312.
+#>  3 chimay       (189 x 2) whis… a       3.8  119460.     1593.             3193.
+#>  4 corona       (129 x 2) whis… a       2.6  119568.     1838.             3035.
+#>  5 deusventrue  (152 x 2) whis… a       1.1  165736.     2087.             3701.
+#>  6 duvel        (161 x 2) whis… a       3.1  114015      1509.             2796.
+#>  7 franziskaner (124 x 2) whis… a       2.6  149503      1985.             3225.
+#>  8 grimbergen   (126 x 2) whis… a       2.9  147642.     1848.             3011.
+#>  9 guiness      (183 x 2) whis… a       1.2  130178.     1767.             3472.
+#> 10 hoegardeen   (193 x 2) whis… a       3.6  219548      2424.             4907.
 #> # ℹ 30 more rows
 
 # Custom prefix
 bot %>% measure(c("area", "perim"), .prefix = "shape")
-#> # A tibble: 40 × 5
-#>    coo       type   dummy shape_area shape_perim
-#>    <out>     <fct>  <fct>      <dbl>       <dbl>
-#>  1 (138 x 2) whisky a        234515        2514.
-#>  2 (168 x 2) whisky a        201056.       2289.
-#>  3 (189 x 2) whisky a        119460.       1593.
-#>  4 (129 x 2) whisky a        119568.       1838.
-#>  5 (152 x 2) whisky a        165736.       2087.
-#>  6 (161 x 2) whisky a        114015        1509.
-#>  7 (124 x 2) whisky a        149503        1985.
-#>  8 (126 x 2) whisky a        147642.       1848.
-#>  9 (183 x 2) whisky a        130178.       1767.
-#> 10 (193 x 2) whisky a        219548        2424.
+#> # A tibble: 40 × 7
+#>    id           coo       type   fake  price shape_area shape_perim
+#>    <chr>        <out>     <fct>  <fct> <dbl>      <dbl>       <dbl>
+#>  1 brahma       (138 x 2) whisky a       3      234515        2514.
+#>  2 caney        (168 x 2) whisky a       1.2    201056.       2289.
+#>  3 chimay       (189 x 2) whisky a       3.8    119460.       1593.
+#>  4 corona       (129 x 2) whisky a       2.6    119568.       1838.
+#>  5 deusventrue  (152 x 2) whisky a       1.1    165736.       2087.
+#>  6 duvel        (161 x 2) whisky a       3.1    114015        1509.
+#>  7 franziskaner (124 x 2) whisky a       2.6    149503        1985.
+#>  8 grimbergen   (126 x 2) whisky a       2.9    147642.       1848.
+#>  9 guiness      (183 x 2) whisky a       1.2    130178.       1767.
+#> 10 hoegardeen   (193 x 2) whisky a       3.6    219548        2424.
 #> # ℹ 30 more rows
 
 # On specific column
 bot %>% measure("area", .cols = coo)
-#> # A tibble: 40 × 4
-#>    coo       type   dummy coo_area
-#>    <out>     <fct>  <fct>    <dbl>
-#>  1 (138 x 2) whisky a      234515 
-#>  2 (168 x 2) whisky a      201056.
-#>  3 (189 x 2) whisky a      119460.
-#>  4 (129 x 2) whisky a      119568.
-#>  5 (152 x 2) whisky a      165736.
-#>  6 (161 x 2) whisky a      114015 
-#>  7 (124 x 2) whisky a      149503 
-#>  8 (126 x 2) whisky a      147642.
-#>  9 (183 x 2) whisky a      130178.
-#> 10 (193 x 2) whisky a      219548 
+#> # A tibble: 40 × 6
+#>    id           coo       type   fake  price coo_area
+#>    <chr>        <out>     <fct>  <fct> <dbl>    <dbl>
+#>  1 brahma       (138 x 2) whisky a       3    234515 
+#>  2 caney        (168 x 2) whisky a       1.2  201056.
+#>  3 chimay       (189 x 2) whisky a       3.8  119460.
+#>  4 corona       (129 x 2) whisky a       2.6  119568.
+#>  5 deusventrue  (152 x 2) whisky a       1.1  165736.
+#>  6 duvel        (161 x 2) whisky a       3.1  114015 
+#>  7 franziskaner (124 x 2) whisky a       2.6  149503 
+#>  8 grimbergen   (126 x 2) whisky a       2.9  147642.
+#>  9 guiness      (183 x 2) whisky a       1.2  130178.
+#> 10 hoegardeen   (193 x 2) whisky a       3.6  219548 
 #> # ℹ 30 more rows
 ```

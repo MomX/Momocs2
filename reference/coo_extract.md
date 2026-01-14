@@ -322,19 +322,19 @@ coo_extract(bot$coo, c(1, 6))
 #> attr(,"class")
 #> [1] "out"  "coo"  "list"
 coo_extract(bot, c(1, 5, 10))
-#> # A tibble: 40 × 3
-#>    coo     type   dummy
-#>    <out>   <fct>  <fct>
-#>  1 (3 x 2) whisky a    
-#>  2 (3 x 2) whisky a    
-#>  3 (3 x 2) whisky a    
-#>  4 (3 x 2) whisky a    
-#>  5 (3 x 2) whisky a    
-#>  6 (3 x 2) whisky a    
-#>  7 (3 x 2) whisky a    
-#>  8 (3 x 2) whisky a    
-#>  9 (3 x 2) whisky a    
-#> 10 (3 x 2) whisky a    
+#> # A tibble: 40 × 5
+#>    id           coo     type   fake  price
+#>    <chr>        <out>   <fct>  <fct> <dbl>
+#>  1 brahma       (3 x 2) whisky a       3  
+#>  2 caney        (3 x 2) whisky a       1.2
+#>  3 chimay       (3 x 2) whisky a       3.8
+#>  4 corona       (3 x 2) whisky a       2.6
+#>  5 deusventrue  (3 x 2) whisky a       1.1
+#>  6 duvel        (3 x 2) whisky a       3.1
+#>  7 franziskaner (3 x 2) whisky a       2.6
+#>  8 grimbergen   (3 x 2) whisky a       2.9
+#>  9 guiness      (3 x 2) whisky a       1.2
+#> 10 hoegardeen   (3 x 2) whisky a       3.6
 #> # ℹ 30 more rows
 
 # Keep first n points
@@ -955,19 +955,19 @@ coo_head(bot$coo, 20)
 #> attr(,"class")
 #> [1] "out"  "coo"  "list"
 coo_head(bot, 30)
-#> # A tibble: 40 × 3
-#>    coo      type   dummy
-#>    <out>    <fct>  <fct>
-#>  1 (30 x 2) whisky a    
-#>  2 (30 x 2) whisky a    
-#>  3 (30 x 2) whisky a    
-#>  4 (30 x 2) whisky a    
-#>  5 (30 x 2) whisky a    
-#>  6 (30 x 2) whisky a    
-#>  7 (30 x 2) whisky a    
-#>  8 (30 x 2) whisky a    
-#>  9 (30 x 2) whisky a    
-#> 10 (30 x 2) whisky a    
+#> # A tibble: 40 × 5
+#>    id           coo      type   fake  price
+#>    <chr>        <out>    <fct>  <fct> <dbl>
+#>  1 brahma       (30 x 2) whisky a       3  
+#>  2 caney        (30 x 2) whisky a       1.2
+#>  3 chimay       (30 x 2) whisky a       3.8
+#>  4 corona       (30 x 2) whisky a       2.6
+#>  5 deusventrue  (30 x 2) whisky a       1.1
+#>  6 duvel        (30 x 2) whisky a       3.1
+#>  7 franziskaner (30 x 2) whisky a       2.6
+#>  8 grimbergen   (30 x 2) whisky a       2.9
+#>  9 guiness      (30 x 2) whisky a       1.2
+#> 10 hoegardeen   (30 x 2) whisky a       3.6
 #> # ℹ 30 more rows
 
 # Remove last n points
@@ -986,18 +986,18 @@ coo_tail(shapes$cat, 5)
 #> [10,] 230   49 
 #> [11,] 224   45 
 coo_tail(bot, 10)
-#> # A tibble: 40 × 3
-#>    coo       type   dummy
-#>    <out>     <fct>  <fct>
-#>  1 (128 x 2) whisky a    
-#>  2 (158 x 2) whisky a    
-#>  3 (179 x 2) whisky a    
-#>  4 (119 x 2) whisky a    
-#>  5 (142 x 2) whisky a    
-#>  6 (151 x 2) whisky a    
-#>  7 (114 x 2) whisky a    
-#>  8 (116 x 2) whisky a    
-#>  9 (173 x 2) whisky a    
-#> 10 (183 x 2) whisky a    
+#> # A tibble: 40 × 5
+#>    id           coo       type   fake  price
+#>    <chr>        <out>     <fct>  <fct> <dbl>
+#>  1 brahma       (128 x 2) whisky a       3  
+#>  2 caney        (158 x 2) whisky a       1.2
+#>  3 chimay       (179 x 2) whisky a       3.8
+#>  4 corona       (119 x 2) whisky a       2.6
+#>  5 deusventrue  (142 x 2) whisky a       1.1
+#>  6 duvel        (151 x 2) whisky a       3.1
+#>  7 franziskaner (114 x 2) whisky a       2.6
+#>  8 grimbergen   (116 x 2) whisky a       2.9
+#>  9 guiness      (173 x 2) whisky a       1.2
+#> 10 hoegardeen   (183 x 2) whisky a       3.6
 #> # ℹ 30 more rows
 ```

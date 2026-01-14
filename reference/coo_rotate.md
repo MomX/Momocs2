@@ -669,18 +669,18 @@ coo_rotate(bot$coo, theta = pi / 6)
 
 # Rotate tibble shapes
 coo_rotate(bot, theta = pi / 8)
-#> # A tibble: 40 × 3
-#>    coo       type   dummy
-#>    <out>     <fct>  <fct>
-#>  1 (138 x 2) whisky a    
-#>  2 (168 x 2) whisky a    
-#>  3 (189 x 2) whisky a    
-#>  4 (129 x 2) whisky a    
-#>  5 (152 x 2) whisky a    
-#>  6 (161 x 2) whisky a    
-#>  7 (124 x 2) whisky a    
-#>  8 (126 x 2) whisky a    
-#>  9 (183 x 2) whisky a    
-#> 10 (193 x 2) whisky a    
+#> # A tibble: 40 × 5
+#>    id           coo       type   fake  price
+#>    <chr>        <out>     <fct>  <fct> <dbl>
+#>  1 brahma       (138 x 2) whisky a       3  
+#>  2 caney        (168 x 2) whisky a       1.2
+#>  3 chimay       (189 x 2) whisky a       3.8
+#>  4 corona       (129 x 2) whisky a       2.6
+#>  5 deusventrue  (152 x 2) whisky a       1.1
+#>  6 duvel        (161 x 2) whisky a       3.1
+#>  7 franziskaner (124 x 2) whisky a       2.6
+#>  8 grimbergen   (126 x 2) whisky a       2.9
+#>  9 guiness      (183 x 2) whisky a       1.2
+#> 10 hoegardeen   (193 x 2) whisky a       3.6
 #> # ℹ 30 more rows
 ```

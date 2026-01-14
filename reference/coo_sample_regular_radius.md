@@ -680,18 +680,18 @@ coo_sample_regular_radius(bot$coo, n = 32)
 
 # Works on tibbles
 coo_sample_regular_radius(bot, n = 128)
-#> # A tibble: 40 × 3
-#>    coo       type   dummy
-#>    <out>     <fct>  <fct>
-#>  1 (128 x 2) whisky a    
-#>  2 (128 x 2) whisky a    
-#>  3 (128 x 2) whisky a    
-#>  4 (128 x 2) whisky a    
-#>  5 (128 x 2) whisky a    
-#>  6 (128 x 2) whisky a    
-#>  7 (128 x 2) whisky a    
-#>  8 (128 x 2) whisky a    
-#>  9 (128 x 2) whisky a    
-#> 10 (128 x 2) whisky a    
+#> # A tibble: 40 × 5
+#>    id           coo       type   fake  price
+#>    <chr>        <out>     <fct>  <fct> <dbl>
+#>  1 brahma       (128 x 2) whisky a       3  
+#>  2 caney        (128 x 2) whisky a       1.2
+#>  3 chimay       (128 x 2) whisky a       3.8
+#>  4 corona       (128 x 2) whisky a       2.6
+#>  5 deusventrue  (128 x 2) whisky a       1.1
+#>  6 duvel        (128 x 2) whisky a       3.1
+#>  7 franziskaner (128 x 2) whisky a       2.6
+#>  8 grimbergen   (128 x 2) whisky a       2.9
+#>  9 guiness      (128 x 2) whisky a       1.2
+#> 10 hoegardeen   (128 x 2) whisky a       3.6
 #> # ℹ 30 more rows
 ```

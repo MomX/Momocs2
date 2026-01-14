@@ -683,18 +683,18 @@ coo_rescale(bot$coo, scale = 0.5)
 # For tibbles - use stored scaling factors
 bot$scale_factor <- rep(c(1, 2), length.out = nrow(bot))
 bot %>% coo_rescale(scale = scale_factor)
-#> # A tibble: 40 × 4
-#>    coo       type   dummy scale_factor
-#>    <out>     <fct>  <fct>        <dbl>
-#>  1 (138 x 2) whisky a                1
-#>  2 (168 x 2) whisky a                2
-#>  3 (189 x 2) whisky a                1
-#>  4 (129 x 2) whisky a                2
-#>  5 (152 x 2) whisky a                1
-#>  6 (161 x 2) whisky a                2
-#>  7 (124 x 2) whisky a                1
-#>  8 (126 x 2) whisky a                2
-#>  9 (183 x 2) whisky a                1
-#> 10 (193 x 2) whisky a                2
+#> # A tibble: 40 × 6
+#>    id           coo       type   fake  price scale_factor
+#>    <chr>        <out>     <fct>  <fct> <dbl>        <dbl>
+#>  1 brahma       (138 x 2) whisky a       3              1
+#>  2 caney        (168 x 2) whisky a       1.2            2
+#>  3 chimay       (189 x 2) whisky a       3.8            1
+#>  4 corona       (129 x 2) whisky a       2.6            2
+#>  5 deusventrue  (152 x 2) whisky a       1.1            1
+#>  6 duvel        (161 x 2) whisky a       3.1            2
+#>  7 franziskaner (124 x 2) whisky a       2.6            1
+#>  8 grimbergen   (126 x 2) whisky a       2.9            2
+#>  9 guiness      (183 x 2) whisky a       1.2            1
+#> 10 hoegardeen   (193 x 2) whisky a       3.6            2
 #> # ℹ 30 more rows
 ```

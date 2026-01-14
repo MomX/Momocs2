@@ -65,18 +65,18 @@ bot$area <- get_area(bot)
 
 # Or use measure() for convenience
 bot %>% measure("area")
-#> # A tibble: 40 × 5
-#>    coo       type   dummy    area coo_area
-#>    <out>     <fct>  <fct>   <dbl>    <dbl>
-#>  1 (138 x 2) whisky a     234515   234515 
-#>  2 (168 x 2) whisky a     201056.  201056.
-#>  3 (189 x 2) whisky a     119460.  119460.
-#>  4 (129 x 2) whisky a     119568.  119568.
-#>  5 (152 x 2) whisky a     165736.  165736.
-#>  6 (161 x 2) whisky a     114015   114015 
-#>  7 (124 x 2) whisky a     149503   149503 
-#>  8 (126 x 2) whisky a     147642.  147642.
-#>  9 (183 x 2) whisky a     130178.  130178.
-#> 10 (193 x 2) whisky a     219548   219548 
+#> # A tibble: 40 × 7
+#>    id           coo       type   fake  price    area coo_area
+#>    <chr>        <out>     <fct>  <fct> <dbl>   <dbl>    <dbl>
+#>  1 brahma       (138 x 2) whisky a       3   234515   234515 
+#>  2 caney        (168 x 2) whisky a       1.2 201056.  201056.
+#>  3 chimay       (189 x 2) whisky a       3.8 119460.  119460.
+#>  4 corona       (129 x 2) whisky a       2.6 119568.  119568.
+#>  5 deusventrue  (152 x 2) whisky a       1.1 165736.  165736.
+#>  6 duvel        (161 x 2) whisky a       3.1 114015   114015 
+#>  7 franziskaner (124 x 2) whisky a       2.6 149503   149503 
+#>  8 grimbergen   (126 x 2) whisky a       2.9 147642.  147642.
+#>  9 guiness      (183 x 2) whisky a       1.2 130178.  130178.
+#> 10 hoegardeen   (193 x 2) whisky a       3.6 219548   219548 
 #> # ℹ 30 more rows
 ```

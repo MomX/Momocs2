@@ -56,7 +56,7 @@ This is useful for storing morphometric coefficients compactly in a tibble."><me
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Fold multiple columns into a single list-column</h1>
-      <small class="dont-index">Source: <a href="https://github.com/MomX/Momocs2/blob/master/R/coe.R" class="external-link"><code>R/coe.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/MomX/Momocs2/blob/master/R/verbs.R" class="external-link"><code>R/verbs.R</code></a></small>
       <div class="d-none name"><code>fold.Rd</code></div>
     </div>
 
@@ -87,16 +87,17 @@ Must be exactly one named argument.</p></dd>
 
 <dt id="arg--class">.class<a class="anchor" aria-label="anchor" href="#arg--class"></a></dt>
 <dd><p>Character vector of classes to add to the list-column and individual
-vectors. If <code>NULL</code> (default), uses the new column name. For example, if folding
-into a column named "coe", both the list-column and individual vectors will get
-classes <code>c("coe", "list")</code> and <code>c("coe", "numeric")</code> respectively.</p></dd>
+vectors. If <code>NULL</code> (default), no classes are added - the list-column remains
+a plain list. For morphometric coefficients, specify classes explicitly, e.g.,
+<code>.class = c("eft", "coe")</code> or <code>.class = "coe"</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>A tibble with selected columns removed and replaced by a single list-column
-containing classed numeric vectors (one per row). The list-column itself gets
-class <code>c(.class, "list")</code> and each vector gets <code>c(.class, "numeric")</code>.</p>
+containing numeric vectors (one per row). If <code>.class</code> is provided, both the
+list-column and individual vectors get those classes (e.g., <code>c("eft", "coe", "list")</code>
+and <code>c("eft", "coe", "numeric")</code>). If <code>.class = NULL</code>, returns a plain list-column.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -104,10 +105,11 @@ class <code>c(.class, "list")</code> and each vector gets <code>c(.class, "numer
 <li><p>Converts them to a matrix</p></li>
 <li><p>Splits the matrix by rows to create a list of numeric vectors</p></li>
 <li><p>Preserves original column names as names in each vector</p></li>
-<li><p>Adds appropriate classes to both the list-column and individual vectors</p></li>
+<li><p>If <code>.class</code> is provided, adds classes to both the list-column and individual vectors</p></li>
 <li><p>Removes the original columns and adds the new list-column</p></li>
 </ol><p>This is particularly useful after Fourier analysis where you have many harmonic
-coefficient columns that you want to store together as a single "coe" object.</p>
+coefficient columns that you want to store together. For morphometric coefficients,
+always specify <code>.class</code> explicitly to ensure proper class attributes.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -126,36 +128,34 @@ coefficient columns that you want to store together as a single "coe" object.</p
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Fold coefficient columns into a single list-column</span></span></span>
-<span class="r-in"><span><span class="va">df_folded</span> <span class="op">&lt;-</span> <span class="fu">fold</span><span class="op">(</span><span class="va">df</span>, coe <span class="op">=</span> <span class="va">A1</span><span class="op">:</span><span class="va">B2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">df_folded</span> <span class="op">&lt;-</span> <span class="fu">fold</span><span class="op">(</span><span class="va">df</span>, coe <span class="op">=</span> <span class="va">A1</span><span class="op">:</span><span class="va">B2</span><span class="op">)</span>  <span class="co"># Plain list, no classes</span></span></span>
 <span class="r-in"><span><span class="va">df_folded</span><span class="op">$</span><span class="va">coe</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> A1 A2 B1 B2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  1  4  7 10 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "coe"     "numeric"</span>
 <span class="r-in"><span><span class="co">#    A1    A2    B1    B2</span></span></span>
 <span class="r-in"><span><span class="co">#     1     4     7    10</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># List-column has classes</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">df_folded</span><span class="op">$</span><span class="va">coe</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "coe"  "list"</span>
-<span class="r-in"><span><span class="co"># [1] "coe"  "list"</span></span></span>
+<span class="r-in"><span><span class="co"># For morphometric coefficients, specify classes explicitly</span></span></span>
+<span class="r-in"><span><span class="va">df_eft</span> <span class="op">&lt;-</span> <span class="fu">fold</span><span class="op">(</span><span class="va">df</span>, coe <span class="op">=</span> <span class="va">A1</span><span class="op">:</span><span class="va">B2</span>, .class <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"eft"</span>, <span class="st">"coe"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Each element also has classes and preserves names</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">df_folded</span><span class="op">$</span><span class="va">coe</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "coe"     "numeric"</span>
-<span class="r-in"><span><span class="co"># [1] "coe"     "numeric"</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">df_folded</span><span class="op">$</span><span class="va">coe</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># List-column has classes only if specified</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">df_eft</span><span class="op">$</span><span class="va">coe</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "eft"  "coe"  "list"</span>
+<span class="r-in"><span><span class="co"># [1] "eft"  "coe"  "list"</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Each element also has classes</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">df_eft</span><span class="op">$</span><span class="va">coe</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "eft"     "coe"     "numeric"</span>
+<span class="r-in"><span><span class="co"># [1] "eft"     "coe"     "numeric"</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">df_eft</span><span class="op">$</span><span class="va">coe</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "A1" "A2" "B1" "B2"</span>
 <span class="r-in"><span><span class="co"># [1] "A1" "A2" "B1" "B2"</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Can specify custom classes (e.g., for efourier)</span></span></span>
-<span class="r-in"><span><span class="fu">fold</span><span class="op">(</span><span class="va">df</span>, coe <span class="op">=</span> <span class="va">A1</span><span class="op">:</span><span class="va">B2</span>, .class <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"eft"</span>, <span class="st">"coe"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 2</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      id coe  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;eft&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     1 <span style="color: #00BBBB;">&lt;4&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>     2 <span style="color: #00BBBB;">&lt;4&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>     3 <span style="color: #00BBBB;">&lt;4&gt;</span>  </span>
+<span class="r-in"><span><span class="co"># Without .class, just a plain list</span></span></span>
+<span class="r-in"><span><span class="va">df_plain</span> <span class="op">&lt;-</span> <span class="fu">fold</span><span class="op">(</span><span class="va">df</span>, scores <span class="op">=</span> <span class="va">A1</span><span class="op">:</span><span class="va">B2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">df_plain</span><span class="op">$</span><span class="va">scores</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "array"</span>
+<span class="r-in"><span><span class="co"># [1] "list"</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

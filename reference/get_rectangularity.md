@@ -50,9 +50,9 @@ get_rectangularity(shapes$cat)
 
 # Use in measure() on a mini bot for the sake of speed
 bot[1:2, ] %>% measure("rectangularity")
-#> # A tibble: 2 × 4
-#>   coo       type   dummy coo_rectangularity
-#>   <out>     <fct>  <fct>              <dbl>
-#> 1 (138 x 2) whisky a                  0.775
-#> 2 (168 x 2) whisky a                  0.777
+#> # A tibble: 2 × 6
+#>   id     coo       type   fake  price coo_rectangularity
+#>   <chr>  <out>     <fct>  <fct> <dbl>              <dbl>
+#> 1 brahma (138 x 2) whisky a       3                0.775
+#> 2 caney  (168 x 2) whisky a       1.2              0.777
 ```

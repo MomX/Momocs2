@@ -53,18 +53,18 @@ get_elongation(shapes$cat)
 
 # Use in measure()
 bot %>% measure("elongation")
-#> # A tibble: 40 × 4
-#>    coo       type   dummy coo_elongation
-#>    <out>     <fct>  <fct>          <dbl>
-#>  1 (138 x 2) whisky a               3.91
-#>  2 (168 x 2) whisky a               3.82
-#>  3 (189 x 2) whisky a               2.67
-#>  4 (129 x 2) whisky a               4.31
-#>  5 (152 x 2) whisky a               3.09
-#>  6 (161 x 2) whisky a               2.52
-#>  7 (124 x 2) whisky a               4.03
-#>  8 (126 x 2) whisky a               3.04
-#>  9 (183 x 2) whisky a               3.23
-#> 10 (193 x 2) whisky a               3.93
+#> # A tibble: 40 × 6
+#>    id           coo       type   fake  price coo_elongation
+#>    <chr>        <out>     <fct>  <fct> <dbl>          <dbl>
+#>  1 brahma       (138 x 2) whisky a       3             3.91
+#>  2 caney        (168 x 2) whisky a       1.2           3.82
+#>  3 chimay       (189 x 2) whisky a       3.8           2.67
+#>  4 corona       (129 x 2) whisky a       2.6           4.31
+#>  5 deusventrue  (152 x 2) whisky a       1.1           3.09
+#>  6 duvel        (161 x 2) whisky a       3.1           2.52
+#>  7 franziskaner (124 x 2) whisky a       2.6           4.03
+#>  8 grimbergen   (126 x 2) whisky a       2.9           3.04
+#>  9 guiness      (183 x 2) whisky a       1.2           3.23
+#> 10 hoegardeen   (193 x 2) whisky a       3.6           3.93
 #> # ℹ 30 more rows
 ```

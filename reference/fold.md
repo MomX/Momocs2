@@ -26,17 +26,17 @@ fold(.data, ..., .class = NULL)
 - .class:
 
   Character vector of classes to add to the list-column and individual
-  vectors. If `NULL` (default), uses the new column name. For example,
-  if folding into a column named "coe", both the list-column and
-  individual vectors will get classes `c("coe", "list")` and
-  `c("coe", "numeric")` respectively.
+  vectors. If `NULL` (default), no classes are added - the list-column
+  remains a plain list. For morphometric coefficients, specify classes
+  explicitly, e.g., `.class = c("eft", "coe")` or `.class = "coe"`.
 
 ## Value
 
 A tibble with selected columns removed and replaced by a single
-list-column containing classed numeric vectors (one per row). The
-list-column itself gets class `c(.class, "list")` and each vector gets
-`c(.class, "numeric")`.
+list-column containing numeric vectors (one per row). If `.class` is
+provided, both the list-column and individual vectors get those classes
+(e.g., `c("eft", "coe", "list")` and `c("eft", "coe", "numeric")`). If
+`.class = NULL`, returns a plain list-column.
 
 ## Details
 
@@ -51,14 +51,15 @@ The function:
 
 4.  Preserves original column names as names in each vector
 
-5.  Adds appropriate classes to both the list-column and individual
-    vectors
+5.  If `.class` is provided, adds classes to both the list-column and
+    individual vectors
 
 6.  Removes the original columns and adds the new list-column
 
 This is particularly useful after Fourier analysis where you have many
-harmonic coefficient columns that you want to store together as a single
-"coe" object.
+harmonic coefficient columns that you want to store together. For
+morphometric coefficients, always specify `.class` explicitly to ensure
+proper class attributes.
 
 ## See also
 
@@ -80,34 +81,32 @@ df <- tibble::tibble(
 )
 
 # Fold coefficient columns into a single list-column
-df_folded <- fold(df, coe = A1:B2)
+df_folded <- fold(df, coe = A1:B2)  # Plain list, no classes
 df_folded$coe[[1]]
 #> A1 A2 B1 B2 
 #>  1  4  7 10 
-#> attr(,"class")
-#> [1] "coe"     "numeric"
 #    A1    A2    B1    B2
 #     1     4     7    10
 
-# List-column has classes
-class(df_folded$coe)
-#> [1] "coe"  "list"
-# [1] "coe"  "list"
+# For morphometric coefficients, specify classes explicitly
+df_eft <- fold(df, coe = A1:B2, .class = c("eft", "coe"))
 
-# Each element also has classes and preserves names
-class(df_folded$coe[[1]])
-#> [1] "coe"     "numeric"
-# [1] "coe"     "numeric"
-names(df_folded$coe[[1]])
+# List-column has classes only if specified
+class(df_eft$coe)
+#> [1] "eft"  "coe"  "list"
+# [1] "eft"  "coe"  "list"
+
+# Each element also has classes
+class(df_eft$coe[[1]])
+#> [1] "eft"     "coe"     "numeric"
+# [1] "eft"     "coe"     "numeric"
+names(df_eft$coe[[1]])
 #> [1] "A1" "A2" "B1" "B2"
 # [1] "A1" "A2" "B1" "B2"
 
-# Can specify custom classes (e.g., for efourier)
-fold(df, coe = A1:B2, .class = c("eft", "coe"))
-#> # A tibble: 3 × 2
-#>      id coe  
-#>   <int> <eft>
-#> 1     1 <4>  
-#> 2     2 <4>  
-#> 3     3 <4>  
+# Without .class, just a plain list
+df_plain <- fold(df, scores = A1:B2)
+class(df_plain$scores)
+#> [1] "array"
+# [1] "list"
 ```
