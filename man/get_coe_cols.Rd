@@ -100,5 +100,5 @@ get_all_coe_cols(df)
 
 }
 \seealso{
-\code{\link[=fold]{fold()}}, \code{\link[=unfold]{unfold()}}, \code{\link[=efourier]{efourier()}}
+\code{\link[=fold]{fold()}}, \code{\link[=unfold]{unfold()}}, \code{\link[=eft]{eft()}}
 }

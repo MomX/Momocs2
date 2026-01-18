@@ -89,4 +89,42 @@
 #' downsampled to 80 coordinates per outline.
 "hearts"
 
+# z <- Momocs::olea %>% Momocs::as_df()
+# z %>% dplyr::mutate(id=paste0(var, "_", ind)) %>%
+#   tidyr::pivot_wider(names_from = view, values_from=coo) %>%
+#   na.omit() -> z
+# class(z$VL) <- class(z$VD) <- c("cur", "coo", "list")
+# z %>% front() %>%
+#   dplyr::group_by(var) %>%
+#   dplyr::mutate(ind=1:dplyr::n(),
+#                 id=paste0(stringr::str_sub(var, 1, 2), 1:dplyr::n())) %>%
+#   dplyr::select(id, VD, VL, var, status=domes) %>%
+#   dplyr::ungroup() -> olea
+# usethis::use_data(olea)
+
+#' Olea dataset
+#'
+#' An open curves dataset with two views derived from the legacy Momocs olea dataset.
+#'
+#' Olive stones, photographed using two orthogonal views.
+#'
+#' @format
+#' A data frame with 20 rows and three columns
+#' \describe{
+#'   \item{id}{unique id}
+#'   \item{VD}{curves coordinates for dorsal view}
+#'   \item{VL}{curves coordinates for lateral view}
+#'   \item{var}{olive accession name}
+#'   \item{status}{factor, whether accession is wild or cultivated}
+#' }
+#' @source We thank Jean-Frederic Terral and Sarah Ivorra
+#' (UMR CBAE, Montpellier, France) from allowing us to share the data.
+#'
+#' You can have a look to the original paper:
+#' Terral J-F, Alonso N, Capdevila RB i, Chatti N, Fabre L, Fiorentino G,
+#' Marinval P, Jorda GP, Pradat B, Rovira N, et al. 2004.
+#' Historical biogeography of olive domestication (_Olea europaea_ L.)
+#' as revealed by geometrical morphometry applied to biological and archaeological material.
+#' _Journal of Biogeography_ 31: 63-77.
+"olea"
 

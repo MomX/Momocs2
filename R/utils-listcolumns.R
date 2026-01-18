@@ -160,7 +160,7 @@ get_coo_cols <- function(df, .cols = NULL) {
 #' get_all_coe_cols(df)
 #' # [1] "coe"  "coe2"
 #'
-#' @seealso [fold()], [unfold()], [efourier()]
+#' @seealso [fold()], [unfold()], [eft()]
 #'
 #' @export
 get_coe_cols <- function(df, .cols = NULL) {

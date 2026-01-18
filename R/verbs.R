@@ -23,10 +23,10 @@
 #' @examples
 #' \dontrun{
 #' # After adding coefficients, coe column is at the end
-#' bot %>% efourier()
+#' bot %>% eft()
 #'
 #' # Relocate to put coe after coo
-#' bot %>% efourier() %>% front()
+#' bot %>% eft() %>% front()
 #'
 #' # Works with any combination
 #' tibble(

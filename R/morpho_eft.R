@@ -1,4 +1,4 @@
-# efourier ----
+# eft ----
 
 #' Elliptic Fourier Transform
 #'
@@ -47,43 +47,43 @@
 #' @examples
 #' # Single outline
 #' coo <- matrix(runif(100), ncol = 2)
-#' eft_coefs <- efourier(coo)
+#' eft_coefs <- eft(coo)
 #' eft_coefs
 #'
 #' # Get raw output with a0 and c0
-#' efourier(coo, raw = TRUE)
+#' eft(coo, raw = TRUE)
 #'
 #' # With more harmonics
-#' efourier(coo, nb_h = 10)
+#' eft(coo, nb_h = 10)
 #'
 #' # List of outlines
 #' coo_list <- list(coo, coo * 1.5, coo * 2)
-#' efourier(coo_list)
+#' eft(coo_list)
 #'
 #' \dontrun{
 #' # Tibble (requires coo column)
 #' library(dplyr)
 #' bot %>%
-#'   efourier(nb_h = 8)
+#'   eft(nb_h = 8)
 #'
 #' # Specify column explicitly
 #' bot %>%
-#'   efourier(.cols = coo, .name = "eft_coefs")
+#'   eft(.cols = coo, .name = "eft_coefs")
 #' }
 #'
-#' @seealso [efourier_i()] for inverse transform, [efourier_norm()] for numeric normalisation.
+#' @seealso [eft_i()] for inverse transform, [eft_norm()] for numeric normalisation.
 #'
 #' @export
-efourier <- function(x, nb_h = 6, raw = FALSE, ..., .cols = NULL, .name = "coe") {
+eft <- function(x, nb_h = 6, raw = FALSE, ..., .cols = NULL, .name = "coe") {
 
   # Single matrix case
   if (is.matrix(x)) {
-    return(.efourier(x, nb_h = nb_h, raw = raw))
+    return(.eft(x, nb_h = nb_h, raw = raw))
   }
 
   # List case
   if (is.list(x) && !is.data.frame(x)) {
-    result <- lapply(x, .efourier, nb_h = nb_h, raw = FALSE)
+    result <- lapply(x, .eft, nb_h = nb_h, raw = FALSE)
     class(result) <- c("eft", "coe", "list")
     return(result)
   }
@@ -120,7 +120,7 @@ efourier <- function(x, nb_h = 6, raw = FALSE, ..., .cols = NULL, .name = "coe")
     }
 
     # Compute coefficients for each row
-    result_list <- lapply(x[[col]], .efourier, nb_h = nb_h, raw = FALSE)
+    result_list <- lapply(x[[col]], .eft, nb_h = nb_h, raw = FALSE)
 
     # Add appropriate classes
     class(result_list) <- c("eft", "coe", "list")
@@ -135,10 +135,10 @@ efourier <- function(x, nb_h = 6, raw = FALSE, ..., .cols = NULL, .name = "coe")
 }
 
 
-# .efourier (internal worker) ----
+# .eft (internal worker) ----
 
 #' @keywords internal
-.efourier <- function(x, nb_h = 6, raw = FALSE) {
+.eft <- function(x, nb_h = 6, raw = FALSE) {
   coo <- x
   nr <- nrow(x)
 
@@ -175,19 +175,19 @@ efourier <- function(x, nb_h = 6, raw = FALSE, ..., .cols = NULL, .name = "coe")
     list(an = an, bn = bn, cn = cn, dn = dn, a0 = a0, c0 = c0)
   } else {
     coefs <- c(an, bn, cn, dn)
-    coefs <- efourier_name(coefs)
+    coefs <- eft_name(coefs)
     class(coefs) <- c("eft", "numeric")
     coefs
   }
 }
 
-# efourier_i ----
+# eft_i ----
 
 #' Inverse elliptic Fourier transform
 #'
 #' Reconstruct outline coordinates from elliptic Fourier coefficients.
 #'
-#' @param x A numeric vector, list (from raw efourier), list of vectors, or
+#' @param x A numeric vector, list (from raw eft), list of vectors, or
 #'   tibble with coe columns.
 #' @param nb_h Integer. Number of harmonics to use for reconstruction. If `NULL`,
 #'   uses all available harmonics.
@@ -216,46 +216,46 @@ efourier <- function(x, nb_h = 6, raw = FALSE, ..., .cols = NULL, .name = "coe")
 #' @examples
 #' # Single outline
 #' coo <- matrix(runif(100), ncol = 2)
-#' coefs <- efourier(coo, nb_h = 6)
+#' coefs <- eft(coo, nb_h = 6)
 #'
 #' # Reconstruct with all harmonics
-#' coo_reconstructed <- efourier_i(coefs)
+#' coo_reconstructed <- eft_i(coefs)
 #'
 #' # Reconstruct with fewer harmonics (smoothing)
-#' coo_smooth <- efourier_i(coefs, nb_h = 3)
+#' coo_smooth <- eft_i(coefs, nb_h = 3)
 #'
 #' # From raw output
-#' coefs_raw <- efourier(coo, raw = TRUE)
-#' efourier_i(coefs_raw)
+#' coefs_raw <- eft(coo, raw = TRUE)
+#' eft_i(coefs_raw)
 #'
 #' \dontrun{
 #' # Tibble workflow
 #' library(dplyr)
 #' bot %>%
-#'   efourier() %>%
-#'   efourier_i()
+#'   eft() %>%
+#'   eft_i()
 #'
 #' # Custom column names
 #' bot %>%
-#'   efourier(.name = "eft") %>%
-#'   efourier_i(.cols = eft, .name = "coo_reconstructed")
+#'   eft(.name = "eft") %>%
+#'   eft_i(.cols = eft, .name = "coo_reconstructed")
 #' }
 #'
-#' @seealso [efourier()] for forward transform
+#' @seealso [eft()] for forward transform
 #'
 #' @export
-efourier_i <- function(x, nb_h = NULL, nb_pts = 120, ..., .cols = NULL, .name = NULL) {
+eft_i <- function(x, nb_h = NULL, nb_pts = 120, ..., .cols = NULL, .name = NULL) {
 
   # Single vector or raw list case
   if (is.numeric(x) || (is.list(x) && !is.data.frame(x) &&
                         all(c("an", "bn", "cn", "dn") %in% names(x)))) {
-    return(.efourier_i(x, nb_h = nb_h, nb_pts = nb_pts))
+    return(.eft_i(x, nb_h = nb_h, nb_pts = nb_pts))
   }
 
   # List of vectors case
   if (is.list(x) && !is.data.frame(x)) {
-    result <- lapply(x, .efourier_i, nb_h = nb_h, nb_pts = nb_pts)
-    class(result) <- c("coo", "list")
+    result <- lapply(x, .eft_i, nb_h = nb_h, nb_pts = nb_pts)
+    class(result) <- c("out", "coo", "list")
     return(result)
   }
 
@@ -289,10 +289,10 @@ efourier_i <- function(x, nb_h = NULL, nb_pts = 120, ..., .cols = NULL, .name = 
     }
 
     # Reconstruct for each row
-    result_list <- lapply(x[[col]], .efourier_i, nb_h = nb_h, nb_pts = nb_pts)
+    result_list <- lapply(x[[col]], .eft_i, nb_h = nb_h, nb_pts = nb_pts)
 
     # Add appropriate classes
-    class(result_list) <- c("coo", "list")
+    class(result_list) <- c("out", "coo", "list")
 
     # Add to tibble
     x[[.name]] <- result_list
@@ -304,13 +304,13 @@ efourier_i <- function(x, nb_h = NULL, nb_pts = 120, ..., .cols = NULL, .name = 
 }
 
 
-# .efourier_i (internal worker) ----
+# .eft_i (internal worker) ----
 
 #' @keywords internal
-.efourier_i <- function(x, nb_h = NULL, nb_pts = 120) {
+.eft_i <- function(x, nb_h = NULL, nb_pts = 120) {
   # If vector, turn it into a list
   if (!is.list(x)) {
-    x <- efourier_split(x)
+    x <- eft_split(x)
     x$a0 <- 0
     x$c0 <- 0
   }
@@ -360,7 +360,7 @@ efourier_i <- function(x, nb_h = NULL, nb_pts = 120, ..., .cols = NULL, .name = 
 }
 
 
-# efourier_norm ----
+# eft_norm ----
 
 #' Normalize elliptic Fourier coefficients
 #'
@@ -416,13 +416,13 @@ efourier_i <- function(x, nb_h = NULL, nb_pts = 120, ..., .cols = NULL, .name = 
 #' @examples
 #' # Single outline
 #' coo <- matrix(runif(100), ncol = 2)
-#' coefs <- efourier(coo, nb_h = 6)
+#' coefs <- eft(coo, nb_h = 6)
 #'
 #' # Normalize
-#' coefs_norm <- efourier_norm(coefs)
+#' coefs_norm <- eft_norm(coefs)
 #'
 #' # Preserve starting point
-#' coefs_norm_start <- efourier_norm(coefs, start = TRUE)
+#' coefs_norm_start <- eft_norm(coefs, start = TRUE)
 #'
 #' # Compare first harmonic before/after
 #' coefs[1:4]
@@ -432,33 +432,33 @@ efourier_i <- function(x, nb_h = NULL, nb_pts = 120, ..., .cols = NULL, .name = 
 #' # Typical workflow with tibble
 #' library(dplyr)
 #' bot %>%
-#'   efourier(nb_h = 8) %>%
-#'   efourier_norm()  # Normalizes in place
+#'   eft(nb_h = 8) %>%
+#'   eft_norm()  # Normalizes in place
 #'
 #' # Create new column instead
 #' bot %>%
-#'   efourier(nb_h = 8) %>%
-#'   efourier_norm(.name = "coe_norm")
+#'   eft(nb_h = 8) %>%
+#'   eft_norm(.name = "coe_norm")
 #' }
 #'
 #' @references
 #' Kuhl, F. P., & Giardina, C. R. (1982). Elliptic Fourier features of a closed
 #' contour. Computer graphics and image processing, 18(3), 236-258.
 #'
-#' @seealso [efourier()] for coefficient computation, [efourier_i()] for
+#' @seealso [eft()] for coefficient computation, [eft_i()] for
 #'   reconstruction.
 #'
 #' @export
-efourier_norm <- function(x, start = FALSE, ..., .cols = NULL, .name = NULL) {
+eft_norm <- function(x, start = FALSE, ..., .cols = NULL, .name = NULL) {
 
   # Single vector case
   if (is.numeric(x) && !is.matrix(x)) {
-    return(.efourier_norm(x, start = start))
+    return(.eft_norm(x, start = start))
   }
 
   # List case
   if (is.list(x) && !is.data.frame(x)) {
-    result <- lapply(x, .efourier_norm, start = start)
+    result <- lapply(x, .eft_norm, start = start)
     class(result) <- c("eft", "coe", "list")
     return(result)
   }
@@ -496,7 +496,7 @@ efourier_norm <- function(x, start = FALSE, ..., .cols = NULL, .name = NULL) {
     }
 
     # Normalize each row
-    result_list <- lapply(x[[col]], .efourier_norm, start = start)
+    result_list <- lapply(x[[col]], .eft_norm, start = start)
 
     # Add appropriate classes
     class(result_list) <- c("eft", "coe", "list")
@@ -511,12 +511,12 @@ efourier_norm <- function(x, start = FALSE, ..., .cols = NULL, .name = NULL) {
 }
 
 
-# .efourier_norm (internal worker) ----
+# .eft_norm (internal worker) ----
 
 #' @keywords internal
-.efourier_norm <- function(x, start = FALSE) {
+.eft_norm <- function(x, start = FALSE) {
   # Split vector into components
-  ef <- efourier_split(x)
+  ef <- eft_split(x)
 
   # Extract first harmonic
   A1 <- ef$an[1]
@@ -585,7 +585,7 @@ efourier_norm <- function(x, start = FALSE, ..., .cols = NULL, .name = NULL) {
 
   # Create output vector in standard format
   result <- c(A, B, C, D)
-  result <- efourier_name(result)
+  result <- eft_name(result)
   class(result) <- c("eft", "numeric")
 
   # Store normalization parameters as attributes
@@ -596,7 +596,7 @@ efourier_norm <- function(x, start = FALSE, ..., .cols = NULL, .name = NULL) {
   result
 }
 
-# efourier_name ----
+# eft_name ----
 
 #' Name elliptic Fourier coefficients
 #'
@@ -614,10 +614,10 @@ efourier_norm <- function(x, start = FALSE, ..., .cols = NULL, .name = NULL) {
 #' @examples
 #' # Create unnamed coefficient vector
 #' coefs <- runif(24)  # 6 harmonics
-#' efourier_name(coefs)
+#' eft_name(coefs)
 #'
 #' @export
-efourier_name <- function(x) {
+eft_name <- function(x) {
   n <- floor(length(x) / 4)
   names(x) <- paste0(
     rep(LETTERS[1:4], each = n),  # coefficient name
@@ -627,7 +627,7 @@ efourier_name <- function(x) {
 }
 
 
-# efourier_split ----
+# eft_split ----
 
 #' Split EFT coefficient vector into components
 #'
@@ -643,13 +643,13 @@ efourier_name <- function(x) {
 #'
 #' @examples
 #' # Create coefficient vector
-#' coefs <- efourier(matrix(runif(100), ncol = 2), nb_h = 6)
-#' efourier_split(coefs)
+#' coefs <- eft(matrix(runif(100), ncol = 2), nb_h = 6)
+#' eft_split(coefs)
 #'
-#' @seealso [efourier()] to generate coefficients
+#' @seealso [eft()] to generate coefficients
 #'
 #' @export
-efourier_split <- function(x) {
+eft_split <- function(x) {
   # Deduce harmonic number
   nb_h <- length(x) / 4
 
