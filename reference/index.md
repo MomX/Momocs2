@@ -15,6 +15,29 @@
 - [`eft_split()`](https://momx.github.io/Momocs2/reference/eft_split.md)
   : Split EFT coefficient vector into components
 
+### Curves
+
+- [`opoly()`](https://momx.github.io/Momocs2/reference/opoly.md) :
+  Orthogonal Polynomial Transform
+- [`opoly_i()`](https://momx.github.io/Momocs2/reference/opoly_i.md) :
+  Inverse orthogonal polynomial transform
+- [`opoly_name()`](https://momx.github.io/Momocs2/reference/opoly_name.md)
+  : Name orthogonal polynomial coefficients
+- [`npoly()`](https://momx.github.io/Momocs2/reference/npoly.md) :
+  Natural Polynomial Transform
+- [`npoly_i()`](https://momx.github.io/Momocs2/reference/npoly_i.md) :
+  Inverse natural polynomial transform
+- [`npoly_name()`](https://momx.github.io/Momocs2/reference/npoly_name.md)
+  : Name natural polynomial coefficients
+- [`dct()`](https://momx.github.io/Momocs2/reference/dct.md) : Discrete
+  Cosine Transform
+- [`dct_i()`](https://momx.github.io/Momocs2/reference/dct_i.md) :
+  Inverse discrete cosine transform
+- [`dct_name()`](https://momx.github.io/Momocs2/reference/dct_name.md) :
+  Name discrete cosine transform coefficients
+- [`dct_split()`](https://momx.github.io/Momocs2/reference/dct_split.md)
+  : Split DCT coefficient vector into components
+
 ## Classes and printers
 
 Mostly cosmetics
@@ -45,10 +68,11 @@ Exposed extending helpers
 - [`make_get_function()`](https://momx.github.io/Momocs2/reference/make_get_function.md)
   : Create a get function with automatic dispatch
 - [`get_coo_cols()`](https://momx.github.io/Momocs2/reference/get_coo_cols.md)
+  [`get_all_coo_cols()`](https://momx.github.io/Momocs2/reference/get_coo_cols.md)
   : Identify coo columns in a tibble
 - [`get_coe_cols()`](https://momx.github.io/Momocs2/reference/get_coe_cols.md)
   [`get_all_coe_cols()`](https://momx.github.io/Momocs2/reference/get_coe_cols.md)
-  : Identify coe columns in a tibble Get coefficient column name(s)
+  : Identify coe columns in a tibble
 
 ## Verbs
 

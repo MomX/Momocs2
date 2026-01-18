@@ -1,4 +1,4 @@
-# Identify coe columns in a tibble Get coefficient column name(s)
+# Identify coe columns in a tibble
 
 Detect and return the name of coefficient column(s) in a tibble. These
 functions look for columns with class `"coe"` in their class hierarchy.
@@ -45,7 +45,11 @@ class hierarchy. This includes:
 
 - Columns with class `c("eft", "coe", "list")`
 
-- Columns with class `c("out", "coe", "list")`
+- Columns with class `c("opoly", "coe", "list")`
+
+- Columns with class `c("npoly", "coe", "list")`
+
+- Columns with class `c("dct", "coe", "list")`
 
 - Any other combination where `"coe"` is present
 
@@ -70,47 +74,68 @@ output columns.
 If automatic detection fails or you want to use a specific column, use
 the `.cols` argument in `get_coe_cols()`:
 
-    get_coe_cols(df, .cols = "my_coefficients")
+    get_coe_cols(df, .cols = "VD_coe")
     get_coe_cols(df, .cols = 2)  # Second column
 
 ## See also
 
-[`fold()`](https://momx.github.io/Momocs2/reference/fold.md),
-[`unfold()`](https://momx.github.io/Momocs2/reference/unfold.md),
+[`get_coo_cols()`](https://momx.github.io/Momocs2/reference/get_coo_cols.md),
+[`get_all_coo_cols()`](https://momx.github.io/Momocs2/reference/get_coo_cols.md),
+[`opoly()`](https://momx.github.io/Momocs2/reference/opoly.md),
+[`npoly()`](https://momx.github.io/Momocs2/reference/npoly.md),
+[`dct()`](https://momx.github.io/Momocs2/reference/dct.md),
 [`eft()`](https://momx.github.io/Momocs2/reference/eft.md)
 
 ## Examples
 
 ``` r
-# Create sample data with coefficient columns
-df <- tibble::tibble(
-  id = 1:3,
-  coe = list(1:5, 2:6, 3:7)
-)
-class(df$coe) <- c("eft", "coe", "list")
-
-# Get single coe column
-get_coe_cols(df)
+# Single coe column
+data(bot)
+bot_eft <- bot %>% eft()
+#> Using coo column: 'coo'
+#> Using nb_h = 6 harmonics (default)
+get_coe_cols(bot_eft)
 #> [1] "coe"
 # [1] "coe"
 
 # Multiple coe columns
-df$coe2 <- df$coe
-class(df$coe2) <- c("coe", "list")
+data(olea)
+olea_poly <- olea %>% opoly()
+#> Processing coo column(s): VD, VL
+#> Using degree = 5 (default)
+get_all_coe_cols(olea_poly)
+#> [1] "VD_coe" "VL_coe"
+# [1] "VD_coe" "VL_coe"
 
 # get_coe_cols() errors with multiple
-try(get_coe_cols(df))
-#> Error in get_coe_cols(df) : 
-#>   Multiple coe columns found: coe, coe2. Use .cols to specify which one.
-# Error: Multiple coe columns found: coe, coe2
+try(get_coe_cols(olea_poly))
+#> Error in get_coe_cols(olea_poly) : 
+#>   Multiple coe columns found: VD_coe, VL_coe. Use .cols to specify which one.
+# Error: Multiple coe columns found: VD_coe, VL_coe
 
 # But can specify explicitly
-get_coe_cols(df, .cols = "coe")
-#> [1] "coe"
-# [1] "coe"
+get_coe_cols(olea_poly, .cols = "VD_coe")
+#> [1] "VD_coe"
+# [1] "VD_coe"
 
-# get_all_coe_cols() returns all
-get_all_coe_cols(df)
-#> [1] "coe"  "coe2"
-# [1] "coe"  "coe2"
+# Use with inverse transforms
+olea %>%
+  opoly() %>%
+  opoly_i(.cols = get_coe_cols(., "VD_coe"))
+#> Processing coo column(s): VD, VL
+#> Using degree = 5 (default)
+#> # A tibble: 90 × 8
+#>    id    VD        VL        var   status VD_coe  VL_coe  VD_coe_i 
+#>    <chr> <cur>     <cur>     <fct> <fct>  <opoly> <opoly> <opn>    
+#>  1 Ag1   (99 x 2)  (96 x 2)  Aglan cult   6 op    6 op    (120 x 2)
+#>  2 Ag2   (95 x 2)  (104 x 2) Aglan cult   6 op    6 op    (120 x 2)
+#>  3 Ag3   (101 x 2) (94 x 2)  Aglan cult   6 op    6 op    (120 x 2)
+#>  4 Ag4   (100 x 2) (93 x 2)  Aglan cult   6 op    6 op    (120 x 2)
+#>  5 Ag5   (102 x 2) (108 x 2) Aglan cult   6 op    6 op    (120 x 2)
+#>  6 Ag6   (98 x 2)  (93 x 2)  Aglan cult   6 op    6 op    (120 x 2)
+#>  7 Ag7   (100 x 2) (107 x 2) Aglan cult   6 op    6 op    (120 x 2)
+#>  8 Ag8   (100 x 2) (93 x 2)  Aglan cult   6 op    6 op    (120 x 2)
+#>  9 Ag9   (99 x 2)  (94 x 2)  Aglan cult   6 op    6 op    (120 x 2)
+#> 10 Ag10  (100 x 2) (95 x 2)  Aglan cult   6 op    6 op    (120 x 2)
+#> # ℹ 80 more rows
 ```

@@ -11,7 +11,7 @@ olea
 
 ## Format
 
-A data frame with 20 rows and three columns
+A data frame with 90 rows (three accessions):
 
 - id:
 

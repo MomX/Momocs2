@@ -114,11 +114,11 @@ coefs_norm_start <- eft_norm(coefs, start = TRUE)
 
 # Compare first harmonic before/after
 coefs[1:4]
-#>          A1          A2          A3          A4 
-#> -0.07188682 -0.02530000  0.04252666 -0.03175744 
+#>           A1           A2           A3           A4 
+#>  0.006353847 -0.015161683 -0.003347239 -0.044967571 
 coefs_norm[1:4]
 #>         A1         A2         A3         A4 
-#>  1.0000000  1.1182033 -0.5510850 -0.1854224 
+#> -1.0000000  0.2620938 -0.8666344  0.5184824 
 
 if (FALSE) { # \dontrun{
 # Typical workflow with tibble
