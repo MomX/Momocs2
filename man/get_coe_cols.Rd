@@ -3,8 +3,7 @@
 \name{get_coe_cols}
 \alias{get_coe_cols}
 \alias{get_all_coe_cols}
-\title{Identify coe columns in a tibble
-Get coefficient column name(s)}
+\title{Identify coe columns in a tibble}
 \usage{
 get_coe_cols(df, .cols = NULL)
 
@@ -39,7 +38,9 @@ hierarchy. This includes:
 \itemize{
 \item Columns with class \code{c("coe", "list")}
 \item Columns with class \code{c("eft", "coe", "list")}
-\item Columns with class \code{c("out", "coe", "list")}
+\item Columns with class \code{c("opoly", "coe", "list")}
+\item Columns with class \code{c("npoly", "coe", "list")}
+\item Columns with class \code{c("dct", "coe", "list")}
 \item Any other combination where \code{"coe"} is present
 }
 
@@ -65,40 +66,38 @@ All morphometric methods automatically add the \code{"coe"} class to their outpu
 If automatic detection fails or you want to use a specific column,
 use the \code{.cols} argument in \code{get_coe_cols()}:
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{get_coe_cols(df, .cols = "my_coefficients")
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{get_coe_cols(df, .cols = "VD_coe")
 get_coe_cols(df, .cols = 2)  # Second column
 }\if{html}{\out{</div>}}
 }
 }
 \examples{
-# Create sample data with coefficient columns
-df <- tibble::tibble(
-  id = 1:3,
-  coe = list(1:5, 2:6, 3:7)
-)
-class(df$coe) <- c("eft", "coe", "list")
-
-# Get single coe column
-get_coe_cols(df)
+# Single coe column
+data(bot)
+bot_eft <- bot \%>\% eft()
+get_coe_cols(bot_eft)
 # [1] "coe"
 
 # Multiple coe columns
-df$coe2 <- df$coe
-class(df$coe2) <- c("coe", "list")
+data(olea)
+olea_poly <- olea \%>\% opoly()
+get_all_coe_cols(olea_poly)
+# [1] "VD_coe" "VL_coe"
 
 # get_coe_cols() errors with multiple
-try(get_coe_cols(df))
-# Error: Multiple coe columns found: coe, coe2
+try(get_coe_cols(olea_poly))
+# Error: Multiple coe columns found: VD_coe, VL_coe
 
 # But can specify explicitly
-get_coe_cols(df, .cols = "coe")
-# [1] "coe"
+get_coe_cols(olea_poly, .cols = "VD_coe")
+# [1] "VD_coe"
 
-# get_all_coe_cols() returns all
-get_all_coe_cols(df)
-# [1] "coe"  "coe2"
+# Use with inverse transforms
+olea \%>\%
+  opoly() \%>\%
+  opoly_i(.cols = get_coe_cols(., "VD_coe"))
 
 }
 \seealso{
-\code{\link[=fold]{fold()}}, \code{\link[=unfold]{unfold()}}, \code{\link[=eft]{eft()}}
+\code{\link[=get_coo_cols]{get_coo_cols()}}, \code{\link[=get_all_coo_cols]{get_all_coo_cols()}}, \code{\link[=opoly]{opoly()}}, \code{\link[=npoly]{npoly()}}, \code{\link[=dct]{dct()}}, \code{\link[=eft]{eft()}}
 }

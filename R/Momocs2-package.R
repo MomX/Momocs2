@@ -7,7 +7,7 @@
 NULL
 
 #' @importFrom grDevices dev.cur dev.new
-#' @importFrom stats runif var approx dist sd
+#' @importFrom stats runif var approx dist sd lm poly predict
 #' @importFrom graphics abline axis lines par points segments text plot
 #' @importFrom utils head tail
 #' @importFrom rlang := .data

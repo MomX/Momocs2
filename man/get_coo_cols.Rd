@@ -2,36 +2,90 @@
 % Please edit documentation in R/utils-listcolumns.R
 \name{get_coo_cols}
 \alias{get_coo_cols}
+\alias{get_all_coo_cols}
 \title{Identify coo columns in a tibble}
 \usage{
 get_coo_cols(df, .cols = NULL)
+
+get_all_coo_cols(df)
 }
 \arguments{
 \item{df}{A tibble or data.frame.}
 
-\item{.cols}{Character vector or NULL. If specified, use these column names.
-If NULL, auto-detect columns containing coo objects or matrices.}
+\item{.cols}{Character vector, integer, logical, or NULL. If specified,
+use these column names/positions. If NULL, auto-detect columns containing
+coo objects or matrices.}
 }
 \value{
-Character vector of column names to process.
+\itemize{
+\item \code{get_coo_cols()}: Character string with single column name
+\item \code{get_all_coo_cols()}: Character vector with all coo column names
+}
 }
 \description{
 Detect which columns in a tibble/data.frame contain coo objects
-or list columns of matrices.
+(coordinate matrices) or list columns of matrices.
 }
 \details{
+\subsection{Detection strategy}{
+
+Both functions look for columns that contain coordinate data (matrices).
 Detection priority:
 \enumerate{
 \item Columns with class "coo" (list of matrices with coo class)
 \item List columns where all elements are matrices
 }
+}
 
-When multiple qualifying columns exist, an error is raised and user must
-specify \code{.cols} explicitly.
+\subsection{Differences between functions}{
+\itemize{
+\item \strong{\code{get_coo_cols()}}: Returns a single column name. Errors if:
+\itemize{
+\item No coo columns found
+\item Multiple coo columns found (user must specify \code{.cols})
+}
+\item \strong{\code{get_all_coo_cols()}}: Returns all coo column names as a vector. Errors only if:
+\itemize{
+\item No coo columns found
+}
+}
+}
+
+\subsection{Manual specification}{
+
+If automatic detection fails or you want to use a specific column,
+use the \code{.cols} argument:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{get_coo_cols(df, .cols = "VD")
+get_coo_cols(df, .cols = 1)  # First column
+}\if{html}{\out{</div>}}
+}
 }
 \examples{
+# Single coo column dataset
+data(bot)
 get_coo_cols(bot)
-get_coo_cols(bot, "coo")
+# [1] "coo"
 
+# Multiple coo columns dataset
+data(olea)
+get_all_coo_cols(olea)
+# [1] "VD" "VL"
+
+# get_coo_cols() errors with multiple columns
+try(get_coo_cols(olea))
+# Error: Multiple coo columns found: VD, VL
+
+# But can specify explicitly
+get_coo_cols(olea, .cols = "VD")
+# [1] "VD"
+
+# Use with morphometric functions
+olea \%>\%
+  opoly(.cols = get_coo_cols(olea, "VD"))
+
+}
+\seealso{
+\code{\link[=get_coe_cols]{get_coe_cols()}}, \code{\link[=get_all_coe_cols]{get_all_coe_cols()}}
 }
 \keyword{internal}

@@ -5,7 +5,7 @@
 \alias{olea}
 \title{Olea dataset}
 \format{
-A data frame with 20 rows and three columns
+A data frame with 90 rows (three accessions):
 \describe{
 \item{id}{unique id}
 \item{VD}{curves coordinates for dorsal view}

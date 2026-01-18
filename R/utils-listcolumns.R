@@ -3,25 +3,68 @@
 #' Identify coo columns in a tibble
 #'
 #' Detect which columns in a tibble/data.frame contain coo objects
-#' or list columns of matrices.
+#' (coordinate matrices) or list columns of matrices.
 #'
 #' @param df A tibble or data.frame.
-#' @param .cols Character vector or NULL. If specified, use these column names.
-#'   If NULL, auto-detect columns containing coo objects or matrices.
+#' @param .cols Character vector, integer, logical, or NULL. If specified,
+#'   use these column names/positions. If NULL, auto-detect columns containing
+#'   coo objects or matrices.
 #'
-#' @return Character vector of column names to process.
+#' @return
+#' * `get_coo_cols()`: Character string with single column name
+#' * `get_all_coo_cols()`: Character vector with all coo column names
 #'
 #' @details
+#' ## Detection strategy
+#'
+#' Both functions look for columns that contain coordinate data (matrices).
 #' Detection priority:
 #' 1. Columns with class "coo" (list of matrices with coo class)
 #' 2. List columns where all elements are matrices
 #'
-#' When multiple qualifying columns exist, an error is raised and user must
-#' specify `.cols` explicitly.
+#' ## Differences between functions
+#'
+#' * **`get_coo_cols()`**: Returns a single column name. Errors if:
+#'   - No coo columns found
+#'   - Multiple coo columns found (user must specify `.cols`)
+#'
+#' * **`get_all_coo_cols()`**: Returns all coo column names as a vector. Errors only if:
+#'   - No coo columns found
+#'
+#' ## Manual specification
+#'
+#' If automatic detection fails or you want to use a specific column,
+#' use the `.cols` argument:
+#'
+#' ```r
+#' get_coo_cols(df, .cols = "VD")
+#' get_coo_cols(df, .cols = 1)  # First column
+#' ```
 #'
 #' @examples
+#' # Single coo column dataset
+#' data(bot)
 #' get_coo_cols(bot)
-#' get_coo_cols(bot, "coo")
+#' # [1] "coo"
+#'
+#' # Multiple coo columns dataset
+#' data(olea)
+#' get_all_coo_cols(olea)
+#' # [1] "VD" "VL"
+#'
+#' # get_coo_cols() errors with multiple columns
+#' try(get_coo_cols(olea))
+#' # Error: Multiple coo columns found: VD, VL
+#'
+#' # But can specify explicitly
+#' get_coo_cols(olea, .cols = "VD")
+#' # [1] "VD"
+#'
+#' # Use with morphometric functions
+#' olea %>%
+#'   opoly(.cols = get_coo_cols(olea, "VD"))
+#'
+#' @seealso [get_coe_cols()], [get_all_coe_cols()]
 #'
 #' @keywords internal
 #' @export
@@ -81,11 +124,23 @@ get_coo_cols <- function(df, .cols = NULL) {
 }
 
 
-# get_coe ------
+#' @rdname get_coo_cols
+#' @export
+get_all_coo_cols <- function(df) {
+  # Look for all columns with class "coo"
+  coo_cols <- names(df)[vapply(df, function(col) "coo" %in% class(col), logical(1))]
+
+  if (length(coo_cols) == 0) {
+    stop("No columns with class 'coo' found.")
+  }
+
+  coo_cols
+}
+
+
+# get_coe_cols ----
 
 #' Identify coe columns in a tibble
-
-#' Get coefficient column name(s)
 #'
 #' Detect and return the name of coefficient column(s) in a tibble. These functions
 #' look for columns with class `"coe"` in their class hierarchy.
@@ -108,7 +163,9 @@ get_coo_cols <- function(df, .cols = NULL) {
 #' hierarchy. This includes:
 #' * Columns with class `c("coe", "list")`
 #' * Columns with class `c("eft", "coe", "list")`
-#' * Columns with class `c("out", "coe", "list")`
+#' * Columns with class `c("opoly", "coe", "list")`
+#' * Columns with class `c("npoly", "coe", "list")`
+#' * Columns with class `c("dct", "coe", "list")`
 #' * Any other combination where `"coe"` is present
 #'
 #' All morphometric methods automatically add the `"coe"` class to their output columns.
@@ -128,39 +185,37 @@ get_coo_cols <- function(df, .cols = NULL) {
 #' use the `.cols` argument in `get_coe_cols()`:
 #'
 #' ```r
-#' get_coe_cols(df, .cols = "my_coefficients")
+#' get_coe_cols(df, .cols = "VD_coe")
 #' get_coe_cols(df, .cols = 2)  # Second column
 #' ```
 #'
 #' @examples
-#' # Create sample data with coefficient columns
-#' df <- tibble::tibble(
-#'   id = 1:3,
-#'   coe = list(1:5, 2:6, 3:7)
-#' )
-#' class(df$coe) <- c("eft", "coe", "list")
-#'
-#' # Get single coe column
-#' get_coe_cols(df)
+#' # Single coe column
+#' data(bot)
+#' bot_eft <- bot %>% eft()
+#' get_coe_cols(bot_eft)
 #' # [1] "coe"
 #'
 #' # Multiple coe columns
-#' df$coe2 <- df$coe
-#' class(df$coe2) <- c("coe", "list")
+#' data(olea)
+#' olea_poly <- olea %>% opoly()
+#' get_all_coe_cols(olea_poly)
+#' # [1] "VD_coe" "VL_coe"
 #'
 #' # get_coe_cols() errors with multiple
-#' try(get_coe_cols(df))
-#' # Error: Multiple coe columns found: coe, coe2
+#' try(get_coe_cols(olea_poly))
+#' # Error: Multiple coe columns found: VD_coe, VL_coe
 #'
 #' # But can specify explicitly
-#' get_coe_cols(df, .cols = "coe")
-#' # [1] "coe"
+#' get_coe_cols(olea_poly, .cols = "VD_coe")
+#' # [1] "VD_coe"
 #'
-#' # get_all_coe_cols() returns all
-#' get_all_coe_cols(df)
-#' # [1] "coe"  "coe2"
+#' # Use with inverse transforms
+#' olea %>%
+#'   opoly() %>%
+#'   opoly_i(.cols = get_coe_cols(., "VD_coe"))
 #'
-#' @seealso [fold()], [unfold()], [eft()]
+#' @seealso [get_coo_cols()], [get_all_coo_cols()], [opoly()], [npoly()], [dct()], [eft()]
 #'
 #' @export
 get_coe_cols <- function(df, .cols = NULL) {

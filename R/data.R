@@ -100,7 +100,9 @@
 #                 id=paste0(stringr::str_sub(var, 1, 2), 1:dplyr::n())) %>%
 #   dplyr::select(id, VD, VL, var, status=domes) %>%
 #   dplyr::ungroup() -> olea
-# usethis::use_data(olea)
+# olea <- olea[!(purrr::map_lgl(olea$VL, ~is.null(.x)) | purrr::map_lgl(olea$VL, ~is.null(.x))), ]
+# olea$var <- factor(olea$var)
+# usethis::use_data(olea, overwrite=T)
 
 #' Olea dataset
 #'
@@ -109,7 +111,7 @@
 #' Olive stones, photographed using two orthogonal views.
 #'
 #' @format
-#' A data frame with 20 rows and three columns
+#' A data frame with 90 rows (three accessions):
 #' \describe{
 #'   \item{id}{unique id}
 #'   \item{VD}{curves coordinates for dorsal view}

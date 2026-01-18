@@ -74,6 +74,12 @@ reference:
   contents:
   - starts_with("eft")
 
+- subtitle: "Curves"
+  contents:
+  - starts_with("opoly")
+  - starts_with("npoly")
+  - starts_with("dct")
+
 - title: "Classes and printers"
   desc: "Mostly cosmetics"
   contents:
