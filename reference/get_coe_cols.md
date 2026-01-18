@@ -77,7 +77,7 @@ the `.cols` argument in `get_coe_cols()`:
 
 [`fold()`](https://momx.github.io/Momocs2/reference/fold.md),
 [`unfold()`](https://momx.github.io/Momocs2/reference/unfold.md),
-[`efourier()`](https://momx.github.io/Momocs2/reference/efourier.md)
+[`eft()`](https://momx.github.io/Momocs2/reference/eft.md)
 
 ## Examples
 

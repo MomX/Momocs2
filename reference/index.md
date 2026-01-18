@@ -4,15 +4,15 @@
 
 ### Outlines
 
-- [`efourier()`](https://momx.github.io/Momocs2/reference/efourier.md) :
-  Elliptic Fourier Transform
-- [`efourier_i()`](https://momx.github.io/Momocs2/reference/efourier_i.md)
-  : Inverse elliptic Fourier transform
-- [`efourier_name()`](https://momx.github.io/Momocs2/reference/efourier_name.md)
-  : Name elliptic Fourier coefficients
-- [`efourier_norm()`](https://momx.github.io/Momocs2/reference/efourier_norm.md)
-  : Normalize elliptic Fourier coefficients
-- [`efourier_split()`](https://momx.github.io/Momocs2/reference/efourier_split.md)
+- [`eft()`](https://momx.github.io/Momocs2/reference/eft.md) : Elliptic
+  Fourier Transform
+- [`eft_i()`](https://momx.github.io/Momocs2/reference/eft_i.md) :
+  Inverse elliptic Fourier transform
+- [`eft_name()`](https://momx.github.io/Momocs2/reference/eft_name.md) :
+  Name elliptic Fourier coefficients
+- [`eft_norm()`](https://momx.github.io/Momocs2/reference/eft_norm.md) :
+  Normalize elliptic Fourier coefficients
+- [`eft_split()`](https://momx.github.io/Momocs2/reference/eft_split.md)
   : Split EFT coefficient vector into components
 
 ## Classes and printers
@@ -74,6 +74,8 @@ To play with
 - [`bot`](https://momx.github.io/Momocs2/reference/bot.md) : Bottles
   dataset
 - [`hearts`](https://momx.github.io/Momocs2/reference/hearts.md) : Heart
+  dataset
+- [`olea`](https://momx.github.io/Momocs2/reference/olea.md) : Olea
   dataset
 - [`wings`](https://momx.github.io/Momocs2/reference/wings.md) : Wings
   dataset
