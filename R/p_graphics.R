@@ -144,6 +144,10 @@ p <- function(x, xlim, ylim, axes=TRUE){
 #' @rdname p
 #' @export
 draw_landmarks <- function(x, col="grey20", pch=3, cex=0.25, ...){
+
+  if (!is.list(x) | is.data.frame(x))
+    x <- list(x)
+
   for (i in seq_along(x))
     points(x[[i]], col=col, pch=pch, cex=cex, ...)
   invisible(x)
@@ -152,6 +156,10 @@ draw_landmarks <- function(x, col="grey20", pch=3, cex=0.25, ...){
 #' @rdname p
 #' @export
 draw_landmarks_as_numbers <- function(x, col="grey20", pch=3, cex=0.5, ...){
+
+  if (!is.list(x) | is.data.frame(x))
+    x <- list(x)
+
   for (i in seq_along(x))
     text(x[[i]], labels=1:nrow(x[[i]]), col=col, pch=pch, cex=cex, ...)
   invisible(x)
@@ -160,6 +168,10 @@ draw_landmarks_as_numbers <- function(x, col="grey20", pch=3, cex=0.5, ...){
 #' @rdname p
 #' @export
 draw_outlines <- function(x, col="grey20", lwd=0.2, ...){
+
+  if (!is.list(x) | is.data.frame(x))
+    x <- list(x)
+
   for (i in seq_along(x))
     lines(x[[i]], col=col, lwd=lwd, ...)
   invisible(x)
@@ -168,6 +180,11 @@ draw_outlines <- function(x, col="grey20", lwd=0.2, ...){
 #' @rdname p
 #' @export
 draw_centroid <- function(x, col="orange", cex=1/4, pch=3, ...){
+
+  if (!is.list(x) | is.data.frame(x))
+    x <- list(x)
+
+
   for (i in seq_along(x))
     points(mean(x[[i]][, 1]), mean(x[[i]][, 2]), col=col, pch=pch, cex=cex,  ...)
   invisible(x)
@@ -176,6 +193,11 @@ draw_centroid <- function(x, col="orange", cex=1/4, pch=3, ...){
 #' @rdname p
 #' @export
 draw_first_point <- function(x, col="grey20", cex=1/3, label="v", ...) {
+
+  if (!is.list(x) | is.data.frame(x))
+    x <- list(x)
+
+
   for (i in seq_along(x)){
     # first two points
     p1 <- x[[i]][1, ]

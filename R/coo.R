@@ -1399,6 +1399,185 @@ coo_sample_prop <- make_coo_function(.coo_sample_prop, sync_ldk = TRUE)
   .coo_sample(x, ldk = ldk, n = n)
 }
 
+# coo_sample_cur ----
+#' Sample coordinates for open curves
+#'
+#' Resample an open curve to a different number of points, preserving first and last points.
+#'
+#' @param x A matrix (nx2), list of matrices, or tibble with coo columns.
+#' @param ... Additional arguments passed to internal functions:
+#'   * `n`: Integer. Target number of points (minimum 3)
+#'   * `prop`: Numeric. Proportion of points to keep (0 to 1)
+#' @param .cols Column name(s) to process when `x` is a tibble. If `NULL`,
+#'   automatically detects columns containing coo objects.
+#' @param .ldk_col Character. Name of landmark column. If `NULL`, uses `colname_ldk`.
+#'
+#' @details
+#' * `coo_sample_cur()`: resample to exactly n points via arc-length interpolation
+#' * `coo_sample_cur_prop()`: resample to a proportion of original points
+#'
+#' **Key differences from `coo_sample()`:**
+#' * Designed for open curves (not closed outlines)
+#' * Always preserves EXACT first and last point coordinates
+#' * Does NOT wrap around (no connection from last to first point)
+#' * Samples linearly along the curve from start to end
+#'
+#' These functions are landmark-aware: if landmarks are present, the curve
+#' is resampled segment-by-segment between landmarks, with first and last
+#' points treated as implicit landmarks. Points are distributed proportionally
+#' across segments based on arc length.
+#'
+#' @return
+#' * If `x` is a single matrix: returns the resampled matrix
+#' * If `x` is a list: returns a list of resampled matrices
+#' * If `x` is a tibble: returns the tibble with specified coo columns resampled
+#'
+#' @examples
+#' # Resample open curve to 100 points
+#' data(olea)
+#' curve <- olea$VD[[1]]
+#' coo_sample_cur(curve, n = 100)
+#'
+#' # First and last points are preserved exactly
+#' original <- olea$VD[[1]]
+#' resampled <- coo_sample_cur(original, n = 50)
+#' all.equal(original[1, ], resampled[1, ])      # TRUE
+#' all.equal(original[99, ], resampled[50, ])    # TRUE
+#'
+#' # Resample list
+#' coo_sample_cur(olea$VD[1:5], n = 80)
+#'
+#' # Resample to 50% of points
+#' coo_sample_cur_prop(curve, prop = 0.5)
+#'
+#' # Tibble workflow
+#' olea %>% coo_sample_cur(.cols=VD, n = 60)
+#'
+#' @seealso [coo_sample()] for closed outlines; [get_coords_nb()] for point count;
+#'   [coo_smooth()] for smoothing
+#'
+#' @name coo_sample_cur
+#' @export
+coo_sample_cur <- make_coo_function(.coo_sample_cur, sync_ldk = TRUE)
+
+#' @rdname coo_sample_cur
+#' @export
+coo_sample_cur_prop <- make_coo_function(.coo_sample_cur_prop, sync_ldk = TRUE)
+
+.coo_sample_cur <- function(x, ldk = NULL, n, ...) {
+  if (!is.matrix(x)) return(list(coo = x, ldk = ldk))
+  if (n < 3) stop("n must be at least 3")
+  if (n == nrow(x)) return(list(coo = x, ldk = ldk))
+
+  # Regular sampling (no landmarks)
+  if (is.null(ldk) || length(ldk) == 0) {
+    # OPEN CURVE: preserve first and last points exactly
+    dists <- sqrt(rowSums(diff(x)^2))
+    cum_dists <- c(0, cumsum(dists))
+    perim <- cum_dists[length(cum_dists)]
+
+    # Sample from 0 to perim (full length, no wrapping)
+    target_dists <- seq(0, perim, length = n)
+
+    res <- matrix(NA, n, 2)
+    res[, 1] <- approx(cum_dists, x[, 1], xout = target_dists, rule = 2)$y
+    res[, 2] <- approx(cum_dists, x[, 2], xout = target_dists, rule = 2)$y
+
+    # Force exact endpoints
+    res[1, ] <- x[1, ]
+    res[n, ] <- x[nrow(x), ]
+
+    return(list(coo = res, ldk = NULL))
+  }
+
+  # Landmark-aware sampling for open curves
+  # Treat first and last points as implicit landmarks if not already present
+  if (!1 %in% ldk) ldk <- c(1, ldk)
+  if (!nrow(x) %in% ldk) ldk <- c(ldk, nrow(x))
+
+  ldk_sorted <- sort(unique(ldk))
+  n_ldk <- length(ldk_sorted)
+  n_between <- n - n_ldk
+  if (n_between < 0) stop("n must be at least equal to number of landmarks")
+
+  # Calculate perimeter of each segment (no wrapping for open curves)
+  segment_perims <- numeric(n_ldk - 1)  # n_ldk-1 segments in open curve
+  segments_coords <- vector("list", n_ldk - 1)
+
+  for (i in seq_len(n_ldk - 1)) {
+    start_idx <- ldk_sorted[i]
+    end_idx <- ldk_sorted[i + 1]
+    segment <- x[start_idx:end_idx, , drop = FALSE]
+
+    segments_coords[[i]] <- segment
+    segment_perims[i] <- sum(sqrt(rowSums(diff(segment)^2)))
+  }
+
+  # Allocate points proportionally by perimeter
+  total_perim <- sum(segment_perims)
+  points_per_seg <- round(n_between * segment_perims / total_perim)
+
+  # Ensure exactly n_between points are allocated
+  while (sum(points_per_seg) != n_between) {
+    diff_pts <- n_between - sum(points_per_seg)
+    if (diff_pts > 0) {
+      remainders <- (n_between * segment_perims / total_perim) - points_per_seg
+      points_per_seg[which.max(remainders)] <- points_per_seg[which.max(remainders)] + 1
+    } else {
+      remainders <- (n_between * segment_perims / total_perim) - points_per_seg
+      points_per_seg[which.min(remainders)] <- points_per_seg[which.min(remainders)] - 1
+    }
+  }
+
+  # Resample each segment
+  result_segments <- vector("list", n_ldk - 1)
+  new_ldk <- integer(n_ldk)
+  current_idx <- 1
+
+  for (i in seq_along(segments_coords)) {
+    segment <- segments_coords[[i]]
+    n_between_this <- points_per_seg[i]
+    seg_n_total <- n_between_this + 1  # +1 for starting landmark
+
+    if (seg_n_total == 1) {
+      seg_sampled <- segment[1, , drop = FALSE]
+    } else {
+      dists <- sqrt(rowSums(diff(segment)^2))
+      cum_dists <- c(0, cumsum(dists))
+      seg_perim <- cum_dists[length(cum_dists)]
+
+      # Sample points, excluding endpoint to avoid duplication
+      target_dists <- seq(0, seg_perim * (seg_n_total - 1) / seg_n_total, length.out = seg_n_total)
+
+      seg_sampled <- matrix(NA, seg_n_total, 2)
+      seg_sampled[, 1] <- approx(cum_dists, segment[, 1], xout = target_dists, rule = 2)$y
+      seg_sampled[, 2] <- approx(cum_dists, segment[, 2], xout = target_dists, rule = 2)$y
+
+      # Force first point to be exact landmark
+      seg_sampled[1, ] <- x[ldk_sorted[i], ]
+    }
+
+    result_segments[[i]] <- seg_sampled
+    new_ldk[i] <- current_idx
+    current_idx <- current_idx + seg_n_total
+  }
+
+  # Add final landmark
+  result_segments[[n_ldk]] <- matrix(x[ldk_sorted[n_ldk], ], nrow = 1)
+  new_ldk[n_ldk] <- current_idx
+
+  # Combine all segments
+  res <- do.call(rbind, result_segments)
+
+  list(coo = res, ldk = new_ldk)
+}
+
+.coo_sample_cur_prop <- function(x, ldk = NULL, prop = 1, ...) {
+  if (!is.matrix(x)) return(list(coo = x, ldk = ldk))
+  if (prop == 1) return(list(coo = x, ldk = ldk))
+  n <- floor(prop * nrow(x))
+  .coo_sample_cur(x, ldk = ldk, n = n)
+}
 
 # coo_sample_regular_radius ----
 

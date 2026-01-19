@@ -7,11 +7,13 @@
 NULL
 
 #' @importFrom grDevices dev.cur dev.new
-#' @importFrom stats runif var approx dist sd lm poly predict
-#' @importFrom graphics abline axis lines par points segments text plot
+#' @importFrom stats runif var approx dist sd lm poly predict median
+#' @importFrom graphics abline axis boxplot grid lines mtext par points segments text plot
 #' @importFrom utils head tail
 #' @importFrom rlang := .data
 NULL
+
+globalVariables(c("shape", "harmonic", "degree"))
 
 #' Pipe operators
 #'
