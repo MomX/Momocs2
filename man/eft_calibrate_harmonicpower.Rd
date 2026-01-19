@@ -77,9 +77,8 @@ Use \code{plot(cal)} to visualize results as cumulative power curves.
 }
 \examples{
 # Calibrate on subset of olea
-data(olea)
-cal <- olea \%>\%
-  slice(1:10) \%>\%
+data(bot)
+cal <- bot[1:10, ] \%>\%
   eft_calibrate_harmonicpower()
 
 cal$recommended
@@ -87,7 +86,7 @@ cal$summary
 plot(cal)
 
 # Use recommended harmonics
-olea \%>\% eft(nb_h = cal$recommended["99"])
+bot[1:10,] \%>\% eft(nb_h = cal$recommended["99"])
 
 }
 \seealso{

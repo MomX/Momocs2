@@ -56,9 +56,8 @@
 #' @examples
 #' # Calibrate on subset of olea
 #' data(olea)
-#' cal <- olea %>%
-#'   slice(1:10) %>%
-#'   npoly_calibrate_r2()
+#' cal <- olea[1:10, ] %>%
+#'   npoly_calibrate_r2(.cols=VD)
 #'
 #' # Examine results
 #' cal$recommended
@@ -69,8 +68,7 @@
 #' olea %>% npoly(degree = cal$recommended["0.99"])
 #'
 #' # Tidyeval column selection
-#' olea %>%
-#'   slice(1:10) %>%
+#' olea[1:10, ] %>%
 #'   npoly_calibrate_r2(.cols = VD)
 #'
 #' @seealso [npoly_calibrate_reconstruction()], [npoly()]
@@ -242,16 +240,16 @@ npoly_calibrate_r2 <- function(x,
 #' @examples
 #' # Calibrate on single shape from olea (creates 3x3 grid)
 #' data(olea)
-#' olea %>% npoly_calibrate_reconstruction(id = 1)
+#' olea %>% npoly_calibrate_reconstruction(id = 1, .cols=VD)
 #'
 #' # Try different degree ranges
-#' olea %>% npoly_calibrate_reconstruction(id = 5, degree_range = 3:11)
+#' olea %>% npoly_calibrate_reconstruction(id = 5, degree_range = 3:11, .cols=VD)
 #'
 #' # Tidyeval column selection
 #' olea %>% npoly_calibrate_reconstruction(.cols = VL, id = 1)
 #'
 #' # Random shape
-#' olea %>% npoly_calibrate_reconstruction()  # samples random shape
+#' olea %>% npoly_calibrate_reconstruction(.cols=VD)  # samples random shape
 #'
 #' @seealso [npoly_calibrate_r2()], [npoly()]
 #'
@@ -383,9 +381,8 @@ npoly_calibrate_reconstruction <- function(x,
 #' @examples
 #' # Calibrate on subset of olea
 #' data(olea)
-#' cal <- olea %>%
-#'   slice(1:10) %>%
-#'   opoly_calibrate_r2()
+#' cal <- olea[1:10, ] %>%
+#'   opoly_calibrate_r2(.cols=VD)
 #'
 #' # Examine results
 #' cal$recommended
@@ -396,8 +393,7 @@ npoly_calibrate_reconstruction <- function(x,
 #' olea %>% opoly(degree = cal$recommended["0.99"])
 #'
 #' # Tidyeval column selection
-#' olea %>%
-#'   slice(1:10) %>%
+#' olea[1:10, ] %>%
 #'   opoly_calibrate_r2(.cols = VD)
 #'
 #' @seealso [opoly_calibrate_reconstruction()], [opoly()]
@@ -569,16 +565,16 @@ opoly_calibrate_r2 <- function(x,
 #' @examples
 #' # Calibrate on single shape from olea (creates 3x3 grid)
 #' data(olea)
-#' olea %>% opoly_calibrate_reconstruction(id = 1)
+#' olea[1:10, ] %>% opoly_calibrate_reconstruction(id = 1, .cols=VD)
 #'
 #' # Try different degree ranges
-#' olea %>% opoly_calibrate_reconstruction(id = 5, degree_range = 3:11)
+#' olea[1:10,] %>% opoly_calibrate_reconstruction(id = 5, degree_range = 3:11, .cols=VD)
 #'
 #' # Tidyeval column selection
-#' olea %>% opoly_calibrate_reconstruction(.cols = VL, id = 1)
+#' olea[1:10, ] %>% opoly_calibrate_reconstruction(.cols = VL, id = 1)
 #'
 #' # Random shape
-#' olea %>% opoly_calibrate_reconstruction()  # samples random shape
+#' olea %>% opoly_calibrate_reconstruction(.cols=VD)  # samples random shape
 #'
 #' @seealso [opoly_calibrate_r2()], [opoly()]
 #'
@@ -708,9 +704,8 @@ opoly_calibrate_reconstruction <- function(x,
 #'
 #' @examples
 #' # Calibrate on subset of olea
-#' data(olea)
-#' cal <- olea %>%
-#'   slice(1:10) %>%
+#' data(bot)
+#' cal <- bot[1:10, ] %>%
 #'   eft_calibrate_harmonicpower()
 #'
 #' cal$recommended
@@ -718,7 +713,7 @@ opoly_calibrate_reconstruction <- function(x,
 #' plot(cal)
 #'
 #' # Use recommended harmonics
-#' olea %>% eft(nb_h = cal$recommended["99"])
+#' bot[1:10,] %>% eft(nb_h = cal$recommended["99"])
 #'
 #' @seealso [eft_calibrate_reconstruction()], [eft()]
 #'
@@ -886,10 +881,10 @@ eft_calibrate_harmonicpower <- function(x,
 #' @examples
 #' # Calibrate on single shape from olea
 #' data(olea)
-#' olea %>% eft_calibrate_reconstruction(id = 1)
+#' olea %>% eft_calibrate_reconstruction(id = 1, .cols=VD)
 #'
 #' # Try different harmonic ranges
-#' olea %>% eft_calibrate_reconstruction(id = 5, nb_h_range = 3:11)
+#' olea %>% eft_calibrate_reconstruction(id = 5, nb_h_range = 3:11, .cols=VD)
 #'
 #' # Tidyeval column selection
 #' olea %>% eft_calibrate_reconstruction(.cols = VL, id = 1)
@@ -1200,10 +1195,10 @@ dct_calibrate_harmonicpower <- function(x,
 #' @examples
 #' # Calibrate on single shape from olea
 #' data(olea)
-#' olea %>% dct_calibrate_reconstruction(id = 1)
+#' olea %>% dct_calibrate_reconstruction(id = 1, .cols=VL)
 #'
 #' # Try different harmonic ranges
-#' olea %>% dct_calibrate_reconstruction(id = 5, nb_h_range = 3:11)
+#' olea %>% dct_calibrate_reconstruction(id = 5, nb_h_range = 3:11, .cols=VL)
 #'
 #' # Tidyeval column selection
 #' olea %>% dct_calibrate_reconstruction(.cols = VL, id = 1)
@@ -1333,15 +1328,15 @@ dct_calibrate_reconstruction <- function(x,
 #' @examples
 #' # R2 calibration
 #' data(olea)
-#' cal_r2 <- olea %>% slice(1:10) %>% opoly_calibrate_r2()
+#' cal_r2 <- olea[1:5,] %>% opoly_calibrate_r2(.cols=VD)
 #' plot(cal_r2)
 #'
 #' # Harmonic power calibration
-#' cal_power <- olea %>% slice(1:10) %>% dct_calibrate_harmonicpower()
+#' cal_power <- olea[1:5,] %>% dct_calibrate_harmonicpower(.cols=VL)
 #' plot(cal_power)
 #'
 #' # Reconstruction calibration
-#' cal_recon <- olea %>% opoly_calibrate_reconstruction(id = 1)
+#' cal_recon <- olea[1:5,] %>% opoly_calibrate_reconstruction(id = 1, .cols=VL)
 #' plot(cal_recon)  # Already plotted automatically
 #'
 #' @name plot_calibrate
@@ -1496,3 +1491,4 @@ plot.calibrate_reconstruction <- function(x, ...) {
 
   invisible(x)
 }
+

@@ -55,10 +55,10 @@ This function creates a multi-panel plot (3x3 grid for default 9 harmonics) show
 \examples{
 # Calibrate on single shape from olea
 data(olea)
-olea \%>\% eft_calibrate_reconstruction(id = 1)
+olea \%>\% eft_calibrate_reconstruction(id = 1, .cols=VD)
 
 # Try different harmonic ranges
-olea \%>\% eft_calibrate_reconstruction(id = 5, nb_h_range = 3:11)
+olea \%>\% eft_calibrate_reconstruction(id = 5, nb_h_range = 3:11, .cols=VD)
 
 # Tidyeval column selection
 olea \%>\% eft_calibrate_reconstruction(.cols = VL, id = 1)

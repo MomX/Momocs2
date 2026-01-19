@@ -58,16 +58,16 @@ adding more degrees stops meaningfully improving the fit.
 \examples{
 # Calibrate on single shape from olea (creates 3x3 grid)
 data(olea)
-olea \%>\% npoly_calibrate_reconstruction(id = 1)
+olea \%>\% npoly_calibrate_reconstruction(id = 1, .cols=VD)
 
 # Try different degree ranges
-olea \%>\% npoly_calibrate_reconstruction(id = 5, degree_range = 3:11)
+olea \%>\% npoly_calibrate_reconstruction(id = 5, degree_range = 3:11, .cols=VD)
 
 # Tidyeval column selection
 olea \%>\% npoly_calibrate_reconstruction(.cols = VL, id = 1)
 
 # Random shape
-olea \%>\% npoly_calibrate_reconstruction()  # samples random shape
+olea \%>\% npoly_calibrate_reconstruction(.cols=VD)  # samples random shape
 
 }
 \seealso{

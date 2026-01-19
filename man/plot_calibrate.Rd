@@ -70,15 +70,15 @@ Creates a multi-panel plot (typically 3x3 grid) with:
 \examples{
 # R2 calibration
 data(olea)
-cal_r2 <- olea \%>\% slice(1:10) \%>\% opoly_calibrate_r2()
+cal_r2 <- olea[1:5,] \%>\% opoly_calibrate_r2(.cols=VD)
 plot(cal_r2)
 
 # Harmonic power calibration
-cal_power <- olea \%>\% slice(1:10) \%>\% dct_calibrate_harmonicpower()
+cal_power <- olea[1:5,] \%>\% dct_calibrate_harmonicpower(.cols=VL)
 plot(cal_power)
 
 # Reconstruction calibration
-cal_recon <- olea \%>\% opoly_calibrate_reconstruction(id = 1)
+cal_recon <- olea[1:5,] \%>\% opoly_calibrate_reconstruction(id = 1, .cols=VL)
 plot(cal_recon)  # Already plotted automatically
 
 }

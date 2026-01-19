@@ -79,9 +79,8 @@ Use \code{plot(cal)} to visualize results as a boxplot with threshold lines.
 \examples{
 # Calibrate on subset of olea
 data(olea)
-cal <- olea \%>\%
-  slice(1:10) \%>\%
-  npoly_calibrate_r2()
+cal <- olea[1:10, ] \%>\%
+  npoly_calibrate_r2(.cols=VD)
 
 # Examine results
 cal$recommended
@@ -92,8 +91,7 @@ plot(cal)
 olea \%>\% npoly(degree = cal$recommended["0.99"])
 
 # Tidyeval column selection
-olea \%>\%
-  slice(1:10) \%>\%
+olea[1:10, ] \%>\%
   npoly_calibrate_r2(.cols = VD)
 
 }
