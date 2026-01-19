@@ -79,7 +79,7 @@ Use \code{plot(cal)} to visualize results as cumulative power curves.
 # Calibrate on subset of olea
 data(olea)
 cal <- olea[1:10, ] \%>\%
-  dct_calibrate_harmonicpower()
+  dct_calibrate_harmonicpower(.cols=VD)
 
 cal$recommended
 cal$summary
