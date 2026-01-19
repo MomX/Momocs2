@@ -184,7 +184,7 @@ draw_first_point <- function(x, col="grey20", cex=1/3, label="v", ...) {
     theta <- atan2(p2[2] - p1[2], p2[1] - p1[1]) * 180 / pi
     # add 90 degrees because label is usually "v" and points down
     rotation <- theta + 90
-    text(p1[1], p1[2], label=label, col=col, cex=cex, ...)
+    text(p1[1], p1[2], label=label, col=col, cex=cex, srt=rotation, ...)
   }
   # pass
   invisible(x)
